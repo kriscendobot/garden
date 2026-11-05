@@ -42,6 +42,7 @@ so a panel verifies the fixes. Do not un-draft or merge by hand; the gauntlet an
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
