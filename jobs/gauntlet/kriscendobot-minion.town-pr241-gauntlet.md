@@ -13,7 +13,7 @@ arc:
 added_rounds: 2
 stage: fix
 iteration: 7
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: kriscendobot-minion.town-pr241-gauntlet-fix-7
 state: running
