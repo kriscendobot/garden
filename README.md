@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T19:49:24Z_
+_As of 2026-11-05T19:55:33Z_
 
 ## Latest
 
@@ -2884,7 +2882,8 @@ _Fleet token-unlock pace: 154895335 tokens/day lower bound._
 worst fetch p95 4.483918s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 13 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (11)
+- [`improve-transient-retry-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-transient-retry-budget.md) — ---
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -2894,6 +2893,7 @@ worst fetch p95 4.483918s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
+- [`claude-on-minion-town-completion-press-20261105-195009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261105-195009.md) — Completion press: Claude-on-minion.town arc
 
 ### doin (0)
 (none)
