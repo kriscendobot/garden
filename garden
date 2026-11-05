@@ -67,6 +67,7 @@ GARDEN_DEVICES="${GARDEN_DEVICES-}"
 # Forwarded only at container creation; /var/tmp is private to each container, so
 # the same value is safe for several garden instances on one physical host.
 GARDEN_JOURNAL_CLONE_BASE="${GARDEN_JOURNAL_CLONE_BASE-}"
+SECRETS_DIR="$INSTANCE_PATH/.garden-state/secrets"
 
 usage() {
     cat <<EOF
@@ -96,15 +97,10 @@ Commands:
   reset       Remove the container so the next invocation creates a fresh one.
 
 Environment:
-  ANTHROPIC_API_KEY   Forwarded to the container for Claude Code auth.
-  MOONSHOT_API_KEY    Forwarded to the container for hosted Kimi workers.
-  FIREWORKS_API_KEY   Forwarded to the container for Fireworks workers.
-  OPENROUTER_API_KEY  Forwarded to the container for OpenRouter workers.
-  OLLAMA_CLOUD_API_KEY Forwarded to the container for friar workers (Claude
-                      Code against Ollama Cloud, ollama.com). Distinct from the
-                      non-secret OLLAMA_API_KEY placeholder hermit/codex uses.
-  TYPESAFE_API_KEY    Forwarded to the container for TypeSafe workers. Wires the
-                      handoff only; actual consumption is a separate later step.
+  *_API_KEY           The six legacy provider variables remain a compatibility
+                      fallback for one release. Import them with
+                      scripts/secrets/import-environment.sh; new placement uses
+                      scripts/secrets/set-key.sh and never puts a value in argv.
   GARDEN_IMAGE        Override image name (default: garden-<hostuser>, so the
                       per-user baked image never collides with another user's).
   GARDEN_CONTAINER    Expert override for the container name (default: the
@@ -274,6 +270,11 @@ JSON
 # durable identity and settings on creation), or start it if stopped. Shared by
 # cmd_enter (execs claude) and cmd_sh (execs a login shell).
 ensure_container() {
+    # The host owns secret placement. The nested read-only mount below overlays
+    # this directory inside the broader writable home bind, preventing a
+    # container process from changing or deleting a host key.
+    mkdir -p "$SECRETS_DIR"
+    chmod 0700 "$SECRETS_DIR"
     if ! docker image inspect "$IMAGE_NAME" &>/dev/null; then
         echo "Image '$IMAGE_NAME' not found; building it now ('$(basename "$0") build' to rebuild later)." >&2
         cmd_build
@@ -372,6 +373,7 @@ ensure_container() {
             ${dns_args[@]+"${dns_args[@]}"} \
             -e "GARDEN_HOME=${INSTANCE_PATH}" \
             -v "${INSTANCE_PATH}:${INSTANCE_PATH}" \
+            -v "${SECRETS_DIR}:${SECRETS_DIR}:ro" \
             ${api_key_args[@]+"${api_key_args[@]}"} \
             "$IMAGE_NAME" >/dev/null
     elif [[ "$(docker container inspect -f '{{.State.Running}}' "$CONTAINER_NAME")" != "true" ]]; then

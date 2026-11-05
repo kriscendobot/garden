@@ -80,7 +80,7 @@ if [ "$message_count" -eq 0 ]; then
   exit 0
 fi
 
-if [ -z "${TYPESAFE_API_KEY:-}" ]; then
+if ! secret_value typesafe >/dev/null 2>&1; then
   echo "Muster pilot unavailable: TYPESAFE_API_KEY is absent; continue muster with regular inference."
   exit 0
 fi
@@ -140,12 +140,18 @@ jq -n \
   }
   ' > "$request"
 
-if ! "$GARDEN_MUSTER_PILOT_CURL" --fail --silent --show-error \
-  --connect-timeout 10 --max-time "$GARDEN_TYPESAFE_TIMEOUT" \
-  -H "Authorization: Bearer $TYPESAFE_API_KEY" \
-  -H 'Content-Type: application/json' \
-  --data-binary "@$request" \
-  "$GARDEN_TYPESAFE_URL" > "$response"; then
+if [ "${GARDEN_TEST:-0}" != 1 ] || [ "$GARDEN_MUSTER_PILOT_CURL" = curl ]; then
+  "$GARDEN_ROOT/scripts/outbound/typesafe.sh" \
+    --authorized-by "${GARDEN_JOB_BASE:-maintainer:muster}" --operation muster \
+    --body-file "$request" --timeout "$GARDEN_TYPESAFE_TIMEOUT" > "$response" || muster_rc=$?
+else
+  typesafe_key="$(secret_value typesafe)"
+  "$GARDEN_MUSTER_PILOT_CURL" --fail --silent --show-error \
+    --connect-timeout 10 --max-time "$GARDEN_TYPESAFE_TIMEOUT" \
+    -H "Authorization: Bearer $typesafe_key" -H 'Content-Type: application/json' \
+    --data-binary "@$request" "$GARDEN_TYPESAFE_URL" > "$response" || muster_rc=$?
+fi
+if [ "${muster_rc:-0}" -ne 0 ]; then
   echo "Muster pilot unavailable: TypeSafe call failed; continue muster with regular inference."
   exit 0
 fi

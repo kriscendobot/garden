@@ -22,8 +22,8 @@ fi
 
 cli="$(agent_bin opencode)" \
   || die_environmental "cannot run '$base': the opencode CLI is absent"
-[ -n "${ANTHROPIC_API_KEY:-}" ] \
-  || die_environmental "cannot run '$base': ANTHROPIC_API_KEY is absent"
+secret_value anthropic >/dev/null 2>&1 \
+  || die_environmental "cannot run '$base': ANTHROPIC_API_KEY is unavailable"
 
 # This paid probe lane is explicit-model-only, matching claim-job.sh. Resolve the
 # garden Anthropic alias/id, then add OpenCode's provider namespace only at the CLI.
@@ -92,9 +92,12 @@ if minion_mcp_prepare "$base" "$jobfile"; then
   config="$(minion_mcp_opencode_config "$config")"
   log "job '$base' attaching minion.town MCP (stdio bridge)"
 fi
+garden_harness_record anthropic "$base" anthropic "$model" /v1/ "$prompt" \
+  || die_environmental "cannot record accepted Anthropic harness launch for '$base'"
 set +e
 ( cd "$worktree" && \
-  XDG_DATA_HOME="$data_home" XDG_CONFIG_HOME="$config_home" XDG_CACHE_HOME="$cache_home" \
+  "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home opencode --secret anthropic ANTHROPIC_API_KEY --rw "$private_root" -- \
+  env XDG_DATA_HOME="$data_home" XDG_CONFIG_HOME="$config_home" XDG_CACHE_HOME="$cache_home" \
   OPENCODE_CONFIG_CONTENT="$config" OPENCODE_DISABLE_AUTOUPDATE=true \
   "$cli" "${args[@]}" "$prompt" ) > "$events" 2>&1
 rc=$?
@@ -138,9 +141,12 @@ while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$sid" ] && oc_unfin
   nudge_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
   nudge_events="$(mktemp "${TMPDIR:-/tmp}/garden-opencode-nudge-$base.XXXXXX")"
   event_files+=("$nudge_events")
+  garden_harness_record anthropic "$base" anthropic "$model" /v1/ "$nudge_prompt" \
+    || die_environmental "cannot record accepted Anthropic harness nudge for '$base'"
   set +e
   ( cd "$worktree" && \
-    XDG_DATA_HOME="$data_home" XDG_CONFIG_HOME="$config_home" XDG_CACHE_HOME="$cache_home" \
+  "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home opencode --secret anthropic ANTHROPIC_API_KEY --rw "$private_root" -- \
+  env XDG_DATA_HOME="$data_home" XDG_CONFIG_HOME="$config_home" XDG_CACHE_HOME="$cache_home" \
     OPENCODE_CONFIG_CONTENT="$config" OPENCODE_DISABLE_AUTOUPDATE=true \
     "$cli" run --pure --auto --format json -m "anthropic/$model" --session "$sid" "$nudge_prompt" ) > "$nudge_events" 2>&1
   rc=$?

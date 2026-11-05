@@ -1,6 +1,7 @@
 ---
 created: 2026-09-01
-author: gardener
+updated: 2026-11-05
+author: builder, gardener
 ---
 
 # Bounded Ollama Cloud (friar) worker activation
@@ -15,26 +16,17 @@ differ. The unit is `garden-friar@`, its per-host count key and state namespace 
 `friars`, and its label is `garden-friar`. The pool starts at **zero** and refuses
 unconstrained work. Design: [`designs/claude-ollama-cloud-worker-kind.md`](../../designs/claude-ollama-cloud-worker-kind.md).
 
-## The credential (host env var → tmpfs handoff)
+## The credential
 
-The friar authenticates with **`OLLAMA_CLOUD_API_KEY`**. Export it as a host
-environment variable at container creation; the `garden` launcher forwards it (via a
-`-e` into `docker run`, exactly like `FIREWORKS_API_KEY`/`OPENROUTER_API_KEY`) into the
-container, where `seed-api-key-handoff.sh` lands it on the tmpfs systemd handoff for the
-worker to read. The key value **never enters the image, the repo, a unit, the journal, a
-worktree, a report, or a diagnostic** — only the tmpfs handoff.
+Place or rotate the `ollama-cloud` key with the host-only procedure in
+[secrets.md](secrets.md). The next friar job reads that file and injects only its
+credential into the Claude child. The environment handoff described below is a
+one-release migration fallback, not the steady-state placement path.
 
-**An image rebuild is required before the new variable is recognized.**
-`seed-api-key-handoff.sh` is a build input baked into the image, so a container built
-before this arm existed will not seed `OLLAMA_CLOUD_API_KEY`. Rebuild the image first,
-then recreate the container with the key supplied only in the creation command (avoid
-shell tracing, `docker inspect`, verbose curl, or anything that prints environments):
-
-```sh
-./garden build
-./garden reset
-OLLAMA_CLOUD_API_KEY='replace-with-secret' ./garden create
-```
+The friar authenticates with **`OLLAMA_CLOUD_API_KEY`**, read from the registered
+file immediately before launch and projected as `ANTHROPIC_AUTH_TOKEN` only in the
+friar child. The one-time migration recreation is described in
+[secrets.md](secrets.md); subsequent replacement needs no rebuild or restart.
 
 Key provisioning and the first canary are a **separate, maintainer-directed step**
 (same as fireworks/openrouter/kimi-k3) — this activation page arms nothing on its own.

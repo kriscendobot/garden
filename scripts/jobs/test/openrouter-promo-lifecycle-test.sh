@@ -104,7 +104,7 @@ EOF
 chmod +x "$BIN/curl"
 
 mkdir -p "$TR/fake-curl"
-rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=offline-fixture \
+rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=sk-or-v1-offline-fixture \
   FAKE_OPENROUTER_STATUS=200 FAKE_OPENROUTER_ID=openrouter/horizon-beta \
   FAKE_CURL_DIR="$TR/fake-curl" "$JOBS/openrouter-promo-recheck.sh" >/dev/null 2>&1 || rc=$?
 [ "$rc" -eq 2 ] && ok "recheck exits 2 after deterministic enforcement" || bad "recheck exit code ($rc)"
@@ -120,7 +120,7 @@ jq -e '.provider.data_collection == "deny" and .provider.zdr == true and
 ledger_has openrouter/horizon-beta && ok "passing canary keeps the fresh id enabled" || bad "passing canary dropped the id"
 
 echo 'RECHECK -- a 404 (rotated-away) id is auto-disabled'
-rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=offline-fixture \
+rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=sk-or-v1-offline-fixture \
   FAKE_OPENROUTER_STATUS=404 FAKE_CURL_DIR="$TR/fake-curl" \
   "$JOBS/openrouter-promo-recheck.sh" >/dev/null 2>&1 || rc=$?
 [ "$rc" -eq 2 ] && ok "404 recheck exits 2 (preflight-gate contract)" || bad "recheck exit code ($rc)"

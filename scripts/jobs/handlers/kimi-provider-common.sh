@@ -14,8 +14,8 @@ kimi_provider_preflight() { # <base>
     printf 'kimi not on PATH; mystic cannot run %q. Install the official Kimi Code CLI.\n' "$base" >&2
     return 1
   }
-  if [ -z "${MOONSHOT_API_KEY:-}" ]; then
-    printf 'MOONSHOT_API_KEY: absent; mystic cannot run %q. Export it before secret-safe recreation of the garden container so the tmpfs-only handoff seeds the lingering systemd manager.\n' \
+  if ! secret_value moonshot >/dev/null 2>&1; then
+    printf 'MOONSHOT_API_KEY: absent; mystic cannot run %q. Place it with scripts/secrets/set-key.sh moonshot.\n' \
       "$base" >&2
     return 1
   fi
@@ -29,6 +29,7 @@ kimi_provider_preflight() { # <base>
 # wire model id. The K3 context size is the current public K3 window.
 kimi_model_environment() {
   local kimi_home="${1:?kimi home}" model="${2:?model}"; shift 2
+  env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE \
   KIMI_CODE_HOME="$kimi_home" \
   KIMI_DISABLE_TELEMETRY=1 \
   KIMI_CODE_NO_AUTO_UPDATE=1 \
@@ -37,12 +38,11 @@ kimi_model_environment() {
   KIMI_SUBAGENT_TIMEOUT_MS=600000 \
   KIMI_DISABLE_CRON=1 \
   KIMI_MODEL_NAME="$model" \
-  KIMI_MODEL_API_KEY="$MOONSHOT_API_KEY" \
   KIMI_MODEL_PROVIDER_TYPE=kimi \
   KIMI_MODEL_BASE_URL=https://api.moonshot.ai/v1 \
   KIMI_MODEL_MAX_CONTEXT_SIZE=1048576 \
   KIMI_MODEL_CAPABILITIES=thinking,tool_use \
-  env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "$@"
+  "$@"
 }
 
 # meter_kimi_home_usage <kimi-home> — the moonshot/kimi lane's cost-ledger capture

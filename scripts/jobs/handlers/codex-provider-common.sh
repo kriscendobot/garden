@@ -215,10 +215,18 @@ codex_provider_preflight() {
 # auth/configuration statuses are not retried.  The `<key-var>: absent` wording is
 # preserved exactly (tests assert it), with the variable name substituted per provider.
 openai_compat_provider_preflight() { # <label> <key-var> <base-url> <kind> <base>
-  local label="${1:?label}" key_var="${2:?key var}" base_url="${3:?base url}" kind="${4:?kind}" base="${5:?base}" status rc key
+  local label="${1:?label}" key_var="${2:?key var}" base_url="${3:?base url}" kind="${4:?kind}" base="${5:?base}" status rc key secret_kind
   command -v codex >/dev/null 2>&1 || { printf 'codex not on PATH; cannot run %s handler for %q\n' "$kind" "$base" >&2; return 1; }
-  key="${!key_var:-}"
-  [ -n "$key" ] || { printf '%s: absent; %s cannot run %q. Recreate the container with the key in its creation environment.\n' "$key_var" "$kind" "$base" >&2; return 1; }
+  case "$key_var" in FIREWORKS_API_KEY) secret_kind=fireworks;; OPENROUTER_API_KEY) secret_kind=openrouter;; esac
+  key="$(secret_value "$secret_kind" 2>/dev/null || true)"
+  [ -n "$key" ] || { printf '%s: absent; %s cannot run %q. Place it with scripts/secrets/set-key.sh.\n' "$key_var" "$kind" "$base" >&2; return 1; }
+  if [ "${GARDEN_TEST:-0}" != 1 ]; then
+    local wrapper="$GARDEN_ROOT/scripts/outbound/${secret_kind}.sh"
+    if { [ "$secret_kind" = openrouter ] && "$wrapper" --authorized-by "$base" --operation models >/dev/null 2>&1; } \
+      || { [ "$secret_kind" = fireworks ] && "$wrapper" --authorized-by "$base" >/dev/null 2>&1; }; then return 0; fi
+    printf '%s availability check failed for %s %q; broker, ledger, endpoint, or credential unavailable.\n' "$label" "$kind" "$base" >&2
+    return 1
+  fi
   set +e
   status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 \
     -H "Authorization: Bearer $key" "$base_url/models" 2>/dev/null)"
@@ -270,7 +278,9 @@ openrouter_privacy_proxy_start() {
   }
   ready_file="$(mktemp "${TMPDIR:-/tmp}/garden-openrouter-privacy.XXXXXX")"
   : > "$ready_file"
-  node "$script" "$upstream" "$ready_file" >/dev/null 2>&1 &
+  env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY -u FIREWORKS_API_KEY \
+    -u OPENROUTER_API_KEY -u OLLAMA_CLOUD_API_KEY -u TYPESAFE_API_KEY \
+    node "$script" "$upstream" "$ready_file" >/dev/null 2>&1 &
   OPENROUTER_PRIVACY_PROXY_PID=$!
   OPENROUTER_PRIVACY_PROXY_READY_FILE="$ready_file"
   OPENROUTER_PRIVACY_PROXY_BASE_URL=""

@@ -249,7 +249,7 @@ curl_transport_retryable() {
   esac
 }
 
-[ -n "${TYPESAFE_API_KEY:-}" ] || unavailable "TYPESAFE_API_KEY absent"
+secret_value typesafe >/dev/null 2>&1 || unavailable "TYPESAFE_API_KEY absent"
 
 mkdir -p "${GARDEN_SCRATCH:-/tmp}"
 temporary_directory="$(mktemp -d "${GARDEN_SCRATCH:-/tmp}/garden-classify-foreign.XXXXXX")"
@@ -335,14 +335,24 @@ retry_delay="$CLASSIFY_FOREIGN_RETRY_DELAY"
 while :; do
   : >"$response"
   set +e
-  last_http_status="$("$CLASSIFY_FOREIGN_CURL" --silent --show-error \
-    --connect-timeout 10 --max-time "$GARDEN_TYPESAFE_TIMEOUT" \
-    --output "$response" --write-out '%{http_code}' \
-    -H "Authorization: Bearer $TYPESAFE_API_KEY" \
-    -H 'Content-Type: application/json' \
-    --data-binary "@$request" \
-    "$GARDEN_TYPESAFE_URL")"
-  curl_rc=$?
+  if [ "${GARDEN_TEST:-0}" != 1 ] || [ "$CLASSIFY_FOREIGN_CURL" = curl ]; then
+    status_file="$temporary_directory/status"
+    "$GARDEN_ROOT/scripts/outbound/typesafe.sh" \
+      --authorized-by "${GARDEN_JOB_BASE:-maintainer:classify}" --operation classify \
+      --body-file "$request" --status-file "$status_file" --timeout "$GARDEN_TYPESAFE_TIMEOUT" \
+      > "$response"
+    curl_rc=$?
+    last_http_status="$(cat "$status_file" 2>/dev/null || echo 000)"
+  else
+    # Hermetic test seam; production always traverses the fixed broker protocol.
+    typesafe_key="$(secret_value typesafe)"
+    last_http_status="$("$CLASSIFY_FOREIGN_CURL" --silent --show-error \
+      --connect-timeout 10 --max-time "$GARDEN_TYPESAFE_TIMEOUT" \
+      --output "$response" --write-out '%{http_code}' \
+      -H "Authorization: Bearer $typesafe_key" -H 'Content-Type: application/json' \
+      --data-binary "@$request" "$GARDEN_TYPESAFE_URL")"
+    curl_rc=$?
+  fi
   set -e
   [[ "$last_http_status" =~ ^[0-9]{3}$ ]] || last_http_status=000
   last_provider_error_code="$(sanitize_provider_error_code "$response")"

@@ -1,7 +1,7 @@
 ---
 created: 2026-05-12
-updated: 2026-11-04
-author: gardener, liaison, builder
+updated: 2026-11-05
+author: builder, gardener, liaison
 ---
 
 
@@ -15,6 +15,10 @@ You are the **liaison**. When a user is standing in the garden root, they are ta
 2. **Virgin-instance probe.** Only once the guard is clean: if the instance looks **virgin** — no rendered `garden-*` units in `~/.config/systemd/user/` (one `ls`, cheap) — greet with *"this garden isn't set up yet — say **help** for the guided tour, or **start the garden** and I'll set it up."* Then honor whatever the user says (§ Orchestrator vocabulary, *help* / *start the garden*; the tutorial lives in [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help).
 
 The garden is a library of agent **roles** and **skills** for working across many forks of GitHub repositories, plus a **journal** that records what the garden has done and coordinates the fleet. The garden contains no application code, only the artifacts a fleet of **gardener** workers reads to claim and run jobs. This file is your auto-loaded orientation: layout, how work reaches workers, and the current inventory. The maintainer-facing tutorial is [README.md](README.md); the job system that runs the fleet is the § Job system below.
+
+Provider API-key placement, migration, rotation, removal, and value-free status
+are documented only in [`context/operations/secrets.md`](context/operations/secrets.md).
+Agents may inspect status; only the maintainer handles secret values.
 
 ## Layout
 

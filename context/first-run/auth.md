@@ -1,7 +1,7 @@
 ---
 created: 2026-07-04
-updated: 2026-09-27
-author: gardener
+updated: 2026-11-05
+author: builder, gardener
 ---
 
 # The three credentials
@@ -17,6 +17,10 @@ All three credentials land in the bind-mounted home and persist across
 maintainer-only human-identity path is `README.md` § The ferry and
 `roles/boatman/AGENT.md`.
 
+Provider API keys are not CLI login files. Place those host-side through
+[`../operations/secrets.md`](../operations/secrets.md); later rotations take effect
+on the next request or job without recreating the container.
+
 ## 1. Claude auth — inside golden-path step 2, zero extra steps
 
 The exec'd `claude` runs its own first-launch onboarding: pick a login method,
@@ -25,9 +29,9 @@ paste the code back. The credential lands in the bind-mounted home.
 
 - **Beaten path:** a **Claude subscription login** — each host is mapped to its actual subscription; hosts sharing a
   subscription share its budget ([cybernetics](../operations/cybernetics.md)).
-- **Alternate path:** export `ANTHROPIC_API_KEY` **before the first
-  `./garden`**; the launcher forwards it at container creation and the login is
-  skipped entirely.
+- **Alternate path:** the maintainer runs `scripts/secrets/set-key.sh anthropic`
+  on the host; the next Claude job receives that key without exposing the other
+  provider variables.
 
 Neither is a procedure the human runs by hand — the tool prompts for it. It is
 one sentence of residue: "have a Claude subscription or an API key."

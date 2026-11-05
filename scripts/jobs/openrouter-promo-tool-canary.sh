@@ -13,8 +13,7 @@ source "$HERE/common.sh"
 export GARDEN_TAG="openrouter-promo-tool-canary"
 
 wire="${1:?usage: openrouter-promo-tool-canary.sh <wire-id>}"
-key="${OPENROUTER_API_KEY:-}"
-[ -n "$key" ] || { log "OPENROUTER_API_KEY absent; tool canary skipped"; exit 2; }
+secret_value openrouter >/dev/null 2>&1 || { log "OPENROUTER_API_KEY absent; tool canary skipped"; exit 2; }
 command -v curl >/dev/null 2>&1 || { log "curl absent; tool canary skipped"; exit 2; }
 command -v jq >/dev/null 2>&1 || { log "jq absent; tool canary skipped"; exit 2; }
 
@@ -55,9 +54,19 @@ jq -n --arg model "$wire" --arg nonce "$nonce" '{
 }' > "$request1"
 
 call_openrouter() { # <request-file> <response-file> -> prints status only
-  curl -sS -o "$2" -w '%{http_code}' --connect-timeout 10 --max-time 60 \
-    -H "Authorization: Bearer $key" -H 'Content-Type: application/json' \
-    -X POST "$base/chat/completions" --data-binary "@$1" 2>/dev/null
+  local status_file="$work/status" rc=0
+  if [ "${GARDEN_TEST:-0}" = 1 ]; then
+    local key; key="$(secret_value openrouter)"
+    curl -sS -o "$2" -w '%{http_code}' --connect-timeout 10 --max-time 60 \
+      -H "Authorization: Bearer $key" -H 'Content-Type: application/json' \
+      -X POST "$base/chat/completions" --data-binary "@$1" 2>/dev/null
+    return
+  fi
+  "$GARDEN_ROOT/scripts/outbound/openrouter.sh" \
+    --authorized-by "${GARDEN_JOB_BASE:-maintainer:openrouter-canary}" \
+    --operation canary --body-file "$1" --status-file "$status_file" > "$2" || rc=$?
+  cat "$status_file" 2>/dev/null || printf '000'
+  return "$rc"
 }
 
 status="$(call_openrouter "$request1" "$response1")" || { log "tool canary request failed for $wire"; exit 1; }

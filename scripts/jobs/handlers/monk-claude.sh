@@ -284,27 +284,26 @@ claude_cli="$(claude_bin)" \
 # --- provider auth injection (the ONE thing that differs at the claude call) ---
 #
 # provider=anthropic (monk) runs against the real Anthropic API with the
-# ambient ANTHROPIC_API_KEY — the array stays EMPTY, so its invocation is byte-for-byte
-# what it always was. provider=ollama-cloud (friar) points the SAME `claude -p` at
+# selected Anthropic host file or its CLI login. provider=ollama-cloud (friar)
+# points the SAME `claude -p` at
 # Ollama Cloud's Anthropic-compatible endpoint instead: set ANTHROPIC_BASE_URL to
 # https://ollama.com, pass the maintainer-supplied OLLAMA_CLOUD_API_KEY as
 # ANTHROPIC_AUTH_TOKEN (Ollama Cloud wants `Authorization: Bearer`, NOT x-api-key), and
 # clear ANTHROPIC_API_KEY so the CLI cannot fall back to a real Anthropic key. The vars
-# are scoped to the child via `env NAME=VAL` on the invocation below — never exported
-# into the handler — so no other line of the run sees them. A missing key here is an
-# environmental defect (arm OLLAMA_CLOUD_API_KEY on the host and rebuild the image), so
+# are exported only inside the trusted sandbox launcher with a shell builtin, so
+# the value never appears in argv. A missing key here is an
+# environmental defect (place the ollama-cloud key on the host), so
 # it requeues rather than escalating the job.
 provider_auth_env=()
+CLAUDE_SECRET_ARGS=()
 if [ "$provider" = ollama-cloud ]; then
-  [ -n "${OLLAMA_CLOUD_API_KEY:-}" ] \
-    || die_environmental "OLLAMA_CLOUD_API_KEY unset; the friar (provider=ollama-cloud) cannot authenticate to Ollama Cloud for '$base'"
-  provider_auth_env=(
-    "ANTHROPIC_BASE_URL=https://ollama.com"
-    "ANTHROPIC_AUTH_TOKEN=$OLLAMA_CLOUD_API_KEY"
-    "ANTHROPIC_API_KEY="
-  )
+  secret_value ollama-cloud >/dev/null \
+    || die_environmental "OLLAMA_CLOUD_API_KEY unavailable; place the friar key for '$base'"
+  provider_auth_env=("ANTHROPIC_BASE_URL=https://ollama.com")
+  CLAUDE_SECRET_ARGS=(--secret ollama-cloud ANTHROPIC_AUTH_TOKEN)
+elif secret_value anthropic >/dev/null 2>&1; then
+  CLAUDE_SECRET_ARGS=(--secret anthropic ANTHROPIC_API_KEY)
 fi
-
 # --- minion.town MCP (standing order; context/operations/minion-town-mcp.md) ----
 #
 # Attach the minion.town MCP server via the shared stdio bridge. Fail-open: a gate
@@ -375,12 +374,14 @@ trap 'claude_reap; exit 129' HUP
 # exit status. The handler may make up to 1 + GARDEN_COMPLETION_NUDGES calls.
 claude_call() {
   local call_budget="$1" call_prompt="$2"; shift 2
+  garden_harness_record "$provider" "$base" "$provider" "${resolved_model:-default}" /v1/ "$call_prompt" \
+    || die_environmental "cannot record accepted $provider harness launch for '$base'"
   set +e
   set -m
   if [ -x /usr/bin/time ]; then
-    ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p "${mcp_args[@]}" --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
+    ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home claude "${CLAUDE_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p "${mcp_args[@]}" --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
   else
-    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p "${mcp_args[@]}" --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
+    ( cd "$worktree" && "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home claude "${CLAUDE_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p "${mcp_args[@]}" --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
   fi
   claude_pgid=$!
   set +m
@@ -482,9 +483,12 @@ if [ "$lane" = pty ] && [ "$provider" = anthropic ]; then
   log "job '$base' opts into the EXPERIMENTAL pty lane (lane: pty); running an interactive pty-enclosed session for statusLine context introspection"
   prompt_file="$(mktemp "${TMPDIR:-/tmp}/garden-pty-prompt-$base.XXXXXX")"
   printf '%s' "$prompt" > "$prompt_file"
+  garden_harness_record anthropic "$base" anthropic "${resolved_model:-default}" /v1/ "$prompt" \
+    || die_environmental "cannot record accepted Anthropic PTY launch for '$base'"
   set +e
-  "$HERE/../pty-lane/run.sh" "$base" "$worktree" "$session_id" "$resuming" "$report" \
-    "$prompt_file" "$claude_cli" -- "${session_args[@]}" "${model_args[@]}" "${mcp_args[@]}" --dangerously-skip-permissions
+  "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home claude "${CLAUDE_SECRET_ARGS[@]}" -- \
+    env "${provider_auth_env[@]}" "$HERE/../pty-lane/run.sh" "$base" "$worktree" "$session_id" "$resuming" "$report" \
+      "$prompt_file" "$claude_cli" -- "${session_args[@]}" "${model_args[@]}" "${mcp_args[@]}" --dangerously-skip-permissions
   rc=$?
   set -e
   rm -f "$prompt_file" 2>/dev/null || true

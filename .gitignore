@@ -30,6 +30,11 @@
 !/.github/
 !/.github/**
 
+# Host-owned garden state. Secrets live here and must never enter git. The
+# top-level dot-directory rule already ignores it; keep this explicit because
+# credential custody must not depend on that broader convenience rule.
+/.garden-state/secrets/
+
 # Host-local daemon configuration for the per-feed watchers. The
 # .example template is checked in; the actual config.sh is host-local.
 # See scripts/daemons/README.md.

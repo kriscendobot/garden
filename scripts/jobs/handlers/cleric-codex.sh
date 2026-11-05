@@ -212,6 +212,21 @@ export GARDEN_JOB_PROVIDER="$provider"
 # isolated state by THIS job's unique base, never one shared path.
 export GARDEN_JOB_BASE="$base"
 
+# Select at most one key for the trusted sandbox launcher. It reads immediately
+# before exec and exports via a shell builtin, keeping the value out of argv.
+CODEX_SECRET_ARGS=()
+case "$provider" in
+  fireworks) secret_value fireworks >/dev/null || die_environmental "Fireworks key unavailable for '$base'"; CODEX_SECRET_ARGS=(--secret fireworks FIREWORKS_API_KEY) ;;
+  openrouter|openrouter-promo) secret_value openrouter >/dev/null || die_environmental "OpenRouter key unavailable for '$base'"; CODEX_SECRET_ARGS=(--secret openrouter OPENROUTER_API_KEY) ;;
+esac
+record_codex_launch() { # <prompt>
+  $custom_openai_compat || return 0
+  local service="$provider"
+  [ "$service" != openrouter-promo ] || service=openrouter
+  garden_harness_record "$service" "$base" "$provider" "$model" /v1/ "$1" \
+    || die_environmental "cannot record accepted $provider harness launch for '$base'"
+}
+
 # --- reachability + model-presence preflight ----------------------------------
 #
 # A backend outage or an unpulled local model must read as a HOST defect, not a job
@@ -318,7 +333,8 @@ fi
 
 set +e
 if $resuming && [ -n "$resume_sid" ]; then
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$resume_sid" "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+  record_codex_launch "$prompt"
+  ( cd "$worktree" && "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home codex "${CODEX_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$resume_sid" "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
   rc=$?
   # A resume that fails on an unusable session (pruned/expired) falls back to a fresh
   # session over the preserved worktree — the uncommitted work carries the state.
@@ -333,14 +349,16 @@ if $resuming && [ -n "$resume_sid" ]; then
       log "codex resume of session $resume_sid was BLOCKED by a provider safety/usage-policy refusal (rc=$rc) for '$base'; terminal response -- preserving the diagnostic and skipping the fresh-session retry"
     else
       log "codex resume of session $resume_sid failed (rc=$rc) for '$base'; retrying as a FRESH session over the preserved worktree"
-      ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+      record_codex_launch "$prompt"
+      ( cd "$worktree" && "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home codex "${CODEX_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
       rc=$?
     fi
   fi
 else
   attempt=1
   while :; do
-    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+    record_codex_launch "$prompt"
+    ( cd "$worktree" && "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home codex "${CODEX_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
     rc=$?
     [ "$custom_openai_compat" = true ] && [ "$rc" -ne 0 ] && openai_compat_retryable_failure "$json_capture" \
       && [ "$attempt" -lt "$custom_retry_attempts" ] || break
@@ -412,8 +430,9 @@ while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$sid" ] && codex_un
   cp "$report" "$report.pre-nudge" 2>/dev/null || true
   nudge_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
   nudge_capture="$(mktemp "${TMPDIR:-/tmp}/garden-codex-nudge-$base.XXXXXX")"
+  record_codex_launch "$nudge_prompt"
   set +e
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$sid" "${codex_args[@]}" "$nudge_prompt" ) > "$nudge_capture" 2>&1
+  ( cd "$worktree" && "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home codex "${CODEX_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$sid" "${codex_args[@]}" "$nudge_prompt" ) > "$nudge_capture" 2>&1
   rc=$?
   set -e
   # Sum both calls' measured token rows into the one handoff so the ledger stays
@@ -461,8 +480,9 @@ if [ "$rc" -ne 0 ] && [ -s "$report" ] && [ -n "$sid" ]; then
   cp "$report" "$report.pre-nonzero-rescue" 2>/dev/null || true
   rescue_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
   rescue_capture="$(mktemp "${TMPDIR:-/tmp}/garden-codex-nonzero-rescue-$base.XXXXXX")"
+  record_codex_launch "$rescue_prompt"
   set +e
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$sid" "${codex_args[@]}" "$rescue_prompt" ) > "$rescue_capture" 2>&1
+  ( cd "$worktree" && "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home codex "${CODEX_SECRET_ARGS[@]}" -- env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$sid" "${codex_args[@]}" "$rescue_prompt" ) > "$rescue_capture" 2>&1
   rescue_rc=$?
   set -e
   if command -v jq >/dev/null 2>&1 && [ -n "${GARDEN_USAGE_FILE:-}" ]; then

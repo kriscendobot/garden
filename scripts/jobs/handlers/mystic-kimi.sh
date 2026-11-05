@@ -95,8 +95,12 @@ kimi_call() {
   local cont="$1" call_prompt="$2" kimi_args
   kimi_args=(--prompt "$call_prompt" --output-format text)
   [ "$cont" = true ] && kimi_args=(--continue "${kimi_args[@]}")
+  garden_harness_record moonshot "$base" moonshot kimi-k3 /v1/ "$call_prompt" \
+    || die_environmental "cannot record accepted Moonshot harness launch for '$base'"
   set +e
-  ( cd "$worktree" && kimi_model_environment "$kimi_home" kimi-k3 kimi "${kimi_args[@]}" ) > "$report" 2> "$diagnostic"
+  ( cd "$worktree" && kimi_model_environment "$kimi_home" kimi-k3 \
+      "$GARDEN_SANDBOX_RUNNER" --worktree "$worktree" --allow-home kimi --secret moonshot KIMI_MODEL_API_KEY --rw "$kimi_home" -- \
+      kimi "${kimi_args[@]}" ) > "$report" 2> "$diagnostic"
   rc=$?
   set -e
   # Kimi Code 0.29.1 renders the first text line with a bullet, but indents

@@ -1,6 +1,6 @@
 ---
 created: 2026-09-28
-updated: 2026-10-13
+updated: 2026-11-05
 author: builder, gardener
 ---
 
@@ -44,6 +44,7 @@ systemd `%i` value described in the detailed entry.
 | `garden-repo-watcher` | 1 minute after the prior run | host | Reconcile all per-repository watcher instances. |
 | `garden-mention-watcher` | 90 seconds after the prior run | leader | Watch trusted GitHub-wide bot mentions; manually armed. |
 | `garden-issue-inbox` | 45 seconds after boot, then 2 minutes | leader | Route garden-repository issues into jobs or the maintainer inbox. |
+| `garden-issue-status` | 75 seconds after boot, then 2 minutes | leader | Dry-run one deterministic status note for an unanswered trusted issue arrival. |
 | `garden-pages-watcher` | 50 seconds after boot, then 2 minutes | leader | Post a pages-shepherd when Garden Pages fails. |
 | `garden-comment-latency-watch` | 6 minutes after boot, then 5 minutes | leader | Check watcher liveness and acknowledgment latency. |
 | `garden-design-pr-gauntlet-audit` | hourly at `:37` | leader | Alert on open non-draft bot PRs lacking gauntlet coverage. |
@@ -72,6 +73,8 @@ systemd `%i` value described in the detailed entry.
 | `garden-watchman` | 2 minutes after the prior run | host; broadcast leader-only in-loop | Broadcast role and skill changes after deploy. |
 | `garden-root-repo-guard` | every 30 minutes at `:22` | host | Check and repair deployed-root and inode invariants. |
 | `garden-container-hardening` | daily at 06:17 and 18:17 host time | host | Probe the container's unprivileged posture. |
+| `garden-secret-broker` | long-running service | host | Execute fixed direct-service operations without returning a key. |
+| `garden-secret-watchdog` | daily after boot | host | Alert on over-age or long-idle installed provider keys. |
 | `garden-minion-mcp-watchdog` | every 10 minutes at `:04` | host | Probe and reconnect the minion.town MCP connection; edge-latched alert. |
 | `garden-journal-contention-watch` | 3 minutes after boot, then 5 minutes | host | Detect journal contention and remedy bloated clones. |
 | `garden-journal-worktree-keeper` | every 30 minutes at `:15` | host | Keep the shared journal read worktree current and recover divergence. |
@@ -346,6 +349,13 @@ Files: `garden-repo-watcher.timer`, `garden-repo-watcher.service`.
   `GARDEN_EXPLICIT_ADDRESS_REQUIRED=1`, 480-second tick budget, and 90-second
   stage timeout. State is under `$GARDEN_STATE/issue-inbox/` (`verify` and
   `notified-nonmaintainers`) and its heartbeat, plus journal jobs/messages.
+- **`garden-issue-status.timer`, `garden-issue-status.service`:** leader-only,
+  75 seconds after boot then every two minutes; runs
+  `scripts/jobs/issue-status-pass.sh`. It drops non-maintainer authors before
+  reading bodies and considers one fixed-template status note after an arrival
+  has no bot reply for 20 minutes (five under a deep queue). GitHub markers are
+  its only state. It ships with `GARDEN_ISSUE_STATUS_DRY_RUN=1`, so maintainers
+  must review matching logs before deliberately arming writes.
 - **`garden-pages-watcher.timer`, `garden-pages-watcher.service`:** leader-only,
   50 seconds after boot then every two minutes; runs
   `scripts/jobs/pages-watcher.sh` and posts a `pages-shepherd` for a failed
@@ -576,6 +586,18 @@ Foreman brake affects none. Inspect and mask the matching pair. See
 [deploy.md](deploy.md) and [leader-follower.md](leader-follower.md).
 
 ## Per-host maintenance and security
+
+- **`garden-secret-broker.service`:** every host, long-running and
+  `Restart=on-failure`; runs `scripts/outbound/broker.py`. It owns the public
+  `$GARDEN_STATE/secret-broker.sock`, accepts only registered operations, reads
+  one key under the shared store lock, commits `outbound/<service>/` before
+  egress, and passes authentication to curl on config stdin. The secret directory
+  is read-only from the container mount; callers never receive a key.
+- **`garden-secret-watchdog.timer`, `garden-secret-watchdog.service`:** every
+  host, daily with jitter; runs `scripts/secrets/watchdog.sh`. It checks only
+  value-free file metadata, age, registry consumer, and outbound-record recency,
+  then sends edge-latched reminders. It never rotates, revokes, or removes a key.
+  See [secrets.md](secrets.md).
 
 - **`garden-root-repo-guard.timer`, `garden-root-repo-guard.service`:** every
   host at `:22/30`; runs `scripts/jobs/root-repo-guard.sh` with a 45-minute unit

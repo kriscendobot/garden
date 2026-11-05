@@ -402,6 +402,29 @@ unset _garden_prod_repo_alt _garden_prod_repo
 # Kept OUTSIDE any reset-prone worktree on purpose.
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
 
+# Compatibility release: trusted launchers prefer a validated host file and
+# retain the matching legacy environment variable only as a migration fallback.
+_garden_secret_lib="$GARDEN_ROOT/scripts/secrets/lib.sh"
+[ -f "$_garden_secret_lib" ] || _garden_secret_lib="$(cd "$(dirname "${BASH_SOURCE[0]}")/../secrets" 2>/dev/null && pwd)/lib.sh"
+if [ -f "$_garden_secret_lib" ]; then
+  # shellcheck source=../secrets/lib.sh
+  source "$_garden_secret_lib"
+fi
+: "${GARDEN_SANDBOX_RUNNER:=$(dirname "$_garden_secret_lib")/run-sandboxed.sh}"
+unset _garden_secret_lib
+
+garden_harness_record() { # <kind> <authorization> <provider> <model> <endpoint> <prompt>
+  local kind="$1" authorization="$2" provider="$3" model="$4" endpoint="$5" prompt="$6" body hash
+  [ "${GARDEN_TEST:-0}" != 1 ] || [ -n "${GARDEN_OUTBOUND_LEDGER_CMD:-}" ] || return 0
+  hash="$(printf '%s' "$prompt" | sha256sum | cut -d' ' -f1)"
+  body="$(jq -cn --arg job "$authorization" --arg provider "$provider" --arg model "$model" \
+    --arg endpoint "$endpoint" --arg prompt_sha256 "$hash" \
+    '{job:$job,provider:$provider,model:$model,endpoint_family:$endpoint,prompt_sha256:$prompt_sha256}')"
+  secret_clear_env_args
+  env "${SECRET_CLEAR_ENV_ARGS[@]}" "$GARDEN_ROOT/scripts/outbound/record.sh" \
+    "$kind" "$authorization" EXEC "$endpoint" "$body" "$kind" launch
+}
+
 # Optional container-local home for the two hot journal checkout families: the
 # shared producer clone and each worker's private clone.  The default is empty,
 # preserving the historical $GARDEN_STATE paths.  A host whose GARDEN_STATE is on
@@ -2654,7 +2677,7 @@ worker_model_unsupported_latch() {
 # changes it too. Cheap (one file read + sha256, no CLI, no network), so the gate
 # can compare it on every tick. Prints the hex digest; never fails.
 worker_credential_fingerprint() {
-  local kind="${1:?worker_credential_fingerprint: kind required}" name cred="" v
+  local kind="${1:?worker_credential_fingerprint: kind required}" name cred="" v secret_kind
   name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
   case "$name" in
     claude) cred="$(claude_credential_file)" ;;
@@ -2667,6 +2690,12 @@ worker_credential_fingerprint() {
     for v in ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN OPENAI_API_KEY CODEX_API_KEY \
              OLLAMA_CLOUD_API_KEY FIREWORKS_API_KEY OPENROUTER_API_KEY MOONSHOT_API_KEY; do
       [ -n "${!v:-}" ] && printf '\nenv:%s=%s' "$v" "${!v}"
+    done
+    for secret_kind in anthropic moonshot fireworks openrouter ollama-cloud; do
+      if declare -F secret_available >/dev/null 2>&1 && secret_available "$secret_kind"; then
+        printf '\nfile:%s=' "$secret_kind"
+        secret_value "$secret_kind"
+      fi
     done
   } | sha256sum 2>/dev/null | cut -d' ' -f1
 }
@@ -2861,6 +2890,7 @@ claude_credential_file() {
 # REMOVES the file, which is exactly the loss a tick must catch. No tokens spent.
 claude_auth_ok() {                         # -> 0 authed+installed, 1 otherwise
   command -v claude >/dev/null 2>&1 || { echo "claude not on PATH" >&2; return 1; }
+  if declare -F secret_available >/dev/null 2>&1 && secret_available anthropic; then return 0; fi
   [ -n "${ANTHROPIC_API_KEY:-}" ] && return 0
   local cred
   cred="$(claude_credential_file)"
@@ -2894,7 +2924,7 @@ _worker_backend_probe_dispatch() {
   if [ "$kind" = opencode-anthropic ]; then
     agent_bin_probe opencode >/dev/null 2>&1 \
       || { echo "opencode not installed (opencode-anthropic backend)" >&2; return 1; }
-    [ -n "${ANTHROPIC_API_KEY:-}" ] \
+    { secret_value anthropic >/dev/null 2>&1; } \
       || { echo "ANTHROPIC_API_KEY absent (opencode-anthropic backend)" >&2; return 1; }
     return 0
   fi
@@ -2925,9 +2955,9 @@ _worker_backend_probe_dispatch() {
       # ANTHROPIC_API_KEY — so this probe is deliberately distinct from the anthropic
       # branch's claude_auth_ok. READ-ONLY and token-free: the CLI must be on PATH and
       # the key present. A missing key is an actionable operator fix (arm the key and
-      # rebuild the image), not a job defect.
+      # place/repair the registered host file), not a job defect.
       command -v claude >/dev/null 2>&1 || { echo "claude not on PATH (friar backend)" >&2; return 1; }
-      [ -n "${OLLAMA_CLOUD_API_KEY:-}" ] || { echo "OLLAMA_CLOUD_API_KEY unset (friar backend needs the maintainer-supplied Ollama Cloud key)" >&2; return 1; } ;;
+      { secret_value ollama-cloud >/dev/null 2>&1; } || { echo "OLLAMA_CLOUD_API_KEY unavailable (friar backend needs the maintainer-supplied Ollama Cloud key)" >&2; return 1; } ;;
     fireworks)
       declare -F fireworks_provider_preflight >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
       fireworks_provider_preflight "$kind" scaler-probe ;;
@@ -10345,10 +10375,9 @@ host_capability_probe() { # <token> — one authoritative, uncached probe
     # the host's own identity — no external probe, no credential, no journal read.
     host=*) [ "${1#host=}" = "$GARDEN" ] ;;
     aws) "$GARDEN_AWS_VERIFY" "$GARDEN_ROOT" >/dev/null 2>&1 ;;
-    # typesafe: this worker's environment carries the TypeSafe credential that
-    # classify-foreign-content.sh needs.  Presence only; a rejected key surfaces
-    # as strict-mode exit 4 at run time and the job requeues.
-    typesafe) [ -n "${TYPESAFE_API_KEY:-}" ] ;;
+    # File shape and metadata are checked locally without egress. A legacy
+    # variable alone deliberately does not satisfy the migration capability.
+    typesafe) declare -F secret_available >/dev/null 2>&1 && secret_available typesafe ;;
     *) return 1 ;;
   esac
 }
@@ -10359,8 +10388,8 @@ host_capability_available() { # <token> [fresh]
   # answer cannot lapse between claim and run the way an AWS session can), so short-
   # circuit before the boot-id cache path below.
   case "$token" in host=*) [ "${token#host=}" = "$GARDEN" ]; return $? ;; esac
-  # typesafe reads this process's environment, so it is likewise never cached: the
-  # boot-id cache is host-wide and one worker's env says nothing about another's.
+  # TypeSafe reads the live host file on every claim and post-claim check, so a
+  # placement/removal or mode repair takes effect without a boot-cache delay.
   case "$token" in typesafe) host_capability_probe typesafe; return $? ;; esac
   case "$token" in aws) ;; *) return 1 ;; esac
   if [ "$fresh" != fresh ]; then

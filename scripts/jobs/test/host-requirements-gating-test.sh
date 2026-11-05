@@ -4,6 +4,7 @@ set -euo pipefail
 export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+ROOT="$(cd "$HERE/../../.." && pwd)"
 PASS=0; FAIL=0
 ok() { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
@@ -136,7 +137,7 @@ watch3; backdate; watch3; grep -q backoff "$TR/alert3.out" && bad "job in plain-
 watch3; grep -q backoff "$TR/alert3.out" && bad "expired back-off alerted before the dwell window" || ok "dwell starts when the back-off expires"
 backdate; watch3; grep -q "job 'backoff'" "$TR/alert3.out" && ok "dwell after an expired back-off alerts" || bad "expired back-off did not alert: $(cat "$TR/watch3.log")"
 
-# scholar-ingest-* jobs implicitly require `typesafe`, probed from the worker env.
+# scholar-ingest-* jobs implicitly require `typesafe`, probed from the file store.
 T="$TR/typesafe"; mkdir -p "$T"
 printf '# ingest\n' > "$T/scholar-ingest-foo.md"
 printf '%s\n' '---' 'requires: typesafe, aws' '---' > "$T/scholar-ingest-bar.md"
@@ -146,10 +147,18 @@ reqs() { bash -c 'source "$1"; job_requirements "$2" | paste -sd, -' _ "$JOBS/co
 [ "$(reqs "$T/scholar-ingest-foo.md")" = typesafe ] && ok "scholar-ingest-* implicitly requires typesafe" || bad "implicit requirement: '$(reqs "$T/scholar-ingest-foo.md")'"
 [ "$(reqs "$T/scholar-ingest-bar.md")" = typesafe,aws ] && ok "explicit typesafe is not duplicated" || bad "duplicate requirement: '$(reqs "$T/scholar-ingest-bar.md")'"
 [ -z "$(reqs "$T/plain.md")" ] && ok "ordinary job gains no implicit requirement" || bad "plain job requirements: '$(reqs "$T/plain.md")'"
-avail() { env -u TYPESAFE_API_KEY ${2:+TYPESAFE_API_KEY=$2} GARDEN_STATE="$TR/ts-state" bash -c 'source "$1"; job_requirements_available "$2" && job_requirements_available "$2" fresh' _ "$JOBS/common.sh" "$1"; }
-avail "$T/scholar-ingest-foo.md" && bad "scholar ingest claimable without TYPESAFE_API_KEY" || ok "scholar ingest not claimable without TYPESAFE_API_KEY"
-avail "$T/scholar-ingest-foo.md" k && ok "scholar ingest claimable with TYPESAFE_API_KEY" || bad "scholar ingest refused despite TYPESAFE_API_KEY"
-avail "$T/other.md" && bad "explicit requires: typesafe claimable without key" || ok "explicit requires: typesafe gated on the key"
+TS_STORE="$TR/typesafe-store"; mkdir -m 700 "$TS_STORE"
+avail() { env -u TYPESAFE_API_KEY GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/ts-state" GARDEN_SECRETS_DIR="$TS_STORE" bash -c 'source "$1"; job_requirements_available "$2" && job_requirements_available "$2" fresh' _ "$JOBS/common.sh" "$1"; }
+avail "$T/scholar-ingest-foo.md" && bad "scholar ingest claimable without TypeSafe file" || ok "scholar ingest not claimable without TypeSafe file"
+TYPESAFE_API_KEY=legacy-env-only avail "$T/scholar-ingest-foo.md" && bad "legacy env alone satisfied typesafe" || ok "legacy env alone does not satisfy typesafe"
+printf '%s' 'typesafe-offline-fixture-0000000000' > "$TS_STORE/typesafe.key"; chmod 600 "$TS_STORE/typesafe.key"
+avail "$T/scholar-ingest-foo.md" && ok "scholar ingest claimable with valid TypeSafe file" || bad "scholar ingest refused valid TypeSafe file"
+printf '%s' 'bad!' > "$TS_STORE/typesafe.key"
+avail "$T/scholar-ingest-foo.md" && bad "malformed TypeSafe file satisfied capability" || ok "malformed TypeSafe file fails capability"
+printf '%s' 'typesafe-offline-fixture-0000000000' > "$TS_STORE/typesafe.key"; chmod 644 "$TS_STORE/typesafe.key"
+avail "$T/scholar-ingest-foo.md" && bad "wrong-mode TypeSafe file satisfied capability" || ok "wrong-mode TypeSafe file fails capability"
+chmod 600 "$TS_STORE/typesafe.key"
+avail "$T/other.md" && ok "explicit requires: typesafe admits valid file" || bad "explicit typesafe refused valid file"
 avail "$T/plain.md" && ok "ordinary job claimable without key" || bad "ordinary job refused"
 rt() { bash -c 'source "$1"; job_requires_token "$2" typesafe' _ "$JOBS/common.sh" "$1"; }
 rt "$T/scholar-ingest-foo.md" && ! rt "$T/plain.md" && ok "job_requires_token distinguishes typesafe jobs" || bad "job_requires_token wrong"

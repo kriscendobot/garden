@@ -213,7 +213,7 @@ esac
 url="$1"
 out="${2:-}"
 
-if [ "${CLASSIFY_REQUIRE:-0}" = 1 ] && [ -z "${TYPESAFE_API_KEY:-}" ]; then
+if [ "${CLASSIFY_REQUIRE:-0}" = 1 ] && ! secret_available typesafe; then
   log "CLASSIFY_REQUIRE=1 but TYPESAFE_API_KEY is absent; refusing to fetch bytes that cannot be classified"
   printf 'source_url=%s\n' "$url"
   printf 'source_classify_unavailable=true\n'

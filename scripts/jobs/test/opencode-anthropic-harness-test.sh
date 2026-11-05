@@ -16,6 +16,10 @@ mkdir -p "$TR/bin" "$TR/state" "$TR/scratch"
 cat > "$TR/bin/opencode" <<'EOF'
 #!/bin/bash
 set -u
+[ "$ANTHROPIC_API_KEY" = sk-ant-fixture-not-a-credential ] || exit 90
+for name in MOONSHOT_API_KEY FIREWORKS_API_KEY OPENROUTER_API_KEY OLLAMA_CLOUD_API_KEY TYPESAFE_API_KEY; do
+  [ -z "${!name:-}" ] || exit 91
+done
 printf '%s\n' "$*" >> "${FAKE_OC_ARGS:?}"
 if [ "${1:-}" = export ]; then
   printf '{"sessionID":"%s","messages":[]}\n' "${2:-unknown}"
@@ -64,7 +68,7 @@ run_handler() { # mode base
   set +e
   env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state" GARDEN_SCRATCH="$TR/scratch" \
     GARDEN_WORKER_KIND=opencode-anthropic GARDEN_OPENCODE_BIN="$TR/bin/opencode" \
-    GARDEN_AGENT_BIN_ATTEMPTS=1 ANTHROPIC_API_KEY=fixture-not-a-credential \
+    GARDEN_AGENT_BIN_ATTEMPTS=1 ANTHROPIC_API_KEY=sk-ant-fixture-not-a-credential \
     GARDEN_COMPLETION_SENTINEL="$sentinel" GARDEN_USAGE_FILE="$usage" \
     GARDEN_TRANSCRIPTS_SPOOL="$TR/spool" FAKE_OC_ARGS="$TR/args" FAKE_OC_MODE="$mode" \
     FAKE_OC_CALLS="$TR/oc-calls" \

@@ -1,3 +1,9 @@
+---
+created: 2026-07-25
+updated: 2026-11-05
+author: builder, gardener
+---
+
 # Bounded Moonshot Kimi K3 activation
 
 The hosted `mystic` worker is an explicit-model-only Moonshot pool. It uses the
@@ -8,29 +14,16 @@ own session state. Do not enable it as a default for design, build, or other
 high-stakes work. The pool ships disabled and remains so until a maintainer directs
 a bounded canary.
 
-## 1. Supply the key before container creation
+## 1. Place the key on the host
 
-The launcher passes `MOONSHOT_API_KEY` only when it **creates** a container, the
-same secret-safe handoff used for `ANTHROPIC_API_KEY`. The value is not written to
-a unit file, repository, bind-mounted home, or log. PID 1 seeds only the two
-allowlisted provider keys into `/run/environment.d` (a container tmpfs) before the
-lingering user manager starts; systemd's environment-d generator gives the key to
-that manager and `garden-mystic@*.service` workers. The manager starts through PAM
-with a fresh environment, so it does not inherit PID 1 directly.
+Use the `moonshot` procedure in [secrets.md](secrets.md). The next Mystic job
+reads the file and injects only that key into its Kimi child; rotation does not
+recreate the container. The creation-time environment handoff described below
+remains only as the compatibility-release fallback.
 
-On the host, avoid shell tracing and export the real value only in the command's
-environment:
-
-```sh
-./garden reset
-MOONSHOT_API_KEY='replace-with-secret' ./garden create
-```
-
-An existing container cannot acquire a new creation-time secret by restart. If it
-was created without the key, use this secret-safe recreation sequence (`reset`, then
-create with the key in that command environment). If the container does not yet
-exist, omit `reset` and run the second command. Do not use `docker inspect`, `set
--x`, or a command that prints the environment to test this.
+The compatibility release can still import a creation-time `MOONSHOT_API_KEY`,
+but steady-state placement is the host file. Do not use `docker inspect`, `set -x`,
+or a command that prints an environment to test it.
 
 ## 2. Probe without leaking authorization
 

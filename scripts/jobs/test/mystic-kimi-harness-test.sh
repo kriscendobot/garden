@@ -62,7 +62,8 @@ fi
 [ "$KIMI_MODEL_BASE_URL" = https://api.moonshot.ai/v1 ]
 [ "$KIMI_CODE_AGENT_SWARM_MAX_CONCURRENCY" = 1 ]
 [ "$KIMI_SUBAGENT_TIMEOUT_MS" = 600000 ]
-[ "$KIMI_MODEL_API_KEY" = "${MOONSHOT_API_KEY:?}" ]
+[ -z "${MOONSHOT_API_KEY:-}" ]
+[ "$KIMI_MODEL_API_KEY" = "${EXPECTED_MOONSHOT_KEY:?}" ]
 # Mimic Kimi Code's per-turn usage.record wire log so the handler's lane-specific
 # cost-ledger capture (meter_kimi_home_usage) has a real source to read. Format:
 # FAKE_KIMI_USAGE="inputOther,output,inputCacheCreation,inputCacheRead".
@@ -117,7 +118,7 @@ missing_rc=$?
 set -e
 [ "$missing_rc" -ne 0 ] && ok "missing key rejects Mystic" || bad "missing key was accepted"
 [[ "$missing_out" == *'MOONSHOT_API_KEY: absent'* ]] && ok "missing-key diagnostic is deterministic and presence-only" || bad "missing-key diagnostic absent"
-[[ "$missing_out" == *'secret-safe recreation'* ]] && ok "missing-key diagnostic requires secret-safe container recreation" || bad "missing-key recreation guidance absent"
+[[ "$missing_out" == *'scripts/secrets/set-key.sh moonshot'* ]] && ok "missing-key diagnostic names host-file placement" || bad "missing-key placement guidance absent"
 [ ! -e "$missing_record.args" ] && ok "missing key never invokes Kimi" || bad "missing key invoked Kimi"
 
 job="$TR/job.md"
@@ -127,7 +128,7 @@ run_handler() { # <base> <complete 0|1> [marker-form] [trailing-blanks 0|1]
   rm -f "$TR/run.calls" "$TR"/run.args.* 2>/dev/null
   env PATH="$BIN:$PATH" GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state" GARDEN_SCRATCH="$TR/scratch" \
     GARDEN_MAIN_BRANCH=main2 GARDEN_WORKER_KIND=mystic GARDEN_COMPLETION_SENTINEL="$TR/sentinel" \
-    MOONSHOT_API_KEY='offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$TR/run" FAKE_KIMI_COMPLETE="$complete" \
+    MOONSHOT_API_KEY='sk-offline-fixture-not-a-credential' EXPECTED_MOONSHOT_KEY='sk-offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$TR/run" FAKE_KIMI_COMPLETE="$complete" \
     FAKE_KIMI_MARKER_FORM="$marker_form" FAKE_KIMI_TRAILING_BLANKS="$trailing_blanks" \
     FAKE_KIMI_COMPLETE_FROM_CALL="${FAKE_KIMI_COMPLETE_FROM_CALL:-}" \
     FAKE_KIMI_FAIL_FROM_CALL="${FAKE_KIMI_FAIL_FROM_CALL:-}" \
@@ -298,7 +299,7 @@ env PATH="$BIN:$PATH" GARDEN_TEST=1 GARDEN="mystic-test" GARDEN_ROOT="$ROOT" \
   GARDEN_STATE="$SPINE/state" GARDEN_SCRATCH="$SPINE/scratch" GARDEN_MAIN_BRANCH=main2 \
   JOURNAL_REMOTE="$SPINE/journal.git" JOURNAL_BRANCH=journal2 \
   GARDEN_WORKER_KIND=mystic GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
-  MOONSHOT_API_KEY='offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$SPINE/kimi" FAKE_KIMI_COMPLETE=1 \
+  MOONSHOT_API_KEY='sk-offline-fixture-not-a-credential' EXPECTED_MOONSHOT_KEY='sk-offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$SPINE/kimi" FAKE_KIMI_COMPLETE=1 \
   FAKE_KIMI_USAGE='2000,34,7,18176' \
   "$JOBS/gardener.sh" 1 > "$SPINE/gardener.log" 2>&1
 spine_rc=$?

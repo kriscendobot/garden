@@ -554,16 +554,18 @@ eff="$(printf '%s' "$MAN" | field source_effective_url)"
 [ "$eff" = "http://web.archive.org/web/2id_/$URL" ] && ok "used the bare 2id_ redirect form" || bad "unexpected effective URL: $eff"
 printf '%s' "$MAN" | grep -q '^source_index_unreachable=' && bad "index-unreachable fired with one authoritative answer" || ok "index-unreachable did NOT fire"
 
-# === 27. classifier strict mode without a TypeSafe key refuses before fetching =
-hr; echo "CASE 27: CLASSIFY_REQUIRE=1 without TYPESAFE_API_KEY -> exit 4, no fetch"
+# === 27. classifier strict mode requires a valid TypeSafe file =================
+hr; echo "CASE 27: CLASSIFY_REQUIRE=1 without TypeSafe file -> exit 4, no fetch"
 : >"$STUB_LOG"
 OUT="$TR/case27.out"
-MAN="$(env -u TYPESAFE_API_KEY CLASSIFY_REQUIRE=1 STUB_DIRECT_BODY="hello" "$FETCH" "$URL" "$OUT" 2>/dev/null)" && rc=0 || rc=$?
+TS_STORE="$TR/typesafe-store"; mkdir -m 700 "$TS_STORE"
+MAN="$(env -u TYPESAFE_API_KEY GARDEN_SECRETS_DIR="$TS_STORE" CLASSIFY_REQUIRE=1 STUB_DIRECT_BODY="hello" "$FETCH" "$URL" "$OUT" 2>/dev/null)" && rc=0 || rc=$?
 [ "$rc" = 4 ] && ok "exit 4 (strict mode, no classifier credential)" || bad "exit $rc (expected 4)"
 [ "$(printf '%s' "$MAN" | field source_classify_unavailable)" = true ] && ok "manifest names the classifier gap" || bad "no source_classify_unavailable in manifest"
 [ -s "$STUB_LOG" ] && bad "curl was invoked despite the refusal" || ok "nothing fetched"
-MAN="$(TYPESAFE_API_KEY=synthetic CLASSIFY_REQUIRE=1 STUB_DIRECT_BODY="hello" "$FETCH" "$URL" "$OUT" 2>/dev/null)" && rc=0 || rc=$?
-[ "$rc" = 0 ] && ok "strict mode with a credential fetches normally" || bad "strict mode with credential exit $rc"
+printf '%s' 'typesafe-offline-fixture-0000000000' > "$TS_STORE/typesafe.key"; chmod 600 "$TS_STORE/typesafe.key"
+MAN="$(env -u TYPESAFE_API_KEY GARDEN_SECRETS_DIR="$TS_STORE" CLASSIFY_REQUIRE=1 STUB_DIRECT_BODY="hello" "$FETCH" "$URL" "$OUT" 2>/dev/null)" && rc=0 || rc=$?
+[ "$rc" = 0 ] && ok "strict mode with a valid file fetches normally" || bad "strict mode with valid file exit $rc"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"

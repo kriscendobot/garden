@@ -1,14 +1,16 @@
 ---
 created: 2026-08-22
-updated: 2026-09-01
-author: gardener
+updated: 2026-11-05
+author: builder, gardener
 ---
 
 # Bounded OpenRouter worker activation
 
 `openrouter` is a provider-constrained, explicit-model-only pool. It uses Codex's
 custom OpenAI-compatible provider route to `https://openrouter.ai/api/v1` and
-receives `OPENROUTER_API_KEY` only through the container's tmpfs systemd handoff.
+receives `OPENROUTER_API_KEY` from the host file store for only its CLI child; the
+tmpfs handoff remains a one-release migration fallback. Placement and rotation
+use [secrets.md](secrets.md) and do not require container recreation.
 The key is never put in a unit, journal, worktree, report, or diagnostic. The pool
 starts at zero and refuses unconstrained work: no automatic or unpinned board job
 can reach it (`claim-job.sh` fences it to a `provider: openrouter` canary or an
@@ -85,33 +87,14 @@ The stable lane still ships only **named** models because a cloaked/stealth mode
 operator and provenance are undisclosed. The separate `openrouter-promo` lane below
 inherits this same adapter and cannot relax these fields.
 
-## Create and canary
+## Place and canary
 
-Recreate the container with the key supplied only in the creation command. Avoid
-shell tracing, `docker inspect`, verbose curl, or commands that print environments.
-Key provisioning and the first canary are a **separate, maintainer-directed step**
-(same as fireworks/kimi-k3) — this activation page arms nothing on its own.
-
-```sh
-./garden reset
-OPENROUTER_API_KEY='replace-with-secret' ./garden create
-```
-
-Inside `./garden sh`, an optional authenticated probe prints only a status code —
-never a body, header, or the key:
-
-```sh
-# List endpoint (broad reachability + auth):
-curl -sS -o /dev/null -w '%{http_code}\n' \
-  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-  "$GARDEN_OPENROUTER_BASE_URL/models"
-
-# Per-model policy probe (status only) — mirrors the two enforced request fields:
-curl -sS -o /dev/null -w '%{http_code}\n' \
-  -H "Authorization: Bearer $OPENROUTER_API_KEY" -H 'Content-Type: application/json' \
-  -X POST "$GARDEN_OPENROUTER_BASE_URL/responses" \
-  -d '{"model":"z-ai/glm-5.2:free","max_output_tokens":1,"input":"ping","provider":{"data_collection":"deny","zdr":true}}'
-```
+The maintainer places the host key with `scripts/secrets/set-key.sh openrouter`.
+The fixed `scripts/outbound/openrouter.sh --authorized-by <attestation>
+--operation models` wrapper performs the list preflight through the broker and
+records acceptance before egress. The tool canary uses the same wrapper. Do not
+construct an authentication header in a shell. Key provisioning and the first
+canary remain a separate, maintainer-directed step; this page arms nothing.
 
 Read the status, not a body: **200** serves; **404** means the wire selector is
 unrecognized or the free id has rotated away (remove the inventory row rather than

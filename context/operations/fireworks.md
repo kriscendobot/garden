@@ -1,14 +1,16 @@
 ---
 created: 2026-07-25
-updated: 2026-08-01
-author: gardener
+updated: 2026-11-05
+author: builder, gardener
 ---
 
 # Bounded Fireworks worker activation
 
 `fireworker` is a provider-constrained, tier-pinned Fireworks AI pool. It uses Codex's custom
 OpenAI-compatible provider route to `https://api.fireworks.ai/inference/v1` and
-receives `FIREWORKS_API_KEY` only through the container's tmpfs systemd handoff.
+receives `FIREWORKS_API_KEY` from the host file store for only its CLI child; the
+tmpfs systemd handoff remains a one-release migration fallback. Placement and
+rotation use [secrets.md](secrets.md) and do not require container recreation.
 The key is never put in a unit, journal, worktree, report, or diagnostic. The pool
 starts at zero and refuses unconstrained work.
 
@@ -74,31 +76,14 @@ To use a nonstandard compatible endpoint, set `GARDEN_FIREWORKS_BASE_URL` when t
 container is created. The endpoint and retry knobs (`GARDEN_FIREWORKS_RETRY_ATTEMPTS`
 and `GARDEN_FIREWORKS_RETRY_DELAY`) are operational configuration, not journal data.
 
-## Create and canary
+## Place and canary
 
-Recreate the container with the key supplied only in the creation command. Avoid
-shell tracing, `docker inspect`, verbose curl, or commands that print environments.
-
-```sh
-./garden reset
-FIREWORKS_API_KEY='replace-with-secret' ./garden create
-```
-
-Inside `./garden sh`, an optional authenticated probe prints only a status code —
-never a body, header, or the key:
-
-```sh
-# List endpoint (broad reachability + auth):
-curl -sS -o /dev/null -w '%{http_code}\n' \
-  -H "Authorization: Bearer $FIREWORKS_API_KEY" \
-  "$GARDEN_FIREWORKS_BASE_URL/models"
-
-# Per-model recognition (max_tokens:1, status only) — the discriminating probe:
-curl -sS -o /dev/null -w '%{http_code}\n' \
-  -H "Authorization: Bearer $FIREWORKS_API_KEY" -H 'Content-Type: application/json' \
-  -X POST "$GARDEN_FIREWORKS_BASE_URL/chat/completions" \
-  -d '{"model":"accounts/fireworks/models/glm-5p2","max_tokens":1,"messages":[{"role":"user","content":"ping"}]}'
-```
+The maintainer places the host key with `scripts/secrets/set-key.sh fireworks`.
+The fixed `scripts/outbound/fireworks.sh --authorized-by <attestation>` wrapper
+performs the list-endpoint preflight through the broker and records acceptance
+before egress. Do not construct an authentication header in a shell. A
+model-specific canary runs as a provider-constrained job so the harness ledger,
+environment isolation, and ordinary usage accounting all apply.
 
 Read the status, not a body: **200** serves; **404** means the wire selector is
 unrecognized (a real selector problem — re-check the inventory row); **401/403** is

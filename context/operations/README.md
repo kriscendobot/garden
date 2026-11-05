@@ -1,7 +1,7 @@
 ---
 created: 2026-07-04
-updated: 2026-09-30
-author: gardener
+updated: 2026-11-05
+author: builder, gardener
 ---
 
 # operations/ — day-2 procedure, picked by symptom or intent
@@ -16,6 +16,8 @@ schedule). The conversational first-run tour is the sibling tree,
 "start the garden" stage lives here in [starting.md](starting.md).
 
 ## Pick by intent
+
+- Place, migrate, rotate, remove, or audit provider API keys: [secrets.md](secrets.md).
 
 - **[cybernetics.md](cybernetics.md)** — budget admission, subscription metering,
   fleet allocation, controller restraint, decision records, and known gaps.
