@@ -24,3 +24,13 @@ dispatch: automatic
 **History:** do not silently rewrite old archived receipts. Add a way to backfill the NEW rollup fields for already-archived receipts (`--force` regeneration or a small backfill mode), run it for the existing archive if cheap, and note in the design that older receipts carry the retired MRE section. Preserve idempotency (the three guards in the script header).
 
 **Tests/docs:** update `designs/pr-completion-receipts.md` (state that human-effort estimation was retired and why, one short paragraph), the script tests (add one that asserts no `MRE`/human-dollar text appears and that the word count and quality-bar class are right on a fixture), and shellcheck. Run the relevant script tests before pushing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T05:05:19Z
