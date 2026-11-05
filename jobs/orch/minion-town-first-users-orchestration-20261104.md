@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-minion.town-pr199-land-20261104 minion-town-coupon-flip-and-mint-20261104 minion-town-maintainer-guest-reset-20261104
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-05T00:00:18Z
 ---
