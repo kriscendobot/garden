@@ -1,2 +1,2 @@
-base: improve-issue-source-quota-degrade
+base: improve-issue-status-source-trust-filter
 identity: mentor:scripts/jobs/handlers/issue-source-gh.sh
