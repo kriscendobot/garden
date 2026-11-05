@@ -1,0 +1,9 @@
+# quality-bar-defaults.tsv — tracked SEED for the PR receipt's quality-bar field
+# (pr-receipt.sh rollup). A journal file config/quality-bar in the same format
+# OUTRANKS this seed (first matching row wins), so the maintainer retunes it with a
+# journal write, no deploy. Repos absent from both resolve to class `unknown`.
+# Columns (TAB-separated): <owner/repo>  <rank, 1 = highest bar>  <class>
+endojs/endo	1	highest
+endojs/endo-but-for-bots	2	high
+kriscendobot/garden	3	low
+kriscendobot/minion.town	3	low

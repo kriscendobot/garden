@@ -9,12 +9,13 @@ ending leaves no ledger. The maintainer asked (kriskowal, 2026-09-05) for an
 automated **completion receipt** emitted for **every** PR the garden finishes,
 merged **or** closed, posted as a PR comment **and** archived in the journal:
 per-engagement `model / tokens / harness / role / notional cost / calibrated
-cost`, plus one per-PR **heuristic cost of maintainer review** grounded in the
-feedback the PR drew.
+cost`, plus one per-PR **measurement rollup** (token cost, wall-clock, job
+duration, words of human feedback, review/gauntlet counts, quality-bar class).
+The original per-PR *heuristic cost of maintainer review* was retired
+2026-11-05 (§ Human-effort estimation retired).
 
 The garden already owns nearly every primitive this needs. This is a
-**composition** design plus **one new heuristic** and **one new deterministic
-watcher** — not new infrastructure. It reuses the true-cost join
+**composition** design plus **one new deterministic watcher** — not new infrastructure. It reuses the true-cost join
 (`cost-by-pr.sh`), the per-engagement usage ledger (`usage/<base>.jsonl`), the
 reputation events (`reputation/events/<base>.md`), the same maintainer-cleared
 watch set the comment/CI watchers ride, and the same identity-pinned `gh` wrapper
@@ -53,8 +54,8 @@ they post through.
 
 ## The receipt
 
-Two parts: a table of **per-engagement rows** and a single **maintainer-review**
-figure. Legible as a plain PR comment, and distilled when a PR has many
+Two parts: a table of **per-engagement rows** and a per-PR **measurement
+rollup**. Legible as a plain PR comment, and distilled when a PR has many
 engagements (§ Size discipline), reusing `panel.sh`'s foreperson-distillation
 precedent for GitHub's ~65 KB body limit.
 
@@ -76,13 +77,35 @@ One row per engagement that joined to this PR. An "engagement" is one
 Rows group by base (a base may span requeues/hosts/roles). The comment shows a
 per-base subtotal and a PR grand total for tokens, notional, and calibrated.
 
-### The one per-PR figure: maintainer-review effort
+### The per-PR rollup (measurements only)
 
-A single **heuristic estimate of the maintainer's review cost**, in minutes and
-dollars, plus its **ratio to the machine calibrated cost** — the whole point,
-per the garden's own finding that *human review dominates machine cost ~50–190×
-at the median* (memory: *human review dominates machine cost*; optimize review
-rounds, not tokens). Formula in § The maintainer-review-effort heuristic.
+Raw numbers for postmortem analysis — estimating the marginal reduction in human
+cost per marginal token spend at a fixed quality bar — never an estimate of human
+cost. Rendered as a short list in the comment, carried in the archive frontmatter,
+and appended as one JSON row to `receipts/rollup.jsonl` (§ Journal archive layout):
+
+- **Token cost** — the calibrated (true-cost) dollars, with its basis stated; the
+  notional figure alongside; billable tokens and **tokens by model**.
+- **Wall-clock** — first claim of any job for the PR (earliest engagement start,
+  `ts − elapsed_s` over the joined `usage/<base>.jsonl` rows) to merge/close.
+- **Job duration** — Σ `elapsed_s` over those rows; with the job (base) and
+  engagement counts.
+- **Words of human feedback** — WORDS (whitespace-separated tokens, plain code;
+  no LLM reads a body) across review bodies, inline review comments and issue
+  comments by human authors, split **maintainer** (journal
+  `maintainers/allowlist`) vs **other**, and per author. The human-author filter
+  drops the fleet bot, `config/fork-owners` logins, `Copilot`, and `*[bot]`.
+- **Review counts** — human reviews, inline threads (root comments), comments;
+  verdict counts and the ordered `CHANGES_REQUESTED`/`APPROVED` sequence.
+- **Gauntlet counts** — panel runs and Σ panel rounds (`panel-runs/`), and fix
+  rounds (joined bases whose role is fixer/americanizer/deslopper).
+- **Quality-bar class** — an ordered class for the target repo from the tracked
+  seed `scripts/jobs/quality-bar-defaults.tsv` (`endojs/endo` 1 highest >
+  `endojs/endo-but-for-bots` 2 high > `kriscendobot/garden`,
+  `kriscendobot/minion.town` 3 low), outranked by a journal `config/quality-bar`
+  in the same format; any other repo is `unknown`.
+
+No quality score and no human-dollar figure is computed.
 
 ### Example shape
 
@@ -101,9 +124,13 @@ list price (~8.7× high on a flat subscription).
 | … | | | | | | |
 | **PR total** | | | | **207 300** | **6.42** | **1.07** |
 
-**Maintainer review (heuristic): ~27 min ≈ $68** — 2 review sittings, 1 comment
-(1 365 chars). That is **≈ 64×** the machine calibrated cost ($1.07).
-Machine context: 6 gauntlet panel rounds, 0 fix iterations.
+**Rollup (measurements, no human-cost estimate):**
+
+- Token cost: **$1.07 calibrated** (notional $6.42); 207300 billable tokens.
+- Wall-clock (first claim 2026-08-28T09:10:00Z → 2026-08-30T14:22:10Z): 53.2 h. Job duration Σ: 2.4 h over 2 job(s), 4 engagement(s).
+- Human feedback: **212 word(s)** (maintainer 212, other 0); 2 review(s), 0 inline thread(s), 1 comment(s).
+- Verdicts: 1 CHANGES_REQUESTED, 0 APPROVED (sequence `CHANGES_REQUESTED`).
+- Quality bar: `high` (rank 2). Gauntlet: 1 panel run(s), 6 panel round(s), 0 fix round(s).
 
 <sub>Receipt generated deterministically from the journal usage + reputation
 ledgers and the PR's human review threads. Archived at
@@ -138,70 +165,18 @@ same patch. A successor citation by itself is not productive learning: same-patc
 retries are `roll-forward`, while branch/mirror-only moves are
 `administrative-continuation`.
 
-## The maintainer-review-effort (MRE) heuristic
+## Human-effort estimation retired
 
-A defined, reproducible formula — not an ad-hoc guess. All inputs come from
-`gh api` over the PR, filtered to **human** feedback.
-
-**Human-author filter.** A review/comment counts as maintainer feedback when its
-author is **not** a bot: exclude the fleet bot login (`kriscendobot` and any
-`config/fork-owners` login), `Copilot`, `github-actions[bot]`, `dependabot[bot]`,
-and any login ending `[bot]`. Positively, `author_association ∈
-{OWNER, MEMBER, COLLABORATOR}` or a login on the journal `maintainers/allowlist`
-confirms a human maintainer. (No LLM: a fixed login/association test.)
-
-**Measured inputs** (three `gh api` endpoints — `pulls/N/reviews`,
-`pulls/N/comments`, `issues/N/comments`):
-
-- `S` = **review sittings** = count of distinct `(human author, calendar-day)`
-  pairs across all human reviews and comments. A robust proxy for "times a human
-  loaded this PR into their head." Floored at **1** for any PR the garden
-  completed (even a silent merge/close is one glance).
-- `C` = total count of human review bodies (non-empty) + human inline comments +
-  human issue comments.
-- `L` = total character length of those same human bodies.
-
-**Estimated maintainer minutes:**
-
-```
-M = S·a + C·b + L/r
-```
-
-with journal-tunable constants (seeded defaults, chosen to be directionally
-sane against real PRs — see § Validation):
-
-- `a = 8` min — fixed per-sitting cost of paging the PR into context.
-- `b = 1.5` min — cost of authoring one pointed comment.
-- `r = 750` chars/min — combined read-and-comprehend throughput over the PR
-  prose the human actually processed.
-
-**Dollars:** `MRE$ = (M/60)·H`, where `H` = maintainer hourly rate from journal
-config `receipts/config/maintainer-hourly-usd` (seed **$150/hr**), following
-`rate-card.md`'s journal-data-outranks-seed rule — retunable with no deploy.
-
-**Reported:** `M` (minutes), `MRE$`, and the headline **ratio `MRE$ /
-calibrated-machine-$`**, which is the maintainer-dominates figure the receipt
-exists to make concrete.
-
-The machine review rounds (panel `rounds`, gauntlet `iteration`/`resumes`) are
-shown as **context** ("6 panel rounds, 0 fix iterations") but are **not** folded
-into `M`: they are machine cost, already counted in the per-engagement calibrated
-total. Whether maintainer-triggered fix iterations should amplify `M` is an open
-question (§ Open questions).
-
-### Validation (directional sanity, 3 real PRs)
-
-Measured live 2026-09-05 with the defaults above (`H=$150`):
-
-| PR | human reviews (sitting-days) | comments (chars) | `M` | `MRE$` |
-| --- | --- | --- | --- | --- |
-| endo#1075 (closed) | 2 | 1 (1 365) | ~27 min | ~$68 |
-| endo#1109 (closed) | 0 | 3 (1 429) | ~22 min | ~$56 |
-| endo#1151 (design, no human feedback) | 0 | 0 | 8 min (floor `S=1`) | ~$20 |
-
-Each dwarfs the sub-$5 machine calibrated cost of those PRs by 10–100×,
-consistent with the 50–190× median finding — directionally sane, so the shape is
-committable with the constants flagged as tunable open questions.
+Receipts through 2026-11-05 carried a *maintainer-review-effort* (MRE) section:
+estimated minutes `M = S·a + C·b + L/r` priced at an hourly rate `H`, and a ratio
+to machine cost. It was retired at the maintainer's direction (kriskowal,
+2026-11-05): tokens already cost far less than human review, and the
+human-dollar heuristic was uncalibrated — its constants and rate were invented,
+not measured — so it asserted a precision it did not have. Receipts now record
+only measurements (§ The per-PR rollup). Older archived receipts keep their MRE
+section unchanged; their new rollup fields are backfilled into
+`receipts/rollup.jsonl` with `pr-receipt.sh --backfill-rollup`, which never
+rewrites an archive.
 
 ## The trigger: a completion watcher
 
@@ -221,7 +196,7 @@ enumerate the repo's OWN PRs that reached a terminal state (merged OR closed)
 
 A gardener then claims `<slug>-pr<N>-receipt` and runs the **receipt generator**
 (a `scripts/jobs/pr-receipt.sh`, plain code): build the rows from the ledgers,
-compute MRE, render the comment, post it via the identity-pinned `gh` wrapper,
+compute the rollup, render the comment, post it via the identity-pinned `gh` wrapper,
 and write the journal archive — all in one idempotent pass.
 
 **Why a claimed job, not all-in-watcher.** The join, the `gh api` review reads,
@@ -251,7 +226,7 @@ flowchart LR
   C -- yes --> A
   C -- no --> D[post &lt;slug&gt;-prN-receipt]
   D --> E[gardener claims]
-  E --> F[pr-receipt.sh: rows + MRE +<br/>post comment + archive journal]
+  E --> F[pr-receipt.sh: rows + rollup +<br/>post comment + archive journal]
 ```
 
 ## Journal archive layout
@@ -294,12 +269,21 @@ bases: [build-…, …-pr1075-gauntlet-…]
 tokens_billable: 207300
 notional_usd: 6.42
 calibrated_usd: 1.07
-maintainer_review_minutes: 27
-maintainer_review_usd: 68.00
-maintainer_dominance_ratio: 64
+job_duration_s: 8640
+human_words: 212
+quality_bar_class: high
+quality_bar_rank: 2
+rollup_schema: 1
 ---
 <full receipt markdown>
 ```
+
+Alongside each archive the generator appends one JSON object to
+**`receipts/rollup.jsonl`** (append-only, `schema: 1`) with the same rollup
+fields, for bulk analysis. A `--force` regeneration or a backfill appends a new
+row rather than editing an old one; readers take the latest row per
+`(repo, pr)`. `--backfill-rollup` appends only when no `schema: 1` row exists for
+the PR.
 
 ## Idempotency and retry
 
@@ -333,8 +317,8 @@ defaults; retuning is journal config, not code):
 1. **`scripts/jobs/pr-receipt.sh`** — deterministic generator. Extend/reuse the
    `cost-by-pr.sh` join to resolve the bases for one `<repo>#<N>` (both merged
    and closed states). Read `usage/<base>.jsonl` for per-engagement rows and
-   `reputation/events/<base>.md` for the calibrated per-base figure. Compute MRE
-   from the three `gh api` endpoints with the human-author filter. Render the
+   `reputation/events/<base>.md` for the calibrated per-base figure. Count human
+   feedback words from the three `gh api` endpoints with the human-author filter. Render the
    comment (with `panel.sh`-style size distillation over ~65 KB). Post via the
    identity-pinned `gh` wrapper. Write `receipts/<slug>/<YYYY>/<MM>/pr<N>.md`.
    Both idempotency markers.
@@ -345,9 +329,9 @@ defaults; retuning is journal config, not code):
 3. **Extend `cost-by-pr.sh`** roll-up to include closed-without-merge PRs (drop
    the merged-only filter for the per-PR join used by the generator; keep the
    `--merged-only` flag for the escrow-oracle view).
-4. **Seed config**: `receipts/config/maintainer-hourly-usd` (150) and the MRE
-   constants (`a=8, b=1.5, r=750`) as a tracked seed
-   (`scripts/jobs/receipt-defaults.*`) that journal config overrides.
+4. **Seed config**: the quality-bar table
+   (`scripts/jobs/quality-bar-defaults.tsv`), outranked by journal
+   `config/quality-bar`. (The MRE constants seeded here were retired 2026-11-05.)
 5. **Produce 10 example receipts** from real completed PRs — merged **and**
    closed both represented. Closed candidates already surfaced this session:
    `endojs/endo-but-for-bots#1075`, `#300`, `#1109`. Merged candidates: any of
@@ -359,18 +343,8 @@ defaults; retuning is journal config, not code):
 
 ## Open questions
 
-- What is the right **maintainer hourly rate** `H` for the dollar figure? The
-  seed is $150/hr; the garden's cost designs deliberately censor `human_dollars`.
-  Is a single flat rate acceptable, or should it vary by reviewer / repo?
-- Are the **MRE constants** (`a=8` min/sitting, `b=1.5` min/comment, `r=750`
-  chars/min) acceptable seeds? They are directionally validated (§ Validation)
-  but not empirically calibrated against timed maintainer sessions.
-- Should **maintainer-triggered fix-loop iterations** amplify the review-effort
-  estimate (each `CHANGES_REQUESTED` that forces a rework round arguably
-  multiplies the human's involvement), or stay context-only as proposed?
-- Is the **review "sitting" proxy** (`distinct (author, calendar-day)` pairs) the
-  right granularity, or should rapid same-day back-and-forth count as multiple
-  sittings?
+- The MRE questions (hourly rate, constants, sittings proxy, fix-loop
+  amplification) are moot: human-effort estimation was retired 2026-11-05.
 - Should the receipt distinguish **notional vs calibrated** prominence — e.g.
   lead with calibrated and footnote notional (proposed), or show both equally?
 - **Archive depth**: `<YYYY>/<MM>/pr<N>.md` is proposed; is a `<DD>` level wanted

@@ -5,6 +5,12 @@
 | Population | 59 archived completion receipts after historical backfill |
 | Question | Does local `hermit` / `qwen3.6` save machine cost but consume more maintainer review effort? |
 
+> **Note (2026-11-05):** the MRE human-minute/dollar figures quoted here come
+> from a heuristic that has since been retired as uncalibrated
+> ([pr-completion-receipts.md](pr-completion-receipts.md) § Human-effort
+> estimation retired). Read them as historical, not as measured human cost; new
+> receipts record words of human feedback and review counts instead.
+
 ## Result
 
 The completed historical corpus does **not** show higher total cost for the small

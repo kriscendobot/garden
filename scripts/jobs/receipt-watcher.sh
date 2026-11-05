@@ -3,7 +3,7 @@
 # PRs and, the moment one reaches a terminal state (MERGED or CLOSED) that the garden
 # actually worked, generate its completion receipt. pr-receipt.sh is deterministic,
 # plain-code, explicitly NO `claude -p`, so this watcher runs it DIRECTLY IN-PROCESS
-# (rows + MRE + post + archive) — mirroring how ci/comment/dependabot watchers call
+# (rows + rollup + post + archive) — mirroring how ci/comment/dependabot watchers call
 # their deterministic generators straight, rather than round-tripping through a
 # post-job.sh LLM-tier claim that just re-invokes the same no-judgment script. The
 # job-board post survives only as the STRUCTURAL-failure fallback: if the direct call

@@ -6,6 +6,12 @@ author: gardener
 
 # Bounded qwen3.6 mentor-tier trial
 
+> **Note (2026-11-05):** the MRE human-minute/dollar figures quoted here come
+> from a heuristic that has since been retired as uncalibrated
+> ([pr-completion-receipts.md](pr-completion-receipts.md) § Human-effort
+> estimation retired). Read them as historical, not as measured human cost; new
+> receipts record words of human feedback and review counts instead.
+
 ## Decision
 
 Admit local `qwen3.6` to at most **six distinct, curated mentor-shaped jobs** through

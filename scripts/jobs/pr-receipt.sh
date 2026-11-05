@@ -10,6 +10,9 @@
 #               demonstration receipts from historical PRs without commenting on them.
 #   --force     overwrite an existing journal archive (default: idempotent no-op if
 #               present). For regenerating receipts after a generator change.
+#   --backfill-rollup  append ONLY the rollup row (receipts/rollup.jsonl) for an
+#               already-archived receipt, once; never rewrites the archive markdown
+#               and never posts. Old archives keep their retired MRE section.
 #   --dir       reuse an already-synced journal clone (git-log runs against it — never
 #               the deployed root repo). Default: a private clone under $GARDEN_STATE.
 #
@@ -17,17 +20,20 @@
 #   1. A table of per-ENGAGEMENT rows (one per usage/<base>.jsonl result row): role,
 #      harness, model, billable tokens, notional $ — grouped by base with a ∑ subtotal
 #      row carrying the base's CALIBRATED (true-cost) dollars, then a PR grand total.
-#   2. One per-PR MAINTAINER-REVIEW-EFFORT figure (minutes + dollars + ratio to the
-#      machine calibrated cost) from the human feedback the PR drew (§ MRE below).
+#   2. A per-PR measurement ROLLUP: token cost, wall-clock (first claim -> close), Σ job
+#      duration, WORDS of human feedback (maintainer vs other), review/verdict counts,
+#      gauntlet/fix rounds, tokens by model, and the repo's quality-bar class. Raw
+#      numbers only: NO human-effort minutes or dollars (retired 2026-11-05).
 #   3. A PR comment (unless --no-post), via the fleet's identity-pinned `gh` wrapper.
-#   4. A journal archive at receipts/<repo-slug>/<YYYY>/<MM>/pr<N>.md (full receipt).
+#   4. A journal archive at receipts/<repo-slug>/<YYYY>/<MM>/pr<N>.md (full receipt),
+#      plus one JSON row in receipts/rollup.jsonl (append-only, `schema` versioned).
 #
 # COMPOSITION, NOT INVENTION. The base->PR join and the true-cost pricing are reused
 # from cost-by-pr.sh --base-map (which this extends rather than duplicates). The
-# per-engagement token/notional detail comes from usage/<base>.jsonl. The MRE inputs
-# come from three `gh api` review/comment endpoints, filtered to HUMAN authors by a
-# fixed login/association test (no LLM ever reads a comment body — only counts and
-# measures its length). Posting rides the same identity-pinned gh wrapper and the same
+# per-engagement token/notional detail comes from usage/<base>.jsonl. The feedback
+# counts come from three `gh api` review/comment endpoints, filtered to HUMAN authors
+# by a fixed login test (no LLM ever reads a comment body — plain code counts its
+# words). Posting rides the same identity-pinned gh wrapper and the same
 # maintainer-cleared comment-repos/ set the comment/CI watchers use; it widens the
 # monitoring surface by nothing.
 #
@@ -49,18 +55,20 @@ export GARDEN_TAG="pr-receipt"
 # (comment-provenance.sh § AUTOMATIC).
 export GARDEN_NO_LLM=1
 
-repo="" pr="" no_post=0 dir="" force=0
+repo="" pr="" no_post=0 dir="" force=0 backfill=0
+ROLLUP_REL="receipts/rollup.jsonl"
 closed_outcome="" outcome_evidence="" outcome_note="" successor=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --no-post) no_post=1; shift ;;
     --force)   force=1; shift ;;
+    --backfill-rollup) backfill=1; no_post=1; shift ;;
     --dir)     dir="${2:?}"; shift 2 ;;
     --closed-outcome) closed_outcome="${2:?}"; shift 2 ;;
     --outcome-evidence) outcome_evidence="${2:?}"; shift 2 ;;
     --outcome-note) outcome_note="${2:?}"; shift 2 ;;
     --successor) successor="${2:?}"; shift 2 ;;
-    -h|--help) sed -n '2,45p' "${BASH_SOURCE[0]}"; exit 0 ;;
+    -h|--help) sed -n '2,52p' "${BASH_SOURCE[0]}"; exit 0 ;;
     -*)        die "unknown argument: $1" ;;
     *) if [ -z "$repo" ]; then repo="$1"; elif [ -z "$pr" ]; then pr="$1"; else die "extra argument: $1"; fi; shift ;;
   esac
@@ -186,75 +194,159 @@ while IFS=$'\t' read -r base _pr _state ceil calib; do
   fi
 done < "$TMP/bases.tsv"
 
-# --- 4. maintainer-review-effort (MRE) heuristic ------------------------------
-# Human-author filter: drop the fleet bot, its fork-owner logins, Copilot, and any
-# login ending [bot]. Everything else is treated as human maintainer feedback.
+# --- 4. human-feedback MEASUREMENT (no effort estimate) ----------------------
+# Human-effort ESTIMATION (minutes/dollars/ratio) was retired 2026-11-05: the receipt
+# records raw counts only. Human-author filter: drop the fleet bot, its fork-owner
+# logins, Copilot, and any login ending [bot]. Maintainers are the journal
+# maintainers/allowlist; every other human is "other". Plain code counts WORDS of each
+# body (awk NF) — no LLM ever reads a comment body.
 : > "$TMP/botlogins"
 { echo "${GARDEN_BOT_LOGIN:-kriscendobot}"; echo Copilot
   [ -d "$dir/config" ] && [ -f "$dir/config/fork-owners" ] && cat "$dir/config/fork-owners" 2>/dev/null
-} | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]' | sed '/^$/d' | sort -u > "$TMP/botlogins" || true
+} | tr '[:upper:]' '[:lower:]' | tr -d '[:blank:]\r' | sed '/^$/d' | sort -u > "$TMP/botlogins" || true
+{ [ -f "$dir/maintainers/allowlist" ] && sed 's/#.*//' "$dir/maintainers/allowlist"; } 2>/dev/null \
+  | tr '[:upper:]' '[:lower:]' | tr -d '[:blank:]\r' | sed '/^$/d' | sort -u > "$TMP/maintainers" || true
 is_bot_login() {  # is_bot_login <login>
   local l; l="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
   case "$l" in *'[bot]') return 0 ;; esac
   grep -qxF "$l" "$TMP/botlogins" 2>/dev/null && return 0
   return 1
 }
-# Gather all three human-feedback streams into one TSV: login ts bodylen counts_comment
-# reviews (submitted_at, body may be empty — still a sitting), pull inline comments and
-# issue comments (created_at, always a comment). Paginated authoritative reads.
-gh_stream() {  # gh_stream <api-path> <ts-field> <count-as-comment 0|1>
-  gh api --paginate "$1" 2>/dev/null \
-    | jq -r --arg tf "$2" --argjson cc "$3" '
+# One TSV row per feedback item: stream login ts state is_thread_root words.
+# stream = review | inline | issue. Bodies are reduced to a word count inside jq/awk
+# and never leave this process.
+gh_stream() {  # gh_stream <stream> <api-path> <ts-field>
+  gh api --paginate "$2" 2>/dev/null \
+    | jq -r --arg s "$1" --arg tf "$3" '
         ( if type=="array" then .[] else . end )
         | select(.user and .user.login)
-        | [ .user.login, (.[$tf] // ""), ((.body // "") | length),
-            (if $cc==1 or ((.body // "")|length)>0 then 1 else 0 end) ] | @tsv' 2>/dev/null || true
+        | [ $s, .user.login, (.[$tf] // "-"), (.state // "-"),
+            (if .in_reply_to_id == null then 1 else 0 end),
+            ((.body // "") | [scan("[^[:space:]]+")] | length) ] | @tsv' 2>/dev/null || true
 }
 {
-  gh_stream "repos/$repo/pulls/$pr/reviews"   submitted_at 0
-  gh_stream "repos/$repo/pulls/$pr/comments"  created_at   1
-  gh_stream "repos/$repo/issues/$pr/comments" created_at   1
+  gh_stream review "repos/$repo/pulls/$pr/reviews"   submitted_at
+  gh_stream inline "repos/$repo/pulls/$pr/comments"  created_at
+  gh_stream issue  "repos/$repo/issues/$pr/comments" created_at
 } > "$TMP/feedback.tsv"
 
-S_pairs="$TMP/sittings"; : > "$S_pairs"
-C=0; L=0
-while IFS=$'\t' read -r login ts blen iscomment; do
+words_maint=0; words_other=0; human_reviews=0; human_threads=0; human_comments=0
+n_changes=0; n_approved=0; n_commented=0
+: > "$TMP/authors.tsv"; : > "$TMP/verdicts.tsv"
+while IFS=$'\t' read -r stream login ts rstate root words; do
   [ -n "$login" ] || continue
   is_bot_login "$login" && continue
-  day="${ts:0:10}"
-  [ -n "$day" ] && printf '%s\t%s\n' "$(printf '%s' "$login" | tr '[:upper:]' '[:lower:]')" "$day" >> "$S_pairs"
-  if [ "${iscomment:-0}" = "1" ] && [ "${blen:-0}" -gt 0 ]; then
-    C=$((C+1)); L=$((L + blen))
-  fi
+  lc="$(printf '%s' "$login" | tr '[:upper:]' '[:lower:]')"
+  cls=other; grep -qxF "$lc" "$TMP/maintainers" 2>/dev/null && cls=maintainer
+  words="${words:-0}"; case "$words" in *[!0-9]*) words=0 ;; esac
+  if [ "$cls" = maintainer ]; then words_maint=$((words_maint+words)); else words_other=$((words_other+words)); fi
+  printf '%s\t%s\t%s\n' "$lc" "$cls" "$words" >> "$TMP/authors.tsv"
+  case "$stream" in
+    review)
+      human_reviews=$((human_reviews+1))
+      printf '%s\t%s\n' "$ts" "$rstate" >> "$TMP/verdicts.tsv"
+      case "$rstate" in
+        CHANGES_REQUESTED) n_changes=$((n_changes+1)) ;;
+        APPROVED) n_approved=$((n_approved+1)) ;;
+        COMMENTED) n_commented=$((n_commented+1)) ;;
+      esac ;;
+    inline) [ "$root" = 1 ] && human_threads=$((human_threads+1)); human_comments=$((human_comments+1)) ;;
+    issue)  human_comments=$((human_comments+1)) ;;
+  esac
 done < "$TMP/feedback.tsv"
-S="$(sort -u "$S_pairs" 2>/dev/null | grep -c . || true)"; S="${S:-0}"
-[ "$S" -lt 1 ] && S=1                     # floor: even a silent merge/close is one glance
+words_human=$((words_maint + words_other))
+verdict_seq="$(sort "$TMP/verdicts.tsv" | awk -F'\t' '$2=="CHANGES_REQUESTED"||$2=="APPROVED"{printf "%s%s", (n++?">":""), $2}')"
+verdict_seq="${verdict_seq:--}"
+# per-author words: login<TAB>class<TAB>words, summed
+awk -F'\t' '{w[$1]+=$3; c[$1]=$2} END{for (l in w) printf "%s\t%s\t%d\n", l, c[l], w[l]}' \
+  "$TMP/authors.tsv" | sort > "$TMP/byauthor.tsv"
 
-a="$(receipt_config "$dir" mre-a-min-per-sitting "$GARDEN_RECEIPT_MRE_A")"
-b="$(receipt_config "$dir" mre-b-min-per-comment "$GARDEN_RECEIPT_MRE_B")"
-r="$(receipt_config "$dir" mre-r-chars-per-min "$GARDEN_RECEIPT_MRE_R")"
-H="$(receipt_config "$dir" maintainer-hourly-usd "$GARDEN_RECEIPT_HOURLY_USD")"
-mre_min="$(awk -v s="$S" -v c="$C" -v l="$L" -v a="$a" -v b="$b" -v r="$r" \
-  'BEGIN{ if (r<=0) r=750; printf "%.0f", s*a + c*b + l/r }')"
-mre_usd="$(awk -v m="$mre_min" -v h="$H" 'BEGIN{ printf "%.2f", (m/60.0)*h }')"
-ratio="$(awk -v mu="$mre_usd" -v cc="$pr_calib" 'BEGIN{ if ((cc+0)>0) printf "%.0f", mu/cc; else printf "n/a" }')"
-total_usd="$(awk -v m="$mre_usd" -v c="$pr_calib" 'BEGIN{ printf "%.2f", m+c }')"
+# --- 4b. time + job measurements ----------------------------------------------
+# Job duration = Σ elapsed_s over every result row of every joined base. Wall-clock =
+# earliest engagement start (ts − elapsed_s, the first claim of any job for this PR)
+# to merge/close. Both are measurements, not estimates.
+job_s=0; first_start=""
+while IFS=$'\t' read -r base _r; do
+  [ -f "$dir/usage/$base.jsonl" ] || continue
+  jq -r 'select(.source=="result") | [ (.ts // ""), (.elapsed_s // 0) ] | @tsv' \
+    "$dir/usage/$base.jsonl" 2>/dev/null
+done < "$TMP/bases.tsv" > "$TMP/runs.tsv" || true
+while IFS=$'\t' read -r ts el; do
+  el="${el%%.*}"; case "$el" in ''|*[!0-9]*) el=0 ;; esac
+  job_s=$((job_s + el))
+  e="$(date -u -d "$ts" +%s 2>/dev/null)" || continue
+  st=$((e - el)); if [ -z "$first_start" ] || [ "$st" -lt "$first_start" ]; then first_start="$st"; fi
+done < "$TMP/runs.tsv"
+first_claim_at="-"; wall_s="-"
+if [ -n "$first_start" ]; then
+  first_claim_at="$(date -u -d "@$first_start" +%FT%TZ)"
+  ce="$(date -u -d "$completed_at" +%s 2>/dev/null || echo "")"
+  [ -n "$ce" ] && wall_s=$((ce - first_start))
+fi
+dur() { case "$1" in ''|-|*[!0-9-]*) printf '—' ;; *) awk -v s="$1" 'BEGIN{ printf "%.1f h", s/3600 }' ;; esac; }
 
-# machine review context (panel rounds for this PR), best-effort. Never clobbers the
-# MRE `r` constant — uses its own locals. fix_iters is left 0 (no per-PR fix-loop
-# counter is reliably keyed by <slug>-<pr> in the journal today; context-only field).
-panel_rounds=0; fix_iters=0
+# fix rounds = joined bases whose role is fixer (or a fixer variant)
+fix_rounds="$(awk -F'\t' '$2 ~ /^(fixer|americanizer|deslopper)$/{print $1}' "$TMP/eng.tsv" | sort -u | grep -c . || true)"
+fix_rounds="${fix_rounds:-0}"
+# tokens by model (tier names are not on the ledger rows; the model is the tier proxy)
+tok_by_model_json="$(awk -F'\t' '{t[$4]+=$5} END{for (m in t) printf "%s\t%d\n", m, t[m]}' "$TMP/eng.tsv" \
+  | jq -Rn '[inputs | split("\t") | {key: .[0], value: (.[1]|tonumber)}] | from_entries')"
+
+# quality bar: ordered class table (rank 1 = highest bar). Journal config/quality-bar
+# outranks the tracked seed scripts/jobs/quality-bar-defaults.tsv; unlisted => unknown.
+qb_rank="-"; qb_class="unknown"
+for qbf in "$dir/config/quality-bar" "$HERE/quality-bar-defaults.tsv"; do
+  [ -f "$qbf" ] || continue
+  qbl="$(awk -F'\t' -v r="$(printf '%s' "$repo" | tr '[:upper:]' '[:lower:]')" \
+    '!/^#/ && tolower($1)==r {print $2"\t"$3; exit}' "$qbf")"
+  if [ -n "$qbl" ]; then qb_rank="${qbl%%$'\t'*}"; qb_class="${qbl#*$'\t'}"; break; fi
+done
+
+# gauntlet context: panel runs + max rounds recorded for this PR, best-effort.
+panel_rounds=0; panel_runs=0
 for prd in "$dir/panel-runs/$slug-$pr" "$dir/panel-runs/$slug-pr$pr"; do
   [ -d "$prd" ] || continue
   for pmd in "$prd"/*.md; do
     [ -f "$pmd" ] || continue
+    panel_runs=$((panel_runs+1))
     prr="$(sed -n 's/^rounds:[[:space:]]*//p' "$pmd" | head -1)"
-    case "$prr" in ''|*[!0-9]*) : ;; *) [ "$prr" -gt "$panel_rounds" ] && panel_rounds="$prr" ;; esac
+    case "$prr" in ''|*[!0-9]*) : ;; *) panel_rounds=$((panel_rounds + prr)) ;; esac
   done
 done
 
-# --- 5. render the receipt ----------------------------------------------------
 usd() { awk -v x="${1:-0}" 'BEGIN{ printf "%.2f", x+0 }'; }
+# --- 4c. the machine-readable rollup row (receipts/rollup.jsonl) --------------
+rollup_json="$(jq -cn \
+  --arg repo "$repo" --argjson pr "$pr" --arg disposition "$disposition" \
+  --arg completed_at "$completed_at" --arg first_claim_at "$first_claim_at" \
+  --arg wall_s "$wall_s" --argjson job_s "$job_s" \
+  --argjson jobs "$n_bases" --argjson engagements "$n_eng" \
+  --argjson tokens "$pr_tok" --arg calib "$(usd "$pr_calib")" --arg notional "$(usd "$pr_notional")" --arg ceil "$(usd "$pr_ceil")" \
+  --argjson tok_by_model "$tok_by_model_json" \
+  --argjson wm "$words_maint" --argjson wo "$words_other" \
+  --rawfile byauthor "$TMP/byauthor.tsv" \
+  --argjson reviews "$human_reviews" --argjson threads "$human_threads" --argjson comments "$human_comments" \
+  --argjson cr "$n_changes" --argjson ap "$n_approved" --argjson co "$n_commented" --arg seq "$verdict_seq" \
+  --arg qb_class "$qb_class" --arg qb_rank "$qb_rank" \
+  --argjson panel_runs "$panel_runs" --argjson panel_rounds "$panel_rounds" --argjson fix_rounds "$fix_rounds" \
+  --arg generated_at "$(date -u +%FT%TZ)" --arg generated_by "${GARDEN:-unknown}" '
+  def num: if . == "-" or . == "" then null else tonumber end;
+  { schema: 1, repo: $repo, pr: $pr, disposition: $disposition,
+    completed_at: $completed_at, first_claim_at: (if $first_claim_at=="-" then null else $first_claim_at end),
+    wall_clock_s: ($wall_s|num), job_duration_s: $job_s, jobs: $jobs, engagements: $engagements,
+    tokens_billable: $tokens, tokens_by_model: $tok_by_model,
+    calibrated_usd: ($calib|tonumber), notional_usd: ($notional|tonumber), ceiling_usd: ($ceil|tonumber),
+    human_words: ($wm + $wo), human_words_maintainer: $wm, human_words_other: $wo,
+    human_words_by_author: ([ $byauthor | split("\n")[] | select(length>0) | split("\t")
+                              | {key: .[0], value: {class: .[1], words: (.[2]|tonumber)}} ] | from_entries),
+    human_reviews: $reviews, human_inline_threads: $threads, human_comments: $comments,
+    verdicts: {changes_requested: $cr, approved: $ap, commented: $co}, verdict_sequence: $seq,
+    quality_bar_class: $qb_class, quality_bar_rank: ($qb_rank|num),
+    panel_runs: $panel_runs, panel_rounds: $panel_rounds, fix_rounds: $fix_rounds,
+    generated_at: $generated_at, generated_by: $generated_by }')" \
+  || die "could not build rollup row"
+
+# --- 5. render the receipt ----------------------------------------------------
 dispo_note="merged"; [ "$disposition" = "closed" ] && dispo_note="closed, not merged"
 
 render_table() {  # render_table <mode: full|distilled>
@@ -287,15 +379,15 @@ render_body() {  # render_body <mode>
   printf 'subscription).\n\n'
   render_table "$mode"
   printf '\n'
-  printf '**Maintainer review (heuristic): ~%s min ≈ $%s** — %s review sitting(s), ' "$mre_min" "$mre_usd" "$S"
-  printf '%s human comment(s) (%s chars). ' "$C" "$L"
-  if [ "$ratio" = "n/a" ]; then
-    printf 'Machine calibrated cost is uncensored $0 for this PR, so no ratio is shown.\n'
-  else
-    printf 'That is **≈ %s×** the machine calibrated cost ($%s).\n' "$ratio" "$(usd "$pr_calib")"
-  fi
-  printf '**Total measured cost: $%s** (machine calibrated $%s + MRE $%s).\n' \
-    "$total_usd" "$(usd "$pr_calib")" "$mre_usd"
+  printf '**Rollup (measurements, no human-cost estimate):**\n\n'
+  printf -- '- Token cost: **$%s calibrated** (notional $%s); %s billable tokens.\n' "$(usd "$pr_calib")" "$(usd "$pr_notional")" "$pr_tok"
+  printf -- '- Wall-clock (first claim %s → %s): %s. Job duration Σ: %s over %s job(s), %s engagement(s).\n' \
+    "$first_claim_at" "$completed_at" "$(dur "$wall_s")" "$(dur "$job_s")" "$n_bases" "$n_eng"
+  printf -- '- Human feedback: **%s word(s)** (maintainer %s, other %s); %s review(s), %s inline thread(s), %s comment(s).\n' \
+    "$words_human" "$words_maint" "$words_other" "$human_reviews" "$human_threads" "$human_comments"
+  printf -- '- Verdicts: %s CHANGES_REQUESTED, %s APPROVED (sequence `%s`).\n' "$n_changes" "$n_approved" "$verdict_seq"
+  printf -- '- Quality bar: `%s` (rank %s). Gauntlet: %s panel run(s), %s panel round(s), %s fix round(s).\n' \
+    "$qb_class" "$qb_rank" "$panel_runs" "$panel_rounds" "$fix_rounds"
   if [ "$disposition" = closed ]; then
     printf '\n**Closed-without-merge outcome: `%s`.**' "$closed_outcome"
     if [ "$closed_outcome" = unresolved ]; then
@@ -308,10 +400,10 @@ render_body() {  # render_body <mode>
   fi
   [ "$(awk -v c="$pr_ceil" 'BEGIN{print ((c+0)>0)?1:0}')" = 1 ] && \
     printf '\n<sub>Ceiling (unmeasured openai/unknown arms, a modelling bound not money): $%s.</sub>\n' "$(usd "$pr_ceil")"
-  printf '\nMachine review context: %s panel round(s), %s fix iteration(s).\n\n' "$panel_rounds" "$fix_iters"
+  printf '\n'
   printf '<sub>Receipt generated deterministically from the journal usage + reputation '
-  printf 'ledgers and the PR'"'"'s human review threads. MRE constants a=%s b=%s r=%s H=%s ' "$a" "$b" "$r" "$H"
-  printf '(journal-tunable). Archived at `%s`.</sub>\n' "$archive_rel"
+  printf 'ledgers and word counts of the PR'"'"'s human review threads. '
+  printf 'Archived at `%s`.</sub>\n' "$archive_rel"
   printf '%s\n' "$marker"
 }
 
@@ -347,14 +439,22 @@ write_archive() {
       printf 'tokens_billable: %s\n' "$pr_tok"
       printf 'notional_usd: %s\n' "$(usd "$pr_notional")"
       printf 'calibrated_usd: %s\n' "$(usd "$pr_calib")"
-      printf 'total_usd: %s\n' "$total_usd"
-      printf 'maintainer_review_sittings: %s\n' "$S"
-      printf 'maintainer_comments: %s\n' "$C"
-      printf 'maintainer_comment_chars: %s\n' "$L"
-      printf 'maintainer_review_minutes: %s\n' "$mre_min"
-      printf 'maintainer_review_usd: %s\n' "$mre_usd"
-      printf 'maintainer_dominance_ratio: %s\n' "$ratio"
+      printf 'first_claim_at: %s\n' "$first_claim_at"
+      printf 'wall_clock_s: %s\n' "$wall_s"
+      printf 'job_duration_s: %s\n' "$job_s"
+      printf 'human_words: %s\n' "$words_human"
+      printf 'human_words_maintainer: %s\n' "$words_maint"
+      printf 'human_words_other: %s\n' "$words_other"
+      printf 'human_reviews: %s\n' "$human_reviews"
+      printf 'human_inline_threads: %s\n' "$human_threads"
+      printf 'verdicts_changes_requested: %s\n' "$n_changes"
+      printf 'verdicts_approved: %s\n' "$n_approved"
+      printf 'quality_bar_class: %s\n' "$qb_class"
+      printf 'quality_bar_rank: %s\n' "$qb_rank"
+      printf 'panel_runs: %s\n' "$panel_runs"
       printf 'panel_rounds: %s\n' "$panel_rounds"
+      printf 'fix_rounds: %s\n' "$fix_rounds"
+      printf 'rollup_schema: 1\n'
       if [ "$disposition" = closed ]; then
         printf 'closed_outcome: %s\n' "$closed_outcome"
         [ -z "$successor" ] || printf 'successor: %s\n' "$successor"
@@ -365,7 +465,8 @@ write_archive() {
       printf -- '---\n\n'
       printf '%s\n' "$archive_body"
     } > "$dir/$archive_rel"
-    git -C "$dir" add "$archive_rel"
+    printf '%s\n' "$rollup_json" >> "$dir/$ROLLUP_REL"
+    git -C "$dir" add "$archive_rel" "$ROLLUP_REL"
     rc=0; commit_and_push "$dir" "receipt($slug#$pr): archive completion receipt" || rc=$?
     [ "$rc" -eq 0 ] && { log "archived $archive_rel"; return 0; }
     [ "$rc" -eq 2 ] && { log "archive $archive_rel already committed"; return 0; }
@@ -373,6 +474,31 @@ write_archive() {
   done
   die "could not write archive $archive_rel after retries"
 }
+# --backfill-rollup: an ALREADY-archived receipt (possibly carrying the retired MRE
+# section) keeps its markdown untouched; only its rollup row is appended, once.
+backfill_rollup() {
+  local attempt rc
+  ensure_clone "$dir"
+  for attempt in $(seq 1 50); do
+    sync_clone "$dir"
+    if [ -f "$dir/$ROLLUP_REL" ] && jq -e --arg r "$repo" --argjson p "$pr" \
+         'select(.schema==1 and .repo==$r and .pr==$p)' "$dir/$ROLLUP_REL" >/dev/null 2>&1; then
+      log "rollup row for $repo#$pr already present — leaving it"; return 0
+    fi
+    mkdir -p "$(dirname "$dir/$ROLLUP_REL")"
+    printf '%s\n' "$rollup_json" >> "$dir/$ROLLUP_REL"
+    git -C "$dir" add "$ROLLUP_REL"
+    rc=0; commit_and_push "$dir" "receipt($slug#$pr): backfill rollup row" || rc=$?
+    [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ] && return 0
+    log "rollup push lost a race (attempt $attempt); re-syncing"; backoff "$attempt"
+  done
+  die "could not append rollup row for $repo#$pr after retries"
+}
+if [ "$backfill" -eq 1 ]; then
+  backfill_rollup
+  printf '%s\n' "$dir/$ROLLUP_REL"
+  exit 0
+fi
 write_archive
 
 # --- 7. post the PR comment (unless --no-post) -------------------------------
