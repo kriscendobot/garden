@@ -41,3 +41,13 @@ PR #1435 panel round 2: design rows are now ID'd. This child ports R04 (Math.rou
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T17:33:12Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T17:33:46Z
