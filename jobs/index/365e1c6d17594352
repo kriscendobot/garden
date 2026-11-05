@@ -1,2 +1,2 @@
-base: improve-bounded-issue-status-tick
+base: improve-issue-status-source-budget
 identity: mentor:scripts/jobs/issue-status-pass.sh
