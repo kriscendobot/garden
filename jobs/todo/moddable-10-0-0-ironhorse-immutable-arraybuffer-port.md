@@ -1,11 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
-roadmap: ironhorse-engine
 role: builder
-posted_by: designer
+tier: mentor
 posted_at: 2026-10-10T03:30:10Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:09:04Z cleared=none -->
 
 ---
 tier: mentor
