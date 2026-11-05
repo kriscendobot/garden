@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T18:19:39Z_
+_As of 2026-11-05T18:25:02Z_
 
 ## Latest
 
@@ -1396,11 +1394,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #3 (first seen 2026-11-05T15:26:39Z, latest 2026-11-05T15:40:48Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 3 times; this is
-> ONE entry that updates in place, not 3 messages. Latest detail:
+> COALESCED message — occurrence #4 (first seen 2026-11-05T15:26:39Z, latest 2026-11-05T18:21:26Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 4 times; this is
+> ONE entry that updates in place, not 4 messages. Latest detail:
 >
-> Milestone M3’s confined-agent critical path is blocked: Phase 2c cannot proceed until you merge the ready sandbox fixes #1542 and #1591, then authorize rerunning #1504’s halted panel. The remaining workspace-tool naming rule for #1593 also needs your decision.
+> M3’s next minion-town Git-remote increments are parked behind `go-ahead` after repeated transient failures. Decide whether to promote the Phase 6 provisioning build, SSH-transport design, or daemon server-half design; #1557 and #1595 also await review/triage.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1831,6 +1829,25 @@ Delegation: **active**
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 2 (target 2): subscription claude-oros spend=58783124 cap=180000000 pace-bias=0 window-start=2026-11-03T11:00Z(calendar) deadline=2026-11-10T11:00Z(calendar) ceiling=4 backoff=0.6409(ramp) target=2
+
+- `doomed-build-daemon-git-remotes-transport-timing-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-transport-timing-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-daemon-git-remotes-transport-timing; it stays HELD until a human promotes it
+> (promote-plan.sh build-daemon-git-remotes-transport-timing) or removes it, so nothing is lost.
+> Original job base: build-daemon-git-remotes-transport-timing
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T17:53:18Z
+> arc: minion-town-git-remote
+> role: builder
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Build the Phase 2 transport-timing slice from `daemon-git-remotes` in endojs/endo-but-for-bots on `llm`: add structured CapTP and transport timing to Git fetch/push results with contract tests.
 
 - `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
 
@@ -2868,8 +2885,8 @@ worst fetch p95 4.483918s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 
-### doin (1)
-- [`build-daemon-git-remotes-transport-timing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-transport-timing.md) — ---
+### doin (0)
+(none)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -2944,6 +2961,7 @@ worst fetch p95 4.483918s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1538-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`kriscendobot-minion-town-pr148-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
+- [`build-daemon-git-remotes-transport-timing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-transport-timing.md) — _normal_ · ---
 - [`mirror-endo-3372`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mirror-endo-3372.md) — _normal_ · Mirror endojs/endo#3372 onto endojs/endo-but-for-bots
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-immutable-arraybuffer.md) — _normal_ · IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
