@@ -55,6 +55,7 @@ Comment: https://github.com/kriscendobot/garden/issues/114#issuecomment-66597902
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T14:13:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
