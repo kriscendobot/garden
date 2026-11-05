@@ -20,3 +20,13 @@ If you genuinely finish but do not achieve the gated outcome below, end your rep
 Record [[Call]]/[[Construct]] presence on `ProxyData` at proxy creation (`property/proxy.rs`), persist it through `snapshot_rows.rs` `ProxyRow`, `persist.rs`, `restore.rs`, and use it in `function.rs` `slot_is_callable` / `slot_is_constructor` and `proxy_construct_refused`, instead of chasing the (revoked, nulled) target. Add the GetFunctionRealm revoked-proxy TypeError in `get_prototype_from_constructor`. Update `ironhorse-262/tests/xs_departures.rs` (revoked-arrow-proxy `new` row) and `new_on_non_constructors.rs` comment.
 
 Gated outcome: `Proxy/create-target-is-revoked-function-proxy.js`, `Proxy/revocable/target-is-revoked-function-proxy.js`, `Function/internals/Construct/base-ctor-revoked-proxy.js` pass in both modes against the current oracle; no new divergence; snapshot round-trip test for a revoked callable proxy. Size M.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T17:09:44Z
