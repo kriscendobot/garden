@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Weave endojs/endo-but-for-bots PR #1538 (`build/daemon-git-clone`) onto the current `llm` base, resolving conflicts so its halted Git-remote provisioning gauntlet can resume on a current base.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T18:37:06Z
