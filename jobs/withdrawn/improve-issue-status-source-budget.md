@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by the -r2 child under muster-*-r2-20261106 (clean re-post; the doomed original was rejected on orchestration adoption)
+withdrawn_by: liaison
+withdrawn_at: 2026-11-06T02:07:43Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: muster-improve-fixes-20261106
 priority: normal
