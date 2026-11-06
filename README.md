@@ -1,26 +1,34 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T04:16:20Z_
+_As of 2026-11-06T04:18:58Z_
 
 ## Latest
 
-Board churn dominated this cycle, with no completions. Several minion.town review and attention directives ([#247](https://github.com/kriscendobot/minion.town/pull/247), [#248](https://github.com/kriscendobot/minion.town/pull/248), twice) moved from claimed back into the plan queue. Two builder and designer jobs, `build-daemon-git-remotes-transport-timing-r2` and `improve-issue-status-source-trust-filter-r2`, were released from claimed back to todo. The `muster-daemon-git-remotes-r2-20261106` orchestration record also changed.
+No board transitions resolved since the last bulletin, so the change is in the maintainer inbox. It is mostly reaper and orchestration fallout.
 
-What to notice:
+**Doomed jobs.** The reaper parked a batch of jobs in `jobs/plan/` after their single backed-off retry exited non-productively on endolin-garden-ece02cb4. They stay held until someone promotes or removes them.
+- **Two orchestrations affected.** `muster-improve-fixes-r2-20261106` lost four children:
+  - `improve-issue-status-source-budget-r2`
+  - `improve-candidate-gate-empty-diagnostic-r2`
+  - `improve-decision-ledger-contention-spool-r2`
+  - `improve-suppress-routine-retry-progress`
 
-- **Reaper dooms.** The reaper's sole retry also failed on endolin-garden-ece02cb4 for a large batch of jobs, which are now parked and held for a go-ahead:
-  - the `improve-*` fixes (issue-status budget, decision-ledger spool, candidate-gate diagnostic, gauntlet notices to PR, muster auto-archive, routine-retry suppression);
-  - the three `design-daemon-git-remotes-*-r2` designs (ssh-transport, extended-transports, server-half);
-  - the Phase 8 fetch-plugin build;
-  - several oros health watches.
+  `muster-daemon-git-remotes-r2-20261106` lost the three Phase 7 design children for daemon git remotes (`design-daemon-git-remotes-extended-transports-r2`, `-ssh-transport-r2`, `-server-half-r2`). Both orchestrations are set to continue.
+- **Other doomed jobs.** `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, `improve-gauntlet-notices-to-pr-20261106`, `improve-muster-autoarchive-watchdog-20261106`, the recurring `oros-health-watch` runs, and the 2026-11-06 Claude-on-minion.town completion press are also parked.
+- **Pattern to check.** Several of these are mentor-tier builder or designer jobs. A common cause on endolin-garden-ece02cb4 may be worth checking before anyone promotes them.
 
-  Both muster orchestrations (`muster-improve-fixes-r2` and `muster-daemon-git-remotes-r2`) logged child failures but continue past them.
-- **Halted orchestration.** `orchestrate-build-minion-town-ordered-gutter-20261104` halted after its first increment completed with its gated outcome unsatisfied. Four increments remain parked.
-- **Deploy gate.** The candidate gate rejected main2 `024425a0ee04` on `signal-kill-classifier-test.sh`, with an empty diagnostic. The empty-diagnostic fix is itself among the doomed jobs.
-- **Oros canary stuck.** oros-studio-garden-ce242c49 has been stuck for about 15 hours at `2c082b9a` and has not advanced to `dd3e6bc6edfd`. The coalesced notice is now at occurrence 529. The oros disk-fill warning and journal-worktree fast-forward failure are still unread.
-- **Needs a decision.** The proxy tentatively answered a gating question on the minion.town API-key agent panel fixes. It advised keeping the change out of that PR and posting a design-first job on whether `directoryFor(ownerKey)` should stay on the broad facet. The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge, plus your veto check.
+**Ordered-gutter orchestration.** `orchestrate-build-minion-town-ordered-gutter-20261104` halted at 0 of 5 children. Increment 1 completed but declared its gated outcome unsatisfied, and the remaining four are parked.
+
+**Completed.** Both `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106` are marked complete in `jobs/tada/`. The gauntlets for [minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) halted.
+
+**Deploy and oros.** The deploy candidate gate rejected `024425a0ee0` because `signal-kill-classifier-test.sh` failed with an empty diagnostic. That is the defect the parked candidate-gate job targets. The oros canary has been stuck for about 15 hours on an older deployed SHA and never reached `dd3e6bc`. The leader will not advance past it, so oros needs someone at the machine to inspect `garden-self-deploy`. Oros health jobs are also queuing unclaimed.
+
+**Decisions waiting.**
+- **minion.town settings simplification report.** Run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- **Production guest.** The tower docs probe left an anonymous guest on production.
+- **Agent-workbench broad facet.** The proxy's tentative answer defers it to a small design-first job on minion.town.
+
+Delegated screening of minion.town [#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246), and [#237](https://github.com/kriscendobot/minion.town/pull/237) is complete.
 
 ## Maintainer review docket
 
@@ -772,10 +780,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.4M | $633.19 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 167.5M | $633.82 _(notional, rate-card)_ | 62% of 271.0M (ok) |
 | Codex | 356.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155148212 tokens/day lower bound._
+_Fleet token-unlock pace: 155184113 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 13 open notice(s); checker healthy
