@@ -1,25 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T04:50:12Z_
+_As of 2026-11-06T04:55:58Z_
 
 ## Latest
 
-Two parked jobs were promoted to active work: [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) and [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-cooldown-log-spam-r2.md). Both orchestrations (`muster-daemon-git-remotes-r2-20261106`, `muster-improve-fixes-r2-20261106`) advanced. No jobs were posted or completed in this window.
+Two orchestrations completed (`muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`), but their `-r2` reruns are mostly stalled. Nearly every `-r2` child job (candidate-gate empty diagnostic, decision-ledger spool, issue-status source budget and trust filter, plus the git-remotes transport-timing, SSH-transport, server-half and extended-transports designs) exhausted its single retry on `endolin-garden-ece02cb4`. Each is now parked in `jobs/plan/`, held until someone promotes it or splits it into smaller jobs. Several other held jobs share the pattern: the gauntlet-notices-to-PR change, the muster auto-archive watchdog, the routine-retry progress suppression and the daemon agent-tools Phase 8 `@endo/fetch` plugin build. The serial `-r2` orchestrations are set to continue past failures.
 
-**Still failing.** Many of the r2 children from those two orchestrations were doomed and parked in `jobs/plan/` after their single retry exited non-productively on the leader. These include the SSH, extended-transports and server-half designs, the transport-timing build, and the issue-status budget and trust-filter fixes. The decision-ledger spool and candidate-gate diagnostic fixes failed the same way. Both orchestrations are set to `continue`, so they keep going. Those parked jobs need a human to promote or split them.
+Still moving:
+- A new Endo design, `design-endo-naturally-sort-ordered-directory-20261106`, was claimed.
+- Review and attention directives on [minion.town#247](https://github.com/kriscendobot/minion.town/pull/247) and [minion.town#248](https://github.com/kriscendobot/minion.town/pull/248) are in progress.
+- The Phase 6 interactive-provisioning build and the screening cooldown log-spam fix went back to todo.
 
-**Oros is still stuck.** `oros-studio-garden-ce242c49` has been a stuck rolling-deploy canary for about 986 minutes (549 coalesced notices). It still reports `2c082b9acbc8`, not `dd3e6bc6edfd`. Oros health-checkup jobs are piling up in `todo`, and several oros health-watch jobs were also doomed and parked. Someone needs to inspect `garden-self-deploy` on oros.
+Needing a decision or hands:
+- The `build-minion-town-ordered-gutter-inc1` orchestration halted because its first increment declared its gated outcome unsatisfied. Increments 2–5 are parked.
+- The oros canary (`oros-studio-garden-ce242c49`) is still stuck. It was released to `dd3e6bc6edfd` about 16 hours ago but still reports `2c082b9`, and the stuck-canary watchdog notice is at 549 occurrences. Check `garden-self-deploy` there, and note that its `oros-health-watch` and health-checkup jobs are piling up.
+- The deploy candidate gate rejected `024425a0ee04` at 11:51Z on `signal-kill-classifier-test.sh`.
+- The Ironhorse test262 ratchet has halted on a wrong base ([tracker](https://github.com/kriscendobot/garden/issues/51)).
+- The oros disk was projected to fill around 2026-11-03.
 
-**Deploy gate.** The earlier candidate gate rejected `024425a0ee04` on `signal-kill-classifier-test.sh`, with an empty diagnostic. The fix for the empty diagnostic is itself one of the parked jobs.
-
-**Minion.town ordered-gutter.** The orchestration `orchestrate-build-minion-town-ordered-gutter-20261104` halted at 0 of 5 children, because inc1 completed with its gated outcome unsatisfied.
-
-**Needs your decision.**
-- The minion.town settings simplification report needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
-- The tower docs report has an orphaned production guest to remove or leave.
-- The proxy's tentative answer on the broad `directoryFor` facet is awaiting your review.
+The minion.town items that need your call are the unremoved production guest, the `deploy-accounts-store.sh` step before the settings-simplify merge, and a tentative proxy answer on `directoryFor`.
 
 ## Maintainer review docket
 
@@ -861,7 +860,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 169.3M | $641.44 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 169.5M | $642.54 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 356.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155241387 tokens/day lower bound._
@@ -870,27 +869,27 @@ _Fleet token-unlock pace: 155241387 tokens/day lower bound._
 worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (14)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
+- [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-230510.md) — ---
+- [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-screening-cooldown-log-spam-r2.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-165012.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`design-endo-naturally-sort-ordered-directory-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endo-naturally-sort-ordered-directory-20261106.md) — ---
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261106-020511.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`kriscendobot-minion.town-pr248-review-edbd57fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-review-edbd57fa.md) — Review directive on kriscendobot/minion.town PR #248
-- [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (2)
-- [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — ---
-- [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-cooldown-log-spam-r2.md) — ---
+### doin (4)
+- [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
+- [`design-endo-naturally-sort-ordered-directory-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-naturally-sort-ordered-directory-20261106.md) — ---
+- [`kriscendobot-minion.town-pr248-review-edbd57fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-review-edbd57fa.md) — Review directive on kriscendobot/minion.town PR #248
+- [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
 
 ### tada (16837)
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
