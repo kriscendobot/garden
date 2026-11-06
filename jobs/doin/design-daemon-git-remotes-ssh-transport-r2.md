@@ -20,6 +20,7 @@ Design the Phase 7 SSH transport and credential-capability slice for `endojs/end
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T02:53:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
