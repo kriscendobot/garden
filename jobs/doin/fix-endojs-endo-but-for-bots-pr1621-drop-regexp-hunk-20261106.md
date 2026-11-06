@@ -13,6 +13,7 @@ Repo: endojs/endo-but-for-bots. Maintainer decision (kriskowal, liaison muster 2
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T02:53:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
