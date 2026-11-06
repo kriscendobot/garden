@@ -1,4 +1,5 @@
 ---
+child-design-daemon-git-remotes-extended-transports-failure-notified: true
 child-design-daemon-git-remotes-server-half-failure-notified: true
 child-design-daemon-git-remotes-ssh-transport-failure-notified: true
 order: serial
