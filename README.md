@@ -1,40 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T05:08:56Z_
+_As of 2026-11-06T05:14:56Z_
 
 ## Latest
 
-Nothing finished on the board this cycle. No file-level transitions resolved, and only two jobs are in progress: [Phase 6 interactive provisioning](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) and a screening cooldown log-spam fix. The two muster orchestrations, `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`, did complete.
+Two builder jobs went back to the plan queue after being claimed: `build-daemon-git-remotes-phase-six-interactive-provisioning-r2` and `improve-screening-cooldown-log-spam-r2`. Both were reaped as non-productive after a single retry on endolin-garden-ece02cb4. They are held until someone promotes them. They are part of a wider pattern. Many of the other `-r2` design and improve jobs in the daemon-git-remotes and improve-fixes orchestrations are in the same state, so those orchestrations keep logging child failures under their `continue` policy. Nothing was posted or completed in this window, and no job is claimed right now.
 
-**Many retried jobs were parked.**
-- After their one backed-off retry failed on endolin-garden-ece02cb4, the reaper parked these in `jobs/plan/` for a go-ahead:
-  - the git-remotes designs for the server half, the SSH transport, and the extended transports;
-  - the transport-timing build;
-  - the issue-status source budget and trust-filter fixes;
-  - the decision-ledger spool fix and the candidate-gate diagnostic fix;
-  - the muster auto-archive and gauntlet-notices-to-PR improvements;
-  - the daemon agent-tools Phase 8 fetch-plugin build;
-  - several oros health-watch runs;
-  - three minion.town review and attention jobs ([#247](https://github.com/kriscendobot/minion.town/pull/247), [#248](https://github.com/kriscendobot/minion.town/pull/248) twice).
-- The `muster-*-r2` orchestrations reported these as child failures and are continuing past them.
-- The `orchestrate-build-minion-town-ordered-gutter-20261104` run halted. Its first increment finished with its gated outcome unsatisfied, and the other four increments stay parked.
-- The deploy candidate gate rejected main2 at `024425a0ee0`: `signal-kill-classifier-test.sh` failed with rc=1. The root checkout is at `dd3e6bc6edf` (origin/main2).
-
-**Oros is stuck.**
-- The rolling-deploy canary on oros-studio-garden-ce242c49 has been stuck for about 16 hours, with 549 coalesced notices. It was released to `dd3e6bc6edf` but still reports `2c082b9acbc8`.
-- The attested resets did not move it. Someone needs to run `journalctl --user -u garden-self-deploy` on oros to find the hold, or lift the roll-drain.
-- Its health-checkup jobs keep queuing in todo.
-- Two older oros warnings are still open: a disk shrinking about 1.8G/h, and a journal worktree that cannot fast-forward.
-
-**Decisions waiting for the maintainer:**
-- The Ironhorse test262 ratchet is halted on a wrong base ([tracker issue 51](https://github.com/kriscendobot/garden/issues/51)).
-- The mt-beta-settings-simplify report asks for `deploy-accounts-store.sh` to be run before merging, plus a veto check on four choices.
-- The tower-report follow-up needs a decision on the stray production guest.
-- The proxy's tentative answer on `directoryFor(ownerKey)` is open for override.
-
-Four minion.town PRs ([#237](https://github.com/kriscendobot/minion.town/pull/237), [#246](https://github.com/kriscendobot/minion.town/pull/246), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#252](https://github.com/kriscendobot/minion.town/pull/252)) are screened, and their conduct jobs are parked awaiting go-ahead.
+Things to look at:
+- **oros canary:** oros-studio-garden-ce242c49 has been stuck for about 16 hours on an older deployed SHA. The leader released `dd3e6bc6edfd` to it, but it still reports `2c082b9acbc8`. That is notice #549, and the oros health-checkup jobs are piling up unclaimed in todo.
+- **Candidate gate:** the deploy candidate gate rejected `024425a0ee0` because `signal-kill-classifier-test.sh` failed. The follow-up fix for the empty diagnostic is also parked.
+- **Ordered-gutter orchestration:** it halted after `build-minion-town-ordered-gutter-inc1-20261104` declared its gated outcome unsatisfied. Four increments are parked behind it.
+- **minion.town PRs:** kriskowal asked for another gauntlet round on [minion.town#248](https://github.com/kriscendobot/minion.town/pull/248). The review-directive jobs for it and for [minion.town#247](https://github.com/kriscendobot/minion.town/pull/247) are doomed and held in plan, so that feedback is not being worked.
 
 ## Maintainer review docket
 
@@ -84,6 +60,34 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=160714998 cap=271000000 pace-bias=0.845126 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.9241(ramp) target=4
+
+- `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2; it stays HELD until a human promotes it
+> (promote-plan.sh build-daemon-git-remotes-phase-six-interactive-provisioning-r2) or removes it, so nothing is lost.
+> Original job base: build-daemon-git-remotes-phase-six-interactive-provisioning-r2
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> arc: minion-town-git-remote
+> posted_at: 2026-11-06T02:09:04Z
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-06T04:48:02Z cleared=none -->
+>
+> ---
+> role: builder
+> tier: mentor
+> token-budget: 250000
+> arc: minion-town-git-remote
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Build Phase 6 interactive Git-clone provisioning in endojs/endo-but-for-bots from `daemon-git-remotes`: compose mount creation, endpoint policy, and sealed credentials into `provideGitClone`, with contract tests.
 
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed.md)
 
@@ -933,6 +937,33 @@ Delegation: **active**
 
 > oros health (11:55Z): the shared garden disk on oros-studio is at 60G free (87%), losing about 1.8G/h since 05:15Z. If that rate holds, it fills in about 33 hours, around 2026-11-03 21:00Z. I can't find the cause from inside the container: what I could measure under the garden mount is small, and removing about 20G of files today did not raise free space. That points to the Mac side (for example snapshots or something outside the garden directory), but this is not confirmed. Please check it from the Mac, for example with `tmutil listlocalsnapshots /` and a size scan of the disk. Your 11-01 notice on this is still unread in the inbox.
 
+- `doomed-improve-screening-cooldown-log-spam-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-screening-cooldown-log-spam-r2-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/improve-screening-cooldown-log-spam-r2; it stays HELD until a human promotes it
+> (promote-plan.sh improve-screening-cooldown-log-spam-r2) or removes it, so nothing is lost.
+> Original job base: improve-screening-cooldown-log-spam-r2
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> posted_at: 2026-11-06T02:08:55Z
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-06T04:47:16Z cleared=none -->
+>
+> ---
+> tier: mentor
+> token-budget: 100000
+> role: builder
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> scripts/jobs/screen-delegated-prs.sh
+> `scripts/jobs/screen-delegated-prs.sh:65` logs a WARN on every post-threshold quota-deferred tick, producing warnings at 16:21–16:46 despite the shared cooldown already preventing requests. Make the warning edge-latched (with optional milestone reporting) while preserving the existing coalesced maintainer alert and recovery notice.
+
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-09T02:17:23Z, latest 2026-11-03T02:49:11Z).
@@ -1103,7 +1134,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.2M | $647.11 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 170.4M | $647.97 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 356.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155267946 tokens/day lower bound._
@@ -1126,9 +1157,8 @@ worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (2)
-- [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — ---
-- [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-cooldown-log-spam-r2.md) — ---
+### doin (0)
+(none)
 
 ### tada (16837)
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
@@ -1154,6 +1184,7 @@ worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
 - [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-6659790262.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
+- [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — _normal_ · ---
 - [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports-r2.md) — _normal_ · ---
 - [`fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
@@ -1163,6 +1194,7 @@ worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr237-4e2911d-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
+- [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-screening-cooldown-log-spam-r2.md) — _normal_ · ---
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-minion-town-ocap-site-crawler-leak-rotation.md) — _normal_ · Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 - [`kriscendobot-minion-town-pr183-open-findings-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr183-open-findings-fix-20261015.md) — _normal_ · Fix the structural findings left open on kriscendobot/minion.town#183
