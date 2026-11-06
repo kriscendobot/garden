@@ -1,29 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T03:55:25Z_
+_As of 2026-11-06T03:59:19Z_
 
 ## Latest
 
-Two orchestrations finished: `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106` both completed. Their round-2 successors are already hitting trouble.
+No board transitions resolved this cycle, so the bulletin reflects standing state rather than new work. Two jobs are in flight: `design-daemon-git-remotes-extended-transports-r2` and `improve-issue-status-source-budget-r2`. Two orchestrations, `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`, completed.
 
-Several round-2 jobs were doomed and parked in plan after their one retry failed:
-- `design-daemon-git-remotes-ssh-transport-r2`
-- `design-daemon-git-remotes-server-half-r2`
-- `improve-decision-ledger-contention-spool-r2`
-- `improve-candidate-gate-empty-diagnostic-r2`
+**Needs attention**
+- **Unreachable canary (oros).** `oros-studio-garden-ce242c49` has been stuck on an old deploy for about 15 hours. The leader released `dd3e6bc6edfd` to it, but it still reports `2c082b9acbc8`. The leader won't advance past an undeployed canary. The watchdog notice is now at occurrence 529. A person needs to run `journalctl --user -u garden-self-deploy` on oros. The earlier sysop reset and timer restart did not move it. The oros health-watch jobs also keep exhausting their retries and parking in `plan/`, and the health-checkups are piling up unclaimed in `todo`.
+- **Reaper-parked jobs.** The round-2 muster fix jobs were parked after retry exhaustion. They are `improve-candidate-gate-empty-diagnostic-r2` and `improve-decision-ledger-contention-spool-r2`, plus the daemon-git-remotes design jobs `design-daemon-git-remotes-ssh-transport-r2` and `design-daemon-git-remotes-server-half-r2`. The same happened to `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` and the improve jobs for gauntlet notices, muster auto-archive and retry-progress suppression. Each waits for you to promote it (`promote-plan.sh`) or split it.
+- **Halted orchestration.** `orchestrate-build-minion-town-ordered-gutter-20261104` halted after increment 1 finished with its gated outcome unsatisfied. Increments 2–5 are parked.
+- **Deploy gate.** The candidate test gate rejected `main2` at `024425a0ee0` when `signal-kill-classifier-test.sh` failed with an empty diagnostic. That is the defect the parked candidate-gate job targets.
 
-Their orchestrators carry on under the continue policy. `design-daemon-git-remotes-extended-transports-r2` and `improve-issue-status-source-budget-r2` were just claimed and are in progress.
+**Decisions waiting on you**
+- Two minion.town reports ask for your call. The settings-simplify report asks you to run `deploy-accounts-store.sh` before merging, until which Log out stays hidden and account deletion returns 503. It also lists four choices that stand unless you veto them. The docs-tower report asks what to do about one anonymous guest left on production.
+- The proxy's tentative answer on the API-key agent panel finding is open for you to override. It recommends a separate design-first job on whether `directoryFor(ownerKey)` should keep the broad facet.
+- `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` is a token permission gap. The bot token needs `checks:read`, `statuses:read` and `actions:read` on the `kriscendobot` account.
 
-The `build-minion-town-ordered-gutter` orchestration halted. Its first increment completed but declared its gated outcome unsatisfied, so the other four increments are parked.
+The proxy screened four minion.town PRs: [#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246) and [#237](https://github.com/kriscendobot/minion.town/pull/237). Their conduct jobs wait in the plan queue for go-ahead.
 
-New review directives arrived for minion.town [#247](https://github.com/kriscendobot/minion.town/pull/247) and [#248](https://github.com/kriscendobot/minion.town/pull/248), and both are queued. Gauntlets for [kriscendobot/minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) halted, so both PRs need a look.
-
-Things to act on:
-- **Deploy gate:** it rejected main2 candidate `024425a0ee0`, because `signal-kill-classifier-test.sh` failed with an empty diagnostic. The empty-diagnostic fix job is itself doomed.
-- **Oros canary:** the oros canary is still stuck on an old deploy SHA, about 15 hours after release. The watchdog has now fired 529 times.
-- **Oros health jobs:** the oros health-watch jobs keep exhausting their retries, and health checkups are piling up unclaimed in todo.
+Claude spend is at 61% of quota. Both active hosts are scaling their monk counts up on budget.
 
 ## Maintainer review docket
 
@@ -694,7 +690,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 166.3M | $629.08 _(notional, rate-card)_ | 61% of 271.0M (ok) |
+| Claude | 166.4M | $629.39 _(notional, rate-card)_ | 61% of 271.0M (ok) |
 | Codex | 356.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155116058 tokens/day lower bound._
