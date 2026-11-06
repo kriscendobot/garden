@@ -15,6 +15,7 @@ In scripts/jobs/gauntlet.sh, every `gauntlet_notify` call site for the halted an
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T02:33:13Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
