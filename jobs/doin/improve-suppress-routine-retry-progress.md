@@ -11,6 +11,7 @@ scripts/jobs/gardener.sh:1941 emits a journal progress entry for every ordinary 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T03:03:08Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
