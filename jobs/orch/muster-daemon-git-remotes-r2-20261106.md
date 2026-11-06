@@ -1,4 +1,5 @@
 ---
+child-build-daemon-git-remotes-transport-timing-r2-reap-count: 0
 child-design-daemon-git-remotes-extended-transports-r2-failure-notified: true
 child-design-daemon-git-remotes-extended-transports-r2-host: endolin-garden-ece02cb4
 child-design-daemon-git-remotes-extended-transports-r2-reap-count: 0
