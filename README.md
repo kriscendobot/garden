@@ -1,23 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T04:05:31Z_
+_As of 2026-11-06T04:10:11Z_
 
 ## Latest
 
-Three minion.town review/attention directives were claimed: reviews on [#247](https://github.com/kriscendobot/minion.town/pull/247) and [#248](https://github.com/kriscendobot/minion.town/pull/248), plus an attention directive on #248. Two designer/builder jobs were pulled back from `doin` into the plan queue, held for a go-ahead: `design-daemon-git-remotes-extended-transports-r2` and `improve-issue-status-source-budget-r2`. Nothing completed in this window, and three gardener progress entries landed.
+Little shipped this cycle. The board only moved to start two retried jobs: `build-daemon-git-remotes-transport-timing-r2` and `improve-issue-status-source-trust-filter-r2` were promoted from plan and claimed. The two orchestrations that own them, `muster-daemon-git-remotes-r2-20261106` and `muster-improve-fixes-r2-20261106`, were updated.
 
-The inbox is dominated by reaper "requeue-exhausted" notices. Each is a job that failed its one retry on the leader host and is now parked in `jobs/plan/`. They include several `oros-health-watch` runs, the `daemon-git-remotes` design jobs, `improve-decision-ledger-contention-spool-r2` and `improve-candidate-gate-empty-diagnostic-r2`, `improve-gauntlet-notices-to-pr`, `improve-muster-autoarchive-watchdog`, `build-daemon-agent-tools-phase-8-fetch-plugin`, and the Claude-on-minion.town completion press. Each needs a split into claim-sized stages, or a decision to promote or drop it.
+Most of what a maintainer should notice is failure and stall:
 
-Other things to notice:
-- **Oros canary stuck:** `oros-studio-garden-ce242c49` has not advanced past its old deployed SHA after being released to `dd3e6bc6edfd` about 15 hours ago. The watchdog is at occurrence 529. The leader will not advance past it, and the oros health checkups are piling up unclaimed in todo. Someone needs to inspect `garden-self-deploy` on that host.
-- **Deploy gate:** the candidate gate rejected `024425a0ee0` because `signal-kill-classifier-test.sh` failed with an empty diagnostic. The deployed tree was left in place.
-- **Ordered-gutter orchestration:** the `orchestrate-build-minion-town-ordered-gutter-20261104` run halted at 0 of 5 children. The first increment declared its gated outcome unsatisfied.
-- **Maintainer decisions pending:**
-  - **minion.town settings:** `deploy-accounts-store.sh` must be run before merging the settings simplification, and four choices there are open to veto.
-  - **Anonymous guest:** one anonymous guest from a live probe is left on production minion.town.
-  - **Proxy answer to review:** the proxy answered a panel-fix gating question tentatively, and it needs your review.
+- **Reaper dooms.** Several design and improve jobs exhausted their single retry and are held in plan under go-ahead. They include `design-daemon-git-remotes-ssh-transport-r2`, `design-daemon-git-remotes-server-half-r2`, `design-daemon-git-remotes-extended-transports-r2`, `improve-issue-status-source-budget-r2`, `improve-candidate-gate-empty-diagnostic-r2`, `improve-decision-ledger-contention-spool-r2`, `improve-gauntlet-notices-to-pr-20261106`, `improve-muster-autoarchive-watchdog-20261106` and `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`. The surrounding orchestrations continue past these failures.
+- **minion.town ordered gutter.** `orchestrate-build-minion-town-ordered-gutter-20261104` halted at 0 of 5 children because the first increment declared its gated outcome unsatisfied.
+- **Deploy gate.** The candidate gate rejected `024425a0ee0` on the `signal-kill-classifier-test.sh` suite. The leader's rolling deploy is still waiting on the oros canary, which has been stuck for about 15 hours at the old SHA (529 notices). The `oros-health-checkup` jobs are piling up unclaimed in todo.
+- **Maintainer decisions.** The liaison asks you to run `deploy-accounts-store.sh` before merging the minion.town settings simplification. It also asks you to veto-check four choices in that report. A proxy answer on the `directoryFor` broad facet is waiting for your review.
+
+Delegated screening of [minion.town#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246) and [#237](https://github.com/kriscendobot/minion.town/pull/237) completed earlier, and their conduct jobs remain parked for go-ahead.
 
 ## Maintainer review docket
 
@@ -67,6 +63,32 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=160714998 cap=271000000 pace-bias=0.845126 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.9241(ramp) target=4
+
+- `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: muster-daemon-git-remotes-r2-20261106
+> orchestration-status: running
+> child: design-daemon-git-remotes-extended-transports-r2
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration muster-daemon-git-remotes-r2-20261106 observed child design-daemon-git-remotes-extended-transports-r2: doomed and held in plan.
+
+- `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-budget-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-budget-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-budget-r2-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: muster-improve-fixes-r2-20261106
+> orchestration-status: running
+> child: improve-issue-status-source-budget-r2
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration muster-improve-fixes-r2-20261106 observed child improve-issue-status-source-budget-r2: doomed and held in plan.
 
 - `doomed-oros-health-watch-20261105-135010-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261105-135010-requeue-exhausted.md)
 
@@ -743,7 +765,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 166.7M | $630.63 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 167.1M | $631.89 _(notional, rate-card)_ | 62% of 271.0M (ok) |
 | Codex | 356.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155148212 tokens/day lower bound._
@@ -766,10 +788,12 @@ worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (3)
+### doin (5)
+- [`build-daemon-git-remotes-transport-timing-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-transport-timing-r2.md) — ---
 - [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
 - [`kriscendobot-minion.town-pr248-review-edbd57fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-review-edbd57fa.md) — Review directive on kriscendobot/minion.town PR #248
 - [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
+- [`improve-issue-status-source-trust-filter-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-status-source-trust-filter-r2.md) — ---
 
 ### tada (16837)
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
