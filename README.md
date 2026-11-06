@@ -1,23 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T03:44:41Z_
+_As of 2026-11-06T03:55:25Z_
 
 ## Latest
 
-Board movement was light: two claimed jobs, `design-daemon-git-remotes-extended-transports-r2` and `improve-issue-status-source-budget-r2`, went back from doin to todo for another try. No new posts or completions landed in this window. Fourteen jobs now sit in todo, and doin is empty.
+Two orchestrations finished: `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106` both completed. Their round-2 successors are already hitting trouble.
 
-The things to notice are all failures and stalls:
+Several round-2 jobs were doomed and parked in plan after their one retry failed:
+- `design-daemon-git-remotes-ssh-transport-r2`
+- `design-daemon-git-remotes-server-half-r2`
+- `improve-decision-ledger-contention-spool-r2`
+- `improve-candidate-gate-empty-diagnostic-r2`
 
-- **Reaper dooms:** the reaper parked many jobs in plan after their one retry on endolin-garden-ece02cb4 also exited non-productively. These include the daemon-git-remotes SSH-transport and server-half designs, the decision-ledger spool fix, the gauntlet-notices-to-PR change, the muster-autoarchive watchdog, the Phase 8 fetch-plugin build, the retry-progress suppression, and several oros-health-watch runs. The two muster orchestrations covering them (`muster-improve-fixes-r2-20261106` and `muster-daemon-git-remotes-r2-20261106`) keep going under `continue`. Each parked job is held until someone promotes it or splits it into smaller stages.
-- **Halted orchestration:** `orchestrate-build-minion-town-ordered-gutter-20261104` halted at 0 of 5. Its first increment finished but reported its gated outcome unsatisfied, so the remaining four are parked.
-- **Deploy gate:** the candidate gate rejected `main2` at `024425a0ee04`, with `signal-kill-classifier-test.sh` failing with an empty diagnostic. The empty-diagnostic fix itself is among the doomed jobs.
-- **Oros canary:** oros-studio has been stuck on an older deployed SHA for about 926 minutes, and the leader won't advance past it. The watchdog is on its 529th occurrence. Oros-side health checks are also backing up in todo. Someone needs to look at `garden-self-deploy` on oros.
+Their orchestrators carry on under the continue policy. `design-daemon-git-remotes-extended-transports-r2` and `improve-issue-status-source-budget-r2` were just claimed and are in progress.
 
-Maintainer decisions are waiting on the minion.town settings simplification report. It needs `deploy-accounts-store.sh` run before merge, a veto check on four choices, and a call on tracking the invitation count. The tower-note report needs a decision on the leftover anonymous guest on production.
+The `build-minion-town-ordered-gutter` orchestration halted. Its first increment completed but declared its gated outcome unsatisfied, so the other four increments are parked.
 
-The proxy screened [minion.town#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246) and [#237](https://github.com/kriscendobot/minion.town/pull/237).
+New review directives arrived for minion.town [#247](https://github.com/kriscendobot/minion.town/pull/247) and [#248](https://github.com/kriscendobot/minion.town/pull/248), and both are queued. Gauntlets for [kriscendobot/minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) halted, so both PRs need a look.
+
+Things to act on:
+- **Deploy gate:** it rejected main2 candidate `024425a0ee0`, because `signal-kill-classifier-test.sh` failed with an empty diagnostic. The empty-diagnostic fix job is itself doomed.
+- **Oros canary:** the oros canary is still stuck on an old deploy SHA, about 15 hours after release. The watchdog has now fired 529 times.
+- **Oros health jobs:** the oros health-watch jobs keep exhausting their retries, and health checkups are piling up unclaimed in todo.
 
 ## Maintainer review docket
 
@@ -688,33 +692,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.6M | $626.00 _(notional, rate-card)_ | 61% of 271.0M (ok) |
+| Claude | 166.3M | $629.08 _(notional, rate-card)_ | 61% of 271.0M (ok) |
 | Codex | 356.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155089825 tokens/day lower bound._
+_Fleet token-unlock pace: 155116058 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (15)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-daemon-git-remotes-extended-transports-r2.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-230510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-165012.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`improve-issue-status-source-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-issue-status-source-budget-r2.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261106-020511.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`kriscendobot-minion.town-pr248-review-edbd57fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-review-edbd57fa.md) — Review directive on kriscendobot/minion.town PR #248
+- [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (2)
+- [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-daemon-git-remotes-extended-transports-r2.md) — ---
+- [`improve-issue-status-source-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-status-source-budget-r2.md) — ---
 
 ### tada (16837)
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
