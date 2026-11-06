@@ -1,5 +1,6 @@
 ---
-gate: go-ahead
+gate: orchestrated
+orchestrated_by: muster-improve-fixes-20261106
 priority: normal
 tier: minion
 token-budget: 100000
