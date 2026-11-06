@@ -19,3 +19,13 @@ Build the Phase 2 transport-timing slice from `daemon-git-remotes` in endojs/end
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T04:23:05Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-06T04:23:08Z
