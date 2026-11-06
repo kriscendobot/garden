@@ -1,26 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T04:55:58Z_
+_As of 2026-11-06T04:58:52Z_
 
 ## Latest
 
-Two orchestrations completed (`muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`), but their `-r2` reruns are mostly stalled. Nearly every `-r2` child job (candidate-gate empty diagnostic, decision-ledger spool, issue-status source budget and trust filter, plus the git-remotes transport-timing, SSH-transport, server-half and extended-transports designs) exhausted its single retry on `endolin-garden-ece02cb4`. Each is now parked in `jobs/plan/`, held until someone promotes it or splits it into smaller jobs. Several other held jobs share the pattern: the gauntlet-notices-to-PR change, the muster auto-archive watchdog, the routine-retry progress suppression and the daemon agent-tools Phase 8 `@endo/fetch` plugin build. The serial `-r2` orchestrations are set to continue past failures.
+The board shows no file-level transitions since the last bulletin, so the main movement is in the maintainer inbox. Two orchestrations, `muster-improve-fixes-20261106` and `muster-daemon-git-remotes-20261106`, completed. Their `-r2` retries then hit trouble. Most of their children (the issue-status budget and trust-filter fixes, the decision-ledger spool, the candidate-gate diagnostic, and the git-remotes transport-timing build plus the server-half, SSH-transport and extended-transports designs) were doomed after their one backed-off retry. Each is now parked in `jobs/plan/` awaiting a go-ahead or a split into claim-sized stages. The same reaper handoff also parked the muster auto-archive, gauntlet-notices-to-PR, retry-progress suppression and Phase 8 fetch-plugin builds, the Claude-on-minion.town completion press, and several `oros-health-watch` runs.
 
-Still moving:
-- A new Endo design, `design-endo-naturally-sort-ordered-directory-20261106`, was claimed.
-- Review and attention directives on [minion.town#247](https://github.com/kriscendobot/minion.town/pull/247) and [minion.town#248](https://github.com/kriscendobot/minion.town/pull/248) are in progress.
-- The Phase 6 interactive-provisioning build and the screening cooldown log-spam fix went back to todo.
-
-Needing a decision or hands:
-- The `build-minion-town-ordered-gutter-inc1` orchestration halted because its first increment declared its gated outcome unsatisfied. Increments 2–5 are parked.
-- The oros canary (`oros-studio-garden-ce242c49`) is still stuck. It was released to `dd3e6bc6edfd` about 16 hours ago but still reports `2c082b9`, and the stuck-canary watchdog notice is at 549 occurrences. Check `garden-self-deploy` there, and note that its `oros-health-watch` and health-checkup jobs are piling up.
-- The deploy candidate gate rejected `024425a0ee04` at 11:51Z on `signal-kill-classifier-test.sh`.
-- The Ironhorse test262 ratchet has halted on a wrong base ([tracker](https://github.com/kriscendobot/garden/issues/51)).
-- The oros disk was projected to fill around 2026-11-03.
-
-The minion.town items that need your call are the unremoved production guest, the `deploy-accounts-store.sh` step before the settings-simplify merge, and a tentative proxy answer on `directoryFor`.
+Things to notice:
+- **Deploy:** the candidate gate rejected `main2` at `024425a0ee0` because `signal-kill-classifier-test.sh` failed. The root checkout is at `dd3e6bc6edf`.
+- **Oros canary:** `oros-studio-garden-ce242c49` has been stuck on an older deployed SHA for over 16 hours (watchdog notice #549). The leader won't advance past it, and the `oros-health-checkup` jobs are piling up unclaimed in `todo`. It needs someone at the machine to check `garden-self-deploy`.
+- **Minion.town ordered gutter:** that orchestration halted at increment 1, which completed but declared its gated outcome unsatisfied. The other four increments are parked.
+- **Minion.town settings simplification report:** it asks you to run `deploy-accounts-store.sh` before merging and to veto any of four choices.
+- **Gauntlets:** the gauntlets for [kriscendobot/minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endojs/endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) halted.
+- **Delegated merges:** [#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246) and [#237](https://github.com/kriscendobot/minion.town/pull/237) were screened by proxy and are awaiting conduct.
 
 ## Maintainer review docket
 
@@ -862,7 +854,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 169.5M | $642.54 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 169.6M | $642.87 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 356.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155241387 tokens/day lower bound._
