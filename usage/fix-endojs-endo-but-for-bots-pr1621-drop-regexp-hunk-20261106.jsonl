@@ -1,1 +1,2 @@
 {"ts":"2026-11-06T02:23:40Z","base":"fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":1}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T02:53:50Z","base":"fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":21,"role":"fixer","provider":"anthropic"}
