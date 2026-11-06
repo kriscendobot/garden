@@ -1,4 +1,5 @@
 ---
+child-improve-decision-ledger-contention-spool-r2-reap-count: 0
 child-improve-candidate-gate-empty-diagnostic-r2-failure-notified: true
 child-improve-candidate-gate-empty-diagnostic-r2-host: endolin-garden-ece02cb4
 child-improve-candidate-gate-empty-diagnostic-r2-reap-count: 0
