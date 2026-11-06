@@ -1,28 +1,17 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T03:20:59Z_
+_As of 2026-11-06T03:37:30Z_
 
 ## Latest
 
-Board movement was mostly the reaper parking jobs. The one retry that bounced this cycle was `improve-suppress-routine-retry-progress`, which moved from doin back to plan. It is the fix to stop `gardener.sh` from journaling routine retry handoffs. Two jobs went the other way, from plan to todo: `design-daemon-git-remotes-server-half-r2` and `improve-decision-ledger-contention-spool-r2`, both promoted by the muster orchestrations. Those orchestrations are `muster-daemon-git-remotes-r2-20261106` and `muster-improve-fixes-r2-20261106`.
+Since the last bulletin the board has mostly moved by parking work, not finishing it. Two minion.town-adjacent daemon git-remote designs, the server half (`design-daemon-git-remotes-server-half-r2`) and the SSH transport (`design-daemon-git-remotes-ssh-transport-r2`), plus the decision-ledger contention spool build (`improve-decision-ledger-contention-spool-r2`), went from todo to the plan queue. Each exhausted its single backed-off retry on endolin-garden-ece02cb4, and the reaper is holding them for a split or a `promote-plan.sh`. Two orchestrations, `muster-daemon-git-remotes-r2-20261106` and `muster-improve-fixes-r2-20261106`, advanced as a result. Their earlier parent orchestrations completed, and two gardeners wrote progress notes.
 
-The SSH-transport design child (`design-daemon-git-remotes-ssh-transport-r2`) and the candidate-gate diagnostic child (`improve-candidate-gate-empty-diagnostic-r2`) are both doomed and held in plan. Both orchestrations are set to continue past a failed child. The earlier `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106` orchestrations completed.
-
-Several other jobs are held in plan after their single retry also failed, and each needs your promote or removal:
-- `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` (the `@endo/fetch` decision)
-- `improve-gauntlet-notices-to-pr-20261106` (moves gauntlet HALTED notices onto the PR)
-- `improve-muster-autoarchive-watchdog-20261106`
-- the Claude-on-minion.town completion press
-
-Four `oros-health-watch` cycles are parked the same way. Every `oros-health-checkup` job is still unclaimed in todo. The root cause is the oros canary: `oros-studio-garden-ce242c49` is still on an old deployed sha (`2c082b9acbc8`) about 14 hours after being released to `dd3e6bc6edfd`. Its stuck-canary watchdog notice is at 509 occurrences, and a person at oros needs to inspect `garden-self-deploy`.
-
-Also worth your attention:
-- The deploy candidate test gate rejected `024425a0ee0` on `signal-kill-classifier-test.sh` with an empty diagnostic. That is the failure the held diagnostic job was meant to improve.
-- The minion.town ordered-gutter orchestration halted at 0 of 5 because its first increment finished with its gated outcome unsatisfied.
-- The settings-simplify report needs `deploy-accounts-store.sh` run before merge.
-- The reset-credit watch asks you to check whether the codex credit is still held. It expires today (Fri 11-06).
+What needs attention:
+- **Repeat dooms:** most of the maintainer inbox is the same failure. Several `oros-health-watch` mechanic jobs and the muster-directed builds (autoarchive watchdog, gauntlet notices to PR, `scripts/jobs/gardener.sh` retry-progress suppression, the Phase 8 fetch-plugin build, `improve-candidate-gate-empty-diagnostic-r2`) all hit "requeue exhausted" on the leader. That points to a systemic problem rather than bad job bodies.
+- **Oros canary stuck:** `oros-studio-garden-ce242c49` has sat on an old deployed sha for about 15 hours while the leader waits on it. The watchdog is at its 529th notice, and the `oros-health-checkup` jobs are piling up unclaimed in todo. Someone needs to read `garden-self-deploy` there.
+- **Deploy gate:** `024425a0ee0` was rejected by the candidate test gate, with `signal-kill-classifier-test.sh` failing and an empty diagnostic. A fix for that empty-diagnostic problem is among the parked jobs.
+- **minion.town:** `orchestrate-build-minion-town-ordered-gutter-20261104` halted with 0 of 5 children done because its first increment declared its gated outcome unsatisfied. The settings-simplification report asks you to run `deploy-accounts-store.sh` before merging, and to veto or accept four design choices. The screener's four delegated merges ([#237](https://github.com/kriscendobot/minion.town/pull/237), [#246](https://github.com/kriscendobot/minion.town/pull/246), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#252](https://github.com/kriscendobot/minion.town/pull/252)) remain parked in the plan queue awaiting go-ahead.
+- **Oros disk:** a 11-02 notice reports the shared garden disk losing about 1.8G/h and filling around 11-03, with the cause likely on the Mac side. It is still unread in the inbox.
 
 ## Maintainer review docket
 
@@ -175,28 +164,34 @@ Delegation: **active**
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
 
-- `msg-reset-credit-watch-20261102-170509-424e85c26861` — from gardener:reset-credit-watch-20261102-170509, reply_to `reset-credit-watch-20261102-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261102-170509-424e85c26861.md)
+- `doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted.md)
 
-> **Reset-credit watch, Mon 11-02: if you still hold the codex credit (expires Fri 11-06), reset codex-endolin today or by Tue 11-03 evening PT.** No acceleration is needed, since the meter already reads 91%. This needs a decision within 1–2 days, and it depends on two things only your dashboard can show.
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/improve-decision-ledger-contention-spool-r2; it stays HELD until a human promotes it
+> (promote-plan.sh improve-decision-ledger-contention-spool-r2) or removes it, so nothing is lost.
+> Original job base: improve-decision-ledger-contention-spool-r2
 >
-> **Please check the endolin-codex1 dashboard:**
-> 1. **Is the credit still there?** You haven't confirmed whether your 10-23T00:20Z reset spent it, so the inventory says "0 or 1".
-> 2. **What are the current % and "resets in"?** The 91% is about 38 hours old, because codex has spent nothing since about 11-01T03:30Z. The natural reset expected at 10-30T00:20Z never showed in the meter (13% before and after), so I don't know the real window.
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> posted_at: 2026-11-06T02:08:54Z
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-06T03:10:24Z cleared=none -->
 >
-> **Then:**
-> - **Credit held, about 90%, and more than a day to the natural reset:** reset now. If the window actually ends around 11-06T00:20Z, resetting today gains about 3 days and Tuesday evening about 2. After that it is mostly wasted.
-> - **Dashboard already low (the window rolled):** skip it and let the credit expire. Burning back to 90% by 11-06 isn't worth forcing.
-> - **No credit:** nothing to do. Tell me and I'll record it.
->
-> A reset only pays off if codex has work: no spend for 38 hours and no jobs on the board that I could identify as codex-only. I didn't establish why it went idle. Please also give the liaison the new "resets in" for the reset event: codex token backoff has been on its 0.95 fallback since 10-30 for lack of one.
->
-> **Status:**
-> - **codex-endolin:** 91% (stale), idle. Natural reset unknown. Credits: 0 or 1, expires 11-06, at risk.
-> - **claude-endolin1:** 70% about 2.6 days into the week, averaging about 27%/day, but flat for the last several hours. Natural reset Fri 20:00 PT (11-07T04:00Z, now PST). No credits. At the average pace it crosses 90% around Tue 11-03 with 3+ days left and nothing to reset with, so it has to be paced rather than rescued.
-> - **claude-oros:** 11% (17.6M tokens). Natural reset Tue 11-03T11:00Z (04:00 MST), about 18 hours away, so most of this week's quota will go unused. Credits still unconfirmed, treated as none.
-> - **claude-endolin2:** retired, no credits.
->
-> `reset-credits.md` is updated. I changed nothing else.
+> ---
+> tier: mentor
+> token-budget: 100000
+> role: builder
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> scripts/jobs/decision-append.sh
+> Defect: `scripts/jobs/decision-append.sh:108` drops decisions when its optional 5-second clone lock wait is busy; the reaper lost `schedule-plain-retry` at 17:24:39Z and `mark-split-eligible` at 17:35:39Z.
+> Persist failed decision rows in a host-local durable spool and flush them under the ledger lock on a later successful invocation, retaining fail-open behavior for controllers.
+> Add coverage for lock contention followed by recovery to verify both rows reach the ledger once.
 
 - `doomed-oros-health-watch-20261105-230510-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261105-230510-requeue-exhausted.md)
 
@@ -367,6 +362,34 @@ Delegation: **active**
 > arc: daemon-agent-tools
 > ---
 > Repo: endojs/endo-but-for-bots @ llm. Build Phase 8 of the daemon agent tools design (find it under designs/ via `grep -ril 'agent tools' designs/`). Maintainer decision on Open Question 4 (kriskowal, liaison muster 2026-11-06): the HTTP client is provided by the `@endo/fetch` plugin, NOT a new daemon `provideHttpClient` formula. Record the resolution in the design's open-questions section and tick the Phase 2c checkbox only if [endojs/endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/issues/1497) has merged (it was open on 2026-11-06; check first). Open a DRAFT PR on an in-repo endojs branch per the usual builder flow.
+
+- `doomed-design-daemon-git-remotes-server-half-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-daemon-git-remotes-server-half-r2-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/design-daemon-git-remotes-server-half-r2; it stays HELD until a human promotes it
+> (promote-plan.sh design-daemon-git-remotes-server-half-r2) or removes it, so nothing is lost.
+> Original job base: design-daemon-git-remotes-server-half-r2
+>
+> --- original job body ---
+> ---
+> role: designer
+> tier: mentor
+> arc: minion-town-git-remote
+> posted_at: 2026-11-06T02:09:03Z
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-06T03:11:06Z cleared=none -->
+>
+> ---
+> role: designer
+> tier: mentor
+> token-budget: 250000
+> arc: minion-town-git-remote
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Design the daemon-side server half of `daemon-git-remotes` for `endojs/endo-but-for-bots` on `llm`: capability-URL minting, partition lifecycle, revocation, and content-store ownership needed to move the minion.town Git remote service into Endo.
 
 - `orchestrate-build-minion-town-ordered-gutter-20261104-child-build-minion-town-ordered-gutter-inc1-20261104-failed` — from orchestrator:orchestrate-build-minion-town-ordered-gutter-20261104-child-build-minion-town-ordered-gutter-inc1-20261104-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orchestrate-build-minion-town-ordered-gutter-20261104-child-build-minion-town-ordered-gutter-inc1-20261104-failed.md)
 
@@ -589,11 +612,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #509 (first seen 2026-11-01T06:29:02Z, latest 2026-11-06T02:29:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 509 times; this is ONE
-> coalesced notice that updates in place, not 509 messages. Latest detail:
+> WATCHDOG notice — occurrence #529 (first seen 2026-11-01T06:29:02Z, latest 2026-11-06T03:29:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 529 times; this is ONE
+> coalesced notice that updates in place, not 529 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 866 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 926 min ago
 > but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -633,25 +656,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 164.1M | $620.39 _(notional, rate-card)_ | 61% of 271.0M (ok) |
-| Codex | 356.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 165.2M | $624.46 _(notional, rate-card)_ | 61% of 271.0M (ok) |
+| Codex | 356.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155051969 tokens/day lower bound._
+_Fleet token-unlock pace: 155089825 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (12)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-230510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`improve-decision-ledger-contention-spool-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-decision-ledger-contention-spool-r2.md) — ---
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-165012.md) — ---
-- [`design-daemon-git-remotes-server-half-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-daemon-git-remotes-server-half-r2.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261106-020511.md) — ---
@@ -714,7 +735,9 @@ worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`endojs-endo-but-for-bots-pr1652-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1652-gauntlet-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1652
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
+- [`improve-decision-ledger-contention-spool-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-decision-ledger-contention-spool-r2.md) — _normal_ · ---
 - [`cutover-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cutover-budget-road.md) — _normal_ · Cut over to the budget road
+- [`design-daemon-git-remotes-server-half-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-server-half-r2.md) — _normal_ · ---
 - [`minion-town-arc-press-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-230510.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #546
 - [`minion-town-arc-press-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261106-020511.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
