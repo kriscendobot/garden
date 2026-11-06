@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T03:51:27Z","base":"kriscendobot-minion.town-pr248-review-edbd57fa","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":13,"provider":"anthropic"}
