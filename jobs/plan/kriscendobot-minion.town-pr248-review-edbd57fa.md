@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+handler-budget-role: review
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-06T05:04:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-06T05:04:09Z
+---
+
+---
 tier: minion
 posted_at: 2026-11-06T04:13:10Z
 handler-budget-role: review
@@ -70,17 +91,3 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-06T04:53:06Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-06T04:53:26Z
