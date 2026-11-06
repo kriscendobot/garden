@@ -1,4 +1,5 @@
 ---
+child-improve-decision-ledger-contention-spool-failure-notified: true
 child-improve-candidate-gate-empty-diagnostic-failure-notified: true
 order: serial
 children: improve-candidate-gate-empty-diagnostic improve-decision-ledger-contention-spool improve-issue-status-source-budget improve-issue-status-source-trust-filter improve-screening-cooldown-log-spam improve-transient-retry-budget improve-transient-retry-correlation
