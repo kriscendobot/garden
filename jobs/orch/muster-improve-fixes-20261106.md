@@ -1,4 +1,5 @@
 ---
+child-improve-screening-cooldown-log-spam-failure-notified: true
 child-improve-issue-status-source-trust-filter-failure-notified: true
 child-improve-issue-status-source-budget-failure-notified: true
 child-improve-decision-ledger-contention-spool-failure-notified: true
