@@ -1,4 +1,5 @@
 ---
+child-improve-issue-status-source-trust-filter-r2-failure-notified: true
 child-improve-issue-status-source-trust-filter-r2-host: endolin-garden-ece02cb4
 child-improve-issue-status-source-trust-filter-r2-reap-count: 0
 child-improve-issue-status-source-budget-r2-failure-notified: true
