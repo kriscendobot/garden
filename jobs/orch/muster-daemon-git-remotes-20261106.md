@@ -1,4 +1,5 @@
 ---
+child-build-daemon-git-remotes-phase-six-interactive-provisioning-failure-notified: true
 child-build-daemon-git-remotes-transport-timing-failure-notified: true
 child-design-daemon-git-remotes-extended-transports-failure-notified: true
 child-design-daemon-git-remotes-server-half-failure-notified: true
