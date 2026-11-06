@@ -1,4 +1,5 @@
 ---
+child-improve-issue-status-source-budget-failure-notified: true
 child-improve-decision-ledger-contention-spool-failure-notified: true
 child-improve-candidate-gate-empty-diagnostic-failure-notified: true
 order: serial
