@@ -1,32 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-06T04:28:49Z_
+_As of 2026-11-06T04:29:47Z_
 
 ## Latest
 
-Two orchestrations, `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`, completed, and the gauntlets for [minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) halted. The fix for the minion.town screener's proxy timeout also finished. The board transitions list was empty, so this reflects the dashboard state only.
+No board transitions resolved this cycle, so the news is in the maintainer inbox, and most of it is failures and stalls.
 
-Most of the maintainer inbox is the same fault repeating. The follow-up jobs from those two musters, including the `r2` retries, were each doomed once and parked in `jobs/plan/` awaiting go-ahead. They include:
-- the issue-status source budget fix;
-- the decision-ledger spool;
-- the candidate-gate empty diagnostic;
-- the gauntlet notices-to-PR change;
-- the muster auto-archive;
-- the three daemon-git-remotes design jobs (extended transports, SSH transport, server half);
-- the Phase 8 fetch-plugin build.
+**Reaper dooms.** A burst of jobs exhausted their single retry on endolin-garden-ece02cb4 and were parked in `jobs/plan/` awaiting go-ahead. These are the four builder fixes `improve-issue-status-source-budget-r2`, `improve-decision-ledger-contention-spool-r2`, `improve-candidate-gate-empty-diagnostic-r2` and `improve-suppress-routine-retry-progress`, plus `improve-muster-autoarchive-watchdog-20261106` and `improve-gauntlet-notices-to-pr-20261106`. Also parked were the three daemon-git-remotes designs (extended-transports, ssh-transport, server-half), `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, and several oros-health-watch and completion-press runs. The orchestrations `muster-improve-fixes-r2-20261106` and `muster-daemon-git-remotes-r2-20261106` each reported their children as doomed and carried on.
 
-Each is preserved and needs a person to promote or split it. Several `oros-health-watch` and completion-press jobs were parked the same way.
+**Halted orchestration.** `orchestrate-build-minion-town-ordered-gutter-20261104` halted at 0 of 5 children. Its first increment finished but declared its gated outcome unsatisfied, so the other four are parked.
 
-Things a maintainer should look at:
-- **Deploy gate:** the candidate gate rejected `main2` at `024425a0ee0` because `signal-kill-classifier-test.sh` failed with rc=1. The root checkout stays on the earlier deploy.
-- **oros canary:** `oros-studio-garden-ce242c49` has been stuck on deployed sha `2c082b9` for about 15 hours, since it was released to `dd3e6bc`. The watchdog is at occurrence 529. oros health-checkup jobs are piling up in `todo`, and a person needs to inspect `garden-self-deploy` on that host.
-- **minion.town gutter:** the `orchestrate-build-minion-town-ordered-gutter-20261104` orchestration halted at 0 of 5 children after the first increment reported its gated outcome unsatisfied.
-- **Decisions waiting on you:**
-  - The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
-  - The tower report left one anonymous guest on production that the garden can't remove.
-  - The proxy's tentative answer on the API-key agent panel finding proposes a separate design job.
+**Deploy.** The candidate test gate rejected main2 at `024425a` because `signal-kill-classifier-test.sh` failed with an empty diagnostic. That is the same defect the parked candidate-gate job targets. The oros canary is still stuck on an old SHA, now about 986 minutes after its release to `dd3e6bc`. The watchdog has coalesced 549 notices for it. The oros-health-watch note says a person at the machine needs to inspect `garden-self-deploy` or lift the drain.
 
-Delegated screening is active, with [#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246) and [#237](https://github.com/kriscendobot/minion.town/pull/237) screened. Their conduct jobs are parked awaiting go-ahead. The Claude weekly window is at 62% of quota.
+**Other items for the maintainer:**
+- The oros host's shared disk was losing about 1.8G/h as of the 11-02 checkup, and the cause is probably on the Mac side.
+- The minion.town settings-simplification report needs `deploy-accounts-store.sh` run before merge, plus your veto check on four choices.
+- A proxy answer on the API-key-agent panel finding is waiting for your review.
+- Four screened minion.town PRs are in the plan queue: [#252](https://github.com/kriscendobot/minion.town/pull/252), [#250](https://github.com/kriscendobot/minion.town/pull/250), [#246](https://github.com/kriscendobot/minion.town/pull/246) and [#237](https://github.com/kriscendobot/minion.town/pull/237).
+
+Worker counts are 4 monks on the leader and 3 on oros, and the leader is at 62% of its Claude quota.
 
 ## Maintainer review docket
 
@@ -734,11 +726,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #529 (first seen 2026-11-01T06:29:02Z, latest 2026-11-06T03:29:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 529 times; this is ONE
-> coalesced notice that updates in place, not 529 messages. Latest detail:
+> WATCHDOG notice — occurrence #549 (first seen 2026-11-01T06:29:02Z, latest 2026-11-06T04:29:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 549 times; this is ONE
+> coalesced notice that updates in place, not 549 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 926 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 986 min ago
 > but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -778,7 +770,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.0M | $635.41 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 168.0M | $635.73 _(notional, rate-card)_ | 62% of 271.0M (ok) |
 | Codex | 356.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155184113 tokens/day lower bound._
