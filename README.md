@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T01:29:47Z_
+_As of 2026-11-06T01:35:04Z_
 
 ## Latest
 
@@ -306,6 +304,10 @@ Delegation: **active**
 > - Don't implement any real subscription OAuth flow, and don't use any third-party broker role that isn't documented. That would need maintainer-level evidence and a decision.
 > - In the PR description, note the conflict between the two designs and list the provider-specific questions still open, so the maintainer can answer them in review.
 > - If the work turns out to depend on [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) or [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575) landing first, stack on those branches. Don't wait on them.
+
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.028129s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached.md)
 
@@ -2219,8 +2221,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 160.2M | $602.67 _(notional, rate-card)_ | 59% of 271.0M (ok) |
-| Codex | 356.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 160.3M | $603.09 _(notional, rate-card)_ | 59% of 271.0M (ok) |
+| Codex | 356.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154910391 tokens/day lower bound._
 
@@ -2228,7 +2230,7 @@ _Fleet token-unlock pace: 154910391 tokens/day lower bound._
 worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (11)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
@@ -2240,10 +2242,9 @@ worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
-- [`improve-gh-api-admission-fail-closed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gh-api-admission-fail-closed.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-gh-api-admission-fail-closed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gh-api-admission-fail-closed.md) — ---
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
