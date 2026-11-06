@@ -12,6 +12,7 @@ Repo: endojs/endo-but-for-bots @ llm. Maintainer directive (kriskowal, review co
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T04:53:06Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
