@@ -1,4 +1,5 @@
 ---
+child-design-daemon-git-remotes-ssh-transport-r2-reap-count: 0
 order: serial
 children: design-daemon-git-remotes-ssh-transport-r2 design-daemon-git-remotes-server-half-r2 design-daemon-git-remotes-extended-transports-r2 build-daemon-git-remotes-transport-timing-r2 build-daemon-git-remotes-phase-six-interactive-provisioning-r2 daemon-git-capability-phase-five-contract-tests-build-r2
 on-child-failure: continue
