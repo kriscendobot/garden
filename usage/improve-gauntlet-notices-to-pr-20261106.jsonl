@@ -1,1 +1,2 @@
 {"ts":"2026-11-06T02:03:39Z","base":"improve-gauntlet-notices-to-pr-20261106","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T02:33:41Z","base":"improve-gauntlet-notices-to-pr-20261106","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":12,"role":"builder","provider":"anthropic"}
