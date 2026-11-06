@@ -19,6 +19,7 @@ scripts/jobs/issue-status-pass.sh:211 repeatedly exhausts the tick before the so
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T03:53:05Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
