@@ -1,10 +1,11 @@
 ---
-gate: orchestrated
-orchestrated_by: muster-daemon-git-remotes-r2-20261106
-priority: normal
-posted_by: liaison
+role: builder
+tier: mentor
+arc: minion-town-git-remote
 posted_at: 2026-11-06T02:09:04Z
+token-budget: 250000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-06T05:17:07Z cleared=none -->
 
 ---
 role: builder
