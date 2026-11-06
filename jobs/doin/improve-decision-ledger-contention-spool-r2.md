@@ -21,6 +21,7 @@ Add coverage for lock contention followed by recovery to verify both rows reach 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T03:23:11Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
