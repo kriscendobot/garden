@@ -1,5 +1,6 @@
 ---
-gate: go-ahead
+gate: orchestrated
+orchestrated_by: muster-daemon-git-remotes-20261106
 priority: normal
 role: designer
 tier: mentor
