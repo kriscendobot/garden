@@ -1,20 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T04:45:05Z_
+_As of 2026-11-06T04:50:12Z_
 
 ## Latest
 
-Two orchestrations finished: the `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106` runs both closed out as complete. Several of their children were doomed and parked in `jobs/plan/`. The parked children include the `daemon-git-remotes` ssh-transport, extended-transports and server-half designs, and the transport-timing build. Also parked are the `improve-` jobs for the issue-status source budget and trust filter, the decision-ledger spool, and the candidate-gate diagnostic. Each was re-parked after its single backed-off retry exited without producing anything. They are held for a maintainer promote or split, and none of the work is lost. Only two jobs came back to `todo` after being un-claimed: the `design-endo-naturally-sort-ordered-directory` design and the minion.town PR #247 and #248 review and attention directives.
+Two parked jobs were promoted to active work: [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) and [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-cooldown-log-spam-r2.md). Both orchestrations (`muster-daemon-git-remotes-r2-20261106`, `muster-improve-fixes-r2-20261106`) advanced. No jobs were posted or completed in this window.
 
-Things a maintainer should look at:
+**Still failing.** Many of the r2 children from those two orchestrations were doomed and parked in `jobs/plan/` after their single retry exited non-productively on the leader. These include the SSH, extended-transports and server-half designs, the transport-timing build, and the issue-status budget and trust-filter fixes. The decision-ledger spool and candidate-gate diagnostic fixes failed the same way. Both orchestrations are set to `continue`, so they keep going. Those parked jobs need a human to promote or split them.
 
-- **Canary stuck:** the oros canary has been stuck on an old deployed SHA for about 16 hours while the leader waits on it, and the same watchdog notice has now fired 549 times. Several `oros-health-checkup` jobs are queued behind it. Someone needs to inspect `garden-self-deploy` on oros.
-- **Deploy gate:** the deploy candidate gate rejected `024425a0ee0` on `signal-kill-classifier-test.sh`. The root checkout is still on the previous tree.
-- **Ordered-gutter halt:** the `orchestrate-build-minion-town-ordered-gutter-20261104` orchestration halted. Its first child finished but declared its gated outcome unsatisfied, so four increments are parked.
-- **Pending decisions:** the minion.town settings-simplification report needs `deploy-accounts-store.sh` run before merge, and it lists four design choices for you to veto or let stand. The liaison also asked whether to remove one leftover anonymous production guest by hand.
-- **Screening:** the proxy screened minion.town [#237](https://github.com/kriscendobot/minion.town/pull/237), [#246](https://github.com/kriscendobot/minion.town/pull/246), [#250](https://github.com/kriscendobot/minion.town/pull/250) and [#252](https://github.com/kriscendobot/minion.town/pull/252), and their conduct jobs are parked awaiting go-ahead.
+**Oros is still stuck.** `oros-studio-garden-ce242c49` has been a stuck rolling-deploy canary for about 986 minutes (549 coalesced notices). It still reports `2c082b9acbc8`, not `dd3e6bc6edfd`. Oros health-checkup jobs are piling up in `todo`, and several oros health-watch jobs were also doomed and parked. Someone needs to inspect `garden-self-deploy` on oros.
+
+**Deploy gate.** The earlier candidate gate rejected `024425a0ee04` on `signal-kill-classifier-test.sh`, with an empty diagnostic. The fix for the empty diagnostic is itself one of the parked jobs.
+
+**Minion.town ordered-gutter.** The orchestration `orchestrate-build-minion-town-ordered-gutter-20261104` halted at 0 of 5 children, because inc1 completed with its gated outcome unsatisfied.
+
+**Needs your decision.**
+- The minion.town settings simplification report needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+- The tower docs report has an orphaned production guest to remove or leave.
+- The proxy's tentative answer on the broad `directoryFor` facet is awaiting your review.
 
 ## Maintainer review docket
 
@@ -553,6 +556,19 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.024001s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: muster-daemon-git-remotes-r2-20261106
+> orchestration-status: running
+> child: build-daemon-git-remotes-transport-timing-r2
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration muster-daemon-git-remotes-r2-20261106 observed child build-daemon-git-remotes-transport-timing-r2: doomed and held in plan.
+
 - `muster-improve-fixes-r2-20261106-child-improve-decision-ledger-contention-spool-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-decision-ledger-contention-spool-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-decision-ledger-contention-spool-r2-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -776,6 +792,19 @@ Delegation: **active**
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child design-daemon-git-remotes-server-half-r2: doomed and held in plan.
 
+- `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: muster-improve-fixes-r2-20261106
+> orchestration-status: running
+> child: improve-issue-status-source-trust-filter-r2
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration muster-improve-fixes-r2-20261106 observed child improve-issue-status-source-trust-filter-r2: doomed and held in plan.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.027490s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -830,13 +859,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.9M | $639.71 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 169.3M | $641.44 _(notional, rate-card)_ | 62% of 271.0M (ok) |
 | Codex | 356.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155208019 tokens/day lower bound._
+_Fleet token-unlock pace: 155241387 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 13 open notice(s); checker healthy
+worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
@@ -857,8 +886,9 @@ worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (2)
+- [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — ---
+- [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-cooldown-log-spam-r2.md) — ---
 
 ### tada (16837)
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
