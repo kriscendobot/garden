@@ -1,23 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T02:50:05Z_
+_As of 2026-11-06T02:58:42Z_
 
 ## Latest
 
-Several jobs went back to the board this cycle, and a run of reaper dooms needs a maintainer's eye. The reaper parked more `oros-health-watch` mechanic jobs (the 11-05 13:50, 16:50, 20:05 and 23:05 cycles) after their retries also exited non-productively. Two more builder jobs it parked are the maintainer-directed `improve-muster-autoarchive-watchdog-20261106` and `improve-gauntlet-notices-to-pr-20261106`. The latest `claude-on-minion-town-completion-press` run is parked too. On the board, `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, `design-daemon-git-remotes-ssh-transport-r2`, `fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`, `improve-candidate-gate-empty-diagnostic-r2`, `minion-town-arc-press-20261106-020511` and `oros-health-watch-20261106-020511` were released from `doin` back to `todo`. No job is currently claimed.
+Board activity was light: six jobs were claimed and none completed. The claims were `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, `design-daemon-git-remotes-ssh-transport-r2`, `improve-candidate-gate-empty-diagnostic-r2`, the minion.town arc press, an oros health watch, and `fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`. The last is a fix on [endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/pull/1621). One new improvement job, `improve-suppress-routine-retry-progress`, was posted. Two musters (`muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`) completed just before this window.
 
-Two orchestrations (`muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`) completed. The minion.town ordered-gutter orchestration halted: its first child, `inc1`, finished with its gated outcome unsatisfied, so `inc2` through `inc5` stay parked. The gauntlets for [minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) both halted.
+Worth your attention:
 
-The oros host is the main concern. Its rolling-deploy canary has been stuck at an old SHA for about 14 hours. The leader released `dd3e6bc6edfd` to it, but it still reports `2c082b9acbc8`. The coalesced watchdog notice for this is now at 509 occurrences. The oros health-checkup jobs are piling up in `todo` behind it. Someone needs to run `journalctl --user -u garden-self-deploy` on oros to find the hold, then let the deploy finish or lift the drain.
-
-On the leader, the deploy candidate gate rejected `024425a0ee0` on `signal-kill-classifier-test.sh`, though main2 has since moved on to `dd3e6bc6edf`.
-
-Open maintainer decisions:
-- `deploy-accounts-store.sh` must run before the minion.town settings simplification merges.
-- Whether to keep the leftover anonymous guest on production minion.town.
-- Whether to spend the codex reset credit, which expires today.
+- **Deploy gate rejected a candidate.** `signal-kill-classifier-test.sh` failed on `024425a0ee0`, so the deployed tree stayed where it was. The improve-candidate-gate job now in progress appears aimed at this.
+- **Oros canary still stuck.** `oros-studio-garden-ce242c49` was released to `dd3e6bc6edf` about 14 hours ago and still reports the older `2c082b9`. The coalesced watchdog notice is now at 509 occurrences, and the leader won't advance past it. Someone at the oros machine needs to look at `garden-self-deploy`.
+- **Reaper parked more jobs for you.** The oros health-watch jobs, the claude-on-minion-town completion press, and the two new directive jobs (`improve-muster-autoarchive-watchdog-20261106` and `improve-gauntlet-notices-to-pr-20261106`) were each parked after a failed retry. They stay held until you promote them with `promote-plan.sh`.
+- **Ordered-gutter orchestration halted.** `build-minion-town-ordered-gutter-inc1-20261104` completed with its gated outcome unsatisfied, so the other four increments are parked.
+- **Decisions waiting on you.**
+  - `deploy-accounts-store.sh` has to run before the minion.town settings-simplification report is merged.
+  - The report also asks whether you veto any of its four choices.
+  - The Codex reset credit expires today (Fri 11-06).
 
 ## Maintainer review docket
 
@@ -478,37 +476,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 162.4M | $613.59 _(notional, rate-card)_ | 60% of 271.0M (ok) |
+| Claude | 163.1M | $616.19 _(notional, rate-card)_ | 60% of 271.0M (ok) |
 | Codex | 356.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154987163 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 12 open notice(s); checker healthy
+worst fetch p95 6.411401s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (13)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
-- [`improve-candidate-gate-empty-diagnostic-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-candidate-gate-empty-diagnostic-r2.md) — ---
-- [`oros-health-watch-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261106-020511.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106.md) — ---
 - [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-230510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`design-daemon-git-remotes-ssh-transport-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-daemon-git-remotes-ssh-transport-r2.md) — ---
+- [`improve-suppress-routine-retry-progress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-suppress-routine-retry-progress.md) — ---
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-165012.md) — ---
-- [`minion-town-arc-press-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261106-020511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`build-daemon-agent-tools-phase-8-fetch-plugin-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-agent-tools-phase-8-fetch-plugin-20261106.md) — ---
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261106-020511.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (6)
+- [`improve-candidate-gate-empty-diagnostic-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-candidate-gate-empty-diagnostic-r2.md) — ---
+- [`oros-health-watch-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261106-020511.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106.md) — ---
+- [`design-daemon-git-remotes-ssh-transport-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-daemon-git-remotes-ssh-transport-r2.md) — ---
+- [`minion-town-arc-press-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261106-020511.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`build-daemon-agent-tools-phase-8-fetch-plugin-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-8-fetch-plugin-20261106.md) — ---
 
 ### tada (16837)
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
