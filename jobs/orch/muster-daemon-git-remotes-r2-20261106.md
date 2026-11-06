@@ -1,4 +1,5 @@
 ---
+child-design-daemon-git-remotes-server-half-r2-failure-notified: true
 child-design-daemon-git-remotes-server-half-r2-host: endolin-garden-ece02cb4
 child-design-daemon-git-remotes-server-half-r2-reap-count: 0
 child-design-daemon-git-remotes-ssh-transport-r2-failure-notified: true
