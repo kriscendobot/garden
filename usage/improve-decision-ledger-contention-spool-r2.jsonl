@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T03:10:52Z","base":"improve-decision-ledger-contention-spool-r2","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"builder","provider":"anthropic"}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T03:23:37Z","base":"improve-decision-ledger-contention-spool-r2","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":13,"role":"builder","provider":"anthropic"}
