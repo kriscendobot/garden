@@ -18,6 +18,7 @@ dispatch: automatic
 Design the Phase 7 SSH transport and credential-capability slice for `endojs/endo-but-for-bots`, extending `designs/daemon-git-remotes.md` on `llm` with host-key policy, key-use authority, and bounded command restrictions.
 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
