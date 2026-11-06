@@ -17,6 +17,7 @@ Also consider whether the watchdog emitter should stop sending class (b) to the 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T02:33:13Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
