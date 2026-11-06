@@ -1,4 +1,5 @@
 ---
+child-improve-transient-retry-correlation-failure-notified: true
 child-improve-transient-retry-budget-failure-notified: true
 child-improve-screening-cooldown-log-spam-failure-notified: true
 child-improve-issue-status-source-trust-filter-failure-notified: true
