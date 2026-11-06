@@ -18,6 +18,7 @@ dispatch: automatic
 Design the daemon-side server half of `daemon-git-remotes` for `endojs/endo-but-for-bots` on `llm`: capability-URL minting, partition lifecycle, revocation, and content-store ownership needed to move the minion.town Git remote service into Endo.
 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
