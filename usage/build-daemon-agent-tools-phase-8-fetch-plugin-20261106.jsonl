@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T02:16:30Z","base":"build-daemon-agent-tools-phase-8-fetch-plugin-20261106","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":7,"role":"builder","arc":"daemon-agent-tools","provider":"anthropic"}
