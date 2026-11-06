@@ -14,6 +14,7 @@ Add a deterministic, no-LLM pre-pass, `scripts/jobs/muster-autoarchive.sh`, and 
 
 Also consider whether the watchdog emitter should stop sending class (b) to the maintainer inbox at all; report your finding in the completion report rather than changing the emitter.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
