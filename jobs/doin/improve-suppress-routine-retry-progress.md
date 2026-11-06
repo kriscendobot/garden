@@ -10,3 +10,13 @@ scripts/jobs/gardener.sh:1941 emits a journal progress entry for every ordinary 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T03:03:08Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-06T03:03:10Z
