@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-06T02:43:20Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-06T02:43:20Z
+---
+
+---
 posted_at: 2026-11-06T02:03:01Z
 tier: mentor
 fallback-tier: minion
@@ -11,17 +32,3 @@ dispatch: automatic
 Maintainer directive (kriskowal, liaison muster 2026-11-06): gauntlet HALTED and REVIEW-BUDGET-REACHED notices should go to the applicable PR, and skip the maintainer inbox from now on.
 
 In scripts/jobs/gauntlet.sh, every `gauntlet_notify` call site for the halted and review-budget-reached terminal states (search `gauntlet_notify`; the review-budget one is near `REVIEW-BUDGET-REACHED`) currently sends the must-fix block and `gauntlet_resume_hint` only to the maintainer inbox. Move that content into the terminal PR receipt (`gauntlet_terminal_receipt`) so the PR comment carries the unaddressed must-fix block, the severity note, and the exact resume command; then remove the maintainer-inbox send for those two states. Keep the log line. Keep any notice that is NOT about a single PR (for example a gauntlet that cannot name its PR) going to the maintainer inbox, since there is no PR to receive it. Update the gauntlet tests under scripts/jobs/test/ to assert the receipt content and the absence of a maintainer message, run them, and push to main2 directly per the garden's no-PR convention. Do not change panel or fix behavior.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-06T02:33:13Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-06T02:33:15Z
