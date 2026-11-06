@@ -1,4 +1,5 @@
 ---
+child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failure-notified: true
 child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-host: endolin-garden-ece02cb4
 child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-reap-count: 0
 child-build-daemon-git-remotes-transport-timing-r2-failure-notified: true
