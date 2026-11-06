@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T04:48:32Z","base":"build-daemon-git-remotes-phase-six-interactive-provisioning-r2","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":11,"role":"builder","arc":"minion-town-git-remote","provider":"anthropic"}
+{"ts":"2026-11-06T05:03:33Z","base":"build-daemon-git-remotes-phase-six-interactive-provisioning-r2","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":1,"arc":"minion-town-git-remote"}
