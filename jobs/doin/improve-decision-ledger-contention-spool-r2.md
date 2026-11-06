@@ -19,6 +19,7 @@ Persist failed decision rows in a host-local durable spool and flush them under 
 Add coverage for lock contention followed by recovery to verify both rows reach the ledger once.
 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
