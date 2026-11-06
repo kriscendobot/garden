@@ -18,6 +18,7 @@ scripts/jobs/handlers/issue-source-gh.sh:147-170 joins every recent comment’s 
 Accept the status pass’s maintainer allowlist as an optional deterministic input and filter non-members before parent lookups; preserve the existing unfiltered watcher behavior when unset, and add a regression test for bounded trusted-comment enumeration.
 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
