@@ -19,6 +19,7 @@ scripts/jobs/screen-delegated-prs.sh
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-06T05:03:07Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
