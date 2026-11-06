@@ -1,9 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-06T02:31:41Z
+sent_at: 2026-11-06T10:57:35Z
 watchdog_key: journal-push-contention-_home_kris_garden__garden_state_reaper_journal
 notice_count: 1
 first_seen: 2026-11-06T02:31:41Z
-last_seen: 2026-11-06T02:31:41Z
+last_seen: 2026-11-06T10:57:35Z
+recovered: true
 ---
-Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: attempts p95=10.000000 max=10.000000 (cap 50), classes cas=10 server-reject=0 definite-fail=0.
+RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_reaper_journal` has CLEARED (first seen 2026-11-06T02:31:41Z, cleared 2026-11-06T10:57:35Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_reaper_journal` cleared on endolin-garden-ece02cb4.
