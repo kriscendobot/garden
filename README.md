@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:23:28Z_
+_As of 2026-11-07T17:24:42Z_
 
 ## Latest
 
@@ -2300,7 +2300,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.9M | $32.76 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.9M | $32.80 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 359.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155193762 tokens/day lower bound._
@@ -2333,8 +2333,9 @@ worst fetch p95 3.433416s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
+- [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr237-4e2911d-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
 - [`minion-town-arc-press-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261107-172009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 
@@ -2373,7 +2374,6 @@ worst fetch p95 3.433416s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`weave-endojs-endo-but-for-bots-pr1538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1538.md) — _normal_ · ---
 - [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261107-043512.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`screen-minion-town-pr250-8060116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr250-8060116-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#250 at 8060116d7e72d6109aa...
-- [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr237-4e2911d-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`oros-health-watch-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261107-075009.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
