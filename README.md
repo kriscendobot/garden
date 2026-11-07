@@ -1,21 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T01:45:31Z_
+_As of 2026-11-07T01:51:29Z_
 
 ## Latest
 
-The two muster orchestrations, `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`, completed and landed in tada. The `-r2` retry orchestrations are still running, and nearly every child of both has been doomed and parked in plan after its one backed-off retry also failed. That covers the Phase 6 provisioning and transport-timing builds, the three daemon-git-remotes designs (SSH transport, server half, extended transports), and the improve fixes for issue-status budget and trust filter, the decision-ledger spool, the candidate-gate diagnostic and screening log spam. Each is held until someone promotes it or splits it into smaller stages. Two of those held jobs, `build-daemon-git-remotes-transport-timing-r2` and `design-daemon-git-remotes-ssh-transport-r2`, are the same work as above.
+Little completed since the last bulletin: the only board movement is `build-oros-secrets-bwrap-handoff-20261106`, which is claimed and in progress, and nothing new was posted or finished.
 
-Since the last bulletin, one job claimed: `build-oros-secrets-bwrap-handoff-20261106`. The latest `oros-health-watch` job finished. The fleet's recurring jobs were re-posted: the minion.town arc press, the completion press, the daily progress summary, the dependabotany recheck and a new oros health checkup. Two parked jobs were promoted to todo: `daemon-git-capability-phase-five-contract-tests-build-r2` and `improve-transient-retry-budget-r2`.
+**The oros host is stuck on an old deploy.** `oros-studio-garden-ce242c49` was released to `dd3e6bc6edfd` about 37 hours ago, but it still reports `2c082b9acbc8`. The watchdog has now raised this condition 565 times. The leader will not advance past an undeployed canary. The same host has the stalled root-repo deploy (6 commits behind) and the pending container-hardening recreate. The oros health-watch and checkup jobs keep exhausting their retries. Someone needs to look at `garden-self-deploy` on oros.
 
-Things to notice:
-- **oros canary stuck.** `oros-studio-garden-ce242c49` was released to dd3e6bc and still reports the older deployed 2c082b9, now about 37 hours on. The leader will not advance past an undeployed canary. Someone needs to check `garden-self-deploy` on oros. The oros health checkups are also piling up unclaimed in todo.
-- **Gauntlets halted.** The halted `kriscendobot-minion.town-pr243-gauntlet` and `endojs-endo-but-for-bots-pr1652-gauntlet` finished on 11-05. Their fix-round jobs for [kriscendobot/minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endojs/endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) are parked in plan.
-- **Ordered-gutter halt.** The `orchestrate-build-minion-town-ordered-gutter-20261104` run halted because its first increment declared its gated outcome unsatisfied. The remaining four increments are parked.
-- **Deploy gate.** The deploy test gate rejected the earlier main2 candidate 024425a because of a `signal-kill-classifier-test.sh` failure with rc=1.
-- **Ironhorse ratchet.** The ratchet halted on a wrong base. Per its message it needs explicit resumption after resolution.
+**The doomed-job backlog is still growing.** Most of the inbox is the reaper parking jobs in the plan queue after a failed retry. Several orchestrations are also reporting child failures, mainly the `muster-improve-fixes-r2` and `muster-daemon-git-remotes-r2` runs. The parked jobs include the Phase 6, Phase 2 and Phase 7 daemon-git-remotes work, several `improve-*` fixes, and the minion.town PR 247 and PR 248 review directives. The `orchestrate-build-minion-town-ordered-gutter-20261104` orchestration is halted. Its first child finished but declared its gated outcome unsatisfied, so the other four children are parked. All of these sit in the plan queue until someone promotes or removes them.
+
+**Deploy gate failures.** The deploy candidate gate rejected `024425a0ee04` because `signal-kill-classifier-test.sh` failed. The `improve-candidate-gate-empty-diagnostic-r2` job meant to fix its empty diagnostics is itself parked.
+
+**Capacity and spend.** Claude spend is at 64% of the quota. The leader host was raised to 4 monks, the Codex pool went from 1 to 2 workers, and oros went to 4 monks.
+
+**Other items for the maintainer:**
+- The proxy's tentative answer to the minion.town panel3 question is waiting for review.
+- The oros disk was draining about 1.8G/h, a cause outside the container is suspected, and the last notice is dated 2026-11-02.
+- Two liaison follow-ups need replies: one on the minion.town settings simplification report and one on the docs-tower report.
+- The ironhorse ratchet is halted until someone resumes it explicitly.
 
 ## Maintainer review docket
 
@@ -78,6 +81,14 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T20:50:15Z, latest 2026-11-07T01:50:29Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 4): shared codex subscription demand active=1 queue=4 quota=ok fleet-envelope=4 target=4
 
 - `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted.md)
 
@@ -1198,10 +1209,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.2M | $657.26 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 356.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Claude | 172.5M | $658.72 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 356.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155024775 tokens/day lower bound._
+_Fleet token-unlock pace: 155083797 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 5 open notice(s); checker healthy
