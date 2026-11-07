@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T05:22:47Z_
+_As of 2026-11-07T05:23:44Z_
 
 ## Latest
 
@@ -1735,7 +1735,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 410.7k | $6.54 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 416.0k | $6.67 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154611059 tokens/day lower bound._
@@ -1744,11 +1744,10 @@ _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (14)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
-- [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261107-043512.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -1761,8 +1760,8 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261107-043512.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (16844)
 - [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
