@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:32:57Z_
+_As of 2026-11-07T17:33:55Z_
 
 ## Latest
 
@@ -2275,7 +2275,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.1M | $34.70 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 4.2M | $35.37 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 359.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155816433 tokens/day lower bound._
@@ -2284,7 +2284,7 @@ _Fleet token-unlock pace: 155816433 tokens/day lower bound._
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (26)
+### todo (28)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`accountant-weekly-20261107-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261107-170510.md) — Weekly arc apportionment
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2292,6 +2292,8 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
+- [`screen-minion-town-pr250-8060116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr250-8060116-conduct.md) — Screened delegated merge: kriscendobot/minion.town#250 at 8060116d7e72d6109aa...
+- [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr237-4e2911d-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2312,10 +2314,8 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 - [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr252-755d017-conduct.md) — Screened delegated merge: kriscendobot/minion.town#252 at 755d017997d34c46348...
 
-### doin (7)
+### doin (5)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
-- [`screen-minion-town-pr250-8060116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr250-8060116-conduct.md) — Screened delegated merge: kriscendobot/minion.town#250 at 8060116d7e72d6109aa...
-- [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr237-4e2911d-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
 - [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr246-93329d9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
