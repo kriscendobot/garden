@@ -67,4 +67,15 @@ for path in "${hidden[@]}"; do [ -e "$path" ] && args+=(--tmpfs "$path"); done
 if git_dir="$(git -C "$worktree" rev-parse --absolute-git-dir 2>/dev/null)"; then rw_paths+=("$git_dir"); fi
 if common_dir="$(git -C "$worktree" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)"; then rw_paths+=("$common_dir"); fi
 for path in "${rw_paths[@]}"; do [ -e "$path" ] && args+=(--bind "$path" "$path"); done
+# The harness needs a writable, exec-capable TMPDIR (Claude's Bash tool creates
+# $TMPDIR/claude-<uid>/... per session). The inherited TMPDIR lives under the
+# read-only root bind, so every shell call died with EROFS. Give each job its own
+# fresh directory beneath it and bind ONLY that read-write; siblings stay read-only.
+if [ -n "${TMPDIR:-}" ] && [ -d "$TMPDIR" ] && [ -w "$TMPDIR" ]; then
+  # Opportunistic sweep of per-job dirs left by earlier (exec'd, uncleanable) runs.
+  find "$TMPDIR" -maxdepth 1 -type d -name 'sbx-tmp.*' -mmin +1440 -exec rm -rf {} + 2>/dev/null || true
+  if job_tmp="$(mktemp -d "$TMPDIR/sbx-tmp.XXXXXX" 2>/dev/null)"; then
+    args+=(--bind "$job_tmp" "$job_tmp" --setenv TMPDIR "$job_tmp")
+  fi
+fi
 exec bwrap "${args[@]}" -- "$@"
