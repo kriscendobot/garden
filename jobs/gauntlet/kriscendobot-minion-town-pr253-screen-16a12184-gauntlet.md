@@ -5,14 +5,14 @@ repo: kriscendobot/minion.town
 pr_number: 253
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 1
 resumes: 0
 max_resumes: 6
-stage_retries: 1
+stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion-town-pr253-screen-16a12184-gauntlet-panel-1
+current_child: kriscendobot-minion-town-pr253-screen-16a12184-gauntlet-undraft
 state: running
 created_by: proxy:screen
 created_at: 2026-11-07T22:55:02Z
