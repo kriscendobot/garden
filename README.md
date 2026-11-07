@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:45:41Z_
+_As of 2026-11-07T20:47:41Z_
 
 ## Latest
 
@@ -494,11 +494,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-07T02:41:43Z, latest 2026-11-07T14:46:59Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` has CLEARED (first seen 2026-11-07T02:41:43Z, cleared 2026-11-07T20:47:16Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.019808s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted.md)
 
@@ -2400,10 +2400,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 10.6M | $51.61 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155960496 tokens/day lower bound._
+_Fleet token-unlock pace: 156004386 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
+worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (22)
