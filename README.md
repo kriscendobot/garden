@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T04:39:31Z_
+_As of 2026-11-07T04:42:26Z_
 
 ## Latest
 
@@ -390,6 +390,10 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Design the Phase 7 SSH transport and credential-capability slice for `endojs/endo-but-for-bots`, extending `designs/daemon-git-remotes.md` on `llm` with host-key policy, key-use authority, and bounded command restrictions.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -1623,7 +1627,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.2k | $2.02 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 136.1k | $2.23 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154611059 tokens/day lower bound._
