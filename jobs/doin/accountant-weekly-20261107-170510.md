@@ -26,3 +26,13 @@ Standing maintainer direction (kriskowal, 2026-10-02): "keep distributing tokens
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T17:33:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-07T17:37:55Z
