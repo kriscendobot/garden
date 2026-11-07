@@ -5187,3 +5187,14 @@ Inspect via `git -C journal cat-file -p 15cf46e1db2197eb0af7649e709799dc44f973ea
 
 Inspect via `git -C journal cat-file -p 34dce1a5a125d3ca6a220c9b43cc669d215d800d` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/34dce1a5a125d3ca6a220c9b43cc669d215d800d`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-11-07T03:04:39Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 0254a46c57bde01a549bd53c5ed0423909cc114e
+- Context: gardener-3 on endolin-garden-ece02cb4: job 'improve-transient-retry-correlation-r2' exit-0-unsatisfying but elapsed near-constant (55,52s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/endolin-garden-ece02cb4/captures/0254a46c57bde01a549bd53c5ed0423909cc114e
+
+Inspect via `git -C journal cat-file -p 0254a46c57bde01a549bd53c5ed0423909cc114e` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/0254a46c57bde01a549bd53c5ed0423909cc114e`) -- both work off-host after a plain `journal2` fetch.
