@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T04:52:34Z_
+_As of 2026-11-07T04:52:57Z_
 
 ## Latest
 
@@ -50,10 +50,6 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-transient-retry-correlation-r2: doomed and held in plan.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-043512` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-043512.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261107-043512' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-improve-transient-retry-budget-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-transient-retry-budget-r2-requeue-exhausted.md)
 
