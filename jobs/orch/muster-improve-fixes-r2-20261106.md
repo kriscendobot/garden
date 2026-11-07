@@ -1,4 +1,5 @@
 ---
+child-improve-transient-retry-correlation-r2-reap-count: 0
 child-improve-transient-retry-budget-r2-failure-notified: true
 child-improve-transient-retry-budget-r2-host: endolin-garden-ece02cb4
 child-improve-transient-retry-budget-r2-reap-count: 1
