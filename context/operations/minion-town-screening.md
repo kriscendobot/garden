@@ -59,11 +59,14 @@ spend several minutes waiting for the host-wide GitHub admission lock, so it has
 its own 30-minute bound instead of sharing the proxy's 10-minute handler budget.
 An overrun is logged, sent to the maintainer channel, and retried from fresh state
 on the next activation. The screener uses its own journal clone
-(`$GARDEN_STATE/screening/journal`). GitHub quota deferrals and other driver
-failures are counted in `$GARDEN_STATE/screening/tick-failure`; three consecutive
-failed ticks raise the coalesced watchdog notice
+(`$GARDEN_STATE/screening/journal`). GitHub quota deferrals, driver failures, and
+deferred journal writes are counted in `$GARDEN_STATE/screening/tick-failure`;
+three consecutive failed ticks raise the coalesced watchdog notice
 `minion-town-screening-tick-failed-<host>`, and the first completed tick closes
-it with a recovery update. Logic lives in `scripts/jobs/screening/`
+it with a recovery update. Exhausted journal contention and transient write
+failures leave the unit healthy so the next timer tick retries; definite local,
+authentication, or repository failures remain fatal. Logic lives in
+`scripts/jobs/screening/`
 (`policy.py`, `driver.py`, `report.py`, `control.py`).
 
 1. **Post-merge validation.** For each attested PR that merged, it finds the

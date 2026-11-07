@@ -26,7 +26,7 @@
 #
 # Test seams: GARDEN_SCREEN_CLONE, GARDEN_SCREEN_HEARTBEAT, GARDEN_GH,
 # GARDEN_SCREEN_GITHUB_READ, GARDEN_SCREEN_POST_JOB, GARDEN_SCREEN_POST_GAUNTLET,
-# GARDEN_SCREEN_FAILURE_THRESHOLD.
+# GARDEN_SCREEN_FAILURE_THRESHOLD, GARDEN_SCREEN_JOURNAL_ATTEMPTS.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -44,6 +44,9 @@ out="$(mktemp)"; err="$(mktemp)"; trap 'rm -f "$out" "$err"' EXIT
 : "${GARDEN_SCREEN_FAILURE_THRESHOLD:=3}"
 [[ "$GARDEN_SCREEN_FAILURE_THRESHOLD" =~ ^[1-9][0-9]*$ ]] \
   || GARDEN_SCREEN_FAILURE_THRESHOLD=3
+: "${GARDEN_SCREEN_JOURNAL_ATTEMPTS:=20}"
+[[ "$GARDEN_SCREEN_JOURNAL_ATTEMPTS" =~ ^[1-9][0-9]*$ ]] \
+  || GARDEN_SCREEN_JOURNAL_ATTEMPTS=20
 failure_dir="$GARDEN_STATE/screening/tick-failure"
 failure_key="minion-town-screening-tick-failed-$GARDEN"
 
@@ -83,7 +86,8 @@ clear_screen_failure() {
     "minion.town screening on $GARDEN completed after a $count-tick failure streak."
 }
 
-for attempt in $(seq 1 20); do
+last_push_class=""
+for attempt in $(seq 1 "$GARDEN_SCREEN_JOURNAL_ATTEMPTS"); do
   sync_clone "$journal"
   rc=0
   : > "$err"
@@ -126,6 +130,11 @@ for attempt in $(seq 1 20); do
     [ "$rc" = 0 ] && clone_unlock "$journal"
   fi
   if [ "$rc" = 0 ] || [ "$rc" = 2 ]; then
+    if [ "$rc" = 2 ]; then
+      record_screen_failure journal-local \
+        "git commit failed after screening state was staged"
+      die "could not commit staged screening state"
+    fi
     jq -r '.notes[]' "$out" | while IFS= read -r line; do log "$line"; done
     jq -c '.actions[]' "$out" | while IFS= read -r action; do
       kind="$(jq -r .kind <<<"$action")"
@@ -145,7 +154,25 @@ for attempt in $(seq 1 20); do
     clear_screen_failure
     exit 0
   fi
+  last_push_class="${GARDEN_COMMIT_PUSH_CLASS:-}"
+  if journal_push_is_definite_failure "${GARDEN_PUSH_STDERR:-}" \
+      || journal_diagnostic_is_definite_failure "${GARDEN_FETCH_STDERR:-}"; then
+    detail="${GARDEN_PUSH_STDERR:-${GARDEN_FETCH_STDERR:-journal write failed without a diagnostic}}"
+    detail="$(printf '%s' "$detail" | tail -n 4 | tr '\n' ' ')"; detail="${detail:0:1000}"
+    record_screen_failure journal-local "$detail"
+    die "could not commit screening state: unrecoverable journal failure"
+  fi
   backoff "$attempt"
 done
-record_screen_failure journal-cas "could not commit screening state after 20 attempts"
-die 'could not commit screening state'
+if [ "$last_push_class" = cas ]; then
+  failure_class="journal-cas"
+  detail="journal CAS contention exhausted $GARDEN_SCREEN_JOURNAL_ATTEMPTS attempts"
+else
+  failure_class="journal-deferred"
+  detail="transient or unclassified journal write failure exhausted $GARDEN_SCREEN_JOURNAL_ATTEMPTS attempts"
+fi
+record_screen_failure "$failure_class" "$detail"
+# The watchdog owns this retryable failure streak. Keep the dedicated systemd
+# unit healthy so its timer schedules a fresh tick instead of recording a unit
+# failure for ordinary journal weather.
+exit 0

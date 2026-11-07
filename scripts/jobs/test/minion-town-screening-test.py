@@ -90,6 +90,14 @@ ALERT = '''#!/bin/bash
 printf '%s\\t%s\\t%s\\n' "$1" "$(printf '%s' "$2" | tr '\\n' ' ')" "${3:-}" >> "$SCREEN_FIXTURE/alerts"
 '''
 
+PUSH_FAILURE = '''#!/bin/bash
+case "$SCREEN_PUSH_FAILURE" in
+  cas) echo '! [rejected] HEAD -> journal2 (fetch first)' >&2 ;;
+  local) echo 'fatal: unable to create .git/index.lock: Read-only file system' >&2 ;;
+esac
+exit 1
+'''
+
 
 class Screening(unittest.TestCase):
     def setUp(self):
@@ -115,7 +123,7 @@ class Screening(unittest.TestCase):
         self.root.mkdir()
         subprocess.run(['git', 'init', '-q', str(self.root)], check=True)
         for name, body in (('gh', GH), ('post-job', POST), ('post-gauntlet', POST),
-                           ('alert', ALERT)):
+                           ('alert', ALERT), ('push-failure', PUSH_FAILURE)):
             path = self.directory / name
             path.write_text(body)
             path.chmod(0o755)
@@ -288,6 +296,32 @@ class Screening(unittest.TestCase):
         self.configuration['gh_malformed'] = True
         result = self.tick(expected=1)
         self.assertIn('screener tick failed', result.stderr)
+        self.assertFalse(self.attested())
+
+    def test_exhausted_journal_cas_is_a_clean_deferred_tick(self):
+        self.environment.update(
+            GARDEN_PUSH_CMD=str(self.directory / 'push-failure'), SCREEN_PUSH_FAILURE='cas',
+            GARDEN_SCREEN_JOURNAL_ATTEMPTS='2', GARDEN_BACKOFF_BASE_MS='0')
+
+        self.tick()
+
+        failure = Path(self.environment['GARDEN_STATE']) / 'screening/tick-failure'
+        self.assertEqual((failure / 'class').read_text().strip(), 'journal-cas')
+        self.assertEqual((failure / 'count').read_text().strip(), '1')
+        self.assertIn('exhausted 2 attempts', (failure / 'detail').read_text())
+        self.assertFalse(self.attested())
+
+    def test_unrecoverable_local_journal_failure_remains_fatal(self):
+        self.environment.update(
+            GARDEN_PUSH_CMD=str(self.directory / 'push-failure'), SCREEN_PUSH_FAILURE='local',
+            GARDEN_SCREEN_JOURNAL_ATTEMPTS='2', GARDEN_BACKOFF_BASE_MS='0')
+
+        result = self.tick(expected=1)
+
+        failure = Path(self.environment['GARDEN_STATE']) / 'screening/tick-failure'
+        self.assertEqual((failure / 'class').read_text().strip(), 'journal-local')
+        self.assertIn('Read-only file system', (failure / 'detail').read_text())
+        self.assertIn('unrecoverable journal failure', result.stderr)
         self.assertFalse(self.attested())
 
     def test_finished_conductor_is_retried_then_stalls_to_the_maintainer(self):
