@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: accountant
+tier: mentor
+handler-timeout: 14000
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-07T17:43:07Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-07T17:43:07Z
+---
+
+---
 handler-timeout: 14000
 ---
 
@@ -21,19 +43,3 @@ context/operations/accountant.md):
    no reply, complete with the carried-forward slate in force.
 
 Standing maintainer direction (kriskowal, 2026-10-02): "keep distributing tokens to this ranking as capacity becomes available each reset, not just as a one-time apportionment." The ranking is the slate approved 2026-10-02 (`projects/garden/budget-slate-20261001.md`), with separate arcs for the three minion.town slices. Apply the 90% ceiling, and account for reset credits (`projects/garden/reset-credits.md`). If `set-apportionment.sh` is missing on your host (deploy pending), do not hand-write config. Report the gap and park a successor.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-07T17:33:04Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=466,23 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-07T17:37:55Z
