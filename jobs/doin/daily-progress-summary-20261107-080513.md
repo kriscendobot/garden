@@ -63,11 +63,11 @@ midnight) once the anchored scheduler landed on the leader host; do not revert i
 to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=48 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T08:23:04Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=48,30 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
