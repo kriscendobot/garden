@@ -20,11 +20,11 @@ Deliverable: `context/operations/oros-secrets-handoff.md` on `main2` (pushed dir
 Also report whether the deploy gate or canary should check `command -v bwrap` before advancing, and file that as a follow-up recommendation in your completion report rather than implementing it.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=25 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T02:23:04Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=25,54 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
