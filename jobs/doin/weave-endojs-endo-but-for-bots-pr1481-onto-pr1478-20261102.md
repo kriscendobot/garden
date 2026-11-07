@@ -22,3 +22,13 @@ Expect real conflicts. #1478 was squashed to a feat commit plus a changeset when
 
 #1478's peer shepherd (shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102) may still be running. Re-read #1478's head when you start. If that job is still in doin and CI on the head is in progress, wait in the foreground (bounded) so you pin a settled head. Do not comment on the PR. Report the new #1481 head and CI state. Red that matches the known base signatures (ironhorse oracle stage3-math 054/055, #1591's bwrap timeout flake) does not fail this job; name it in the report.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T03:00:35Z
