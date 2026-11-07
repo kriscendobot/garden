@@ -16,3 +16,13 @@ Defect: `scripts/jobs/minion-town-press-preflight.sh:146` only recognizes comple
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T06:43:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T06:43:05Z
