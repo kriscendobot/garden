@@ -1,0 +1,21 @@
+elapsed-constancy exit0-wedge-suspect: verify-minion-town-recovery-outcome-production-20261107
+
+gardener-1 on endolin-garden-ece02cb4: job verify-minion-town-recovery-outcome-production-20261107 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 44,41s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>13:23:13 [monk/1] resuming session a062f3ef-2869-5816-a353-67d51e1bfb7a for requeued job 'verify-minion-town-recovery-outcome-production-20261107' in worktree /home/kris/garden/scratch/gardener-wt-verify-minion-town-recovery-outcome-production-20261107
+<6>13:23:13 [monk/1] job 'verify-minion-town-recovery-outcome-production-20261107' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>13:23:13 [monk/1] job 'verify-minion-town-recovery-outcome-production-20261107' call ceiling: tier=minion max-budget-usd=9.90 (scaled by fresh seven-day headroom when available)
+<6>13:23:13 [monk/1] job 'verify-minion-town-recovery-outcome-production-20261107' attaching minion.town MCP (stdio bridge)
+<6>13:23:36 [monk/1] job 'verify-minion-town-recovery-outcome-production-20261107' ended its turn without the completion signal; nudging the same session to verify and complete (nudge 1/1, budget USD 8.41)
