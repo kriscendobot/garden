@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T22:15:00Z_
+_As of 2026-11-07T22:16:32Z_
 
 ## Latest
 
@@ -1108,6 +1108,29 @@ Delegation: **active**
 > - **Codex:** Leave `codex-endolin` percent-calibrated and out of the token total.
 > - **Dropped arcs:** The restored ranking omits `ironhorse-test262-ratchet`, `minion-town-claude-api` and `garden-book`. Their carried-forward slates should lapse with the reset, as the restored ranking implies. If the maintainer wants any of them funded this week, they can request it and you can re-slice then.
 > - **Open items:** There are no held plans, watchdog notices or budget requests, so nothing is blocked.
+
+- `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
+
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1794091919 set-by=comment:kriscendobot-oros-ckm-data-readiness:primary-quota <- gh-api:repos/kriscendobot/minion.town/pulls-review-metadata:primary-quota
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1379s (since 2026-11-07T21:52:24Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1339s (since 2026-11-07T21:53:04Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 1314s (since 2026-11-07T21:53:29Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 1354s (since 2026-11-07T21:52:49Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1390s (since 2026-11-07T21:52:13Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1399s (since 2026-11-07T21:52:04Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1358s (since 2026-11-07T21:52:45Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1365s (since 2026-11-07T21:52:38Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1375s (since 2026-11-07T21:52:28Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1365s (since 2026-11-07T21:52:38Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1374s (since 2026-11-07T21:52:29Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 1372s (since 2026-11-07T21:52:31Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1332s (since 2026-11-07T21:53:11Z)
+> watcher ticking but cooldown for 1388s (since 2026-11-07T21:52:15Z); detail: rest latch set-by=comment:kriscendobot-oros-ckm-data-readiness:primary-quota <- gh-api:repos/kriscendobot/minion.town/pulls-review-metadata:primary-quota expiry=1794091919
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1404s (since 2026-11-07T21:51:59Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1404s (since 2026-11-07T21:51:59Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1365s (since 2026-11-07T21:52:38Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 1306s (since 2026-11-07T21:53:37Z)
 
 - `doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted.md)
 
@@ -2411,7 +2434,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.7M | $73.99 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 15.7M | $74.04 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 365.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157339372 tokens/day lower bound._
