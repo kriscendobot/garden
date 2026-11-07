@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T15:22:54Z_
+_As of 2026-11-07T15:23:42Z_
 
 ## Latest
 
@@ -1223,6 +1223,25 @@ Delegation: **active**
 > performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
 > on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
+- `doomed-improve-claude-completion-finalizer-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-claude-completion-finalizer-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/improve-claude-completion-finalizer; it stays HELD until a human promotes it
+> (promote-plan.sh improve-claude-completion-finalizer) or removes it, so nothing is lost.
+> Original job base: improve-claude-completion-finalizer
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-07T14:52:23Z
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> scripts/jobs/handlers/monk-claude.sh
+> scripts/jobs/handlers/monk-claude.sh:522 permits a single completion nudge, after which three unrelated Anthropic jobs ended cleanly without the required marker at 2026-11-07T14:24Z. Add a bounded finalizer continuation for a markerless successful nudge, with an explicit verify-or-handoff prompt and a regression fixture for two clean `end_turn` responses. Preserve fail-closed semantics: write the sentinel only after the verified completion marker.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` has CLEARED (first seen 2026-11-06T02:46:39Z, cleared 2026-11-06T09:27:19Z).
@@ -2259,8 +2278,8 @@ worst fetch p95 17.689752s/45s (unknown); 10 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (1)
-- [`improve-claude-completion-finalizer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-claude-completion-finalizer.md) — ---
+### doin (0)
+(none)
 
 ### tada (16849)
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
@@ -2386,6 +2405,7 @@ worst fetch p95 17.689752s/45s (unknown); 10 open notice(s); checker healthy
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-immutable-arraybuffer.md) — _normal_ · IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
 - [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-application-makers-p2-20261002.md) — _normal_ · Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
+- [`improve-claude-completion-finalizer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-claude-completion-finalizer.md) — _normal_ · ---
 - [`improve-gh-api-admission-fail-closed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-gh-api-admission-fail-closed.md) — _normal_ · ---
 - [`improve-issue-status-source-trust-filter-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-issue-status-source-trust-filter-r2.md) — _normal_ · ---
 - [`claude-on-minion-town-completion-press-20261105-195009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261105-195009.md) — _normal_ · Completion press: Claude-on-minion.town arc
