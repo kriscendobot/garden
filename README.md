@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T22:20:49Z_
+_As of 2026-11-07T22:22:37Z_
 
 ## Latest
 
@@ -2338,6 +2338,10 @@ Delegation: **active**
 >
 > To fix: see the parenthetical above for a cause-specific cure; for a missing CLI, install or repair the CLI on oros-studio-garden-ce242c49 (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, $NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2444,7 +2448,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.7M | $73.00 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 15.7M | $71.64 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 365.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157385226 tokens/day lower bound._
@@ -2480,20 +2484,19 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (5)
+### doin (4)
 - [`kriscendobot-minion.town-pr230-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr230-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #230
-- [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #243
 - [`kriscendobot-minion.town-pr228-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr228-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #228
 - [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #253
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #254
 
-### tada (16900)
+### tada (16901)
+- [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-minion.town-pr230-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr230-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr228-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr228-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr230-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr230-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr230-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr230-gauntlet-viability.md) — Viability: PR #230 (kriscendobot/minion.town). Proceed
-- [`kriscendobot-minion.town-pr228-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr228-gauntlet-viability.md) — Cost
-- … and 16895 more
+- … and 16896 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
