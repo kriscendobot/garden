@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: kriscendobot-minion.town-pr253-gauntlet
+role: gardener
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-07T10:23:10Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-07T10:23:10Z
+---
+
+---
 posted_at: 2026-11-07T10:08:03Z
 role: gardener
 gauntlet: kriscendobot-minion.town-pr253-gauntlet
@@ -40,18 +60,3 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: viability=closed -->
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
-
-
-<!-- garden-reaped: 0 -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=29 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-07T10:13:22Z
