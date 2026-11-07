@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+handler-timeout: 7200
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-07T13:33:06Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-07T13:33:06Z
+---
+
+---
 role: gardener
 tier: minion
 model-burned: mentor
@@ -19,19 +41,3 @@ Own every remaining step:
 5. Save production screenshots as durable evidence. Update the PR description's phase/evidence ledger from `orchestrated-slice` to `deliverable` with production run links and observations, and post one concise top-level completion comment with the evidence. This job explicitly authorizes those PR edits/comments.
 
 Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots, and any follow-up.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-07T13:23:03Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=44,41 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-07T13:23:08Z
