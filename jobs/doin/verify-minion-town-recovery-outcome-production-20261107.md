@@ -20,11 +20,11 @@ Own every remaining step:
 
 Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots, and any follow-up.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=44 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T13:23:03Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=44,41 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
