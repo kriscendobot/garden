@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T18:05:55Z_
+_As of 2026-11-07T18:06:52Z_
 
 ## Latest
 
@@ -498,16 +498,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.019808s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `kriscendobot-minion.town-pr248-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr248-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr248-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr248-gauntlet HALTED: stage 'kriscendobot-minion.town-pr248-gauntlet-panel-7' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 7/7 · cost so far: $7.90
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr248-gauntlet panel --iteration 7 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 7 -> 9 (N is yours to choose).
 
 - `doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted.md)
 
@@ -1342,10 +1332,6 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 3): shared codex subscription demand active=3 queue=0 quota=ok fleet-envelope=4 target=3
 
-- `msg-screen-minion-town-pr246-93329d9-conduct-76999ea31a6c` — from gardener:screen-minion-town-pr246-93329d9-conduct, reply_to `screen-minion-town-pr246-93329d9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr246-93329d9-conduct-76999ea31a6c.md)
-
-> Host endolin-garden-ece02cb4 read-only outage RECURRED (~17:26Z 2026-11-07): /dev/nvme0n1p2 on /home/kris/garden is mounted ro at the device level (disk 96% full, 161G avail). Per-job rw binds (cwd, TMPDIR, .git, .claude) work, but worktrees/, scratch/ parent, and the journal worktree are read-only. Job screen-minion-town-pr246-93329d9-conduct (conductor, screened-delegated-merge of [kriscendobot/minion.town#246](https://github.com/kriscendobot/minion.town/issues/246)) cannot run: ensure-project-worktree.sh fails writing to worktrees/ even with sandbox disabled. The whole host is wedged (fleet cannot push journal2). Needs a host repair (remount rw / clear disk) like the earlier 09:27–16:13Z outage. Re-arm outage-doomed jobs after recovery.
-
 - `doomed-claude-on-minion-town-completion-press-20261107-013512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-013512-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1861,10 +1847,6 @@ Delegation: **active**
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child build-daemon-git-remotes-phase-six-interactive-provisioning-r2: doomed and held in plan.
 
-- `msg-screen-minion-town-pr246-93329d9-conduct-34d8153e99fe` — from gardener:screen-minion-town-pr246-93329d9-conduct, reply_to `screen-minion-town-pr246-93329d9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr246-93329d9-conduct-34d8153e99fe.md)
-
-> Screened delegated merge of [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246) ran the vetted ci-wait-merge spine to a deterministic NEEDS-WEAVE verdict (exit 1), after I worked around the monk-sandbox project-worktree EROFS with the documented TMPDIR-clone + GARDEN_PR_WORKTREE recipe (see memory monk-sandbox-project-worktree-erofs; proper --rw-bind fix already reported via the pr252 sibling). Outcome: the spine UNFROZE the base main-89e6156 -> live main (durable; the lone sibling on main-89e6156 was correctly left untouched, not a dependent stack), then safe-rebase REFUSED a non-lockfile content conflict in deploy/aws/www/shell.js when rebasing the head onto live main (5e8905191b6). No merge, no fallback. The PR is now base=main, head 93329d9 unchanged, mergeable=CONFLICTING; CI was green pre-rebase. ACTION NEEDED: weave [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246) onto live main (resolve the shell.js conflict); that moves the head, invalidates the screen, and the proxy re-screens + re-conducts to merge. If left alone, the screening driver will post 2 more conductors (r2/r3) that hit the same deterministic conflict, then escalate a STALLED alert after 3. Recommend weaving now to skip the wasted attempts.
-
 - `doomed-improve-production-acceptance-deferred-probe-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-production-acceptance-deferred-probe-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2339,7 +2321,7 @@ _Fleet token-unlock pace: 156485678 tokens/day lower bound._
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (22)
+### todo (23)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2359,6 +2341,7 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`screen-minion-town-pr246-93329d9-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr246-93329d9-conduct-r2.md) — Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
