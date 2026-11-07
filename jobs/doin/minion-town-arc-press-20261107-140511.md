@@ -78,11 +78,11 @@ This schedule is STANDING for the life of the arc; do not retire it.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=57 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T14:23:04Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=57,41 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
