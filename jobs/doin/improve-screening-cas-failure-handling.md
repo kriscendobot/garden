@@ -14,6 +14,7 @@ scripts/jobs/screen-delegated-prs.sh:150 turns an exhausted journal CAS retry in
 <!-- garden-plain-retry-not-before: 2026-11-07T18:53:09Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=26,24 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
