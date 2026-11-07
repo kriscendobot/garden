@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:41:03Z_
+_As of 2026-11-07T17:42:11Z_
 
 ## Latest
 
@@ -1789,10 +1789,6 @@ Delegation: **active**
 >
 > Orchestration orchestrate-build-minion-town-ordered-gutter-20261104 HALTED: child build-minion-town-ordered-gutter-inc1-20261104 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/5 done before halt; parked remainder: build-minion-town-ordered-gutter-inc2-20261104 build-minion-town-ordered-gutter-inc3-20261104 build-minion-town-ordered-gutter-inc4-20261104 build-minion-town-ordered-gutter-inc5-20261104
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-172009` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-172009.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261107-172009' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `20261105T005809Z-eda050` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T005809Z-eda050.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -2283,16 +2279,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.5M | $37.71 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 5.3M | $39.35 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 359.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155816433 tokens/day lower bound._
+_Fleet token-unlock pace: 153370003 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (27)
+### todo (26)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`design-minion-town-gutter-name-prefix-order-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-gutter-name-prefix-order-20261107.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2309,7 +2305,6 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ad75cf189997
 - [`oros-health-checkup-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-172009.md) — ---
 - [`oros-health-checkup-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-140511.md) — ---
-- [`kriscendobot-minion.town-pr248-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #248
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr253-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
@@ -2324,20 +2319,20 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### doin (8)
 - [`accountant-weekly-20261107-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261107-170510.md) — Weekly arc apportionment
 - [`kriscendobot-minion.town-pr254-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #254
-- [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr246-93329d9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
+- [`kriscendobot-minion.town-pr248-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #248
 - [`design-endo-naturally-sort-ordered-directory-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-naturally-sort-ordered-directory-20261106.md) — ---
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 - [`kriscendobot-minion.town-pr248-review-edbd57fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-review-edbd57fa.md) — Review directive on kriscendobot/minion.town PR #248
 - [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr252-755d017-conduct.md) — Screened delegated merge: kriscendobot/minion.town#252 at 755d017997d34c46348...
 
-### tada (16855)
+### tada (16856)
+- [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr247-review-213830b3.md) — Completion report
 - [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr248-0e30f0e6.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Cost
 - [`minion-town-arc-press-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/minion-town-arc-press-20261107-172009.md) — Cost
 - [`oros-health-watch-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-watch-20261107-172009.md) — 2026-11-07T17:25Z - oros-health-watch-20261107-172009
-- [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/verify-minion-town-recovery-outcome-production-20261107b.md) — State as re-derived (clean start after reaper requeue)
-- … and 16850 more
+- … and 16851 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
