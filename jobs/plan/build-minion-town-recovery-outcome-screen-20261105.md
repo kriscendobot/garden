@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+handler-timeout: 3600
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-07T11:23:28Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-07T11:23:28Z
+---
+
+---
 role: builder
 tier: mentor
 posted_at: 2026-11-05T22:13:16Z
@@ -43,20 +65,3 @@ Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates produc
 <!-- garden-annotation: key=78d1671abec4 by=producer at=2026-11-05T21:14:43Z -->
 
 COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-facing text; use 'guest'. Any new recovery/landing copy says guest. The sibling job build-minion-town-waitlist-soon-page-20261105 changes the existing splash strings; stay consistent with it. Internal role value 'resident' is not renamed.
-
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-07T11:13:04Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=33,46 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-07T11:13:06Z
