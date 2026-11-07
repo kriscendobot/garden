@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-11-07T16:15:35Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-verify-minion-town-recovery-outcome-production-20261107b
-pr_number: 254
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/254
-pr_head: fix/recovery-outcome-screen

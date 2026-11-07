@@ -1,7 +1,8 @@
 ---
 posted_at: 2026-11-07T16:15:21Z
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Finish the production acceptance gate for the failed guest-recovery outcome work in kriscendobot/minion.town.
@@ -21,13 +22,6 @@ Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots
 (Re-armed 2026-11-07 by build-minion-town-recovery-outcome-screen-20261105: the original `verify-minion-town-recovery-outcome-production-20261107` was reaper-doomed only because every worker on endolin-garden-ece02cb4 had a dead Bash tool (EROFS tmpexec); it never did work.)
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=2368 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-07T16:15:35Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-07T17:13:04Z -->
