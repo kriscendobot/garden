@@ -19,3 +19,13 @@ Own every remaining step:
 Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots, and any follow-up.
 
 (Re-armed 2026-11-07 by build-minion-town-recovery-outcome-screen-20261105: the original `verify-minion-town-recovery-outcome-production-20261107` was reaper-doomed only because every worker on endolin-garden-ece02cb4 had a dead Bash tool (EROFS tmpexec); it never did work.)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-07T16:15:35Z
