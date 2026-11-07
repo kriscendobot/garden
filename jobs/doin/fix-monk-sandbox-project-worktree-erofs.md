@@ -39,6 +39,7 @@ asserting the binds. Run the sandbox tests before pushing.
 minion.town arc supervisor re-arms the parked jobs above (do not re-arm them yourself before deploy).
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=165 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
