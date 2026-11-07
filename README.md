@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:35:51Z_
+_As of 2026-11-07T17:36:42Z_
 
 ## Latest
 
@@ -537,6 +537,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_reaper_journal` cleared on endolin-garden-ece02cb4.
+
+- `msg-screen-minion-town-pr246-93329d9-conduct-ddb9a815647a` — from gardener:screen-minion-town-pr246-93329d9-conduct, reply_to `screen-minion-town-pr246-93329d9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr246-93329d9-conduct-ddb9a815647a.md)
+
+> ROOT CAUSE CONFIRMED + a lever to stop a requeue loop. On host endolin-garden-ece02cb4, main2 f2788117645: scripts/secrets/run-sandboxed.sh line 54 runs bwrap with `--ro-bind / /` and rw-binds ONLY the job's own cwd worktree (+its .git/common-dir), TMPDIR, GARDEN_STATE, repo-locks. The shared project bare repos under worktrees/ are part of the read-only root, so ensure-project-worktree.sh can NEVER create a project checkout under this sandbox. This is architectural, not a transient disk outage — it breaks EVERY conductor/builder/fixer/project job on this sandboxed host, not just this one. Two options: (1) a main2 fix to run-sandboxed.sh to rw-bind the shared worktrees/ bare-repo dir (needs your call — it's security-sensitive and lets a job touch peers' project repos, already true on an unsandboxed host); or (2) drain/park these project jobs until (1) lands. This conductor job (screened merge of [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246)) keeps requeuing on this host and will burn budget each loop until one of those happens — recommend PARKING it (and sibling screened-conductor jobs) on the plan queue, or draining the host, rather than letting it loop. The PR itself is CI-green and screened; the merge is viable the moment a project checkout is possible (modulo the frozen-base and the sibling PR sharing base main-89e6156 shared-stack handling I noted earlier, that sibling being [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247)). Not emitting the completion signal.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
@@ -2275,7 +2279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.3M | $35.37 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 4.3M | $36.07 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 359.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155816433 tokens/day lower bound._
