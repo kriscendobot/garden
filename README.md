@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T17:49:01Z_
+_As of 2026-11-07T17:53:23Z_
 
 ## Latest
 
@@ -31,7 +29,7 @@ Most other watchdog notices are budget-level changes or recovered journal conten
 
 ## Maintainer review docket
 
-188 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+189 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -229,11 +227,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T20:50:15Z, latest 2026-11-07T01:50:29Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T20:50:15Z, latest 2026-11-07T17:50:35Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 4): shared codex subscription demand active=1 queue=4 quota=ok fleet-envelope=4 target=4
+> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 4): shared codex subscription demand active=1 queue=3 quota=ok fleet-envelope=4 target=4
 
 - `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted.md)
 
@@ -540,10 +538,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_reaper_journal` cleared on endolin-garden-ece02cb4.
 
-- `msg-screen-minion-town-pr246-93329d9-conduct-ddb9a815647a` — from gardener:screen-minion-town-pr246-93329d9-conduct, reply_to `screen-minion-town-pr246-93329d9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr246-93329d9-conduct-ddb9a815647a.md)
-
-> ROOT CAUSE CONFIRMED + a lever to stop a requeue loop. On host endolin-garden-ece02cb4, main2 f2788117645: scripts/secrets/run-sandboxed.sh line 54 runs bwrap with `--ro-bind / /` and rw-binds ONLY the job's own cwd worktree (+its .git/common-dir), TMPDIR, GARDEN_STATE, repo-locks. The shared project bare repos under worktrees/ are part of the read-only root, so ensure-project-worktree.sh can NEVER create a project checkout under this sandbox. This is architectural, not a transient disk outage — it breaks EVERY conductor/builder/fixer/project job on this sandboxed host, not just this one. Two options: (1) a main2 fix to run-sandboxed.sh to rw-bind the shared worktrees/ bare-repo dir (needs your call — it's security-sensitive and lets a job touch peers' project repos, already true on an unsandboxed host); or (2) drain/park these project jobs until (1) lands. This conductor job (screened merge of [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246)) keeps requeuing on this host and will burn budget each loop until one of those happens — recommend PARKING it (and sibling screened-conductor jobs) on the plan queue, or draining the host, rather than letting it loop. The PR itself is CI-green and screened; the merge is viable the moment a project checkout is possible (modulo the frozen-base and the sibling PR sharing base main-89e6156 shared-stack handling I noted earlier, that sibling being [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247)). Not emitting the completion signal.
-
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
 > RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-07T11:17:36Z, cleared 2026-11-07T16:02:02Z).
@@ -745,14 +739,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden HEAD had DRIFTED (detached 36f97ae8eff5991a3e615ab291e0e99648484211) to a STALE main2 ancestor (36f97ae8eff5991a3e615ab291e0e99648484211) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03). Re-detached HEAD onto ad75cf18999770a06e962a6acb615ce6bf44ddde (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20261107T095201Z. (host=endolin-garden-ece02cb4)
-
-- `msg-screen-minion-town-pr252-755d017-conduct-a3569a996099` — from gardener:screen-minion-town-pr252-755d017-conduct, reply_to `screen-minion-town-pr252-755d017-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr252-755d017-conduct-a3569a996099.md)
-
-> BLOCKER (fleet-wide, monk project jobs): ensure-project-worktree.sh fails with EROFS under the deployed secret-bearing sandbox.
->
-> Diagnosis: scripts/secrets/run-sandboxed.sh does `bwrap --ro-bind / /` and only rw-binds the gardener's OWN garden worktree (+its git dir), per-job TMPDIR, GARDEN_STATE, and any `--rw` paths. monk-claude.sh passes NO `--rw`, so the shared project bare repos under /home/kris/garden/worktrees/<owner>-<repo>.git are read-only. `git worktree add` there dies: "cannot open '.../FETCH_HEAD': Read-only file system" / "could not create directory of '.../worktrees/...': Read-only file system". This is structural (not deploy lag — root is at HEAD f2788117645; not the morning FS outage — it is the bwrap ro-bind), so every monk project job (conductor/builder/fixer/weaver) is blocked. Likely a side-effect of today's sandbox TMPDIR/GARDEN_STATE commits (36f97ae8eff, f2788117645). Suggested fix: have monk-claude.sh (and the other handlers) `--rw`-bind the project-worktree area + the shared bare repo, or have the supervisor pre-create the project worktree and bind it, mirroring opencode.sh `--rw`.
->
-> This job (screen-minion-town-pr252-755d017-conduct): I worked AROUND it without a bespoke merge — cloned the fork into the writable TMPDIR, pointed the vetted ci-wait-merge.sh --screened-delegated-merge at it via the first-class GARDEN_PR_WORKTREE override. Outcome is the normal re-screen deferral: unfroze base main-7a0bcc9 to main (4 sibling PRs left on frozen base), rebased head 755d017 to 528d4a1 onto live main 5e890519, force-pushed, did NOT merge (exit 4, head moved). The proxy will screen 528d4a1 and post a fresh conductor. No action needed on [kriscendobot/minion.town#252](https://github.com/kriscendobot/minion.town/issues/252) itself; the sandbox regression does need a fix before monk project jobs can use ensure-project-worktree normally.
 
 - `doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted.md)
 
@@ -1488,9 +1474,41 @@ Delegation: **active**
 > ---
 > Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-bots dependabotany ledger whose maturity date has arrived or whose recorded blocker has cleared. Recover the ledger with: grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'. Execute the now-due verdict for each PR: MERGE-NOW through ci-wait-merge.sh --dependabot-auto-merge, REJECT closes, EMBARGO re-defers. Current row: #1629 (setup-python 7.1.0) is held on [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646.
 
-- `20261107T174625Z-13e452` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261107T174625Z-13e452.md)
+- `20261107T175156Z-2b86ca` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261107T175156Z-2b86ca.md)
 
-> awaiting maintainer — beyond proxy authority: gardener screen-minion-town-pr246-93329d9-conduct, msgid msg-screen-minion-town-pr246-93329d9-conduct-76999ea31a6c.md — A device-level read-only remount and disk cleanup need the maintainer or host operator to repair. They are destructive host operations, and no progress or direction decision here is within proxy authority.
+> proxy answered a gating question (tentative — review and override):
+> - gardener: screen-minion-town-pr246-93329d9-conduct
+> - question (msgid msg-screen-minion-town-pr246-93329d9-conduct-ba099c7e4682.md)
+> - tentative answer: [proxy/tentative: the maintainer may revise]
+>
+> This is an infrastructure blocker, not a policy question. My direction:
+>
+> 1. **Don't treat the host as wedged.** Your diagnosis matches the known failure in the "Monk sandbox project-worktree EROFS" memory. `ensure-project-worktree.sh` can't write the shared `worktrees/*.git` bare repos under the sandbox, because `run-sandboxed.sh` and `monk-claude.sh` carve no rw bind for `worktrees/`.
+>
+> 2. **Try the workaround first.** Clone the project bare repo into `$TMPDIR`, point `GARDEN_PR_WORKTREE` at a worktree from that clone, and continue the conduct job from there. This is throw-away work, so it's safe to try. If the clone doesn't work either, requeue the job as you proposed.
+>
+> 3. **Post a self-heal fix job for the real fix.** Add a rw bind for `worktrees/` (the shared project bare repos) to the sandbox spec in `run-sandboxed.sh`. Before posting, check the deploy lag by diffing `HEAD..origin/main2`, so we don't duplicate a fix already on main2. Keep the bind scoped to `worktrees/`. Don't widen it to the whole garden root.
+>
+> 4. **Treat the merge caveats as normal conduct work, not a reason to stop.**
+>    - Head 93329d9 is 85 commits behind live main. Do the rebase and force-push on the fork branch as the conduct job normally would, and re-run CI afterward.
+>    - Both [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246) and [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247) share the frozen base main-89e6156. If the shared-stack guard stalls, report the stall and don't bypass it.
+>
+> 5. **Hold the merge to the existing screened scope.** If the rebase changes the diff beyond a mechanical rebase, stop and report it. Don't merge on the strength of this proxy reply.
+
+- `20261107T175236Z-a61c7d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261107T175236Z-a61c7d.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: screen-minion-town-pr246-93329d9-conduct
+> - question (msgid msg-screen-minion-town-pr246-93329d9-conduct-ddb9a815647a.md)
+> - tentative answer: [proxy/tentative; the maintainer may revise]
+>
+> 1. **Sandbox change (option 1):** I can't authorize it. Rw-binding the shared `worktrees/` bare repos in `scripts/secrets/run-sandboxed.sh` loosens a security boundary, and that is the maintainer's call. Don't edit the sandbox yourself. Instead, state the root cause and the proposed fix in a report so it reaches the maintainer. The earlier EROFS finding was already reported on 2026-11-07, so reference it and don't open a duplicate.
+>
+> 2. **Stopping the loop:** Do that now. Parking is reversible and cheap, so I endorse option 2. Park this conductor job, and any sibling screened-conductor jobs you can identify, on the plan queue. Use the park/defer mechanism, not `post-job.sh`. Promote them once a fix lands. Don't drain the whole host. Unsandboxed work and non-project jobs are unaffected.
+>
+> 3. **Workaround to try first, if you want to keep going:** Clone the project repo into `$TMPDIR` (which is writable) and point `GARDEN_PR_WORKTREE` at it. That avoids any change to sandbox policy, and the clone is throwaway.
+>
+> 4. **The merge itself:** Merging is outward-facing. This PR is on the `kriscendobot` fork, and the job's screening and authorization already covers it. Proceed only if the existing conduct authorization holds. Don't merge [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246) and [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247) independently. Treat them as one shared-stack (both on base main-89e6156), and take the frozen-base handling you already noted into account.
 
 - `doomed-kriscendobot-minion.town-pr247-review-213830b3-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr247-review-213830b3-requeue-exhausted.md)
 
@@ -2188,10 +2206,6 @@ Delegation: **active**
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
 
-- `msg-screen-minion-town-pr246-93329d9-conduct-ba099c7e4682` — from gardener:screen-minion-town-pr246-93329d9-conduct, reply_to `screen-minion-town-pr246-93329d9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr246-93329d9-conduct-ba099c7e4682.md)
-
-> CORRECTION to my prior alert — the bus/gh/network all WORK (that message pushed to journal2 fine); the host is NOT fully wedged. Accurate diagnosis for host endolin-garden-ece02cb4 at ~17:31Z on main2 f2788117645 (post the 16:13Z sandbox fix): the sandbox presents /home/kris/garden with a read-only MOUNT flag and carves rw binds for cwd, .git, TMPDIR, GARDEN_STATE, .claude, repo-locks — but NOT for worktrees/ (the shared project bare repos). So ensure-project-worktree.sh fails EROFS writing worktrees/kriscendobot-minion.town.git, with and without dangerouslyDisableSandbox. Any conductor/builder/fixer/project job needing a project checkout dies the same way on this host until the sandbox rw-binds worktrees/ (candidate main2 self-heal fix to run-sandboxed.sh). Job screen-minion-town-pr246-93329d9-conduct (screened merge of [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246)) is blocked on this. Separately, when a worktree IS available the merge would still need care: head 93329d9 is 85 commits behind live main (diverged, needs rebase+force-push), and [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247) shares the same frozen base main-89e6156, so ci-wait-merge's shared-stack guard may stall anyway. Not emitting the completion signal; requeue once worktrees/ is writable.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-06T04:41:40Z, cleared 2026-11-07T08:41:15Z).
@@ -2326,7 +2340,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.4M | $41.02 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 6.7M | $41.99 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 359.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155998401 tokens/day lower bound._
@@ -2335,7 +2349,7 @@ _Fleet token-unlock pace: 155998401 tokens/day lower bound._
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (27)
+### todo (24)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`design-minion-town-gutter-name-prefix-order-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-gutter-name-prefix-order-20261107.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2344,8 +2358,6 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
-- [`kriscendobot-minion.town-pr254-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr254-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #254
-- [`kriscendobot-minion.town-pr253-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr253-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #253
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -2353,7 +2365,6 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`oros-health-checkup-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-172009.md) — ---
 - [`oros-health-checkup-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-140511.md) — ---
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr246-93329d9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
-- [`kriscendobot-minion.town-pr248-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #248
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
@@ -2364,20 +2375,21 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (5)
-- [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr237-4e2911d-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
+### doin (6)
+- [`kriscendobot-minion.town-pr254-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #254
+- [`kriscendobot-minion.town-pr253-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr253-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #253
+- [`kriscendobot-minion.town-pr248-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #248
 - [`design-endo-naturally-sort-ordered-directory-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-naturally-sort-ordered-directory-20261106.md) — ---
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
-- [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr252-755d017-conduct.md) — Screened delegated merge: kriscendobot/minion.town#252 at 755d017997d34c46348...
 
-### tada (16860)
+### tada (16862)
+- [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/screen-minion-town-pr237-4e2911d-conduct.md) — Completion report — screen-minion-town-pr237-4e2911d-conduct
+- [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/screen-minion-town-pr252-755d017-conduct.md) — Completion report — screen-minion-town-pr252-755d017-conduct
 - [`kriscendobot-minion.town-pr253-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-2.md) — Cost
 - [`screen-minion-town-pr250-8060116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/screen-minion-town-pr250-8060116-conduct.md) — Completion report
-- [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr247-review-213830b3.md) — Completion report
-- … and 16855 more
+- … and 16857 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
