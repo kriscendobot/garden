@@ -1,4 +1,5 @@
 ---
+child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failure-notified: true
 child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-host: endolin-garden-ece02cb4
 child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-reap-count: 0
 order: serial
