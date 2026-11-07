@@ -1,23 +1,10 @@
 ---
-gate: go-ahead
-priority: normal
 role: designer
 tier: mentor
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-split_eligible: true
-split_reason: repeated-plain-exit
-failure_classification: transient
-requeue_cycles: 2
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-11-06T05:04:09Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-11-06T05:04:09Z
+token-budget: 250000
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-07T17:38:39Z cleared=none -->
 
 ---
 posted_at: 2026-11-06T04:39:37Z
