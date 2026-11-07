@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T11:38:04Z_
+_As of 2026-11-07T11:42:25Z_
 
 ## Latest
 
@@ -1792,6 +1792,10 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child design-daemon-git-remotes-server-half-r2: doomed and held in plan.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed.md)
 
