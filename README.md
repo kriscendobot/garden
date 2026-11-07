@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T14:19:17Z_
+_As of 2026-11-07T14:25:30Z_
 
 ## Latest
 
@@ -1680,6 +1678,25 @@ Delegation: **active**
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child build-daemon-git-remotes-phase-six-interactive-provisioning-r2: doomed and held in plan.
 
+- `doomed-improve-production-acceptance-deferred-probe-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-production-acceptance-deferred-probe-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/improve-production-acceptance-deferred-probe; it stays HELD until a human promotes it
+> (promote-plan.sh improve-production-acceptance-deferred-probe) or removes it, so nothing is lost.
+> Original job base: improve-production-acceptance-deferred-probe
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-07T13:51:46Z
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> scripts/jobs/auto-gauntlet-handoff.sh
+> scripts/jobs/auto-gauntlet-handoff.sh:136-158 only re-stages review after a successor completes, while this successor requires merge and deployment first, producing a waiting-agent treadmill. Reconcile an `orchestrated-slice` successor against PR merge and deployment/probe state, and release its production-verification job only after those deterministic prerequisites succeed. Evidence: 2026-11-07T13:24:09Z and 13:24:24Z show the same job exiting without completion at 41/44s before requeue exhaustion. This moves external-state waiting out of an agent claim and into a durable script-driven gate.
+
 - `20261105T115122Z-d975ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T115122Z-d975ad.md)
 
 > kind: error
@@ -2110,7 +2127,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.7M | $25.94 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.9M | $27.61 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 358.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153282110 tokens/day lower bound._
@@ -2119,11 +2136,9 @@ _Fleet token-unlock pace: 153282110 tokens/day lower bound._
 worst fetch p95 17.689752s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
-### todo (23)
+### todo (20)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
-- [`minion-town-arc-press-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261107-140511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
-- [`oros-health-watch-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261107-140511.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
@@ -2138,14 +2153,15 @@ worst fetch p95 17.689752s/45s (unknown); 9 open notice(s); checker healthy
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`claude-on-minion-town-completion-press-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261107-140511.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (1)
-- [`improve-production-acceptance-deferred-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-production-acceptance-deferred-probe.md) — ---
+### doin (3)
+- [`minion-town-arc-press-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261107-140511.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`oros-health-watch-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261107-140511.md) — ---
+- [`claude-on-minion-town-completion-press-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261107-140511.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16849)
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
@@ -2279,6 +2295,7 @@ worst fetch p95 17.689752s/45s (unknown); 9 open notice(s); checker healthy
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-checkup-20261013-133505.md) — _normal_ · Deliberate overrun decomposition for oros-health-checkup-20261013-133505
 - [`oros-health-watch-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-165012.md) — _normal_ · ---
+- [`improve-production-acceptance-deferred-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-production-acceptance-deferred-probe.md) — _normal_ · ---
 - [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-builtins-order-port.md) — _normal_ · Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20261010-133536.md) — _normal_ · Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-200509.md) — _normal_ · ---
