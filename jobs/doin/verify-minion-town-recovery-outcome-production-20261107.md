@@ -18,3 +18,13 @@ Own every remaining step:
 5. Save production screenshots as durable evidence. Update the PR description's phase/evidence ledger from `orchestrated-slice` to `deliverable` with production run links and observations, and post one concise top-level completion comment with the evidence. This job explicitly authorizes those PR edits/comments.
 
 Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots, and any follow-up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T13:05:19Z
