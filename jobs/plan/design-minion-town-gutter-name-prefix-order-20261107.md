@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-07T18:43:11Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-07T18:43:11Z
+---
+
+---
 posted_at: 2026-11-07T17:40:03Z
 role: designer
 tier: mentor
@@ -68,19 +89,3 @@ increments; do not re-post or edit them yourself.
 <!-- provenance: kriscendobot/minion.town#247 review 5795490383 (kriskowal,
 2026-11-06); routed by review-handler job
 kriscendobot-minion.town-pr247-review-213830b3 on 2026-11-07 -->
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-07T18:33:04Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=1021,41 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-07T18:33:19Z

@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: minion
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-07T18:43:13Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-07T18:43:13Z
+---
+
+---
 posted_at: 2026-11-07T18:06:10Z
 tier: minion
 model-burned: mentor
@@ -22,19 +43,3 @@ approval is required; do not request one.
    fall back to an ordinary merge, never queue --auto, never ask for approval.
 
 PR: https://github.com/kriscendobot/minion.town/pull/246
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-07T18:33:04Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=193,45 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-07T18:34:24Z
