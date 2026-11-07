@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:58:06Z_
+_As of 2026-11-07T22:01:08Z_
 
 ## Latest
 
@@ -2391,7 +2391,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.5M | $73.44 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 15.6M | $73.10 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 365.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157180955 tokens/day lower bound._
@@ -2426,19 +2426,18 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #243
 - [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #253
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #254
-- [`kriscendobot-minion.town-pr230-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr230-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #230
 
-### tada (16896)
+### tada (16899)
+- [`kriscendobot-minion.town-pr228-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr228-gauntlet-clean.md) — Cost
+- [`kriscendobot-minion.town-pr230-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr230-gauntlet-clean.md) — Cost
+- [`kriscendobot-minion.town-pr230-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr230-gauntlet-viability.md) — Viability: PR #230 (kriscendobot/minion.town). Proceed
 - [`kriscendobot-minion.town-pr228-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr228-gauntlet-viability.md) — Cost
 - [`verify-minion-town-recovery-outcome-production-20261107f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/verify-minion-town-recovery-outcome-production-20261107f.md) — Panel-head freshness
-- [`kriscendobot-minion.town-pr254-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-4.md) — Cost
-- [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/verify-minion-town-recovery-outcome-production-20261107e.md) — Cost
-- [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-panel-1.md) — Cost
-- … and 16891 more
+- … and 16894 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
