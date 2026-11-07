@@ -1,0 +1,21 @@
+elapsed-constancy exit0-wedge-suspect: improve-minion-town-arc-press-breaker
+
+gardener-4 on endolin-garden-ece02cb4: job improve-minion-town-arc-press-breaker keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 33,28s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>06:43:16 [monk/4] resuming session c6fbfc0a-4953-57da-867d-d347afa5b014 for requeued job 'improve-minion-town-arc-press-breaker' in worktree /home/kris/garden/scratch/gardener-wt-improve-minion-town-arc-press-breaker
+<6>06:43:16 [monk/4] job 'improve-minion-town-arc-press-breaker' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>06:43:17 [monk/4] job 'improve-minion-town-arc-press-breaker' call ceiling: tier=minion max-budget-usd=9.90 (scaled by fresh seven-day headroom when available)
+<6>06:43:17 [monk/4] job 'improve-minion-town-arc-press-breaker' attaching minion.town MCP (stdio bridge)
+<6>06:43:32 [monk/4] job 'improve-minion-town-arc-press-breaker' ended its turn without the completion signal; nudging the same session to verify and complete (nudge 1/1, budget USD 6.74)
