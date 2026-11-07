@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T22:13:53Z_
+_As of 2026-11-07T22:15:00Z_
 
 ## Latest
 
@@ -1237,11 +1237,23 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-07T11:35:09Z, cleared 2026-11-07T20:53:08Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-07T11:35:09Z, latest 2026-11-07T22:14:10Z).
+> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
+> Rolling deploy HALTED on a failed canary.
+> canary host: oros-studio-garden-ce242c49
+> target sha:  3c7f9ce045e9fc9b5bace542c877cc6b909a03c3
+> failing signal: probe 'canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3' did not reach tada within 600s (claim/spine broken on new code)
+> This canary was RETRIED 3 time(s) automatically and kept
+> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+> confirmed regression, not a transient blip — treat it as higher severity than a
+> first-tick halt.
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `doomed-improve-claude-completion-finalizer-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-claude-completion-finalizer-requeue-exhausted.md)
 
@@ -2435,9 +2447,10 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (4)
+### doin (5)
 - [`kriscendobot-minion.town-pr230-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr230-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #230
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #243
+- [`kriscendobot-minion.town-pr228-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr228-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #228
 - [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #253
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #254
 
@@ -2471,7 +2484,6 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-6659790262.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — _normal_ · ---
-- [`kriscendobot-minion.town-pr228-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr228-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #228
 - [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports-r2.md) — _normal_ · ---
 - [`fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106.md) — _normal_ · ---
 - [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr253-9c79d18-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
