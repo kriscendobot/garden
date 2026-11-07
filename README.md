@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T19:36:10Z_
+_As of 2026-11-07T19:36:49Z_
 
 ## Latest
 
@@ -1897,16 +1897,6 @@ Delegation: **active**
 >
 > This matches the direction already recorded for minion.town: access control is moving toward object capabilities. Bearer tokens that designate a specific object are acceptable. Ones that designate an identity are not.
 
-- `endojs-endo-but-for-bots-pr1653-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1653-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1653-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1653-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1653-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1653-gauntlet panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -2059,16 +2049,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
-
-- `kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion-town-pr237-screen-304dd248-gauntlet HALTED: stage 'kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/1
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr237-screen-304dd248-gauntlet panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 1 -> 3 (N is yours to choose).
 
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
