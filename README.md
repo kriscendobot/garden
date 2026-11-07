@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:21:51Z_
+_As of 2026-11-07T21:23:25Z_
 
 ## Latest
 
@@ -2385,7 +2385,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.9M | $63.42 _(notional, rate-card)_ | 5% of 271.0M (ok) |
+| Claude | 13.7M | $67.36 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 362.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 156899445 tokens/day lower bound._
@@ -2394,7 +2394,7 @@ _Fleet token-unlock pace: 156899445 tokens/day lower bound._
 worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (23)
+### todo (24)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2417,6 +2417,7 @@ worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
+- [`verify-minion-town-recovery-outcome-production-20261107f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-minion-town-recovery-outcome-production-20261107f.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
 ### doin (4)
