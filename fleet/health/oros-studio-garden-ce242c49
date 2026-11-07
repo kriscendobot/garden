@@ -1,8 +1,8 @@
 host: oros-studio-garden-ce242c49
-deployed_sha: f93ad7a4f59c7994997c682e28c9b27600cff870
-roll_status: roll-drained
-unit_failures: 1
+deployed_sha: ad75cf18999770a06e962a6acb615ce6bf44ddde
+roll_status: deployed
+unit_failures: 0
 unit_total: 296
-first_bad_unit: garden-secret-broker.service
+first_bad_unit: -
 advisory_failures: 0
-at: 2026-11-07T04:12:16Z
+at: 2026-11-07T04:20:54Z
