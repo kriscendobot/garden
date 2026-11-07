@@ -1,8 +1,9 @@
 ---
 role: gardener
-tier: mentor
+tier: minion
+model-burned: mentor
 handler-timeout: 7200
-fallback-tier: minion
+fallback-tier: 
 dispatch: automatic
 ---
 Finish the production acceptance gate for the failed guest-recovery outcome work in kriscendobot/minion.town.
@@ -20,13 +21,6 @@ Own every remaining step:
 Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots, and any follow-up.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=44 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-07T13:05:19Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-07T13:23:03Z -->
