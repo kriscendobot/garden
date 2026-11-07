@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T18:28:48Z_
+_As of 2026-11-07T18:29:41Z_
 
 ## Latest
 
@@ -2312,7 +2312,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.9M | $39.63 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 6.9M | $39.76 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 360.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 156502452 tokens/day lower bound._
@@ -2321,7 +2321,7 @@ _Fleet token-unlock pace: 156502452 tokens/day lower bound._
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (25)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`design-minion-town-gutter-name-prefix-order-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-gutter-name-prefix-order-20261107.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2329,6 +2329,7 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
+- [`kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #237
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`endojs-endo-but-for-bots-pr1653-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1653-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1653
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
