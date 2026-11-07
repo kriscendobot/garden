@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-11-05
+updated: 2026-11-07
 author: builder, gardener
 ---
 
@@ -18,6 +18,9 @@ schedule). The conversational first-run tour is the sibling tree,
 ## Pick by intent
 
 - Place, migrate, rotate, remove, or audit provider API keys: [secrets.md](secrets.md).
+
+- Prepare the Mac-hosted Oros follower for the provider-secrets release:
+  [oros-secrets-handoff.md](oros-secrets-handoff.md).
 
 - **[cybernetics.md](cybernetics.md)** — budget admission, subscription metering,
   fleet allocation, controller restraint, decision records, and known gaps.
