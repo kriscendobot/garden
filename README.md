@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:55:27Z_
+_As of 2026-11-07T21:57:04Z_
 
 ## Latest
 
@@ -2385,7 +2385,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $73.00 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 15.4M | $73.39 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 365.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157180955 tokens/day lower bound._
@@ -2394,7 +2394,7 @@ _Fleet token-unlock pace: 157180955 tokens/day lower bound._
 worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (25)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2418,10 +2418,12 @@ worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
+- [`kriscendobot-minion.town-pr230-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr230-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #230
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #243
+- [`kriscendobot-minion.town-pr228-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr228-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #228
 - [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #253
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #254
 
