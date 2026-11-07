@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:13:49Z_
+_As of 2026-11-07T20:15:18Z_
 
 ## Latest
 
@@ -703,6 +703,16 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
+
+- `kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet HALTED: stage 'kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/1
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet panel --iteration 1 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 1 -> 3 (N is yours to choose).
 
 - `doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted.md)
 
@@ -2548,7 +2558,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.3M | $50.82 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.3M | $51.20 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 156311483 tokens/day lower bound._
@@ -2586,13 +2596,13 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
 
-### tada (16882)
+### tada (16883)
+- [`kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet.md) — gauntlet kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr254-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-3.md) — Cost
 - [`claude-on-minion-town-completion-press-20261107-200512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/claude-on-minion-town-completion-press-20261107-200512.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-fix-2.md) — Cost
 - [`verify-minion-town-recovery-outcome-production-20261107d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/verify-minion-town-recovery-outcome-production-20261107d.md) — Cost
-- [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — complete
-- … and 16877 more
+- … and 16878 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
