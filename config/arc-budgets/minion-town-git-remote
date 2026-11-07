@@ -6,8 +6,8 @@
   "summary": "minion.town as a capability git remote, including kriscendobot/minion.town#86",
   "token_cap": 7870372,
   "window": "week",
-  "window_start": "2026-10-31T03:00:00Z",
+  "window_start": "2026-11-07T04:00:00Z",
   "tracker": "https://github.com/kriscendobot/minion.town/pull/86",
-  "set_by": "accountant-weekly-20261031-160509",
-  "set_at": "2026-10-31T16:08:01Z"
+  "set_by": "accountant-weekly-20261107-170510",
+  "set_at": "2026-11-07T17:06:46Z"
 }
