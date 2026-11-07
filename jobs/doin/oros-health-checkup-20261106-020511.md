@@ -18,6 +18,7 @@ mode: local
 evidence: inspect locally, append one standard host-health record, and exit early for an active roll release or drain
 recurrence_budget: 15 minutes
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=255 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
