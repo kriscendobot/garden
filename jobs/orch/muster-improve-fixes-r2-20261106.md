@@ -1,4 +1,5 @@
 ---
+child-improve-transient-retry-budget-r2-failure-notified: true
 child-improve-transient-retry-budget-r2-host: endolin-garden-ece02cb4
 child-improve-transient-retry-budget-r2-reap-count: 1
 child-improve-screening-cooldown-log-spam-r2-failure-notified: true
