@@ -1,0 +1,26 @@
+elapsed-constancy exit0-wedge-suspect: improve-screening-cas-failure-handling
+
+gardener-1 on endolin-garden-ece02cb4: job improve-screening-cas-failure-handling keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 26,24s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>18:53:18 [cleric/1] resuming codex session 01a1b73e-b3a6-7533-8d8a-2f659158120f for job 'improve-screening-cas-failure-handling' that STOPPED without completing; continue framing
+<6>18:53:18 [cleric/1] job 'improve-screening-cas-failure-handling' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>18:53:18 [cleric/1] job 'improve-screening-cas-failure-handling' attaching minion.town MCP (stdio bridge as minion-town)
+<6>18:53:34 [cleric/1] job 'improve-screening-cas-failure-handling' ended its turn without the completion signal; nudging codex session 01a1b73e-b3a6-7533-8d8a-2f659158120f to verify and complete (nudge 1/1)
+<6>18:53:41 [cleric/1] codex completion nudge for 'improve-screening-cas-failure-handling' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1b73e-b3a6-7533-8d8a-2f659158120f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":1667554,"cached_input_tokens":1549312,"cache_write_input_tokens":0,"output_tokens":9524,"reasoning_output_tokens":3405}}
