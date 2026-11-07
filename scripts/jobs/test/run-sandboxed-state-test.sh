@@ -19,6 +19,8 @@ trap 'rm -rf "$BASE"' EXIT
 mkdir -p "$BASE/tmp" "$BASE/wt" "$BASE/state/monks/2/journal"
 S="$BASE/state"
 export TMPDIR="$BASE/tmp" GARDEN_STATE="$S" GARDEN_SECRETS_DIR="$BASE/secrets"
+# Hermetic root: keep the real garden scratch bind from covering $BASE.
+export GARDEN_ROOT="$BASE/root"; unset GARDEN_SCRATCH
 export GARDEN_WORKER_CLONE="$S/monks/2/journal" GARDEN_PRODUCER_CLONE="$S/producer/journal"
 export GARDEN_INBOX_CLONE="$S/inbox/x/journal" JOURNAL_REMOTE_CACHE="$S/config/journal-remote"
 

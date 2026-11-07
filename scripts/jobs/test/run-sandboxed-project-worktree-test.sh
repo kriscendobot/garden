@@ -17,7 +17,7 @@ BASE="$(mktemp -d "${GARDEN_TEST_BASE:-$HOME}/.sbx-project-worktree-test.XXXXXX"
 trap 'rm -rf "$BASE"' EXIT
 ROOT="$BASE/root"; STATE="$BASE/state"
 mkdir -p "$ROOT/worktrees/example.git/worktrees" "$ROOT/scratch" \
-  "$ROOT/gardener-wt" "$ROOT/readonly" "$ROOT/secrets" "$STATE/repo-locks/project"
+  "$ROOT/scratch/gardener-wt-own" "$ROOT/scratch/gardener-wt-peer" "$ROOT/gardener-wt" "$ROOT/readonly" "$ROOT/secrets" "$STATE/repo-locks/project"
 export GARDEN_ROOT="$ROOT" GARDEN_SCRATCH="$ROOT/scratch" GARDEN_STATE="$STATE"
 export GARDEN_SECRETS_DIR="$ROOT/secrets" TMPDIR="$BASE/tmp"
 mkdir -p "$TMPDIR"
@@ -36,6 +36,44 @@ if [ "$rc" -eq 0 ] && [ "$out" = ran ] \
   ok "bare clone and project-worktree parent are writable; garden root stays read-only"
 else
   bad "project checkout bind check failed rc=$rc out='$out'"
+fi
+
+# Production launchers source common.sh, whose GARDEN_SCRATCH default is NOT
+# exported; the sandbox must derive $GARDEN_ROOT/scratch itself and pin it.
+out="$(env -u GARDEN_SCRATCH "$RS" --worktree "$ROOT/gardener-wt" -- bash -c '
+  [ "${GARDEN_SCRATCH:-}" = "$GARDEN_ROOT/scratch" ] || exit 51
+  mkdir "$GARDEN_SCRATCH/project-wt-job-00000002" || exit 52
+  echo ran
+' 2>&1)"; rc=$?
+if [ "$rc" -eq 0 ] && [ "$out" = ran ] && [ -d "$ROOT/scratch/project-wt-job-00000002" ]; then
+  ok "unexported GARDEN_SCRATCH still yields a writable, pinned scratch parent"
+else
+  bad "unexported GARDEN_SCRATCH case failed rc=$rc out='$out'"
+fi
+
+# Writable scratch must not let a job write a peer job's garden worktree.
+out="$("$RS" --worktree "$ROOT/scratch/gardener-wt-own" -- bash -c '
+  touch "$GARDEN_SCRATCH/gardener-wt-own/f" || exit 71
+  if touch "$GARDEN_SCRATCH/gardener-wt-peer/f" 2>/dev/null; then exit 72; fi
+  echo ran
+' 2>&1)"; rc=$?
+if [ "$rc" -eq 0 ] && [ "$out" = ran ]; then
+  ok "own garden worktree writable; peer garden worktree stays read-only"
+else
+  bad "peer worktree isolation failed rc=$rc out='$out'"
+fi
+
+# The dependency cache is host-shared (like repo-locks), not per-job.
+out="$("$RS" --worktree "$ROOT/gardener-wt" -- bash -c '
+  [ "${GARDEN_DEP_CACHE_ROOT:-}" = "'"$STATE"'/dep-cache" ] || exit 61
+  [ "$GARDEN_STATE" != "'"$STATE"'" ] || exit 62
+  mkdir -p "$GARDEN_DEP_CACHE_ROOT/slug" || exit 63
+  echo ran
+' 2>&1)"; rc=$?
+if [ "$rc" -eq 0 ] && [ "$out" = ran ] && [ -d "$STATE/dep-cache/slug" ]; then
+  ok "dep-cache stays the shared, writable host cache under a per-job GARDEN_STATE"
+else
+  bad "dep-cache link-back failed rc=$rc out='$out'"
 fi
 
 # The sandbox substitutes a per-job GARDEN_STATE, but repo-locks is deliberately

@@ -72,12 +72,26 @@ for path in "${rw_paths[@]}"; do [ -e "$path" ] && args+=(--bind "$path" "$path"
 # while git worktree add also needs to create the checkout below GARDEN_SCRATCH.
 # Bind exactly those two project-checkout areas read-write; the rest of the
 # garden root remains covered by the read-only root bind above.
+# GARDEN_SCRATCH is normally an unexported common.sh default, so derive it here
+# the same way (else the scratch bind is silently skipped) and pin it inside.
 project_rw_paths=()
+sbx_scratch="${GARDEN_SCRATCH:-${GARDEN_ROOT:+$GARDEN_ROOT/scratch}}"
 [ -z "${GARDEN_ROOT:-}" ] || project_rw_paths+=("$GARDEN_ROOT/worktrees")
-[ -z "${GARDEN_SCRATCH:-}" ] || project_rw_paths+=("$GARDEN_SCRATCH")
+[ -z "$sbx_scratch" ] || project_rw_paths+=("$sbx_scratch")
 for path in "${project_rw_paths[@]}"; do
   [ -d "$path" ] && args+=(--bind "$path" "$path")
 done
+[ -z "$sbx_scratch" ] || args+=(--setenv GARDEN_SCRATCH "$sbx_scratch")
+# The scratch bind must not undo the narrower isolation below it: other jobs'
+# garden worktrees and the shared TMPDIR parent (scratch/tmpexec, whose per-job
+# children are bound rw individually below) are re-covered read-only.
+if [ -n "$sbx_scratch" ] && [ -d "$sbx_scratch" ]; then
+  own_wt="$(realpath -m "$worktree")"
+  for path in "$sbx_scratch"/gardener-wt-*; do
+    [ -d "$path" ] && [ "$(realpath -m "$path")" != "$own_wt" ] && args+=(--ro-bind "$path" "$path")
+  done
+  [ -n "${TMPDIR:-}" ] && [ -d "$TMPDIR" ] && args+=(--ro-bind "$TMPDIR" "$TMPDIR")
+fi
 # The harness needs a writable, exec-capable TMPDIR (Claude's Bash tool creates
 # $TMPDIR/claude-<uid>/... per session). The inherited TMPDIR lives under the
 # read-only root bind, so every shell call died with EROFS. Give each job its own
@@ -112,6 +126,13 @@ if [ -n "${GARDEN_STATE:-}" ]; then
       if mkdir -p "$GARDEN_STATE/repo-locks" 2>/dev/null \
         && ln -s "$GARDEN_STATE/repo-locks" "$job_state/repo-locks" 2>/dev/null; then
         args+=(--bind "$GARDEN_STATE/repo-locks" "$GARDEN_STATE/repo-locks")
+      fi
+      # The project dependency cache is likewise host-shared by design: a per-job
+      # copy would cold-build every lockfile in every job and its per-slug flock
+      # would stop serializing builds. Keep pointing at the host cache, bound rw.
+      dep_cache="${GARDEN_DEP_CACHE_ROOT:-$GARDEN_STATE/dep-cache}"
+      if mkdir -p "$dep_cache" 2>/dev/null; then
+        args+=(--bind "$dep_cache" "$dep_cache" --setenv GARDEN_DEP_CACHE_ROOT "$dep_cache")
       fi
     fi
   fi
