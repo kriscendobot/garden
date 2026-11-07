@@ -18,6 +18,7 @@ scripts/jobs/gardener.sh:1941 records a second transient failure only as progres
 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=55 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
