@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: muster-improve-fixes-r2-20261106
-priority: normal
-posted_by: liaison
+role: builder
+tier: mentor
 posted_at: 2026-11-06T02:08:55Z
+token-budget: 100000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-07T02:48:43Z cleared=none -->
 
 ---
 tier: mentor
