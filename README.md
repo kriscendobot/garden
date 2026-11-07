@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T03:27:02Z_
+_As of 2026-11-07T03:30:46Z_
 
 ## Latest
 
@@ -956,19 +954,6 @@ Delegation: **active**
 > scripts/jobs/deploy-garden.sh
 > scripts/jobs/deploy-garden.sh:507 records an rc=1 suite failure with an empty diagnostic, as the 2026-11-05T11:51:31Z rejection shows. When a captured suite output is empty, append deterministic invocation and gate-state context so deploy failures remain actionable.
 
-- `orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-halted` — from orchestrator:orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102
-> orchestration-status: halted
-> child: weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
-> failure-kind: doomed
-> children-completed: 0
-> children-total: 3
-> halt-parked-remainder: weave-endojs-endo-but-for-bots-pr1482-onto-pr1481-20261102 shepherd-endojs-endo-but-for-bots-pr1482-ci-after-weave-20261102
->
-> Orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 HALTED: child weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102 doomed and held in plan (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: weave-endojs-endo-but-for-bots-pr1482-onto-pr1481-20261102 shepherd-endojs-endo-but-for-bots-pr1482-ci-after-weave-20261102
-
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -1452,19 +1437,6 @@ Delegation: **active**
 > scripts/jobs/screen-delegated-prs.sh
 > `scripts/jobs/screen-delegated-prs.sh:65` logs a WARN on every post-threshold quota-deferred tick, producing warnings at 16:21–16:46 despite the shared cooldown already preventing requests. Make the warning edge-latched (with optional milestone reporting) while preserving the existing coalesced maintainer alert and recovery notice.
 
-- `orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failed` — from orchestrator:orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failed.md)
-
-> orchestration-event: orchestration-child-failure
-> orchestration: orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102
-> orchestration-status: running
-> child: weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
-> failure-kind: doomed
-> order: serial
-> on-child-failure: halt
-> detail: doomed and held in plan
->
-> Orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 observed child weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102: doomed and held in plan.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.067075s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -1493,39 +1465,6 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child design-daemon-git-remotes-server-half-r2: doomed and held in plan.
-
-- `doomed-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102; it stays HELD until a human promotes it
-> (promote-plan.sh weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102) or removes it, so nothing is lost.
-> Original job base: weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
->
-> --- original job body ---
-> ---
-> role: weaver
-> tier: mentor
-> arc: minion-town-mcp-ocapn
-> posted_at: 2026-11-02T07:11:33Z
-> ---
-> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-07T03:00:28Z cleared=none -->
->
-> ---
-> arc: minion-town-mcp-ocapn
-> role: weaver
-> tier: mentor
-> fallback-tier: minion
-> requires: host=endolin-garden-ece02cb4
-> dispatch: automatic
-> ---
-> Weave [https://github.com/endojs/endo-but-for-bots/pull/1481](https://github.com/endojs/endo-but-for-bots/pull/1481) onto the current head of its parent [https://github.com/endojs/endo-but-for-bots/pull/1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (branch build/ocapn-noise-session-queue). Snapshot that head to a new frozen build/ocapn-noise-session-queue-<short-sha>, rebase build/ocapn-noise-session-reconnect-rekey onto it, resolve conflicts, force-push with lease, and move the PR base. Keep the old frozen snapshots: other PRs may still be stacked on them.
->
-> Why: #1481's base (build/ocapn-noise-session-queue-2a16357) predates llm commit 27705a4cdf (test(sandbox): fix Linux resource limit and cleanup assertions). Everything stacked on it fails the bwrap tests on ubuntu-26.04; the same weave cleared them on #1478.
->
-> Expect real conflicts. #1478 was squashed to a feat commit plus a changeset when it was woven onto #1476, because #1476 reshaped the heartbeat code in network.js (see the tada report weave-endojs-endo-but-for-bots-pr1478-onto-pr1476-20261102). A hand port with a folded-commit list in the message, as that weave did, is acceptable when a per-commit rebase is unworkable. Keep both sides' behavior.
->
-> #1478's peer shepherd (shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102) may still be running. Re-read #1478's head when you start. If that job is still in doin and CI on the head is in progress, wait in the foreground (bounded) so you pin a settled head. Do not comment on the PR. Report the new #1481 head and CI state. Red that matches the known base signatures (ironhorse oracle stage3-math 054/055, #1591's bwrap timeout flake) does not fail this job; name it in the report.
 
 - `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed.md)
 
