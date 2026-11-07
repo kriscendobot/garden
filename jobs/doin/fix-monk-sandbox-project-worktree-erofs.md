@@ -39,3 +39,13 @@ asserting the binds. Run the sandbox tests before pushing.
 minion.town arc supervisor re-arms the parked jobs above (do not re-arm them yourself before deploy).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T20:33:16Z
