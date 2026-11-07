@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T16:13:07Z_
+_As of 2026-11-07T16:13:48Z_
 
 ## Latest
 
@@ -2247,7 +2247,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.2M | $31.14 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.3M | $31.97 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 359.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154168249 tokens/day lower bound._
@@ -2256,9 +2256,8 @@ _Fleet token-unlock pace: 154168249 tokens/day lower bound._
 worst fetch p95 17.689752s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (21)
+### todo (20)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
-- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-recovery-outcome-screen-20261105.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2279,8 +2278,8 @@ worst fetch p95 17.689752s/45s (unknown); 10 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
 
 ### tada (16849)
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
