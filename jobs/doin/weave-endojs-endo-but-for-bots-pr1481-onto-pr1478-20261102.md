@@ -27,3 +27,13 @@ Expect real conflicts. #1478 was squashed to a feat commit plus a changeset when
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T03:13:10Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T03:13:12Z
