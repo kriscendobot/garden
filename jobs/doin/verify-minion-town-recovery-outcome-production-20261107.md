@@ -24,3 +24,13 @@ Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T13:23:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T13:23:08Z
