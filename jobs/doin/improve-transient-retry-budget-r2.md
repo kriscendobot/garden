@@ -18,6 +18,7 @@ Defect: `scripts/jobs/reaper.sh:1091` increments the plain-exit counter for a `r
 Treat non-outage `reap-now` transient cycles as non-attributable: preserve the prior retry count, requeue with bounded backoff, and reserve split-eligible parking for deterministic or otherwise attributable failures.
 
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=68 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
