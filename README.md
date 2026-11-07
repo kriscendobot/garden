@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T09:30:51Z_
+_As of 2026-11-07T09:31:17Z_
 
 ## Latest
 
@@ -1953,7 +1953,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.4M | $19.26 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.4M | $18.69 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 357.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152322022 tokens/day lower bound._
@@ -1980,18 +1980,17 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (3)
+### doin (2)
 - [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
-- [`claude-on-minion-town-completion-press-20261107-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261107-fix.md) — Completion press: Claude-on-minion.town arc
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-waitlist-soon-page-20261105.md) — ---
 
-### tada (16844)
+### tada (16845)
+- [`claude-on-minion-town-completion-press-20261107-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/claude-on-minion-town-completion-press-20261107-fix.md) — Cost
 - [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
 - [`muster-improve-fixes-r2-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/muster-improve-fixes-r2-20261106.md) — orchestration muster-improve-fixes-r2-20261106 — complete
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261106-020511.md) — ---
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261105-165012.md) — ---
-- [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261105-230510.md) — ---
-- … and 16839 more
+- … and 16840 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
