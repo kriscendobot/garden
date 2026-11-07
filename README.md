@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:32:47Z_
+_As of 2026-11-07T20:33:43Z_
 
 ## Latest
 
@@ -2015,6 +2015,40 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
 
+- `doomed-screen-minion-town-pr253-9c79d18-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-screen-minion-town-pr253-9c79d18-conduct-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/screen-minion-town-pr253-9c79d18-conduct; it stays HELD until a human promotes it
+> (promote-plan.sh screen-minion-town-pr253-9c79d18-conduct) or removes it, so nothing is lost.
+> Original job base: screen-minion-town-pr253-9c79d18-conduct
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-07T20:01:00Z
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> role: conductor
+> delegation: minion-town-pr-screening
+> requires: host=endolin-garden-ece02cb4
+> # Screened delegated merge: [kriscendobot/minion.town#253](https://github.com/kriscendobot/minion.town/issues/253) at 9c79d1807388884a67b19c151290f31765611364
+> The proxy's screen attested screenings/kriscendobot-minion.town/253/9c79d1807388884a67b19c151290f31765611364.json on journal2
+> (delegation config/delegations/minion-town-pr-screening; designs/minion-town-pr-screening.md). No maintainer
+> approval is required; do not request one.
+> 1. Get an isolated project checkout keyed by THIS job's base:
+>    scripts/jobs/ensure-project-worktree.sh <this-job-base> kriscendobot/minion.town <pr-head-branch>
+> 2. From that checkout run:
+>    scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 253 --screened-delegated-merge
+> 3. Exit 0 is done. "merge blocked: awaiting re-screen" means the rebase moved the head:
+>    finish and report it; the proxy screens the new head and posts a fresh conductor.
+>    Any other "merge blocked" or a red/stalled CI result: report it and finish; never
+>    fall back to an ordinary merge, never queue --auto, never ask for approval.
+>
+> PR: [https://github.com/kriscendobot/minion.town/pull/253](https://github.com/kriscendobot/minion.town/pull/253)
+
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
 > WATCHDOG notice — occurrence #6 (first seen 2026-10-16T18:44:42Z, latest 2026-10-17T18:14:24Z).
@@ -2397,7 +2431,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.5M | $51.58 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.6M | $51.90 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157424754 tokens/day lower bound._
@@ -2430,9 +2464,8 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (5)
+### doin (4)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #254
-- [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr253-9c79d18-conduct.md) — Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
 - [`fix-monk-sandbox-project-worktree-erofs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-monk-sandbox-project-worktree-erofs.md) — Fix: project worktrees are read-only inside the monk sandbox (EROFS), stallin...
@@ -2469,6 +2502,7 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — _normal_ · ---
 - [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports-r2.md) — _normal_ · ---
 - [`fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106.md) — _normal_ · ---
+- [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr253-9c79d18-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
 - [`moddable-10-0-0-ironhorse-callability-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-callability-port.md) — _normal_ · Port revoked-Proxy callability and constructability to IronHorse
 - [`weave-endojs-endo-but-for-bots-pr1538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1538.md) — _normal_ · ---
