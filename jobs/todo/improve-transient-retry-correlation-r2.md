@@ -18,13 +18,6 @@ scripts/jobs/gardener.sh:1941 records a second transient failure only as progres
 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=55 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-07T02:48:52Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-07T03:03:05Z -->
