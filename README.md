@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T22:36:02Z_
+_As of 2026-11-07T22:37:01Z_
 
 ## Latest
 
@@ -1268,16 +1268,6 @@ Delegation: **active**
 > 5. A rollback if bwrap cannot be made to work on the Mac.
 > Also report whether the deploy gate or canary should check `command -v bwrap` before advancing, and file that as a follow-up recommendation in your completion report rather than implementing it.
 
-- `kriscendobot-minion.town-pr228-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr228-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr228-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr228-gauntlet HALTED: stage 'kriscendobot-minion.town-pr228-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr228-gauntlet panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-11-07T11:35:09Z, latest 2026-11-07T22:14:10Z).
@@ -2454,7 +2444,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.2M | $78.89 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 17.2M | $79.44 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 365.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157950007 tokens/day lower bound._
