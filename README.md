@@ -1,18 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-06T05:14:56Z_
+_As of 2026-11-07T01:45:31Z_
 
 ## Latest
 
-Two builder jobs went back to the plan queue after being claimed: `build-daemon-git-remotes-phase-six-interactive-provisioning-r2` and `improve-screening-cooldown-log-spam-r2`. Both were reaped as non-productive after a single retry on endolin-garden-ece02cb4. They are held until someone promotes them. They are part of a wider pattern. Many of the other `-r2` design and improve jobs in the daemon-git-remotes and improve-fixes orchestrations are in the same state, so those orchestrations keep logging child failures under their `continue` policy. Nothing was posted or completed in this window, and no job is claimed right now.
+The two muster orchestrations, `muster-daemon-git-remotes-20261106` and `muster-improve-fixes-20261106`, completed and landed in tada. The `-r2` retry orchestrations are still running, and nearly every child of both has been doomed and parked in plan after its one backed-off retry also failed. That covers the Phase 6 provisioning and transport-timing builds, the three daemon-git-remotes designs (SSH transport, server half, extended transports), and the improve fixes for issue-status budget and trust filter, the decision-ledger spool, the candidate-gate diagnostic and screening log spam. Each is held until someone promotes it or splits it into smaller stages. Two of those held jobs, `build-daemon-git-remotes-transport-timing-r2` and `design-daemon-git-remotes-ssh-transport-r2`, are the same work as above.
 
-Things to look at:
-- **oros canary:** oros-studio-garden-ce242c49 has been stuck for about 16 hours on an older deployed SHA. The leader released `dd3e6bc6edfd` to it, but it still reports `2c082b9acbc8`. That is notice #549, and the oros health-checkup jobs are piling up unclaimed in todo.
-- **Candidate gate:** the deploy candidate gate rejected `024425a0ee0` because `signal-kill-classifier-test.sh` failed. The follow-up fix for the empty diagnostic is also parked.
-- **Ordered-gutter orchestration:** it halted after `build-minion-town-ordered-gutter-inc1-20261104` declared its gated outcome unsatisfied. Four increments are parked behind it.
-- **minion.town PRs:** kriskowal asked for another gauntlet round on [minion.town#248](https://github.com/kriscendobot/minion.town/pull/248). The review-directive jobs for it and for [minion.town#247](https://github.com/kriscendobot/minion.town/pull/247) are doomed and held in plan, so that feedback is not being worked.
+Since the last bulletin, one job claimed: `build-oros-secrets-bwrap-handoff-20261106`. The latest `oros-health-watch` job finished. The fleet's recurring jobs were re-posted: the minion.town arc press, the completion press, the daily progress summary, the dependabotany recheck and a new oros health checkup. Two parked jobs were promoted to todo: `daemon-git-capability-phase-five-contract-tests-build-r2` and `improve-transient-retry-budget-r2`.
+
+Things to notice:
+- **oros canary stuck.** `oros-studio-garden-ce242c49` was released to dd3e6bc and still reports the older deployed 2c082b9, now about 37 hours on. The leader will not advance past an undeployed canary. Someone needs to check `garden-self-deploy` on oros. The oros health checkups are also piling up unclaimed in todo.
+- **Gauntlets halted.** The halted `kriscendobot-minion.town-pr243-gauntlet` and `endojs-endo-but-for-bots-pr1652-gauntlet` finished on 11-05. Their fix-round jobs for [kriscendobot/minion.town#243](https://github.com/kriscendobot/minion.town/pull/243) and [endojs/endo-but-for-bots#1652](https://github.com/endojs/endo-but-for-bots/pull/1652) are parked in plan.
+- **Ordered-gutter halt.** The `orchestrate-build-minion-town-ordered-gutter-20261104` run halted because its first increment declared its gated outcome unsatisfied. The remaining four increments are parked.
+- **Deploy gate.** The deploy test gate rejected the earlier main2 candidate 024425a because of a `signal-kill-classifier-test.sh` failure with rc=1.
+- **Ironhorse ratchet.** The ratchet halted on a wrong base. Per its message it needs explicit resumption after resolution.
 
 ## Maintainer review docket
 
@@ -21,10 +22,7 @@ Things to look at:
 
 Delegation: **active**
 
-- 2026-11-05T11:53:56Z [#252](https://github.com/kriscendobot/minion.town/pull/252) `755d017997d` screened
-- 2026-11-05T11:53:56Z [#250](https://github.com/kriscendobot/minion.town/pull/250) `8060116d7e7` screened
-- 2026-11-05T11:53:56Z [#246](https://github.com/kriscendobot/minion.town/pull/246) `93329d9faf0` screened
-- 2026-11-05T11:53:56Z [#237](https://github.com/kriscendobot/minion.town/pull/237) `4e2911dff11` screened
+(no screening activity in the last 24 h)
 
 ## Messages to the maintainer
 
@@ -62,6 +60,22 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=160714998 cap=271000000 pace-bias=0.845126 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.9241(ramp) target=4
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-06T06:42:26Z, latest 2026-11-06T22:43:37Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014286s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
+
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-06T06:47:25Z, cleared 2026-11-06T08:42:34Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted.md)
 
@@ -210,11 +224,23 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
 
-> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: attempts p95=10.000000 max=10.000000 (cap 50), classes cas=10 server-reject=0 definite-fail=0.
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_reaper_journal` has CLEARED (first seen 2026-11-06T02:31:41Z, cleared 2026-11-06T10:57:35Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_reaper_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.028129s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-11-06T01:32:40Z, cleared 2026-11-06T20:53:33Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
+
+- `watchdog-root-repo-deploy-stalled-oros-studio-garden-ce242c49` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-oros-studio-garden-ce242c49.md)
+
+> root repo /Users/dom/garden deploy has been STALLED for ~1d: deployed sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1 is 6 commit(s) behind origin/main2 (dd3e6bc6edfd490eb8ba0936b8b79a78238088ca) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=oros-studio-garden-ce242c49)
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -575,9 +601,26 @@ Delegation: **active**
 >
 > Also consider whether the watchdog emitter should stop sending class (b) to the maintainer inbox at all; report your finding in the completion report rather than changing the emitter.
 
+- `muster-improve-fixes-r2-20261106-child-improve-screening-cooldown-log-spam-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-screening-cooldown-log-spam-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-screening-cooldown-log-spam-r2-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: muster-improve-fixes-r2-20261106
+> orchestration-status: running
+> child: improve-screening-cooldown-log-spam-r2
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration muster-improve-fixes-r2-20261106 observed child improve-screening-cooldown-log-spam-r2: doomed and held in plan.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.024001s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` has CLEARED (first seen 2026-11-06T02:46:39Z, cleared 2026-11-06T09:27:19Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` cleared on endolin-garden-ece02cb4.
 
 - `muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed.md)
 
@@ -911,6 +954,19 @@ Delegation: **active**
 >
 > This matches the direction already recorded for minion.town: access control is moving toward object capabilities. Bearer tokens that designate a specific object are acceptable. Ones that designate an identity are not.
 
+- `muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: muster-daemon-git-remotes-r2-20261106
+> orchestration-status: running
+> child: build-daemon-git-remotes-phase-six-interactive-provisioning-r2
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration muster-daemon-git-remotes-r2-20261106 observed child build-daemon-git-remotes-phase-six-interactive-provisioning-r2: doomed and held in plan.
+
 - `20261105T115122Z-d975ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T115122Z-d975ad.md)
 
 > kind: error
@@ -1084,15 +1140,19 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.027490s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-06T04:41:40Z, cleared 2026-11-06T10:42:29Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #549 (first seen 2026-11-01T06:29:02Z, latest 2026-11-06T04:29:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 549 times; this is ONE
-> coalesced notice that updates in place, not 549 messages. Latest detail:
+> WATCHDOG notice — occurrence #565 (first seen 2026-11-01T06:29:02Z, latest 2026-11-07T01:35:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 565 times; this is ONE
+> coalesced notice that updates in place, not 565 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 986 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 2252 min ago
 > but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1136,39 +1196,46 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.4M | $647.97 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 172.2M | $657.26 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 356.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155267946 tokens/day lower bound._
+_Fleet token-unlock pace: 155024775 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.315091s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 12 open notice(s); checker healthy
+worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (19)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
+- [`minion-town-arc-press-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261107-013512.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`daily-progress-summary-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261107-013512.md) — Daily midnight Pacific progress summary
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-230510.md) — ---
+- [`daemon-git-capability-phase-five-contract-tests-build-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-capability-phase-five-contract-tests-build-r2.md) — ---
+- [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
+- [`dependabotany-recheck-endo-but-for-bots-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-165012.md) — ---
+- [`claude-on-minion-town-completion-press-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261107-013512.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261106-020511.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`improve-transient-retry-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-transient-retry-budget-r2.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-oros-secrets-bwrap-handoff-20261106.md) — ---
 
-### tada (16837)
+### tada (16838)
+- [`oros-health-watch-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-watch-20261107-013512.md) — 2026-11-07T01:5xZ - oros-health-watch-20261107-013512
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
 - [`muster-improve-fixes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-improve-fixes-20261106.md) — orchestration muster-improve-fixes-20261106 — complete
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1652-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/endojs-endo-but-for-bots-pr1652-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1652-gauntlet — HALTED
-- [`fix-minion-town-screener-proxy-timeout-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/fix-minion-town-screener-proxy-timeout-20261105.md) — Cost
-- … and 16832 more
+- … and 16833 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
