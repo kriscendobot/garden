@@ -38,6 +38,7 @@ asserting the binds. Run the sandbox tests before pushing.
 **Done when:** fix pushed to main2; report names the commit. After the host deploys it, the
 minion.town arc supervisor re-arms the parked jobs above (do not re-arm them yourself before deploy).
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
