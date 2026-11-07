@@ -12,3 +12,13 @@ scripts/jobs/auto-gauntlet-handoff.sh:136-158 only re-stages review after a succ
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T14:13:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T14:13:12Z
