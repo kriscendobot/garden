@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T04:58:12Z_
+_As of 2026-11-07T05:03:57Z_
 
 ## Latest
 
@@ -702,6 +702,35 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Build the unblocked Phase 5 contract-test slice for `endojs/endo-but-for-bots` from the `daemon-git-capability` M3 design on `llm`, opening a draft PR that prevents drift among the Git exo interface, types, and generated code-mode declarations.
+
+- `doomed-oros-health-watch-20261107-043512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261107-043512-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-watch-20261107-043512; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-watch-20261107-043512) or removes it, so nothing is lost.
+> Original job base: oros-health-watch-20261107-043512
+>
+> --- original job body ---
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: mechanic
+> requires: host=endolin-garden-ece02cb4
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> role_brief: [roles/mechanic/AGENT.md](roles/mechanic/AGENT.md)
+> target_host: oros-studio-garden-ce242c49
+> trigger: schedule/oros-health-watch
+> mode: controller
+> evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
+> recurrence_budget: 15 minutes
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -1627,8 +1656,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 336.4k | $5.46 _(notional, rate-card)_ | 0% of 271.0M (ok) |
-| Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 394.9k | $5.94 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 
@@ -1636,13 +1665,12 @@ _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (14)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`claude-on-minion-town-completion-press-20261107-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261107-retry.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ad75cf189997
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1655,7 +1683,7 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 
 ### doin (2)
 - [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261107-043512.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`oros-health-watch-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261107-043512.md) — ---
+- [`claude-on-minion-town-completion-press-20261107-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261107-retry.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16844)
 - [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
@@ -1693,6 +1721,7 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`screen-minion-town-pr237-4e2911d-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr237-4e2911d-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#237 at 4e2911dff11e922fda8...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
+- [`oros-health-watch-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261107-043512.md) — _normal_ · ---
 - [`improve-screening-cooldown-log-spam-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-screening-cooldown-log-spam-r2.md) — _normal_ · ---
 - [`daemon-git-capability-phase-five-contract-tests-build-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-git-capability-phase-five-contract-tests-build-r2.md) — _normal_ · ---
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
