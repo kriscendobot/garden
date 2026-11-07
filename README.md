@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:21:05Z_
+_As of 2026-11-07T21:21:51Z_
 
 ## Latest
 
@@ -1201,10 +1201,6 @@ Delegation: **active**
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
 
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1' has remained unclaimed for 902s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2389,7 +2385,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.3M | $60.62 _(notional, rate-card)_ | 5% of 271.0M (ok) |
+| Claude | 12.9M | $63.42 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 362.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 156899445 tokens/day lower bound._
