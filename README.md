@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T06:13:39Z_
+_As of 2026-11-07T06:17:51Z_
 
 ## Latest
 
@@ -1703,9 +1703,9 @@ Delegation: **active**
 
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-23T06:17:01Z, latest 2026-10-30T18:17:03Z).
-> The SAME condition (`container-hardening-pending-recreate-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-23T06:17:01Z, latest 2026-11-07T06:17:02Z).
+> The SAME condition (`container-hardening-pending-recreate-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
 >
@@ -1735,10 +1735,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 537.6k | $7.99 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 595.9k | $9.32 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 357.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154611059 tokens/day lower bound._
+_Fleet token-unlock pace: 149059396 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
