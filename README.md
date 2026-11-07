@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:59:41Z_
+_As of 2026-11-07T18:01:16Z_
 
 ## Latest
 
@@ -34,7 +34,7 @@ Most other watchdog notices are budget-level changes or recovered journal conten
 
 Delegation: **active**
 
-(no screening activity in the last 24 h)
+- 2026-11-07T17:31:24Z [#250](https://github.com/kriscendobot/minion.town/pull/250) merged `5e8905191b6`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42396727322), watchdog ok — validated
 
 ## Messages to the maintainer
 
@@ -1851,6 +1851,10 @@ Delegation: **active**
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child build-daemon-git-remotes-phase-six-interactive-provisioning-r2: doomed and held in plan.
 
+- `msg-screen-minion-town-pr246-93329d9-conduct-34d8153e99fe` — from gardener:screen-minion-town-pr246-93329d9-conduct, reply_to `screen-minion-town-pr246-93329d9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-screen-minion-town-pr246-93329d9-conduct-34d8153e99fe.md)
+
+> Screened delegated merge of [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246) ran the vetted ci-wait-merge spine to a deterministic NEEDS-WEAVE verdict (exit 1), after I worked around the monk-sandbox project-worktree EROFS with the documented TMPDIR-clone + GARDEN_PR_WORKTREE recipe (see memory monk-sandbox-project-worktree-erofs; proper --rw-bind fix already reported via the pr252 sibling). Outcome: the spine UNFROZE the base main-89e6156 -> live main (durable; the lone sibling on main-89e6156 was correctly left untouched, not a dependent stack), then safe-rebase REFUSED a non-lockfile content conflict in deploy/aws/www/shell.js when rebasing the head onto live main (5e8905191b6). No merge, no fallback. The PR is now base=main, head 93329d9 unchanged, mergeable=CONFLICTING; CI was green pre-rebase. ACTION NEEDED: weave [https://github.com/kriscendobot/minion.town/pull/246](https://github.com/kriscendobot/minion.town/pull/246) onto live main (resolve the shell.js conflict); that moves the head, invalidates the screen, and the proxy re-screens + re-conducts to merge. If left alone, the screening driver will post 2 more conductors (r2/r3) that hit the same deterministic conflict, then escalate a STALLED alert after 3. Recommend weaving now to skip the wasted attempts.
+
 - `doomed-improve-production-acceptance-deferred-probe-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-production-acceptance-deferred-probe-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2304,7 +2308,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.8M | $43.69 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 6.8M | $43.98 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 359.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155998401 tokens/day lower bound._
