@@ -1,0 +1,21 @@
+elapsed-constancy exit0-wedge-suspect: improve-claude-completion-finalizer
+
+gardener-1 on endolin-garden-ece02cb4: job improve-claude-completion-finalizer keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 50,43s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>15:13:19 [monk/1] resuming session d47f8547-e3a1-5dcf-88fb-9c5eeb937201 for requeued job 'improve-claude-completion-finalizer' in worktree /home/kris/garden/scratch/gardener-wt-improve-claude-completion-finalizer
+<6>15:13:19 [monk/1] job 'improve-claude-completion-finalizer' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>15:13:19 [monk/1] job 'improve-claude-completion-finalizer' call ceiling: tier=minion max-budget-usd=9.80 (scaled by fresh seven-day headroom when available)
+<6>15:13:19 [monk/1] job 'improve-claude-completion-finalizer' attaching minion.town MCP (stdio bridge)
+<6>15:13:46 [monk/1] job 'improve-claude-completion-finalizer' ended its turn without the completion signal; nudging the same session to verify and complete (nudge 1/1, budget USD 8.48)
