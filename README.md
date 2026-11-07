@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:15:18Z_
+_As of 2026-11-07T20:17:06Z_
 
 ## Latest
 
@@ -209,86 +209,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.017519s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `doomed-endojs-endo-but-for-bots-pr1653-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1653-gauntlet-panel-1-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr1653-gauntlet exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1653-gauntlet-panel-1; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr1653-gauntlet-panel-1) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr1653-gauntlet-panel-1
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 10800
-> gauntlet: endojs-endo-but-for-bots-pr1653-gauntlet
-> gauntlet_stage: panel
-> gauntlet_iteration: 1
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/1653](https://github.com/endojs/endo-but-for-bots/pull/1653)
-> ---
->
-> # Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1653
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1653-gauntlet). Run the deterministic read-only
-> style pre-pass against the pinned base/head. Only if it passes, run EXACTLY ONE
-> panel round and post the verdict. Then STOP — do NOT fix, do NOT un-draft, do not
-> loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Before dispatching any juror, retain the PR's immutable baseRefOid and
->    headRefOid (both full 40-hex commit IDs), along with its head owner and branch.
->    Get an ISOLATED project checkout of that head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1653-gauntlet-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve all four retained fields with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1653 --json baseRefOid,headRefOid,headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
->    Fetch the retained objects if necessary, check out the retained head object ID
->    detached, and verify git rev-parse HEAD equals it. A missing/malformed object ID
->    or head mismatch is a sensor failure: do not run probes or panel; emit
->    panel=panel-error.
-> 2. Run the deterministic probes read-only against that exact pinned pair with
->    `scripts/jobs/gardening/pre-push-gates.sh --no-auto-fix --probes-only \
->      --base-ref <base-object-id> <worktree>`.
->    Capture combined stdout/stderr byte-for-byte. On non-zero, do NOT
->    run panel.sh and do NOT post a PR review. Put the exact captured output between
->    these lines in the completion report, then emit panel=prepass-failed:
->
->    <!-- gauntlet-style-prepass-output-begin -->
->    <exact combined stdout/stderr, unchanged>
->    <!-- gauntlet-style-prepass-output-end -->
->
->    This is a deterministic finding, not a panel verdict. The driver routes that
->    exact block to fix-1 and only spends juror seats after the probes pass.
-> 3. Only after the probes exit 0, run the panel in SINGLE-ROUND mode against that
->    same worktree and retained base object ID:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 1653 <base-object-id>`
->    It fans the seats, aggregates, preflights the PR author against the authenticated
->    login, and posts its own formal review. A must-fix result normally requests
->    changes; on a self-authored PR it posts the same aggregate as a comment review,
->    retaining the `Must-fix before merge` heading. It does NOT fix or un-draft.
->    Only after the review post succeeds does it print the existing stage-result
->    marker followed by a terminal line whose last token is `pass` or `must-fix`.
->    Copy that marker into your completion report; do not post the aggregate yourself.
-> 4. If panel.sh exits NON-ZERO it did NOT return a posted review verdict. A seat error, a
->    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
->    failure, not a pass/must-fix decision. Do NOT report `orchestration-failed:
->    true` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
->    and emit the `panel=panel-error` marker: the driver then re-posts this panel
->    round under its bounded stage-retry budget, exactly as it retries a doomed
->    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
->    its own marker below — never panel-error.
->
-> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
-> completion signal; the completion signal itself stays the very last line:
->   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
->   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
->   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
->   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
@@ -703,16 +623,6 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
-
-- `kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet HALTED: stage 'kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/1
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 1 -> 3 (N is yours to choose).
 
 - `doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted.md)
 
@@ -1359,86 +1269,6 @@ Delegation: **active**
 > ---
 > scripts/jobs/handlers/monk-claude.sh
 > scripts/jobs/handlers/monk-claude.sh:522 permits a single completion nudge, after which three unrelated Anthropic jobs ended cleanly without the required marker at 2026-11-07T14:24Z. Add a bounded finalizer continuation for a markerless successful nudge, with an explicit verify-or-handoff prompt and a regression fixture for two clean `end_turn` responses. Preserve fail-closed semantics: write the sentinel only after the verified completion marker.
-
-- `doomed-kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion-town-pr237-screen-304dd248-gauntlet exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 10800
-> gauntlet: kriscendobot-minion-town-pr237-screen-304dd248-gauntlet
-> gauntlet_stage: panel
-> gauntlet_iteration: 1
-> pr: [https://github.com/kriscendobot/minion.town/pull/237](https://github.com/kriscendobot/minion.town/pull/237)
-> ---
->
-> # Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #237
->
-> You are ONE stage of a staged gauntlet (kriscendobot-minion-town-pr237-screen-304dd248-gauntlet). Run the deterministic read-only
-> style pre-pass against the pinned base/head. Only if it passes, run EXACTLY ONE
-> panel round and post the verdict. Then STOP — do NOT fix, do NOT un-draft, do not
-> loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Before dispatching any juror, retain the PR's immutable baseRefOid and
->    headRefOid (both full 40-hex commit IDs), along with its head owner and branch.
->    Get an ISOLATED project checkout of that head:
->    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve all four retained fields with `gh pr view https://github.com/kriscendobot/minion.town/pull/237 --json baseRefOid,headRefOid,headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
->    Fetch the retained objects if necessary, check out the retained head object ID
->    detached, and verify git rev-parse HEAD equals it. A missing/malformed object ID
->    or head mismatch is a sensor failure: do not run probes or panel; emit
->    panel=panel-error.
-> 2. Run the deterministic probes read-only against that exact pinned pair with
->    `scripts/jobs/gardening/pre-push-gates.sh --no-auto-fix --probes-only \
->      --base-ref <base-object-id> <worktree>`.
->    Capture combined stdout/stderr byte-for-byte. On non-zero, do NOT
->    run panel.sh and do NOT post a PR review. Put the exact captured output between
->    these lines in the completion report, then emit panel=prepass-failed:
->
->    <!-- gauntlet-style-prepass-output-begin -->
->    <exact combined stdout/stderr, unchanged>
->    <!-- gauntlet-style-prepass-output-end -->
->
->    This is a deterministic finding, not a panel verdict. The driver routes that
->    exact block to fix-1 and only spends juror seats after the probes pass.
-> 3. Only after the probes exit 0, run the panel in SINGLE-ROUND mode against that
->    same worktree and retained base object ID:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 237 <base-object-id>`
->    It fans the seats, aggregates, preflights the PR author against the authenticated
->    login, and posts its own formal review. A must-fix result normally requests
->    changes; on a self-authored PR it posts the same aggregate as a comment review,
->    retaining the `Must-fix before merge` heading. It does NOT fix or un-draft.
->    Only after the review post succeeds does it print the existing stage-result
->    marker followed by a terminal line whose last token is `pass` or `must-fix`.
->    Copy that marker into your completion report; do not post the aggregate yourself.
-> 4. If panel.sh exits NON-ZERO it did NOT return a posted review verdict. A seat error, a
->    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
->    failure, not a pass/must-fix decision. Do NOT report `orchestration-failed:
->    true` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
->    and emit the `panel=panel-error` marker: the driver then re-posts this panel
->    round under its bounded stage-retry budget, exactly as it retries a doomed
->    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
->    its own marker below — never panel-error.
->
-> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
-> completion signal; the completion signal itself stays the very last line:
->   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
->   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
->   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
->   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
@@ -2558,7 +2388,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.3M | $51.20 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.3M | $51.24 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 156311483 tokens/day lower bound._
