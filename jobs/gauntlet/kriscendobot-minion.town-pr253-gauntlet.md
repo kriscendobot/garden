@@ -14,8 +14,8 @@ stage: viability
 iteration: 0
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: kriscendobot-minion.town-pr253-gauntlet-viability
+state: running
 resumed_at: 2026-11-07T17:26:33Z
 resumed_from_stage: viability
 ---
