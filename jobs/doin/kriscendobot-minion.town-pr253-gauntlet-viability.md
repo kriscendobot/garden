@@ -37,6 +37,7 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=29 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
