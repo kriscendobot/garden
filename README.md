@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T04:42:26Z_
+_As of 2026-11-07T04:45:30Z_
 
 ## Latest
 
@@ -390,10 +390,6 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Design the Phase 7 SSH transport and credential-capability slice for `endojs/endo-but-for-bots`, extending `designs/daemon-git-remotes.md` on `llm` with host-key policy, key-use authority, and bounded command restrictions.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -1627,7 +1623,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.1k | $2.23 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 235.7k | $3.47 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154611059 tokens/day lower bound._
@@ -1636,10 +1632,12 @@ _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (16)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
+- [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261107-043512.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`oros-health-watch-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261107-043512.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -1652,9 +1650,8 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
-- [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261107-043512.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`oros-health-watch-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261107-043512.md) — ---
+### doin (1)
+- [`claude-on-minion-town-completion-press-20261107-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261107-retry.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16844)
 - [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
