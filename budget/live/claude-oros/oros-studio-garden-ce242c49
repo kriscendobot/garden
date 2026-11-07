@@ -4,9 +4,9 @@ window_start_epoch: 1793703600
 spend: 59113428
 cap: 180000000
 status: ok
-sampled_at_epoch: 1794011508
-sampled_at: 2026-11-07T00:31:48Z
-sample_bucket: 1993346
+sampled_at_epoch: 1794012415
+sampled_at: 2026-11-07T00:46:55Z
+sample_bucket: 1993347
 used_percent: 26
 used_percent_source: derived
 road_w_kris: 0
