@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T13:48:32Z_
+_As of 2026-11-07T13:52:27Z_
 
 ## Latest
 
@@ -2108,7 +2108,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.3M | $22.28 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.4M | $22.72 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 358.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 156577690 tokens/day lower bound._
@@ -2138,8 +2138,8 @@ worst fetch p95 17.689752s/45s (unknown); 9 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-production-acceptance-deferred-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-production-acceptance-deferred-probe.md) — ---
 
 ### tada (16849)
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
