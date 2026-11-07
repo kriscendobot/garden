@@ -2,6 +2,18 @@
 
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
+## 2026-11-07T11:08Z - oros-health-watch-20261107-105011
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local mechanic remained queued at `jobs/todo/oros-health-checkup-20261107-105011.md` after its 10:50:19Z dispatch and therefore did not complete this cycle. The unrecovered `worker-agent-bin-monk-oros-studio-garden-ce242c49` notice at 02:26:36Z says every monk self-disqualified after Claude rejected the expired OAuth session; the target's three claims in the 24h disposition report at journal tip `b3906e4d033f` all ended as transient kills, with 0 completions. Canary probe r1 remained unclaimed beyond 900 seconds and r2, posted at 10:53:08Z, also remained in todo. The rolling deploy's sysop operation `20261107T105003Z-933070` was terminally acked accepted-and-applied at 10:50:40Z, lifting its own drain for retry 2/3. Fleet health at 10:20:47Z reported deployed `f2788117645d`, 0 failed and 0 advisory units out of 296; the 11:02:27Z claude-oros budget heartbeat was current and ok at 26%.
+- Cause: the host is present and its deterministic services are healthy, but its Claude OAuth session expired and could not be refreshed. The monk pool deliberately self-disqualified, so it cannot claim the local inspection or canary probes; this is a credential refusal, not a unit, budget, reachability, or worker-count failure.
+- Actions: observed only. No sysop operation, worker-count change, drain change, restart, or code change; restarts do not repair authorization, and the rolling-deploy workflow owns the retry and drain state.
+- Final state: present and temporarily undrained for rolling-deploy retry 2/3, deployed at `f2788117645d` with 0 failed/advisory units and a current budget heartbeat, but unable to claim or complete work because all configured monks are credential-parked. The release has no `deploy/roll-completed/f2788117645d...` record, and the local check plus both canary probes remain queued.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login` (or `claude auth login`) to refresh the OAuth session; no restart is needed because the pool re-probes and un-parks when the credential changes.
+- Next mechanic: first require the worker-agent-bin recovery notice, then confirm canary r2 and `oros-health-checkup-20261107-105011` claim and complete, the rolling release records completion, and Oros resumes non-canary completions. Only after the local run lands should it resume the pending disk/scratch and lock-holder checks.
+
 ## 2026-11-05T10:52Z - oros-health-watch-20261105-103515
 
 - Verdict: operator-held
