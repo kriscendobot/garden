@@ -190,16 +190,17 @@ schedule_due_stamp() {  # $1=cadence $2=last-epoch $3=now-epoch
 # All wall-clock math is local-date arithmetic (not @epoch offsets) so a DST day is
 # spanned correctly. Empty output when the cadence is not an anchored daily one.
 anchored_window() {  # $1=cadence $2=anchor-stamp-iso
-  local cad="$1" stamp="$2" anc hhmm tz anchor adate ws pdate
+  local cad="$1" stamp="$2" anc hhmm tz anchor adate ws pdate pdir
   anc="$(anchored_cadence "$cad")" || return 0
   read -r hhmm tz <<<"$anc"
   anchor="$(date -u -d "$stamp" +%s 2>/dev/null)" || return 0
   adate="$(TZ="$tz" date -d "@$anchor" +%Y-%m-%d 2>/dev/null)" || return 0
   ws="$(TZ="$tz" date -d "$adate $hhmm 1 day ago" +%s 2>/dev/null)" || return 0
   pdate="$(TZ="$tz" date -d "$adate $hhmm 1 day ago" +%Y-%m-%d 2>/dev/null)" || return 0
+  pdir="${pdate//-/\/}"
   printf '%s %s %s journal/periodicals/%s.md\n' \
     "$(date -u -d "@$ws" +%FT%TZ)" "$(date -u -d "@$anchor" +%FT%TZ)" \
-    "$pdate" "${pdate//-//}"
+    "$pdate" "$pdir"
 }
 
 # Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
@@ -517,6 +518,32 @@ for name in $(list_jobs "$DIR" schedules); do
     handler_timeout="$(schedule_handler_timeout "$name" "$handler_timeout_raw")" || handler_timeout=""
     occupancy="$(sed -n 's/^occupancy:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
     interchangeable="$(sed -n 's/^interchangeable:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
+
+    # The daily progress report is fixed-window journal accounting, not agent
+    # work. Render it from the scheduler's pinned anchored context and commit the
+    # output with the clock stamp in this same CAS transaction. This keeps a failed
+    # renderer due for retry and prevents a routine report from consuming a worker.
+    if [ "$name" = daily-progress-summary.md ]; then
+      win="$(anchored_window "$cad" "$stamp")"
+      if [ -z "$win" ]; then
+        log "WARN daily-progress-summary requires an anchored daily cadence; leaving schedule due"
+        break
+      fi
+      read -r w_start w_end w_pdate w_out <<<"$win"
+      if ! "$HERE/render-daily-progress-summary.sh" "$DIR" "$w_start" "$w_end" "$w_out"; then
+        log "WARN daily-progress-summary renderer failed; leaving schedule due"
+        break
+      fi
+      write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
+      git -C "$DIR" add "${w_out#journal/}" "schedules/$name"
+      if commit_and_push "$DIR" "schedule($name) rendered $w_out"; then
+        log "rendered $w_out from daily-progress-summary ($w_start to $w_end)"
+        dispatched=$((dispatched+1))
+        break
+      fi
+      backoff "$attempt"
+      continue
+    fi
 
     # Occupancy gate for RECURRING schedules (cybernetics-audit § 3.4, rec 8). The
     # basename is timestamped per period, so a schedule whose job outlives its

@@ -32,8 +32,8 @@ hr()  { echo "----------------------------------------------------------------";
 # real journal/root underneath the hermetic fixture.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 
-TR=/home/kris/.garden-scheduler-anchored-cadence-test
-rm -rf "$TR"; mkdir -p "$TR"
+TR="$(mktemp -d)"
+trap 'rm -rf "$TR"' EXIT
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 JBARE="$TR/journal.git"          # stands in for origin/journal2
@@ -96,6 +96,11 @@ todo_files() {
   find "$wt/jobs/todo" -maxdepth 1 -type f ! -name '.gitkeep' 2>/dev/null
 }
 todo_count() { todo_files | wc -l | tr -d ' '; }
+periodical() { # $1=Pacific YYYY/MM/DD
+  local wt="$TR/periodical-peek"; rm -rf "$wt"
+  git clone -q --branch "$BRANCH" "$JBARE" "$wt" 2>/dev/null
+  printf '%s\n' "$wt/periodicals/$1.md"
+}
 
 # epochs (UTC) for the scenario. The anchor for TZ_NAME midnight of a given local
 # day is what the stamp must equal.
@@ -113,8 +118,8 @@ setup_journal ""     # empty last_dispatched → first anchor is due
 hr; echo "TICK 1: fire LATE (Jul 3 20:05 PDT), well after the 00:00 anchor"
 run_tick "$EVENING_JUL3" "$TR/log1"
 n="$(todo_count)"
-[ "$n" = "1" ] && ok "one job dispatched on first due tick (todo=$n)" \
-                || bad "expected 1 dispatched job, got $n"
+[ "$n" = "0" ] && ok "no agent job dispatched; fixed window rendered in the scheduler" \
+                || bad "expected no dispatched job, got $n"
 
 got_stamp="$(sched_field last_dispatched)"
 got_epoch="$(date -u -d "$got_stamp" +%s 2>/dev/null || echo 0)"
@@ -122,39 +127,26 @@ got_epoch="$(date -u -d "$got_stamp" +%s 2>/dev/null || echo 0)"
   && ok "last_dispatched stamped to the ANCHOR (Jul 3 00:00 PDT = $got_stamp), not the fire time" \
   || bad "stamp is $got_stamp ($got_epoch); expected anchor $ANCHOR_JUL3 (drift! stamped the fire time?)"
 
-# The dispatched body must carry the injected window + Pacific-date output path.
-JOB="$(todo_files | head -1)"
-if [ -n "$JOB" ]; then
-  grep -q 'window_end: 2026-07-03T07:00:00Z' "$JOB" \
-    && ok "body window_end pinned to the anchor instant (07:00Z = 00:00 PDT)" \
-    || bad "body missing/incorrect window_end: $(grep -i window_end "$JOB" || echo none)"
-  grep -q 'window_start: 2026-07-02T07:00:00Z' "$JOB" \
-    && ok "body window_start is anchor minus one LOCAL day" \
-    || bad "body missing/incorrect window_start: $(grep -i window_start "$JOB" || echo none)"
-  grep -q 'pacific_date: 2026-07-02' "$JOB" \
-    && ok "body pacific_date is the day that just closed (2026-07-02)" \
-    || bad "body pacific_date wrong: $(grep -i pacific_date "$JOB" || echo none)"
-  grep -q 'journal/periodicals/2026/07/02.md' "$JOB" \
-    && ok "body output path is periodicals/2026/07/02.md" \
-    || bad "body output path wrong: $(grep -i output "$JOB" || echo none)"
-  grep -q 'Write the daily progress summary periodical.' "$JOB" \
-    && ok "original schedule body preserved below the injected context" \
-    || bad "original body missing from dispatched job"
-else
-  bad "no dispatched job file found to inspect"
-fi
+# The renderer receives the same pinned anchored context previously injected into
+# the agent body, and writes the fixed output path. Empty windows stay factual.
+PERIODICAL="$(periodical 2026/07/02)"
+[ -f "$PERIODICAL" ] && ok "periodical written at the Pacific-date pinned output path" \
+                       || bad "missing periodical at $PERIODICAL"
+grep -q '^Nothing moved in the journal from 2026-07-02T07:00:00Z to 2026-07-03T07:00:00Z\.$' "$PERIODICAL" \
+  && ok "empty window has the minimal factual summary with the anchored bounds" \
+  || bad "empty periodical did not preserve the anchored window: $(cat "$PERIODICAL" 2>/dev/null || true)"
 
 hr; echo "TICK 2: SAME local day, hours later (Jul 3 23:30 PDT) → NOT due"
 run_tick "$LATER_JUL3" "$TR/log2"
 n="$(todo_count)"
-[ "$n" = "1" ] && ok "no second dispatch same local day (todo still $n) — anchor already served" \
-                || bad "expected todo to stay 1, got $n (re-fired within the same anchor day)"
+[ "$n" = "0" ] && ok "no second render same local day — anchor already served" \
+                || bad "expected no jobs, got $n (re-fired within the same anchor day)"
 
 hr; echo "TICK 3: just past NEXT local midnight (Jul 4 00:30 PDT) → due again"
 run_tick "$NEXT_JUL4" "$TR/log3"
 n="$(todo_count)"
-[ "$n" = "2" ] && ok "second day dispatched exactly one new job (todo=$n)" \
-                || bad "expected 2 jobs after next-day tick, got $n"
+[ "$n" = "0" ] && ok "second day rendered without dispatching a job" \
+                || bad "expected no jobs after next-day tick, got $n"
 got_stamp2="$(sched_field last_dispatched)"
 got_epoch2="$(date -u -d "$got_stamp2" +%s 2>/dev/null || echo 0)"
 [ "$got_epoch2" = "$ANCHOR_JUL4" ] \
@@ -189,5 +181,4 @@ dst_step=$(( ANCHOR_MAR9 - ANCHOR_MAR8 ))
 
 hr
 echo "RESULT: $PASS passed, $FAIL failed"
-rm -rf "$TR"
 [ "$FAIL" -eq 0 ]
