@@ -1,31 +1,31 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T02:07:19Z_
+_As of 2026-11-07T02:11:04Z_
 
 ## Latest
 
-Board movement since the last bulletin was minimal: one new progress note from a gardener, and the `dependabotany-recheck-endo-but-for-bots-20261107-013512` job in `doin` was updated. No jobs were posted or completed.
+No board transitions resolved this cycle, so the news is in the maintainer inbox and the plan queue.
 
-The more important signal is the pile of reaper-parked jobs and orchestration-child failures, which is the same pattern repeating across several arcs.
-- **daemon-git-remotes:** four design and build children are parked in `jobs/plan/` after their single retry also failed. Those are server-half, SSH transport, extended transports, and transport-timing, plus the Phase 6 interactive-provisioning build.
-- **improve-fixes:** the issue-status budget and trust-filter fixes, the candidate-gate diagnostic, the ledger-contention spool, and the screening cooldown log are all parked the same way.
-- **Other parked work:** a handful of oros health-watch runs, the Claude-on-minion.town completion press, the Phase 8 daemon agent-tools fetch-plugin build, the gauntlet-notices-to-PR change, and the muster autoarchive job.
+**Parked work.** The reaper stopped retrying a batch of jobs that had already used their one backed-off retry. It parked each in `jobs/plan/` under a go-ahead gate. They fall into three groups:
+- Two orchestrations, `muster-improve-fixes-r2-20261106` and `muster-daemon-git-remotes-r2-20261106`, reported child failures. The `improve-*` children covered issue-status budget and trust-filter fixes, the decision-ledger spool, the candidate-gate diagnostic and screening log spam. The `daemon-git-remotes` children were design and build slices, including the SSH and extended-transport designs, the server half, transport timing and Phase 6 provisioning.
+- Several other parked jobs came from the same sweep: `improve-gauntlet-notices-to-pr-20261106`, `improve-muster-autoarchive-watchdog-20261106` and the Phase 8 fetch-plugin build.
+- Several `oros-health-watch` cycles were parked as well.
 
-None of these is lost, but each stays held until someone splits or promotes it. The `orchestrate-build-minion-town-ordered-gutter-20261104` orchestration halted after its first increment declared its gated outcome unsatisfied, so increments 2–5 remain parked.
+None of this work is lost. Each parked job needs either a promotion or a split into smaller claims.
 
-On the infrastructure side:
-- **oros stuck at an old sha:** oros-studio is still stuck on deployed sha `2c082b9`. The canary notice is now at occurrence 565, with the canary about 2,250 minutes behind.
-- **Deploy gate:** the earlier candidate-gate rejection (a `signal-kill-classifier-test.sh` failure) coincides with that lag.
-- **Root-repo drift on endolin:** the root-repo guard found HEAD on endolin had drifted to a stale `main2` ancestor and re-detached it at `dd3e6bc`. The prior HEAD is preserved as `root-guard-backup/20261107T015202Z`.
-- **Disk on oros:** the oros shared disk was losing about 1.8 GB/h as of the 11-02 checkup. It likely needs a Mac-side check, for example local snapshots.
+**minion.town review jobs.** Review jobs on [minion.town#247](https://github.com/kriscendobot/minion.town/pull/247) and [minion.town#248](https://github.com/kriscendobot/minion.town/pull/248) were doomed the same way. So was the follow-up on #248 that carries the maintainer's authorization for another gauntlet round. The `orchestrate-build-minion-town-ordered-gutter-20261104` orchestration halted after its first increment completed with its gated outcome unsatisfied. Four increments remain parked.
 
-Items that need a maintainer decision:
-- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging, and veto-check the four listed choices.
-- **Production guest:** the live probe left one anonymous guest on production minion.town, and there is no delete route.
-- **Proxy answer:** the proxy's tentative answer on the broad-facet authorization question needs your review.
-- **Ratchet:** the Ironhorse test262 ratchet remains halted on a wrong base.
+**Oros stall.** The Oros canary has been stuck for about 37 hours. It reports deployed `2c082b9acbc8`, six commits behind `dd3e6bc6edfd`, and the watchdog is at occurrence #565. Oros health-checkups are piling up unclaimed in todo. The `oros-health-watch` notice records that a reset-failed op and a self-deploy timer restart both applied without moving the sha. Someone at the machine needs to check `garden-self-deploy` there. Oros also reports shared disk free space falling about 1.8 GB/h, suspected to be on the Mac side.
+
+**Root repo.** The root-repo guard re-detached the leader's HEAD from a stale commit onto `dd3e6bc6edfd`. It saved the old HEAD as a backup branch.
+
+**Maintainer decisions pending.**
+- Production minion.town has one leftover anonymous guest. The garden cannot delete it, so you decide whether to leave it or remove it by hand.
+- The settings-simplification report asks you to run `deploy-accounts-store.sh` before merging and to veto-check four choices.
+- The proxy's tentative answer on the `directoryFor(ownerKey)` broad facet needs a review or override.
+- The Ironhorse ratchet is halted on a wrong base and waits for an explicit resume.
+
+Most other watchdog notices are budget-level changes or recovered journal contention. They need no action.
 
 ## Maintainer review docket
 
@@ -1224,7 +1224,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.8M | $664.51 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.0M | $665.24 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 357.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155130109 tokens/day lower bound._
