@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:23:01Z_
+_As of 2026-11-07T20:24:14Z_
 
 ## Latest
 
@@ -1636,6 +1636,10 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.020692s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `msg-oros-health-watch-20261107-202010-656f078a2077` — from gardener:oros-health-watch-20261107-202010, reply_to `oros-health-watch-20261107-202010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261107-202010-656f078a2077.md)
+
+> oros-studio-garden-ce242c49: rolling deploy to 41579bcb938f is HALTED. All 3 canary retries are used up, and the host is drained by the roll. Two things are blocking it. (1) garden-secret-broker.service fails on Oros after each deploy, and I can't see why from the leader. (2) The monks have been credential-parked since 02:26Z because the Claude OAuth session expired. I need three things from you: (a) on Oros, as the garden user, run claude then /login. (b) Attest a read-only log pull: send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>. (c) Decide the roll: fix and re-trigger, or hold / pick the old SHA. The container recreation that secrets.md says this release needs is still pending on Oros and may be what breaks the broker. Full record: projects/garden/host-health/oros-studio-garden-ce242c49.md (20:30Z).
+
 - `doomed-improve-issue-status-source-trust-filter-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-issue-status-source-trust-filter-r2-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2393,7 +2397,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.4M | $52.66 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.4M | $52.73 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157303047 tokens/day lower bound._
@@ -2402,14 +2406,13 @@ _Fleet token-unlock pace: 157303047 tokens/day lower bound._
 worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (23)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
-- [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr253-9c79d18-conduct.md) — Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
 - [`oros-health-checkup-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-202010.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -2428,8 +2431,9 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (4)
+### doin (5)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #254
+- [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr253-9c79d18-conduct.md) — Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
 - [`oros-health-watch-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261107-202010.md) — ---
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
