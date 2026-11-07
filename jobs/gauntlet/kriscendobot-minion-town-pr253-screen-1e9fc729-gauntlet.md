@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 253
 build_job: 
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 1
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-viability
+current_child: kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-clean
 state: running
 created_by: proxy:screen
 created_at: 2026-11-07T21:13:03Z
