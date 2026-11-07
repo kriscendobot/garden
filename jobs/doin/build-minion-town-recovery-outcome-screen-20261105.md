@@ -48,3 +48,13 @@ COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-fa
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T10:43:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T10:43:07Z
