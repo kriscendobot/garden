@@ -54,13 +54,6 @@ Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates produc
 COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-facing text; use 'guest'. Any new recovery/landing copy says guest. The sibling job build-minion-town-waitlist-soon-page-20261105 changes the existing splash strings; stay consistent with it. Internal role value 'resident' is not renamed.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1175 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-07T15:42:40Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-07T16:13:04Z -->
