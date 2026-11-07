@@ -21,6 +21,7 @@ Also report whether the deploy gate or canary should check `command -v bwrap` be
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=629 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
