@@ -42,13 +42,5 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: viability=overtaken -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=52 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-07T10:08:15Z
+
+<!-- garden-reaped: 0 -->
