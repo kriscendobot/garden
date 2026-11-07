@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T13:33:02Z_
+_As of 2026-11-07T13:33:42Z_
 
 ## Latest
 
@@ -498,6 +498,37 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
+
+- `doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/verify-minion-town-recovery-outcome-production-20261107; it stays HELD until a human promotes it
+> (promote-plan.sh verify-minion-town-recovery-outcome-production-20261107) or removes it, so nothing is lost.
+> Original job base: verify-minion-town-recovery-outcome-production-20261107
+>
+> --- original job body ---
+> ---
+> role: gardener
+> tier: minion
+> model-burned: mentor
+> handler-timeout: 7200
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Finish the production acceptance gate for the failed guest-recovery outcome work in kriscendobot/minion.town.
+>
+> The implementation is on head branch `fix/recovery-outcome-screen`, opened by job `build-minion-town-recovery-outcome-screen-20261105`. Find its PR by the durable garden marker. The PR is intentionally an orchestrated slice until its normal gauntlet, merge, continuous deployment, and production observations finish.
+>
+> Own every remaining step:
+>
+> 1. If the PR is still in its gauntlet or awaiting merge, monitor it in the foreground for the bounded handler window. Do not bypass review or merge policy. If it cannot reach production in this claim, durably re-arm this same one-time successor before completing or leave the job unfinished for requeue.
+> 2. After merge, wait for `deploy (continuous deployment)` and its triggered production probe to finish successfully. Diagnose or post a concrete fix job for any failure; do not call a skipped or failed deploy accepted.
+> 3. Verify https://minion.town/ with Playwright. Exercise the dedicated failed-recovery screen through request interception or a dedicated throwaway test principal only; never mutate a maintainer's account or guest. Confirm exact GitHub wording, cleared address bar, heading focus and live-region semantics, one-reload persistence followed by consumption, and the actions to choose another provider and open the wait-list form.
+> 4. Verify the production wait-list action end to end with the dedicated fixed address `prod-probe@minion.town`, accepting only HTTP 202 and the privacy-preserving success response. Repeated use must remain the single idempotent probe row. Confirm the new `wait-list-store-accepts-signup` production objective passes.
+> 5. Save production screenshots as durable evidence. Update the PR description's phase/evidence ledger from `orchestrated-slice` to `deliverable` with production run links and observations, and post one concise top-level completion comment with the evidence. This job explicitly authorizes those PR edits/comments.
+>
+> Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots, and any follow-up.
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
 
@@ -2107,8 +2138,8 @@ worst fetch p95 17.689752s/45s (unknown); 9 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (1)
-- [`verify-minion-town-recovery-outcome-production-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107.md) — ---
+### doin (0)
+(none)
 
 ### tada (16849)
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
@@ -2189,6 +2220,7 @@ worst fetch p95 17.689752s/45s (unknown); 9 open notice(s); checker healthy
 - [`minion-town-arc-press-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261106-020511.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr246-93329d9-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102.md) — _normal_ · ---
+- [`verify-minion-town-recovery-outcome-production-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-minion-town-recovery-outcome-production-20261107.md) — _normal_ · ---
 - [`improve-issue-status-source-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-issue-status-source-budget-r2.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr253-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
