@@ -1,27 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet
-role: gardener
-tier: mentor
-handler-budget-role: panel
-handler-timeout: 10800
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-11-07T19:53:18Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-11-07T19:53:18Z
----
-
----
-posted_at: 2026-11-07T19:50:20Z
 role: gardener
 handler-budget-role: panel
 handler-timeout: 10800
@@ -29,9 +6,6 @@ gauntlet: kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 1
 pr: https://github.com/kriscendobot/minion.town/pull/252
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #252
