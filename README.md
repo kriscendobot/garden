@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T09:49:26Z_
+_As of 2026-11-07T09:52:34Z_
 
 ## Latest
 
@@ -691,7 +691,11 @@ Delegation: **active**
 
 - `watchdog-root-repo-head-repaired-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-head-repaired-endolin-garden-ece02cb4.md)
 
-> root repo /home/kris/garden HEAD had DRIFTED (detached 78d2b028796f3200ec1a7065e13ac4083fbceeb6) to a STALE main2 ancestor (78d2b028796f3200ec1a7065e13ac4083fbceeb6) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03). Re-detached HEAD onto dd3e6bc6edfd490eb8ba0936b8b79a78238088ca (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20261107T015202Z. (host=endolin-garden-ece02cb4)
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-14T21:14:53Z, latest 2026-11-07T09:52:01Z).
+> The SAME condition (`root-repo-head-repaired-endolin-garden-ece02cb4`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> root repo /home/kris/garden HEAD had DRIFTED (detached 36f97ae8eff5991a3e615ab291e0e99648484211) to a STALE main2 ancestor (36f97ae8eff5991a3e615ab291e0e99648484211) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03). Re-detached HEAD onto ad75cf18999770a06e962a6acb615ce6bf44ddde (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20261107T095201Z. (host=endolin-garden-ece02cb4)
 
 - `doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted.md)
 
@@ -1953,7 +1957,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.5M | $20.21 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.6M | $20.81 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 358.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153988573 tokens/day lower bound._
@@ -1979,9 +1983,10 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
+### doin (3)
 - [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-waitlist-soon-page-20261105.md) — ---
+- [`improve-sandbox-writable-job-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-sandbox-writable-job-state.md) — ---
 
 ### tada (16846)
 - [`improve-scripted-daily-progress-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/improve-scripted-daily-progress-summary.md) — Completion report — improve-scripted-daily-progress-summary
