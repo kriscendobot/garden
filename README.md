@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:34:47Z_
+_As of 2026-11-07T20:36:24Z_
 
 ## Latest
 
@@ -2431,10 +2431,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.6M | $52.50 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.6M | $51.62 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 157424754 tokens/day lower bound._
+_Fleet token-unlock pace: 155960496 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
@@ -2464,19 +2464,18 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #254
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
-- [`fix-monk-sandbox-project-worktree-erofs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-monk-sandbox-project-worktree-erofs.md) — Fix: project worktrees are read-only inside the monk sandbox (EROFS), stallin...
 
-### tada (16885)
+### tada (16886)
+- [`fix-monk-sandbox-project-worktree-erofs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/fix-monk-sandbox-project-worktree-erofs.md) — Completion report: fix-monk-sandbox-project-worktree-erofs
 - [`minion-town-arc-press-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/minion-town-arc-press-20261107-202010.md) — Cost
 - [`oros-health-watch-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-watch-20261107-202010.md) — 2026-11-07T20:30Z - oros-health-watch-20261107-202010
 - [`kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet.md) — gauntlet kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr254-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-3.md) — Cost
-- [`claude-on-minion-town-completion-press-20261107-200512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/claude-on-minion-town-completion-press-20261107-200512.md) — Cost
-- … and 16880 more
+- … and 16881 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
