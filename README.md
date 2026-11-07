@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T11:09:01Z_
+_As of 2026-11-07T11:12:46Z_
 
 ## Latest
 
@@ -1144,6 +1144,10 @@ Delegation: **active**
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-decision-ledger-contention-spool-r2: doomed and held in plan.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-105011` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-105011.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261107-105011' has remained unclaimed for 1199s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-improve-candidate-gate-empty-diagnostic-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-candidate-gate-empty-diagnostic-r2-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1859,6 +1863,10 @@ Delegation: **active**
 >
 > To fix: see the parenthetical above for a cause-specific cure; for a missing CLI, install or repair the CLI on oros-studio-garden-ce242c49 (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, $NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1971,7 +1979,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 155860392 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.622756s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 6 open notice(s); checker healthy
+worst fetch p95 4.196392s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (19)
