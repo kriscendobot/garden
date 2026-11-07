@@ -1,0 +1,21 @@
+elapsed-constancy exit0-wedge-suspect: weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
+
+gardener-3 on endolin-garden-ece02cb4: job weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 43,46s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>03:13:21 [monk/3] resuming session f5148510-b119-50de-81b1-37f59bd3500f for requeued job 'weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102' in worktree /home/kris/garden/scratch/gardener-wt-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
+<6>03:13:21 [monk/3] job 'weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>03:13:21 [monk/3] job 'weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102' call ceiling: tier=mentor max-budget-usd=20.00 (scaled by fresh seven-day headroom when available)
+<6>03:13:21 [monk/3] job 'weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102' attaching minion.town MCP (stdio bridge)
+<6>03:13:52 [monk/3] job 'weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102' ended its turn without the completion signal; nudging the same session to verify and complete (nudge 1/1, budget USD 19.16)
