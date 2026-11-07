@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:00:38Z_
+_As of 2026-11-07T17:02:53Z_
 
 ## Latest
 
@@ -2251,10 +2251,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.6M | $30.64 _(notional, rate-card)_ | 1% of 271.0M (ok) |
-| Codex | 359.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 3.6M | $30.96 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Codex | 359.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154756886 tokens/day lower bound._
+_Fleet token-unlock pace: 154964090 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
@@ -2282,7 +2282,8 @@ worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
+### doin (3)
+- [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
 - [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107b.md) — ---
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 
