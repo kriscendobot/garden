@@ -13,3 +13,13 @@ Defect: `scripts/jobs/minion-town-press-preflight.sh:146` only recognizes comple
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=51,239 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T06:23:12Z
