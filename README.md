@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:38:54Z_
+_As of 2026-11-07T20:42:00Z_
 
 ## Latest
 
@@ -594,10 +594,6 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-candidate-gate-empty-diagnostic-r2: doomed and held in plan.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-202010` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-202010.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261107-202010' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-oros-health-watch-20261106-020511-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261106-020511-requeue-exhausted.md)
 
@@ -2401,7 +2397,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.5M | $51.26 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.6M | $51.54 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 362.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155960496 tokens/day lower bound._
@@ -2434,17 +2430,18 @@ worst fetch p95 6.085245s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #254
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
+- [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
 
-### tada (16887)
-- [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Cost
+### tada (16886)
 - [`fix-monk-sandbox-project-worktree-erofs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/fix-monk-sandbox-project-worktree-erofs.md) — Completion report: fix-monk-sandbox-project-worktree-erofs
 - [`minion-town-arc-press-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/minion-town-arc-press-20261107-202010.md) — Cost
 - [`oros-health-watch-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-watch-20261107-202010.md) — 2026-11-07T20:30Z - oros-health-watch-20261107-202010
 - [`kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet.md) — gauntlet kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet — HALTED
-- … and 16882 more
+- [`kriscendobot-minion.town-pr254-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-3.md) — Cost
+- … and 16881 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
