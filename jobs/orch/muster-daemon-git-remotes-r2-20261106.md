@@ -1,4 +1,5 @@
 ---
+child-daemon-git-capability-phase-five-contract-tests-build-r2-failure-notified: true
 child-daemon-git-capability-phase-five-contract-tests-build-r2-host: endolin-garden-ece02cb4
 child-daemon-git-capability-phase-five-contract-tests-build-r2-reap-count: 0
 child-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-failure-notified: true
