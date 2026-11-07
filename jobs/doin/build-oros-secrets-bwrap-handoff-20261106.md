@@ -18,3 +18,13 @@ Deliverable: `context/operations/oros-secrets-handoff.md` on `main2` (pushed dir
 4. How to hold the Oros deploy until the operator confirms (name the existing mechanism, for example the `upgrade-ready` fact or a hold), and how the leader's rolling deploy should treat an Oros that cannot run bwrap.
 5. A rollback if bwrap cannot be made to work on the Mac.
 Also report whether the deploy gate or canary should check `command -v bwrap` before advancing, and file that as a follow-up recommendation in your completion report rather than implementing it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-07T01:37:55Z
