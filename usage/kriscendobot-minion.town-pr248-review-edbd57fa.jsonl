@@ -2,3 +2,4 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T04:03:48Z","base":"kriscendobot-minion.town-pr248-review-edbd57fa","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":14,"provider":"anthropic"}
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T04:39:37Z","base":"kriscendobot-minion.town-pr248-review-edbd57fa","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":7,"provider":"anthropic"}
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-06T04:53:58Z","base":"kriscendobot-minion.town-pr248-review-edbd57fa","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":22,"provider":"anthropic"}
+{"ts":"2026-11-07T17:37:01Z","base":"kriscendobot-minion.town-pr248-review-edbd57fa","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":257}
