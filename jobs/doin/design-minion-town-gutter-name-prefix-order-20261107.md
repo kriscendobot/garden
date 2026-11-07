@@ -74,6 +74,7 @@ kriscendobot-minion.town-pr247-review-213830b3 on 2026-11-07 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T18:33:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=1021,41 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
