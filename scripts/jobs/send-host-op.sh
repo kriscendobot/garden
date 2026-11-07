@@ -19,11 +19,12 @@
 #   send-host-op.sh ps23-garden-abcd1234 op=restore
 #   send-host-op.sh ps23-garden-abcd1234 op=refresh-budget-snapshot pool=claude-oros
 #   send-host-op.sh ps23-garden-abcd1234 op=unit action=restart name=garden-foreman.timer authorized_by=<login>
+#   send-host-op.sh ps23-garden-abcd1234 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=deploy authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=local-model authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=maintain authorized_by=<login>
 #
-# The destructive ops (deploy, unit, local-model, maintain) additionally require
+# The attested ops (deploy, unit, unit-log, local-model, maintain) additionally require
 # authorized_by=<login> with <login> on the journal maintainers/allowlist
 # (attestation, not auth — see designs/sysop.md §6). Journal-push access is the
 # authorization boundary, so any garden host may originate an op for any other.

@@ -704,6 +704,68 @@ grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
   && ok "a fast op (drain off) is processed while maintenance is still active (not starved)" \
   || bad "a fast op was starved behind in-flight maintenance (ack: $(cat "$ACK_LOG"))"
 
+# ============================================================================
+hr; echo "UNIT-LOG — attested, read-only, redacted, bounded log read"; hr
+cat > "$TR/mock-journalctl.sh" <<'MJ'
+#!/bin/bash
+# args: -u <unit> -n <N> --no-pager -o short-iso ; records the requested N
+n=0; while [ $# -gt 0 ]; do [ "$1" = "-n" ] && n="$2"; shift; done
+printf 'N=%s\n' "$n" >> "$JL_LOG"
+[ -n "${JL_FAIL:-}" ] && { echo "boom" >&2; exit 1; }
+printf '2026-11-07T03:31:00+0000 broker[1]: listening\n'
+printf '2026-11-07T03:31:01+0000 broker[1]: token=SUPERSECRETVALUE failed\n'
+printf '2026-11-07T03:31:02+0000 broker[1]: Authorization: Bearer ghp_abcdefghijklmnopqrstuvwxyz0123456789\n'
+printf '2026-11-07T03:31:03+0000 broker[1]: socket bind: Address already in use\n'
+MJ
+chmod +x "$TR/mock-journalctl.sh"
+JL_LOG="$TR/jl.log"; : > "$JL_LOG"
+: > "$UNIT_DIR/garden-secret-broker.service"
+
+: > "$ACK_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=garden-secret-broker.service
+run_sysop "$TR/s-ul-noauth" JL_LOG="$JL_LOG" GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && [ ! -s "$JL_LOG" ]; } \
+  && ok "unit-log without authorized_by refused (journalctl NOT run)" || bad "unit-log ran without attestation (ack: $(cat "$ACK_LOG"))"
+
+: > "$ACK_LOG"; : > "$JL_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=garden-secret-broker.service authorized_by="$MAINTAINER"
+run_sysop "$TR/s-ul-ok" JL_LOG="$JL_LOG" GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+{ grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" && grep -q 'Address already in use' "$ACK_LOG" && grep -q 'N=60' "$JL_LOG"; } \
+  && ok "attested unit-log returns the log text (default 60 lines) in the ack" || bad "unit-log did not return logs (ack: $(cat "$ACK_LOG"); jl: $(cat "$JL_LOG"))"
+{ ! grep -q 'SUPERSECRETVALUE' "$ACK_LOG" && ! grep -q 'ghp_abcdef' "$ACK_LOG" && grep -q 'REDACTED' "$ACK_LOG"; } \
+  && ok "secret-shaped text is redacted from the ack" || bad "a secret leaked into the ack: $(cat "$ACK_LOG")"
+REC="$(git -C "$BARE" log -p --all --format= -- 'sysop-log/' 2>/dev/null)"
+{ ! grep -q 'SUPERSECRETVALUE' <<<"$REC" && ! grep -q 'ghp_abcdef' <<<"$REC"; } \
+  && ok "secret-shaped text is absent from the committed sysop-log record" || bad "a secret leaked into the journal record"
+[ "$(grep -c '^' <<<"$(grep -h '^detail:' "$ACK_LOG" 2>/dev/null)")" -le 1 ] && ok "detail stays on one line" || bad "multi-line detail"
+
+: > "$ACK_LOG"; : > "$JL_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=garden-secret-broker.service lines=99999 authorized_by="$MAINTAINER"
+run_sysop "$TR/s-ul-clamp" JL_LOG="$JL_LOG" GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+grep -q 'N=200' "$JL_LOG" && ok "lines clamped to GARDEN_SYSOP_LOG_MAX_LINES (200)" || bad "lines not clamped ($(cat "$JL_LOG"))"
+
+: > "$ACK_LOG"; : > "$JL_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=sshd.service authorized_by="$MAINTAINER"
+run_sysop "$TR/s-ul-badname" JL_LOG="$JL_LOG" GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+{ grep -q 'sysop_ack: parse-error' "$ACK_LOG" && [ ! -s "$JL_LOG" ]; } \
+  && ok "non-garden unit name rejected (parse-error, journalctl NOT run)" || bad "arbitrary unit readable (ack: $(cat "$ACK_LOG"))"
+
+: > "$ACK_LOG"; : > "$JL_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=garden-nosuch.service authorized_by="$MAINTAINER"
+run_sysop "$TR/s-ul-notinst" JL_LOG="$JL_LOG" GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && [ ! -s "$JL_LOG" ]; } \
+  && ok "uninstalled garden unit refused" || bad "uninstalled unit read (ack: $(cat "$ACK_LOG"))"
+
+: > "$ACK_LOG"; : > "$JL_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=garden-secret-broker.service lines=abc authorized_by="$MAINTAINER"
+run_sysop "$TR/s-ul-badlines" JL_LOG="$JL_LOG" GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+grep -q 'sysop_ack: parse-error' "$ACK_LOG" && ok "non-numeric lines rejected" || bad "bad lines accepted (ack: $(cat "$ACK_LOG"))"
+
+: > "$ACK_LOG"; : > "$JL_LOG"
+seed_op "$ISSUER" "$TARGET" op=unit-log name=garden-secret-broker.service authorized_by="$MAINTAINER"
+run_sysop "$TR/s-ul-fail" JL_LOG="$JL_LOG" JL_FAIL=1 GARDEN_SYSOP_JOURNALCTL="$TR/mock-journalctl.sh"
+grep -q 'sysop_ack: failed' "$ACK_LOG" && ok "journalctl failure acked as failed" || bad "journalctl failure not reported (ack: $(cat "$ACK_LOG"))"
+
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

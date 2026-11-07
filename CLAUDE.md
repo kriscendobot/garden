@@ -209,7 +209,7 @@ The **sysop** (`scripts/jobs/sysop.sh`, `garden-sysop.{service,timer}`;
 that receives host-directed system operations over the bus — addressed to a new
 `host/<GARDEN>` bus kind — and executes a **closed vocabulary** (`set-workers`,
 `drain`, `reset-failed`, `restore`, `refresh-budget-snapshot`, `unit`, `deploy`,
-`local-model`, `maintain`) on the host it
+`unit-log`, `local-model`, `maintain`) on the host it
 runs on, each delegating to the existing hardened same-host tool. Its motivation is the
 **unattended follower**: today "throttle host Y" waits for a human to sit at Y
 (`set-workers.sh` correctly refuses cross-host writes); the sysop is the daemon that
@@ -224,8 +224,8 @@ cross-host refusal (it satisfies the guard by running ON the target). It is **no
 `roles/` posture** (runs no `claude`, claims no jobs; the `roles/sysop/AGENT.md` stub
 just redirects here). Journal-push access is the authorization boundary, so **any
 garden host may originate an op for any other garden host**; `from_host` is
-self-asserted and there is no additional issuer gate. The **destructive** ops
-(`unit`, `deploy`, `local-model`
+self-asserted and there is no additional issuer gate. The **destructive or journal-exporting** ops
+(`unit`, `unit-log` — a redacted, bounded, read-only log tail, `deploy`, `local-model`
 — a model pull is tens of GiB and can exhaust a follower's disk — and `maintain`, which
 breaks a confirmed-stale git gc lock and repacks the host's shared root repo) additionally
 require maintainer **attestation** (`authorized_by:` on `maintainers/allowlist`).

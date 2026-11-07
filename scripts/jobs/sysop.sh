@@ -54,7 +54,7 @@
 # is self-asserted, so there is no additional per-host issuer check. Any garden host
 # may send an op to any other garden host. Destructive operations retain one
 # deliberate-intent check on top of that boundary:
-#   * MAINTAINER ATTESTATION (destructive tier only — deploy, unit, local-model, maintain): the
+#   * MAINTAINER ATTESTATION (attested tier — deploy, unit, unit-log, local-model, maintain): the
 #     message must carry authorized_by: <login> with <login> on maintainers/allowlist.
 #     Attestation, not authentication — its value is that the irreversible tier
 #     cannot be triggered by ACCIDENT, only by a message that names a maintainer.
@@ -98,6 +98,9 @@ export GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS:=3}"               # restore's reaper push budget (the leader's reaper owns the fleet)
 : "${GARDEN_MAINTAINERS_ALLOWLIST:=}"                      # override maintainer allowlist file (else journal)
 : "${GARDEN_SYSOP_INSTALLED_UNIT_DIR:=${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user}"
+: "${GARDEN_SYSOP_JOURNALCTL:=journalctl --user}"            # unit-log reader; test seam (word-split: command + leading args)
+: "${GARDEN_SYSOP_LOG_MAX_LINES:=200}"                      # unit-log hard cap on lines requested
+: "${GARDEN_SYSOP_LOG_MAX_CHARS:=6000}"                     # unit-log hard cap on returned characters
 : "${GARDEN_SYSOP_MAIN_HEAD_CMD:=}"                        # test seam: echoes origin main2 HEAD for the deploy to_sha guard
 # --- local-model op seams (all overridable so the harness drives the async pull
 #     state machine with NO real ollama, systemd, or 22 GB download) ---
@@ -557,12 +560,30 @@ restore_step() {
 # parse-error | failed.
 OUTCOME=""; DETAIL=""
 
+# redact_log_text — scrub secret-shaped text from unit-log output BEFORE it is
+# flattened into an ack/record that is pushed to the journal. Defence in depth, not a
+# guarantee: it masks well-known credential shapes, auth headers, key=value secrets,
+# and any long opaque token. The op is also attested and size-bounded.
+redact_log_text() {
+  sed -E \
+    -e 's/(sk|pk|rk)-[A-Za-z0-9_-]{16,}/[REDACTED]/g' \
+    -e 's/gh[pousr]_[A-Za-z0-9]{20,}/[REDACTED]/g' \
+    -e 's/github_pat_[A-Za-z0-9_]{20,}/[REDACTED]/g' \
+    -e 's/AKIA[0-9A-Z]{16}/[REDACTED]/g' \
+    -e 's/xox[abprs]-[A-Za-z0-9-]{10,}/[REDACTED]/g' \
+    -e 's/eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]*/[REDACTED]/g' \
+    -e 's/([Bb]earer|[Bb]asic)[[:space:]]+[^[:space:]]+/\1 [REDACTED]/g' \
+    -e 's/([Tt]oken|[Ss]ecret|[Pp]ass(word|wd)?|[Aa]pi[_-]?[Kk]ey|[Aa]uthorization|[Cc]redential)s?(["'"'"']?[[:space:]]*[:=][[:space:]]*)"[^"]*"/\1\3[REDACTED]/g' \
+    -e 's/([Tt]oken|[Ss]ecret|[Pp]ass(word|wd)?|[Aa]pi[_-]?[Kk]ey|[Aa]uthorization|[Cc]redential)s?(["'"'"']?[[:space:]]*[:=][[:space:]]*)[^[:space:],;&"'"'"']+/\1\3[REDACTED]/g' \
+    -e 's/[A-Za-z0-9+\/_=-]{40,}/[REDACTED]/g'
+}
+
 dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
   local op="$1" fh="$2" msgid="$3"
 
   # Destructive tier requires maintainer attestation BEFORE any parse/execute.
   case "$op" in
-    deploy|unit|local-model|maintain)
+    deploy|unit|unit-log|local-model|maintain)
       local ab; ab="$(field authorized_by)"
       if [ -z "$ab" ]; then OUTCOME="refused"; DETAIL="destructive op '$op' missing authorized_by"; return; fi
       if ! is_maintainer "$ab"; then OUTCOME="refused"; DETAIL="destructive op '$op' authorized_by '$ab' not on maintainers/allowlist"; return; fi
@@ -675,6 +696,42 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       # ends (oros 2026-10-18: a monk@1 restart wedged the sysop for 40 min).
       local rc=0; unit_ctl "$action" --no-block "$name" >/dev/null 2>&1 || rc=$?
       if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="unit $action $name (queued)"; else OUTCOME="failed"; DETAIL="unit $action $name rc=$rc"; fi
+      ;;
+    unit-log)
+      # Read-only: the last N journal lines of ONE installed garden unit, returned
+      # in the ack/record DETAIL (flattened to one line). Attestation is verified
+      # above because the text is pushed to the shared journal. Closed shape: the
+      # unit name is the same garden-*.{service,timer} gate as `unit`; `lines` is
+      # clamped; the text is redacted, per-line truncated, and char-capped.
+      local lname lines raw flat
+      lname="$(field name)"; lines="$(field lines)"; lines="${lines:-60}"
+      case "$lname" in
+        garden-*.service|garden-*.timer) :;;
+        *) OUTCOME="parse-error"; DETAIL="unit-log: name must match garden-*.{service,timer} (got '${lname:-<none>}')"; return;;
+      esac
+      case "$lines" in
+        ''|*[!0-9]*) OUTCOME="parse-error"; DETAIL="unit-log: lines must be a positive integer (got '$lines')"; return;;
+      esac
+      if [ "$lines" -lt 1 ]; then lines=1; fi
+      if [ "$lines" -gt "$GARDEN_SYSOP_LOG_MAX_LINES" ]; then lines="$GARDEN_SYSOP_LOG_MAX_LINES"; fi
+      if [ ! -e "$GARDEN_SYSOP_INSTALLED_UNIT_DIR/$lname" ]; then
+        if [[ "$lname" =~ ^(garden-[A-Za-z0-9_.-]+)@[0-9]+\.service$ ]] \
+          && [ -e "$GARDEN_SYSOP_INSTALLED_UNIT_DIR/${BASH_REMATCH[1]}@.service" ]; then
+          :
+        else
+          OUTCOME="refused"; DETAIL="unit-log: '$lname' is not an installed garden unit"; return
+        fi
+      fi
+      local rc=0
+      # shellcheck disable=SC2086
+      raw="$(timeout --kill-after=5 30 $GARDEN_SYSOP_JOURNALCTL -u "$lname" -n "$lines" --no-pager -o short-iso 2>&1)" || rc=$?
+      if [ "$rc" -ne 0 ]; then OUTCOME="failed"; DETAIL="unit-log $lname: journalctl rc=$rc"; return; fi
+      if [ -z "$raw" ]; then OUTCOME="accepted-and-applied"; DETAIL="unit-log $lname (last $lines): <no journal lines>"; return; fi
+      # Redact, cut each line, drop control characters, flatten to ONE line (the
+      # record/ack format is single-line key: value), then cap the total length.
+      flat="$(printf '%s\n' "$raw" | redact_log_text | tr -d '\000-\010\013-\037' | cut -c1-300 | awk 'BEGIN{ORS=""} NR>1{print " || "} {print}')"
+      if [ "${#flat}" -gt "$GARDEN_SYSOP_LOG_MAX_CHARS" ]; then flat="${flat: -$GARDEN_SYSOP_LOG_MAX_CHARS}"; fi
+      OUTCOME="accepted-and-applied"; DETAIL="unit-log $lname (last $lines, redacted): $flat"
       ;;
     local-model)
       # ASYNC provisioning (designs/sysop-local-model.md). Attestation is already
