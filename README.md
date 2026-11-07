@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T16:16:02Z_
+_As of 2026-11-07T16:16:56Z_
 
 ## Latest
 
@@ -2247,7 +2247,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.3M | $32.91 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.3M | $29.68 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 359.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154168249 tokens/day lower bound._
@@ -2278,17 +2278,16 @@ worst fetch p95 17.689752s/45s (unknown); 10 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
-- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
+### doin (1)
 - [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107b.md) — ---
 
-### tada (16849)
+### tada (16850)
+- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/build-minion-town-recovery-outcome-screen-20261105.md) — Cost
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/build-minion-town-waitlist-soon-page-20261105.md) — Cost
 - [`improve-sandbox-writable-job-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/improve-sandbox-writable-job-state.md) — Completion report: improve-sandbox-writable-job-state
 - [`improve-scripted-daily-progress-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/improve-scripted-daily-progress-summary.md) — Completion report — improve-scripted-daily-progress-summary
-- [`claude-on-minion-town-completion-press-20261107-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/claude-on-minion-town-completion-press-20261107-fix.md) — Cost
-- … and 16844 more
+- … and 16845 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
