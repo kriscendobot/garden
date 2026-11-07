@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T09:29:10Z_
+_As of 2026-11-07T09:30:51Z_
 
 ## Latest
 
@@ -776,6 +776,12 @@ Delegation: **active**
 > ---
 > scripts/jobs/gardener.sh
 > scripts/jobs/gardener.sh:1941 records a second transient failure only as progress; four distinct jobs reached that state on `endolin-garden-ece02cb4` between 13:53:51Z and 14:13:28Z. Add a short-lived, host-local distinct-base burst detector that emits one deduplicated error and engages a bounded retry/claim cooldown for correlated second-attempt transient failures, while retaining the reaper as disposition owner.
+
+- `msg-claude-on-minion-town-completion-press-20261107-fix-e99a07e63777` — from gardener:claude-on-minion-town-completion-press-20261107-fix, reply_to `claude-on-minion-town-completion-press-20261107-fix` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261107-fix-e99a07e63777.md)
+
+> Claude-on-minion.town completion press ([https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)), window 2026-11-07 01:35→07:50Z: 4 NEW dooms, all `requeue-exhausted` on host endolin-garden-ece02cb4, and all of them are press jobs: claude-on-minion-town-completion-press-20261107-013512, -20261107-retry, minion-town-arc-press-20261107-013512, -20261107-043512. No arc work failed: 0 completions, 0 stalled, 0 absent, todo=0.
+>
+> Likely root cause (I reproduced it here): in this host's job sandbox, /home/kris/garden (including .garden-state) is mounted read-only. So every journal clone lock fails with EROFS ("cannot open clone lock .../.garden-state/.../journal.lock"), and press jobs die until the reaper dooms them. Workaround that worked in this run: export GARDEN_STATE=<writable per-job dir> before running the report. A real fix needs a human to remount the root or make the sandbox's .garden-state writable. This matches the standing tmpexec/read-only note for this host.
 
 - `doomed-claude-on-minion-town-completion-press-20261106-020511-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261106-020511-requeue-exhausted.md)
 
@@ -1947,7 +1953,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.4M | $17.85 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.4M | $19.26 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 357.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152322022 tokens/day lower bound._
