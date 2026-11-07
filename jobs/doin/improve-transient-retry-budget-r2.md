@@ -20,6 +20,7 @@ Treat non-outage `reap-now` transient cycles as non-attributable: preserve the p
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=30 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
