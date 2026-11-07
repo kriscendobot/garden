@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:04:30Z_
+_As of 2026-11-07T17:05:44Z_
 
 ## Latest
 
@@ -2283,8 +2283,9 @@ worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
+- [`accountant-weekly-20261107-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261107-170510.md) — Weekly arc apportionment
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 
 ### tada (16853)
