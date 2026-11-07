@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T04:48:52Z_
+_As of 2026-11-07T04:52:34Z_
 
 ## Latest
 
@@ -50,6 +50,10 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-transient-retry-correlation-r2: doomed and held in plan.
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-043512` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261107-043512.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261107-043512' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-improve-transient-retry-budget-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-transient-retry-budget-r2-requeue-exhausted.md)
 
@@ -1628,7 +1632,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 250.9k | $4.12 _(notional, rate-card)_ | 0% of 271.0M (ok) |
-| Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 
