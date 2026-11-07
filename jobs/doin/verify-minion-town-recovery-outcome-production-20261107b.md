@@ -21,6 +21,7 @@ Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots
 (Re-armed 2026-11-07 by build-minion-town-recovery-outcome-screen-20261105: the original `verify-minion-town-recovery-outcome-production-20261107` was reaper-doomed only because every worker on endolin-garden-ece02cb4 had a dead Bash tool (EROFS tmpexec); it never did work.)
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=2368 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
