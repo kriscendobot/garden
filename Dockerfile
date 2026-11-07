@@ -132,6 +132,8 @@ RUN chmod +x /usr/local/lib/garden/provision-node-lts.sh \
 COPY scripts/jobs/common.sh /usr/local/lib/garden/common.sh
 COPY scripts/jobs/bin/ /usr/local/lib/garden/bin/
 COPY scripts/jobs/usage-meter.sh /usr/local/lib/garden/usage-meter.sh
+COPY scripts/jobs/budget-road.sh /usr/local/lib/garden/budget-road.sh
+COPY scripts/jobs/review-write-deny.sh /usr/local/lib/garden/review-write-deny.sh
 COPY scripts/jobs/quota-panel.sh /usr/local/lib/garden/quota-panel.sh
 COPY scripts/jobs/provision-moddable-xst.sh /usr/local/lib/garden/provision-moddable-xst.sh
 RUN chmod +x /usr/local/lib/garden/provision-moddable-xst.sh \
