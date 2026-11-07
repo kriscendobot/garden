@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T20:36:24Z_
+_As of 2026-11-07T20:36:49Z_
 
 ## Latest
 
@@ -2014,40 +2014,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
-
-- `doomed-screen-minion-town-pr253-9c79d18-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-screen-minion-town-pr253-9c79d18-conduct-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/screen-minion-town-pr253-9c79d18-conduct; it stays HELD until a human promotes it
-> (promote-plan.sh screen-minion-town-pr253-9c79d18-conduct) or removes it, so nothing is lost.
-> Original job base: screen-minion-town-pr253-9c79d18-conduct
->
-> --- original job body ---
-> ---
-> posted_at: 2026-11-07T20:01:00Z
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> role: conductor
-> delegation: minion-town-pr-screening
-> requires: host=endolin-garden-ece02cb4
-> # Screened delegated merge: [kriscendobot/minion.town#253](https://github.com/kriscendobot/minion.town/issues/253) at 9c79d1807388884a67b19c151290f31765611364
-> The proxy's screen attested screenings/kriscendobot-minion.town/253/9c79d1807388884a67b19c151290f31765611364.json on journal2
-> (delegation config/delegations/minion-town-pr-screening; designs/minion-town-pr-screening.md). No maintainer
-> approval is required; do not request one.
-> 1. Get an isolated project checkout keyed by THIS job's base:
->    scripts/jobs/ensure-project-worktree.sh <this-job-base> kriscendobot/minion.town <pr-head-branch>
-> 2. From that checkout run:
->    scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 253 --screened-delegated-merge
-> 3. Exit 0 is done. "merge blocked: awaiting re-screen" means the rebase moved the head:
->    finish and report it; the proxy screens the new head and posts a fresh conductor.
->    Any other "merge blocked" or a red/stalled CI result: report it and finish; never
->    fall back to an ordinary merge, never queue --auto, never ask for approval.
->
-> PR: [https://github.com/kriscendobot/minion.town/pull/253](https://github.com/kriscendobot/minion.town/pull/253)
 
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
