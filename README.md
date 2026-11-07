@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:49:45Z_
+_As of 2026-11-07T21:50:47Z_
 
 ## Latest
 
@@ -2389,7 +2389,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.3M | $72.15 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 15.3M | $72.44 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 365.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157180955 tokens/day lower bound._
@@ -2424,9 +2424,10 @@ worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #243
 - [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #253
+- [`kriscendobot-minion.town-pr254-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #254
 - [`verify-minion-town-recovery-outcome-production-20261107f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107f.md) — ---
 
 ### tada (16894)
