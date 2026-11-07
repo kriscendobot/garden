@@ -25,6 +25,7 @@ Report the PR, merge/deploy/probe run URLs, Playwright observations, screenshots
 <!-- garden-plain-retry-not-before: 2026-11-07T13:23:03Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=44,41 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
