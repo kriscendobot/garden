@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T10:23:01Z_
+_As of 2026-11-07T10:24:30Z_
 
 ## Latest
 
@@ -1957,7 +1957,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.8M | $16.72 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.8M | $16.94 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 358.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155062240 tokens/day lower bound._
@@ -1969,11 +1969,11 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 ### todo (16)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`deploy-minion-town-waitlist-soon-page-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deploy-minion-town-waitlist-soon-page-20261107.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ad75cf189997
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1986,7 +1986,7 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 
 ### doin (2)
 - [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
-- [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr253-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
+- [`deploy-minion-town-waitlist-soon-page-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deploy-minion-town-waitlist-soon-page-20261107.md) — ---
 
 ### tada (16848)
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/build-minion-town-waitlist-soon-page-20261105.md) — Cost
@@ -2065,6 +2065,7 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr246-93329d9-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102.md) — _normal_ · ---
 - [`improve-issue-status-source-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-issue-status-source-budget-r2.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr253-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-gardener-handler-rc76-collision-expanded-window.md) — _normal_ · Land the gardener fix for spooled review-docket notices failing finished jobs
