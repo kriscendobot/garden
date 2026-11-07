@@ -1,5 +1,5 @@
 cadence: daily
-last_dispatched: 2026-11-05T07:50:50Z
+last_dispatched: 2026-11-07T01:35:12Z
 job_basename_prefix: fu-minion-town-containment-gateway-endo-sock-1
 preflight: containment-gateway-record-check.sh
 ---
