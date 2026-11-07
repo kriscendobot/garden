@@ -27,6 +27,7 @@ Standing maintainer direction (kriskowal, 2026-10-02): "keep distributing tokens
 <!-- garden-plain-retry-not-before: 2026-11-07T17:33:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=466,23 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
