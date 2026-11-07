@@ -40,6 +40,7 @@ minion.town arc supervisor re-arms the parked jobs above (do not re-arm them you
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=165 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
