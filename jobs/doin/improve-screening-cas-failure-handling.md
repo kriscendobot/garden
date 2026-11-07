@@ -13,3 +13,13 @@ scripts/jobs/screen-delegated-prs.sh:150 turns an exhausted journal CAS retry in
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T18:53:09Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-07T18:53:12Z
