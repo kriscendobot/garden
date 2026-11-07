@@ -11,11 +11,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-11-07T10:06:12Z
 arc: 
-stage: panel
+stage: undraft
 iteration: 2
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr253-gauntlet-panel-2
+current_child: kriscendobot-minion.town-pr253-gauntlet-undraft
 state: running
 resumed_at: 2026-11-07T17:26:33Z
 resumed_from_stage: viability
