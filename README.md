@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T02:55:33Z_
+_As of 2026-11-07T03:10:39Z_
 
 ## Latest
 
@@ -665,6 +663,10 @@ Delegation: **active**
 > ---
 > Build the unblocked Phase 5 contract-test slice for `endojs/endo-but-for-bots` from the `daemon-git-capability` M3 design on `llm`, opening a draft PR that prevents drift among the Git exo interface, types, and generated code-mode declarations.
 
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=4 target=1
+
 - `doomed-improve-suppress-routine-retry-progress-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-suppress-routine-retry-progress-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -820,6 +822,36 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-screening-cooldown-log-spam-r2: doomed and held in plan.
+
+- `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-oros-secrets-bwrap-handoff-20261106; it stays HELD until a human promotes it
+> (promote-plan.sh build-oros-secrets-bwrap-handoff-20261106) or removes it, so nothing is lost.
+> Original job base: build-oros-secrets-bwrap-handoff-20261106
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-06T05:16:31Z
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> role: builder
+> tier: mentor
+> ---
+> Maintainer directive (kriskowal, liaison session 2026-11-06): write the Oros Studio hand-off for the provider-secrets release, so the operator of `oros-studio-garden-ce242c49` (a Mac) can make that host capable of running the new bubblewrap sandbox before it deploys.
+>
+> Background. `1e1968c0781` (file-based provider key management) wraps each secret-bearing harness launch in `scripts/secrets/run-sandboxed.sh`, which exits 75 with "bubblewrap unavailable; refusing a secret-bearing harness" when `bwrap` is missing. On 2026-11-05 the leader deployed it without the container rebuild that `context/operations/secrets.md` § One-time compatibility migration requires, and the endolin fleet completed nothing for about 17 hours. Oros has not deployed it (its canary is held at 2c082b9acbc), so Oros is safe until it does. Do not let it deploy first.
+>
+> Deliverable: `context/operations/oros-secrets-handoff.md` on `main2` (pushed directly per the garden's no-PR convention), covering:
+> 1. Why bubblewrap is Linux-only and how the garden container on a Mac (Docker Desktop or other Linux VM) acquires it: the `./garden build` image gains `bubblewrap`; state the exact Dockerfile and launcher change this requires, and confirm it is already in `main2`.
+> 2. What the container must permit for bwrap to work inside it (unprivileged user namespaces, seccomp/AppArmor profile, `--cap-add`, `/proc` visibility), with a copy-paste smoke test such as `bwrap --ro-bind / / --unshare-all true` and the exact success/failure outputs. Check how `run-sandboxed.sh` invokes bwrap and list every capability it needs.
+> 3. The ordered operator procedure for Oros: drain, `./garden build`, `./garden reset`, `./garden create`, the six-variable import (`scripts/secrets/import-environment.sh`, `scripts/secrets/status.sh`), verification that a harness job completes, then lift the drain. Note that placing keys is the operator's act; no agent handles values.
+> 4. How to hold the Oros deploy until the operator confirms (name the existing mechanism, for example the `upgrade-ready` fact or a hold), and how the leader's rolling deploy should treat an Oros that cannot run bwrap.
+> 5. A rollback if bwrap cannot be made to work on the Mac.
+> Also report whether the deploy gate or canary should check `command -v bwrap` before advancing, and file that as a follow-up recommendation in your completion report rather than implementing it.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
@@ -1176,6 +1208,10 @@ Delegation: **active**
 > scripts/jobs/handlers/issue-source-gh.sh:147-170 joins every recent comment’s parent before the status pass can discard untrusted authors, exhausting its read budget repeatedly (12:21:21Z–12:48:34Z).
 > Accept the status pass’s maintainer allowlist as an optional deterministic input and filter non-members before parent lookups; preserve the existing unfiltered watcher behavior when unset, and add a regression test for bounded trusted-comment enumeration.
 
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: attempts p95=6.000000 max=6.000000 (cap 50), classes cas=5 server-reject=0 definite-fail=0.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 2 (target 2): subscription claude-oros spend=58783124 cap=180000000 pace-bias=0 window-start=2026-11-03T11:00Z(calendar) deadline=2026-11-10T11:00Z(calendar) ceiling=4 backoff=0.6409(ramp) target=2
@@ -1474,11 +1510,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-06T04:41:40Z, cleared 2026-11-06T10:42:29Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-06T04:41:40Z, latest 2026-11-07T02:56:17Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.025272s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
@@ -1534,31 +1570,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.5M | $668.39 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 357.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 174.7M | $670.66 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155160931 tokens/day lower bound._
+_Fleet token-unlock pace: 154468023 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
+worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`improve-transient-retry-correlation-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-transient-retry-correlation-r2.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
 ### doin (1)
-- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-oros-secrets-bwrap-handoff-20261106.md) — ---
+- [`improve-transient-retry-correlation-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-transient-retry-correlation-r2.md) — ---
 
 ### tada (16842)
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261106-020511.md) — ---
@@ -1662,6 +1699,7 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr248-0e30f0e6.md) — _normal_ · attention directive on kriscendobot/minion.town PR #248
 - [`kriscendobot-minion-town-pr148-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-waitlist-soon-page-20261105.md) — _normal_ · ---
+- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-oros-secrets-bwrap-handoff-20261106.md) — _normal_ · ---
 - [`mirror-endo-3372`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mirror-endo-3372.md) — _normal_ · Mirror endojs/endo#3372 onto endojs/endo-but-for-bots
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-immutable-arraybuffer.md) — _normal_ · IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
@@ -1702,7 +1740,17 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/issue-status-pass-go-live.md) — _normal_ · Go live with the issue status pass (remove GARDEN_ISSUE_STATUS_DRY_RUN)
+- [`kriscendobot-minion.town-pr199-review-4460eb00-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-review-4460eb00-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #199 (primary: kriscendobot-mini...
+- [`endojs-endo-but-for-bots-pr1575-review-938c3acf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1575-review-938c3acf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1575 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1543-review-ed16aaac-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1543-review-ed16aaac-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1543 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1573-review-cc1b8fb6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1573-review-cc1b8fb6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1573 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1574-review-f45dd5bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1574-review-f45dd5bb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1574 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1647-review-693a492c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1647-review-693a492c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1647 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1335-review-a060f580-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1335-review-a060f580-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1335 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1652-review-358defcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1652-review-358defcf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1652 (primary: endojs-endo-but-...
+- [`kriscendobot-minion.town-pr247-review-213830b3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr247-review-213830b3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #247 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr248-review-edbd57fa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr248-review-edbd57fa-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #248 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
