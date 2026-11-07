@@ -13,6 +13,7 @@ scripts/jobs/auto-gauntlet-handoff.sh:136-158 only re-stages review after a succ
 <!-- garden-plain-retry-not-before: 2026-11-07T14:13:03Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=45,45 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
