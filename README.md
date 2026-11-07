@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T17:10:20Z_
+_As of 2026-11-07T17:13:46Z_
 
 ## Latest
 
@@ -2298,7 +2296,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.6M | $31.55 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.7M | $31.93 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 359.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154964090 tokens/day lower bound._
@@ -2307,7 +2305,7 @@ _Fleet token-unlock pace: 154964090 tokens/day lower bound._
 worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (21)
+### todo (20)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2319,7 +2317,6 @@ worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ad75cf189997
-- [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-minion-town-recovery-outcome-production-20261107b.md) — ---
 - [`oros-health-checkup-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-140511.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -2330,9 +2327,10 @@ worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
 - [`accountant-weekly-20261107-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261107-170510.md) — Weekly arc apportionment
+- [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107b.md) — ---
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 
 ### tada (16853)
