@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T04:17:52Z_
+_As of 2026-11-07T04:21:18Z_
 
 ## Latest
 
@@ -1560,6 +1560,14 @@ Delegation: **active**
 >   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
+
+- `watchdog-self-heal-garden-sysop` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-sysop.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-13T08:23:09Z, latest 2026-11-07T04:20:45Z).
+> The SAME condition (`self-heal-garden-sysop`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-sysop exited rc=2 with no scoped fix. Capture: 9167dd608b1151c891ea87f75ef65afcaed4bde5 (git -C /Users/dom/garden/.garden-state/self-heal/journal cat-file -p 9167dd608b1151c891ea87f75ef65afcaed4bde5). Diagnosis: Failed to authenticate: OAuth session expired and could not be refreshed
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
