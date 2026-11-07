@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T02:21:33Z_
+_As of 2026-11-07T02:40:45Z_
 
 ## Latest
 
@@ -1252,6 +1250,10 @@ Delegation: **active**
 > scripts/jobs/screen-delegated-prs.sh
 > `scripts/jobs/screen-delegated-prs.sh:65` logs a WARN on every post-threshold quota-deferred tick, producing warnings at 16:21–16:46 despite the shared cooldown already preventing requests. Make the warning edge-latched (with optional milestone reporting) while preserving the existing coalesced maintainer alert and recovery notice.
 
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.067075s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-09T02:17:23Z, latest 2026-11-03T02:49:11Z).
@@ -1388,6 +1390,14 @@ Delegation: **active**
 
 > oros-health-watch 2026-11-04 22:25Z: INTERVENED (attested op), still stuck. oros-studio-garden-ce242c49 is alive (health fresh, sysop responsive, heartbeat 21:32Z, 20% used) but has been roll-drained since 12:16Z: it is the canary that was released to 7f0c3f7 about 10h ago and still reports deployed 746d220. The leader's roll is HALTED and holding, so three oros-health-checkup jobs (12:35, 15:50, 18:50) sit unclaimed in todo. Sent op=reset-failed and op=unit restart garden-self-deploy.timer (authorized_by=kriskowal); both were acked as applied at 21:57:45Z. 25 minutes later the sha had not moved. I did NOT lift the drain, because it is the leader's deliberate containment of a halted canary. Needs a person: on oros, run journalctl --user -u garden-self-deploy to find the hold or deferral blocking deploy-garden.sh, then either let it deploy 7f0c3f7 or lift the drain. Related: the coalesced watchdog rolling-deploy-canary-stuck-oros (195 notices since 11-01).
 
+- `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49.md)
+
+> monk workers on oros-studio-garden-ce242c49 cannot AUTHENTICATE their agent CLI (claude is installed but its credential is REJECTED: "Failed to authenticate: OAuth session expired and could not be refreshed"; every claim dies in seconds on authentication. To fix: run `claude` then /login (or `claude auth login`) as the garden user on oros-studio-garden-ce242c49 — the pool un-parks by itself when the credential file changes (a restart with a new API key in the env works too)) — the pool has SELF-DISQUALIFIED and is claiming nothing.
+>
+> Every monk on this host is parked in its poll loop, re-probing on a backoff; it resumes claiming by itself the moment the CLI resolves (no restart needed). This is deliberate: a worker whose handler dies in a second wins claim races against healthy workers doing real work, so it would drain the shared board into doin/ and doom it. Parking makes the host merely IDLE instead of a work SINK.
+>
+> To fix: see the parenthetical above for a cause-specific cure; for a missing CLI, install or repair the CLI on oros-studio-garden-ce242c49 (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, $NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.
+
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-23T06:17:01Z, latest 2026-10-30T18:17:03Z).
@@ -1422,16 +1432,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.3M | $666.35 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 357.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 174.4M | $667.11 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 357.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 155156802 tokens/day lower bound._
+_Fleet token-unlock pace: 155158721 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (11)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
@@ -1442,23 +1452,21 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-oros-secrets-bwrap-handoff-20261106.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (5)
-- [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261105-230510.md) — ---
+### doin (4)
 - [`dependabotany-recheck-endo-but-for-bots-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261107-013512.md) — ---
-- [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261105-165012.md) — ---
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261106-020511.md) — ---
 - [`improve-transient-retry-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-transient-retry-budget-r2.md) — ---
+- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-oros-secrets-bwrap-handoff-20261106.md) — ---
 
-### tada (16839)
+### tada (16841)
+- [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261105-165012.md) — ---
+- [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261105-230510.md) — ---
 - [`muster-daemon-git-remotes-r2-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/muster-daemon-git-remotes-r2-20261106.md) — orchestration muster-daemon-git-remotes-r2-20261106 — complete
 - [`oros-health-watch-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-watch-20261107-013512.md) — 2026-11-07T01:5xZ - oros-health-watch-20261107-013512
 - [`muster-daemon-git-remotes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-daemon-git-remotes-20261106.md) — orchestration muster-daemon-git-remotes-20261106 — complete
-- [`muster-improve-fixes-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/06/muster-improve-fixes-20261106.md) — orchestration muster-improve-fixes-20261106 — complete
-- [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
-- … and 16834 more
+- … and 16836 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
