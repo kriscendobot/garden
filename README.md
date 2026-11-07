@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T10:47:12Z_
+_As of 2026-11-07T10:48:18Z_
 
 ## Latest
 
@@ -196,13 +196,6 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-transient-retry-budget-r2: doomed and held in plan.
-
-- `kriscendobot-minion.town-pr253-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr253-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr253-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr253-gauntlet HALTED: stage 'kriscendobot-minion.town-pr253-gauntlet-viability' (viability) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr253-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
