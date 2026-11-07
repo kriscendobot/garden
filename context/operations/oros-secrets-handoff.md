@@ -88,7 +88,16 @@ features:
 - tmpfs overlays for the other harnesses' private homes; and
 - explicit read-write binds only for the selected harness home, requested
   `--rw` paths, and the selected Git worktree's git directory and common object
-  store.
+  store;
+- a fresh per-job `TMPDIR` (`$TMPDIR/sbx-tmp.*`) and a fresh per-job
+  `GARDEN_STATE` (`$GARDEN_STATE/sandbox-state/sbx-state.*`), each bound
+  read-write and exported. Inherited journal-clone paths
+  (`GARDEN_WORKER_CLONE`, `GARDEN_PRODUCER_CLONE`, `GARDEN_INBOX_CLONE`,
+  `GARDEN_JOURNAL_CLONE_BASE`, `JOURNAL_REMOTE_CACHE`) are unset so they are
+  re-derived under the job's own state. Only the host's
+  `$GARDEN_STATE/repo-locks` is shared, which keeps same-host pushes to the
+  garden repository serialized. Directories older than 1 day (tmp) or 2 days
+  (state) are swept when the next job starts.
 
 It does not unshare the network namespace, so provider access remains
 available.

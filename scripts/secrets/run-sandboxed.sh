@@ -78,4 +78,31 @@ if [ -n "${TMPDIR:-}" ] && [ -d "$TMPDIR" ] && [ -w "$TMPDIR" ]; then
     args+=(--bind "$job_tmp" "$job_tmp" --setenv TMPDIR "$job_tmp")
   fi
 fi
+# The garden's host state ($GARDEN_STATE) also lives under the read-only root, so
+# inbox-read.sh / message-user.sh / report scripts died with EROFS opening their
+# journal clone lock and the job requeued until exhausted (2026-11-07T02:13Z).
+# Give each job a fresh, isolated state directory, bind ONLY it read-write, and
+# export it as GARDEN_STATE. The host's real state (worker clones, markers,
+# secret-broker) stays read-only and unshared. The one deliberate exception is
+# repo-locks: per-job copies would silently stop serializing same-host pushes to
+# the shared garden repository, so that directory is linked back and bound rw.
+if [ -n "${GARDEN_STATE:-}" ]; then
+  sbx_root="$GARDEN_STATE/sandbox-state"
+  if mkdir -p "$sbx_root" 2>/dev/null; then
+    find "$sbx_root" -mindepth 1 -maxdepth 1 -type d -name 'sbx-state.*' -mmin +2880 \
+      -exec rm -rf {} + 2>/dev/null || true
+    if job_state="$(mktemp -d "$sbx_root/sbx-state.XXXXXX" 2>/dev/null)"; then
+      args+=(--bind "$job_state" "$job_state" --setenv GARDEN_STATE "$job_state")
+      # Clone paths inherited from the parent point into the read-only host state
+      # (and at the supervising worker's own clone); re-derive them per job.
+      args+=(--unsetenv GARDEN_WORKER_CLONE --unsetenv GARDEN_PRODUCER_CLONE
+             --unsetenv GARDEN_INBOX_CLONE --unsetenv GARDEN_JOURNAL_CLONE_BASE
+             --unsetenv JOURNAL_REMOTE_CACHE)
+      if mkdir -p "$GARDEN_STATE/repo-locks" 2>/dev/null \
+        && ln -s "$GARDEN_STATE/repo-locks" "$job_state/repo-locks" 2>/dev/null; then
+        args+=(--bind "$GARDEN_STATE/repo-locks" "$GARDEN_STATE/repo-locks")
+      fi
+    fi
+  fi
+fi
 exec bwrap "${args[@]}" -- "$@"
