@@ -68,6 +68,7 @@ scheduler would treat the token as its weekly default.
 <!-- garden-plain-retry-not-before: 2026-11-07T08:23:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=48,30 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
