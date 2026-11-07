@@ -68,3 +68,13 @@ increments; do not re-post or edit them yourself.
 <!-- provenance: kriscendobot/minion.town#247 review 5795490383 (kriskowal,
 2026-11-06); routed by review-handler job
 kriscendobot-minion.town-pr247-review-213830b3 on 2026-11-07 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-07T17:56:07Z
