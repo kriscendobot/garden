@@ -96,3 +96,13 @@ try {
 console.log(obs.join("\n"));
 console.log("PRODUCTION PLAYWRIGHT CHECK PASSED");
 ```
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T21:24:37Z
