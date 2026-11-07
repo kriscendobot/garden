@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:34:54Z_
+_As of 2026-11-07T17:35:51Z_
 
 ## Latest
 
@@ -2275,7 +2275,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.2M | $35.68 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 4.3M | $35.37 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 359.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155816433 tokens/day lower bound._
@@ -2284,7 +2284,7 @@ _Fleet token-unlock pace: 155816433 tokens/day lower bound._
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (28)
+### todo (27)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`accountant-weekly-20261107-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261107-170510.md) — Weekly arc apportionment
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2308,26 +2308,25 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 - [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr252-755d017-conduct.md) — Screened delegated merge: kriscendobot/minion.town#252 at 755d017997d34c46348...
 
 ### doin (5)
-- [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
 - [`kriscendobot-minion.town-pr247-review-213830b3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-review-213830b3.md) — Review directive on kriscendobot/minion.town PR #247
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr246-93329d9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 - [`kriscendobot-minion.town-pr248-review-edbd57fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-review-edbd57fa.md) — Review directive on kriscendobot/minion.town PR #248
+- [`kriscendobot-minion.town-pr248-0e30f0e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-0e30f0e6.md) — attention directive on kriscendobot/minion.town PR #248
 
-### tada (16854)
+### tada (16855)
+- [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Cost
 - [`minion-town-arc-press-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/minion-town-arc-press-20261107-172009.md) — Cost
 - [`oros-health-watch-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-watch-20261107-172009.md) — 2026-11-07T17:25Z - oros-health-watch-20261107-172009
 - [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/verify-minion-town-recovery-outcome-production-20261107b.md) — State as re-derived (clean start after reaper requeue)
 - [`kriscendobot-minion.town-pr254-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr254-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-clean.md) — Cost
-- … and 16849 more
+- … and 16850 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
