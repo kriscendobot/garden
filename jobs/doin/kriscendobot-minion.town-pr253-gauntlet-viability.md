@@ -44,3 +44,13 @@ completion signal; the completion signal itself stays the very last line:
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=52 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T10:13:22Z
