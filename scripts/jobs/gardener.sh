@@ -1581,6 +1581,26 @@ while :; do
       fi
     fi
 
+    # Keep the evidence. An exit-0 requeue otherwise leaves nothing to explain WHY
+    # the worker never emitted the completion marker (usage records hold only
+    # metadata). Retain the tail of the final report and the handler capture,
+    # bounded to the newest 40 files, so the cause is diagnosable.
+    exit0_keep="$GARDEN_STATE/exit0-captures"
+    if mkdir -p "$exit0_keep" 2>/dev/null; then
+      exit0_stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+      {
+        printf 'job: %s\nhost: %s\ncycle: %s\nelapsed_s: %s\nat: %s\n' \
+          "$base" "$GARDEN" "$cycle" "$elapsed" "$exit0_stamp"
+        printf '\n--- final report (last 120 lines) ---\n'
+        tail -n 120 "$report" 2>/dev/null || true
+        printf '\n--- handler capture (last 120 lines) ---\n'
+        tail -n 120 "$capture" 2>/dev/null || true
+      } >"$exit0_keep/$base.$exit0_stamp.txt" 2>/dev/null || true
+      # shellcheck disable=SC2012
+      ls -1t "$exit0_keep" 2>/dev/null | tail -n +41 | while IFS= read -r old; do
+        rm -f "$exit0_keep/$old"
+      done
+    fi
     rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
     # Transient (quota/API/clean-but-unfinished): feed the SHARED fleet brake and
     # apply the PER-WORKER failure backoff so this just-failed worker does not
