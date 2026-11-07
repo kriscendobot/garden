@@ -13,6 +13,7 @@ scripts/jobs/handlers/monk-claude.sh:522 permits a single completion nudge, afte
 <!-- garden-plain-retry-not-before: 2026-11-07T15:13:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=50,43 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
