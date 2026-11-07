@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:17:28Z_
+_As of 2026-11-07T17:18:00Z_
 
 ## Latest
 
@@ -2300,7 +2300,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.7M | $32.91 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.7M | $31.65 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 359.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155193762 tokens/day lower bound._
@@ -2331,19 +2331,18 @@ worst fetch p95 3.433416s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #254
 - [`accountant-weekly-20261107-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261107-170510.md) — Weekly arc apportionment
-- [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107b.md) — ---
 - [`verify-minion-town-recovery-outcome-production-20261107c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107c.md) — ---
 
-### tada (16853)
+### tada (16854)
+- [`verify-minion-town-recovery-outcome-production-20261107b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/verify-minion-town-recovery-outcome-production-20261107b.md) — State as re-derived (clean start after reaper requeue)
 - [`kriscendobot-minion.town-pr254-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr254-gauntlet-viability.md) — Cost
 - [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/build-minion-town-recovery-outcome-screen-20261105.md) — Cost
-- [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
-- … and 16848 more
+- … and 16849 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
