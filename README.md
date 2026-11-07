@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T10:24:30Z_
+_As of 2026-11-07T10:27:26Z_
 
 ## Latest
 
@@ -1957,7 +1957,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.8M | $16.94 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.8M | $17.18 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 358.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155062240 tokens/day lower bound._
@@ -1984,9 +1984,10 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
+### doin (3)
 - [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
 - [`deploy-minion-town-waitlist-soon-page-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deploy-minion-town-waitlist-soon-page-20261107.md) — ---
+- [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr253-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
 
 ### tada (16848)
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/build-minion-town-waitlist-soon-page-20261105.md) — Cost
@@ -2065,7 +2066,6 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr246-93329d9-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102.md) — _normal_ · ---
 - [`improve-issue-status-source-budget-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-issue-status-source-budget-r2.md) — _normal_ · ---
-- [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr253-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-gardener-handler-rc76-collision-expanded-window.md) — _normal_ · Land the gardener fix for spooled review-docket notices failing finished jobs
