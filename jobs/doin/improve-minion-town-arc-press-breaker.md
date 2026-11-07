@@ -13,6 +13,7 @@ Defect: `scripts/jobs/minion-town-press-preflight.sh:146` only recognizes comple
 <!-- garden-plain-retry-not-before: 2026-11-07T06:13:03Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=51,239 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
