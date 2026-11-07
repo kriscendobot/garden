@@ -69,11 +69,11 @@ increments; do not re-post or edit them yourself.
 2026-11-06); routed by review-handler job
 kriscendobot-minion.town-pr247-review-213830b3 on 2026-11-07 -->
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=1021 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T18:33:04Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=1021,41 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
