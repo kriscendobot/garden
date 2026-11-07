@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:16:10Z_
+_As of 2026-11-07T21:18:14Z_
 
 ## Latest
 
@@ -1201,6 +1201,10 @@ Delegation: **active**
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1' has remained unclaimed for 902s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2385,10 +2389,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.1M | $59.06 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 12.2M | $59.90 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 362.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 156007152 tokens/day lower bound._
+_Fleet token-unlock pace: 156899445 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
@@ -2419,9 +2423,11 @@ worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (2)
+### doin (4)
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #254
+- [`kriscendobot-minion.town-pr243-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #243
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
+- [`kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr253-screen-1e9fc729-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #253
 
 ### tada (16889)
 - [`kriscendobot-minion.town-pr243-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr243-gauntlet-panel-2.md) — Cost
