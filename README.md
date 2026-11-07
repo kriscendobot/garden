@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T11:19:26Z_
+_As of 2026-11-07T11:24:05Z_
 
 ## Latest
 
@@ -1793,6 +1791,61 @@ Delegation: **active**
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-issue-status-source-trust-filter-r2: doomed and held in plan.
 
+- `doomed-build-minion-town-recovery-outcome-screen-20261105-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-recovery-outcome-screen-20261105-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-minion-town-recovery-outcome-screen-20261105; it stays HELD until a human promotes it
+> (promote-plan.sh build-minion-town-recovery-outcome-screen-20261105) or removes it, so nothing is lost.
+> Original job base: build-minion-town-recovery-outcome-screen-20261105
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> posted_at: 2026-11-05T22:13:16Z
+> handler-timeout: 3600
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-07T09:27:03Z cleared=none -->
+>
+> ---
+> role: builder
+> tier: mentor
+> posted_at: 2026-11-05T21:03:18Z
+> handler-timeout: 3600
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T21:46:57Z cleared=none -->
+>
+> ---
+> posted_at: 2026-11-05T20:40:38Z
+> role: builder
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> **Role: builder.** **Give a failed guest recovery its own clear screen on minion.town** (maintainer experience report, kriskowal, 2026-11-05).
+>
+> **What happened.** He deleted his guest on https://minion.town/, then tried to recover by signing in with GitHub (the `kriskowal` bond). The flow returned him to the sign-in page, and the "No guest is bonded to that sign-in." message did not appear until he reloaded. He arrived back at the wait-list sign-up sheet and felt lost.
+>
+> **Where it comes from.** `deploy/aws/www/home.js` (about lines 420-440): when `parsed.recover` is set, `resolveGuest` calls `api('/account/guest-recovery')`; on a non-deletion-pending failure it calls `say('waitlist-status', 'No guest is bonded to that sign-in.', true)`. That writes into the waitlist splash's status element, and the later `land()` / `showCard(...)` flow then shows the splash, so the message is either written before the card exists, hidden, or overwritten, and it is a one-line note on a card about something else (the wait list).
+>
+> **Do:**
+> 1. **Reproduce** it with the real-daemon + Playwright recipe (delete a guest, sign in via a recovery bond that has no guest, observe). Find the actual reason the message is missed (ordering, the status element hidden, a reload race) and fix it, with a regression test that fails first.
+> 2. **Make the outcome a stand-alone screen,** not a status line: a dedicated card (same card system as `splash`/`invitation`/`deletion-pending`; see `landingMode` and `showCard`) that says plainly what happened ("We signed you in with GitHub, but no minion.town guest is attached to that sign-in"), what the person can do next (join the wait list, redeem a coupon/invitation if they have one, try another sign-in provider, contact), and why they are seeing it. It must be reachable only for the failed-recovery case, must not leak whether any particular guest exists beyond what the sign-in already proves, must be keyboard and screen-reader friendly (focus moves to its heading, `aria-live`), and must survive a reload sensibly (the address bar is cleared, so persist the outcome in session storage for that one view, or re-derive it, so it neither vanishes nor sticks).
+> 3. **Review the neighbouring failure paths** in the same function for the same "arrives somewhere unexplained" problem (deletion pending, guest unavailable: `Your guest is unavailable right now. Reload to try again.`, a rejected credential, an expired invitation) and give each a clear, calm explanation. Do not rewrite the shell; keep this scoped to the landing page.
+> 4. Deploy and verify in production with Playwright; do not mutate real account data (use a dedicated test principal or a throwaway guest). Record screenshots of the new screen in the PR.
+>
+> Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates production results, not diffs (review inversion). The wait list itself was just provisioned (see below), so the join-the-wait-list action on the new screen must work in production; verify it end to end.
+>
+> **Context already handled by the liaison (do not redo):** "wait list not available" was a missing DynamoDB table; `deploy/aws/scripts/deploy-waitlist-store.sh` had never been run. It was run on 2026-11-05, and `POST /api/waitlist` now returns 202. A probe row was inserted and deleted. Add a production smoke check for `/api/waitlist` to the deploy probe (`deploy/probe/prod-objectives.mjs`) so a missing store fails the deploy loudly instead of surfacing as "unavailable" to a visitor, and make the splash's error text say the list is temporarily unavailable and how to retry, not a bare "not available".
+>
+> <!-- garden-annotation: key=78d1671abec4 by=producer at=2026-11-05T21:14:43Z -->
+>
+> COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-facing text; use 'guest'. Any new recovery/landing copy says guest. The sibling job build-minion-town-waitlist-soon-page-20261105 changes the existing splash strings; stay consistent with it. Internal role value 'resident' is not renamed.
+
 - `doomed-kriscendobot-minion.town-pr248-review-edbd57fa-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr248-review-edbd57fa-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1874,6 +1927,54 @@ Delegation: **active**
 >   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
+
+- `doomed-kriscendobot-minion.town-pr253-gauntlet-viability-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr253-gauntlet-viability-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion.town-pr253-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/kriscendobot-minion.town-pr253-gauntlet-viability; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion.town-pr253-gauntlet-viability) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion.town-pr253-gauntlet-viability
+>
+> --- original job body ---
+> ---
+> role: gardener
+> gauntlet: kriscendobot-minion.town-pr253-gauntlet
+> gauntlet_stage: viability
+> gauntlet_iteration: 0
+> pr: [https://github.com/kriscendobot/minion.town/pull/253](https://github.com/kriscendobot/minion.town/pull/253)
+> ---
+>
+> # Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
+>
+> You are the viability gate for staged gauntlet (kriscendobot-minion.town-pr253-gauntlet). Spend no clean, panel,
+> fix, CI-wait, or un-draft budget. Decide whether the gauntlet may begin, report the
+> evidence, then STOP.
+>
+> 1. Read current PR facts with
+>    `gh pr view https://github.com/kriscendobot/minion.town/pull/253 --json state,mergedAt,isDraft,title,body,baseRefName,headRefName,headRefOid,baseRefOid,url`.
+>    A merged PR reports `viability=merged`; any other non-OPEN PR reports
+>    `viability=closed`. Neither enters the gauntlet loop.
+> 2. For an open, unmerged PR, inspect its description, discussion and reviews, linked
+>    issue/design context, current base code, and relevant newer base history. Ask one
+>    concrete yes/no question whose answer decides both of these claims: the PR has not
+>    been superseded, and the need or assumption that motivated it still holds.
+> 3. Report `viability=proceed` only when current evidence supports both claims. If a
+>    newer implementation/design displaced it, or its motivating premise no longer
+>    holds, report `viability=overtaken`. Do not enter the expensive loop merely
+>    because the PR remains open.
+> 4. Include concise `Deciding question:` and `Evidence:` lines in every report.
+>    For `overtaken`, also include this exact line so the maintainer gets an explicit
+>    disposition rather than a silent refusal:
+>
+>    Option: close as superseded
+>
+> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+> completion signal; the completion signal itself stays the very last line:
+>   <!-- gauntlet-stage-result: viability=proceed -->
+>   <!-- gauntlet-stage-result: viability=closed -->
+>   <!-- gauntlet-stage-result: viability=merged -->
+>   <!-- gauntlet-stage-result: viability=overtaken -->
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
@@ -2018,9 +2119,10 @@ _Fleet token-unlock pace: 156143429 tokens/day lower bound._
 worst fetch p95 17.689752s/45s (unknown); 7 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
@@ -2038,8 +2140,8 @@ worst fetch p95 17.689752s/45s (unknown); 7 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (1)
-- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
+### doin (0)
+(none)
 
 ### tada (16849)
 - [`kriscendobot-minion.town-pr253-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/kriscendobot-minion.town-pr253-gauntlet.md) — gauntlet kriscendobot-minion.town-pr253-gauntlet — HALTED
@@ -2058,6 +2160,7 @@ worst fetch p95 17.689752s/45s (unknown); 7 open notice(s); checker healthy
 - [`moddable-10-0-0-ironhorse-compiler-safety-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-compiler-safety-port.md) — _normal_ · Port Moddable 10.0.0 compiler safety corrections to IronHorse
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
+- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-recovery-outcome-screen-20261105.md) — _normal_ · ---
 - [`improve-candidate-gate-empty-diagnostic-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-candidate-gate-empty-diagnostic-r2.md) — _normal_ · ---
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`minion-town-arc-press-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261107-013512.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
