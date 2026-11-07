@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T18:34:57Z_
+_As of 2026-11-07T18:36:13Z_
 
 ## Latest
 
@@ -1336,6 +1336,10 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-17T00:05:19Z, latest 2026-11-07T18:35:22Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 3): shared codex subscription demand active=3 queue=0 quota=ok fleet-envelope=4 target=3
 
 - `doomed-claude-on-minion-town-completion-press-20261107-013512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-013512-requeue-exhausted.md)
