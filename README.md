@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T18:32:33Z_
+_As of 2026-11-07T18:33:50Z_
 
 ## Latest
 
@@ -1787,6 +1787,34 @@ Delegation: **active**
 >
 > Orchestration orchestrate-build-minion-town-ordered-gutter-20261104 HALTED: child build-minion-town-ordered-gutter-inc1-20261104 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/5 done before halt; parked remainder: build-minion-town-ordered-gutter-inc2-20261104 build-minion-town-ordered-gutter-inc3-20261104 build-minion-town-ordered-gutter-inc4-20261104 build-minion-town-ordered-gutter-inc5-20261104
 
+- `doomed-design-endo-naturally-sort-ordered-directory-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-endo-naturally-sort-ordered-directory-20261106-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/design-endo-naturally-sort-ordered-directory-20261106; it stays HELD until a human promotes it
+> (promote-plan.sh design-endo-naturally-sort-ordered-directory-20261106) or removes it, so nothing is lost.
+> Original job base: design-endo-naturally-sort-ordered-directory-20261106
+>
+> --- original job body ---
+> ---
+> role: designer
+> tier: mentor
+> posted_at: 2026-11-06T05:04:09Z
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-07T17:38:39Z cleared=none -->
+>
+> ---
+> posted_at: 2026-11-06T04:39:37Z
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> role: designer
+> tier: mentor
+> ---
+> Repo: endojs/endo-but-for-bots @ llm. Maintainer directive (kriskowal, review comment on [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247) at designs/ordered-gutter-context-menu.md line 188, 2026-11-06T03:47:38Z): design an ordered-directory formula proposal that recasts the current directory formula as a "naturally sort ordered" directory, meaning an implicit order given by the natural sort order of the assigned names, as opposed to an ordered directory whose order is insertion order and manually re-orderable. Such a directory would be more file-like and should benefit from methods for ranged reads, operational transforms, diff and patch, hashline edits, and so on. Extend or add a design under designs/ on llm, check designs/README.md for placement in the roadmap, and land it as a DRAFT design PR on an in-repo endojs branch. Name the open questions explicitly (migration of existing directories, collation rules for "natural" sort, interaction with ranged-read and edit methods).
+
 - `doomed-accountant-weekly-20261107-170510-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-accountant-weekly-20261107-170510-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2318,18 +2346,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.9M | $39.80 _(notional, rate-card)_ | 3% of 271.0M (ok) |
-| Codex | 360.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Claude | 6.9M | $39.90 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Codex | 360.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 156502452 tokens/day lower bound._
+_Fleet token-unlock pace: 156562146 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (25)
+### todo (24)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
-- [`design-minion-town-gutter-name-prefix-order-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-gutter-name-prefix-order-20261107.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2355,11 +2382,11 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
 ### doin (6)
+- [`design-minion-town-gutter-name-prefix-order-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-gutter-name-prefix-order-20261107.md) — ---
 - [`verify-minion-town-recovery-outcome-production-20261107d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107d.md) — ---
 - [`kriscendobot-minion.town-pr253-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr253-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #253
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #254
 - [`improve-screening-cas-failure-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-cas-failure-handling.md) — ---
-- [`design-endo-naturally-sort-ordered-directory-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-naturally-sort-ordered-directory-20261106.md) — ---
 - [`kriscendobot-minion.town-pr243-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr243-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
 
 ### tada (16866)
@@ -2461,6 +2488,7 @@ worst fetch p95 5.894595s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`claude-on-minion-town-completion-press-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261107-140511.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`oros-health-watch-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-230510.md) — _normal_ · ---
 - [`endo-but-for-bots-pi-family-1x-upgrade`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-but-for-bots-pi-family-1x-upgrade.md) — _normal_ · endo-but-for-bots: upgrade the pi family (@earendil-works/*) to 1.x together
+- [`design-endo-naturally-sort-ordered-directory-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-endo-naturally-sort-ordered-directory-20261106.md) — _normal_ · ---
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`claude-on-minion-town-completion-press-20261105-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261105-133510.md) — _normal_ · Completion press: Claude-on-minion.town arc
