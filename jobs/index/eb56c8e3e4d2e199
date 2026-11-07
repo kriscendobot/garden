@@ -1,2 +1,2 @@
-base: improve-screening-cooldown-log-spam
+base: improve-screening-cas-failure-handling
 identity: mentor:scripts/jobs/screen-delegated-prs.sh
