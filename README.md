@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T11:27:35Z_
+_As of 2026-11-07T11:28:37Z_
 
 ## Latest
 
@@ -1928,54 +1926,6 @@ Delegation: **active**
 >   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
-
-- `doomed-kriscendobot-minion.town-pr253-gauntlet-viability-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr253-gauntlet-viability-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion.town-pr253-gauntlet exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/kriscendobot-minion.town-pr253-gauntlet-viability; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion.town-pr253-gauntlet-viability) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion.town-pr253-gauntlet-viability
->
-> --- original job body ---
-> ---
-> role: gardener
-> gauntlet: kriscendobot-minion.town-pr253-gauntlet
-> gauntlet_stage: viability
-> gauntlet_iteration: 0
-> pr: [https://github.com/kriscendobot/minion.town/pull/253](https://github.com/kriscendobot/minion.town/pull/253)
-> ---
->
-> # Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
->
-> You are the viability gate for staged gauntlet (kriscendobot-minion.town-pr253-gauntlet). Spend no clean, panel,
-> fix, CI-wait, or un-draft budget. Decide whether the gauntlet may begin, report the
-> evidence, then STOP.
->
-> 1. Read current PR facts with
->    `gh pr view https://github.com/kriscendobot/minion.town/pull/253 --json state,mergedAt,isDraft,title,body,baseRefName,headRefName,headRefOid,baseRefOid,url`.
->    A merged PR reports `viability=merged`; any other non-OPEN PR reports
->    `viability=closed`. Neither enters the gauntlet loop.
-> 2. For an open, unmerged PR, inspect its description, discussion and reviews, linked
->    issue/design context, current base code, and relevant newer base history. Ask one
->    concrete yes/no question whose answer decides both of these claims: the PR has not
->    been superseded, and the need or assumption that motivated it still holds.
-> 3. Report `viability=proceed` only when current evidence supports both claims. If a
->    newer implementation/design displaced it, or its motivating premise no longer
->    holds, report `viability=overtaken`. Do not enter the expensive loop merely
->    because the PR remains open.
-> 4. Include concise `Deciding question:` and `Evidence:` lines in every report.
->    For `overtaken`, also include this exact line so the maintainer gets an explicit
->    disposition rather than a silent refusal:
->
->    Option: close as superseded
->
-> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
-> completion signal; the completion signal itself stays the very last line:
->   <!-- gauntlet-stage-result: viability=proceed -->
->   <!-- gauntlet-stage-result: viability=closed -->
->   <!-- gauntlet-stage-result: viability=merged -->
->   <!-- gauntlet-stage-result: viability=overtaken -->
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
