@@ -2,11 +2,11 @@
   "schema": 2,
   "status": "active",
   "arc": "unallocated",
-  "rank": 11,
+  "rank": 8,
   "summary": "reserve: foreman-drawn work outside the slate",
-  "token_cap": 4500002,
+  "token_cap": 20295000,
   "window": "week",
   "window_start": "2026-11-07T04:00:00Z",
   "set_by": "accountant-weekly-20261107-170510",
-  "set_at": "2026-11-07T17:06:46Z"
+  "set_at": "2026-11-07T17:09:53Z"
 }

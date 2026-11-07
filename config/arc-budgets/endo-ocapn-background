@@ -2,11 +2,11 @@
   "schema": 2,
   "status": "active",
   "arc": "endo-ocapn-background",
-  "rank": 6,
+  "rank": 4,
   "summary": "Background Endo/OCapN: SturdyRef, byte arrays, streams, and OCapN",
-  "token_cap": 4515950,
+  "token_cap": 77121000,
   "window": "week",
   "window_start": "2026-11-07T04:00:00Z",
   "set_by": "accountant-weekly-20261107-170510",
-  "set_at": "2026-11-07T17:06:46Z"
+  "set_at": "2026-11-07T17:09:53Z"
 }

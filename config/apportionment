@@ -1,76 +1,57 @@
 {
   "schema": 1,
   "week_start": "2026-11-07T04:00:00Z",
-  "total_tokens": 460000000,
+  "total_tokens": 405900000,
   "planning_ceiling": 0.9,
   "slate": [
     {
       "rank": 1,
-      "arc": "ironhorse-test262-ratchet",
-      "summary": "Ironhorse test262 ratchet: crank coverage up before the quota reset (press interval 3600s)",
-      "token_cap": 356960121
+      "arc": "minion-town-mcp-ocapn",
+      "summary": "minion.town operational over MCP and OCapN (top priority)",
+      "token_cap": 115681500
     },
     {
       "rank": 2,
-      "arc": "minion-town-claude-api",
-      "summary": "Harnessing Claude from minion.town by API key (API-key agents via @secrets, replacing the claude --bare / subscription-token CLI wrapper)",
-      "token_cap": 70375511
-    },
-    {
-      "rank": 3,
-      "arc": "minion-town-mcp-ocapn",
-      "summary": "minion.town operational over MCP and OCapN (top priority)",
-      "token_cap": 8013918
-    },
-    {
-      "rank": 4,
       "arc": "minion-town-git-remote",
       "summary": "minion.town as a capability git remote, including kriscendobot/minion.town#86",
-      "token_cap": 7870372,
+      "token_cap": 77121000,
       "tracker": "https://github.com/kriscendobot/minion.town/pull/86"
     },
     {
-      "rank": 5,
+      "rank": 3,
       "arc": "minion-town-ui",
       "summary": "minion.town UI: clip gutter, clip iframe, clips hosted on ocap.site",
-      "token_cap": 3364904
+      "token_cap": 57840750
+    },
+    {
+      "rank": 4,
+      "arc": "endo-ocapn-background",
+      "summary": "Background Endo/OCapN: SturdyRef, byte arrays, streams, and OCapN",
+      "token_cap": 77121000
+    },
+    {
+      "rank": 5,
+      "arc": "moonshots",
+      "summary": "Trailing moonshots: endor, ironhorse, thixotrope, and slot machine",
+      "token_cap": 30848400
     },
     {
       "rank": 6,
-      "arc": "endo-ocapn-background",
-      "summary": "Background Endo/OCapN: SturdyRef, byte arrays, streams, and OCapN",
-      "token_cap": 4515950
+      "arc": "garden-upkeep",
+      "summary": "Garden upkeep: self-heal, watchdog fixes, and deploys",
+      "token_cap": 19280250
     },
     {
       "rank": 7,
-      "arc": "moonshots",
-      "summary": "Trailing moonshots: endor, ironhorse, thixotrope, and slot machine",
-      "token_cap": 2170543
-    },
-    {
-      "rank": 8,
-      "arc": "garden-upkeep",
-      "summary": "Garden upkeep: self-heal, watchdog fixes, and deploys",
-      "token_cap": 1092500
-    },
-    {
-      "rank": 9,
-      "arc": "garden-book",
-      "summary": "Garden book: future editions and upkeep (tag book-* and garden-book-* jobs here)",
-      "token_cap": 250000
-    },
-    {
-      "rank": 10,
       "arc": "endo-backlog",
       "summary": "Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only",
-      "token_cap": 886179
+      "token_cap": 7712100
     }
   ],
-  "unallocated_tokens": 4500002,
-  "notes": "Week of 2026-10-24 re-sliced 2026-10-30 at maintainer direction (kriskowal, liaison session): 80% of every arc remaining tokens moved to the Ironhorse test262 ratchet (new rank 1, arc ironhorse-test262-ratchet); each other arc keeps its spend plus 20% of its remaining. Ranking of the others preserved. Prior notes: Week of 2026-10-24 re-sliced 2026-10-27 at maintainer direction (kriskowal, liaison session): new top arc minion-town-claude-api takes 75% of total; all prior arcs scaled to 25% of their prior slices, preserving ranking and ratios. Prior notes: Maintainer priority mandate (kriskowal, approved 2026-10-02): keep distributing tokens to this ranking as capacity becomes available each reset. Spend each subscription to 90%, never 100%. Week of 2026-10-17: total re-sized under that standing directive to 460M, rounding down 90% of the living config/budget-pools Claude caps (endolin1 271M + oros 180M = 451M) plus the provisional 60.7M codex-endolin fit (90% of 511.7M = 460.5M). claude-endolin2 is retired (2026-10-15) and contributes nothing. Ranking and shares unchanged: arc slices keep the approved 30/20/15/20/8/5/2 ratios over 95% of the total; garden-book keeps its standing 5M (re-slice 2026-10-04) taken from the 5% reserve. No Claude reset credits remain; codex-endolin holds two credits (expire 2026-10-29 and 2026-11-06) for mid-week use before expiry.",
+  "unallocated_tokens": 20295000,
+  "notes": "Week of 2026-11-07: restore the standing 2026-10-02 ranking at 90% of the known token-calibrated weekly capacity (claude-endolin1 271M + claude-oros 180M = 451M; 90% = 405.9M). No reset credit is counted: Claude credits are none/unknown-as-none, and the last unconfirmed codex credit expired 2026-11-06. codex-endolin remains a percent-ceiling pool without a current token calibration. The seven approved shares retain their 30/20/15/20/8/5/2 ratio over 95% of the total, with 5% reserved as unallocated.",
   "authorized_by": "kriskowal",
-  "message_id": "",
+  "message_id": "20261002T043717Z-c66a59",
   "set_by": "accountant-weekly-20261107-170510",
-  "set_at": "2026-11-07T17:06:46Z",
-  "carried_forward_from": "2026-10-31T03:00:00Z"
+  "set_at": "2026-11-07T17:09:53Z"
 }
