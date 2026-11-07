@@ -46,6 +46,7 @@ COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-fa
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=33 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
