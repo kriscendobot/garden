@@ -1,10 +1,9 @@
-once: 2026-11-07T13:00:00Z
-job_basename_prefix: verify-minion-town-recovery-outcome-production-20261107
----
 ---
 role: gardener
 tier: mentor
 handler-timeout: 7200
+fallback-tier: minion
+dispatch: automatic
 ---
 Finish the production acceptance gate for the failed guest-recovery outcome work in kriscendobot/minion.town.
 
