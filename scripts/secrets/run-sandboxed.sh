@@ -67,6 +67,17 @@ for path in "${hidden[@]}"; do [ -e "$path" ] && args+=(--tmpfs "$path"); done
 if git_dir="$(git -C "$worktree" rev-parse --absolute-git-dir 2>/dev/null)"; then rw_paths+=("$git_dir"); fi
 if common_dir="$(git -C "$worktree" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)"; then rw_paths+=("$common_dir"); fi
 for path in "${rw_paths[@]}"; do [ -e "$path" ] && args+=(--bind "$path" "$path"); done
+# Project checkouts are created after the harness starts.  Their standing bare
+# clones need to update FETCH_HEAD, refs, objects, and worktree administration,
+# while git worktree add also needs to create the checkout below GARDEN_SCRATCH.
+# Bind exactly those two project-checkout areas read-write; the rest of the
+# garden root remains covered by the read-only root bind above.
+project_rw_paths=()
+[ -z "${GARDEN_ROOT:-}" ] || project_rw_paths+=("$GARDEN_ROOT/worktrees")
+[ -z "${GARDEN_SCRATCH:-}" ] || project_rw_paths+=("$GARDEN_SCRATCH")
+for path in "${project_rw_paths[@]}"; do
+  [ -d "$path" ] && args+=(--bind "$path" "$path")
+done
 # The harness needs a writable, exec-capable TMPDIR (Claude's Bash tool creates
 # $TMPDIR/claude-<uid>/... per session). The inherited TMPDIR lives under the
 # read-only root bind, so every shell call died with EROFS. Give each job its own
