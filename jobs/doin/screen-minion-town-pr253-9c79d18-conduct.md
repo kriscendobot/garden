@@ -23,11 +23,11 @@ approval is required; do not request one.
 
 PR: https://github.com/kriscendobot/minion.town/pull/253
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=171 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T20:23:14Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=171,54 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
