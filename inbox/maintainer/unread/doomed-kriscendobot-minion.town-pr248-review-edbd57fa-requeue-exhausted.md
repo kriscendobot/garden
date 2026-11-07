@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-11-06T05:04:50Z
+sent_at: 2026-11-07T18:03:22Z
 doom_base: kriscendobot-minion.town-pr248-review-edbd57fa
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-11-06T05:04:50Z
-last_seen: 2026-11-06T05:04:50Z
+last_seen: 2026-11-07T18:03:22Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-11-06T05:04:50Z, latest 2026-11-07T18:03:22Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 The work is preserved at jobs/plan/kriscendobot-minion.town-pr248-review-edbd57fa; it stays HELD until a human promotes it
@@ -14,6 +18,14 @@ The work is preserved at jobs/plan/kriscendobot-minion.town-pr248-review-edbd57f
 Original job base: kriscendobot-minion.town-pr248-review-edbd57fa
 
 --- original job body ---
+---
+tier: minion
+posted_at: 2026-11-06T05:04:09Z
+handler-budget-role: review
+token-budget: 250000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-07T17:27:51Z cleared=none -->
+
 ---
 tier: minion
 posted_at: 2026-11-06T04:13:10Z
