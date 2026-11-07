@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T19:36:49Z_
+_As of 2026-11-07T19:37:53Z_
 
 ## Latest
 
@@ -2241,6 +2241,11 @@ Delegation: **active**
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
 
+- `minion-town-pr-screening-gauntlet-halted-pr237-304dd24` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-gauntlet-halted-pr237-304dd24.md)
+
+> minion.town screen BLOCKED [https://github.com/kriscendobot/minion.town/pull/237](https://github.com/kriscendobot/minion.town/pull/237) (head 304dd2484e3): screen gauntlet kriscendobot-minion-town-pr237-screen-304dd248-gauntlet halted. Read jobs/tada/2026/11/07/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet.md and resume or replace the gauntlet; the proxy cannot produce a panel verdict for this head.
+> Operations: context/operations/minion-town-screening.md
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-06T04:41:40Z, cleared 2026-11-07T08:41:15Z).
@@ -2375,7 +2380,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.3M | $38.35 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 7.3M | $38.42 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 362.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155081470 tokens/day lower bound._
