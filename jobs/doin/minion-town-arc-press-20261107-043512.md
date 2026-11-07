@@ -80,10 +80,10 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=76,93 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=39 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
