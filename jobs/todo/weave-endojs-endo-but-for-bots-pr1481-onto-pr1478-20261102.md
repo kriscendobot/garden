@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102
-priority: normal
-posted_by: shepherd
+role: weaver
+tier: mentor
+arc: minion-town-mcp-ocapn
 posted_at: 2026-11-02T07:11:33Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-07T03:00:28Z cleared=none -->
 
 ---
 arc: minion-town-mcp-ocapn
