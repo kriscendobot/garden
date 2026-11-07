@@ -12,7 +12,7 @@ created_at: 2026-11-05T10:33:03Z
 arc: 
 stage: fix
 iteration: 1
-resumes: 2
+resumes: 3
 stage_retries: 0
 current_child: kriscendobot-minion.town-pr243-gauntlet-fix-1
 state: running
