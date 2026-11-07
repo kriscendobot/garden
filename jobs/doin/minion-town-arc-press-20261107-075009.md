@@ -82,3 +82,13 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T08:03:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T08:03:20Z
