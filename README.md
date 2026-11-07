@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T23:53:49Z_
+_As of 2026-11-07T23:55:19Z_
 
 ## Latest
 
@@ -34,6 +34,7 @@ Most other watchdog notices are budget-level changes or recovered journal conten
 
 Delegation: **active**
 
+- 2026-11-07T23:52:26Z [#253](https://github.com/kriscendobot/minion.town/pull/253) merged `6ee256448fd`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/42396727322)
 - 2026-11-07T23:48:54Z [#253](https://github.com/kriscendobot/minion.town/pull/253) `16a121842e4` screened
 - 2026-11-07T20:00:06Z [#253](https://github.com/kriscendobot/minion.town/pull/253) `9c79d180738` screened
 - 2026-11-07T17:31:24Z [#250](https://github.com/kriscendobot/minion.town/pull/250) merged `5e8905191b6`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42396727322), watchdog ok — validated
@@ -2436,7 +2437,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.7M | $90.61 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Claude | 20.7M | $90.77 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 368.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158214261 tokens/day lower bound._
