@@ -21,3 +21,13 @@ Repo: endojs/endo-but-for-bots @ llm. Maintainer directive (kriskowal, review co
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-07T18:23:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-07T18:23:09Z
