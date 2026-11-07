@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T10:07:06Z_
+_As of 2026-11-07T10:09:47Z_
 
 ## Latest
 
@@ -1959,7 +1957,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.7M | $15.83 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.8M | $16.49 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 358.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154452104 tokens/day lower bound._
@@ -1985,9 +1983,10 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (2)
+### doin (3)
 - [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
 - [`deploy-minion-town-waitlist-soon-page-20261107`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deploy-minion-town-waitlist-soon-page-20261107.md) — ---
+- [`kriscendobot-minion.town-pr253-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr253-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #253
 
 ### tada (16848)
 - [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/build-minion-town-waitlist-soon-page-20261105.md) — Cost
