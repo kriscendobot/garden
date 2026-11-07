@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T03:24:13Z_
+_As of 2026-11-07T03:27:02Z_
 
 ## Latest
 
@@ -954,6 +954,19 @@ Delegation: **active**
 > scripts/jobs/deploy-garden.sh
 > scripts/jobs/deploy-garden.sh:507 records an rc=1 suite failure with an empty diagnostic, as the 2026-11-05T11:51:31Z rejection shows. When a captured suite output is empty, append deterministic invocation and gate-state context so deploy failures remain actionable.
 
+- `orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-halted` — from orchestrator:orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102
+> orchestration-status: halted
+> child: weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
+> failure-kind: doomed
+> children-completed: 0
+> children-total: 3
+> halt-parked-remainder: weave-endojs-endo-but-for-bots-pr1482-onto-pr1481-20261102 shepherd-endojs-endo-but-for-bots-pr1482-ci-after-weave-20261102
+>
+> Orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 HALTED: child weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102 doomed and held in plan (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: weave-endojs-endo-but-for-bots-pr1482-onto-pr1481-20261102 shepherd-endojs-endo-but-for-bots-pr1482-ci-after-weave-20261102
+
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -1437,6 +1450,19 @@ Delegation: **active**
 > scripts/jobs/screen-delegated-prs.sh
 > `scripts/jobs/screen-delegated-prs.sh:65` logs a WARN on every post-threshold quota-deferred tick, producing warnings at 16:21–16:46 despite the shared cooldown already preventing requests. Make the warning edge-latched (with optional milestone reporting) while preserving the existing coalesced maintainer alert and recovery notice.
 
+- `orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failed` — from orchestrator:orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102-child-weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102
+> orchestration-status: running
+> child: weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102
+> failure-kind: doomed
+> order: serial
+> on-child-failure: halt
+> detail: doomed and held in plan
+>
+> Orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 observed child weave-endojs-endo-but-for-bots-pr1481-onto-pr1478-20261102: doomed and held in plan.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.067075s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -1656,7 +1682,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.7M | $671.47 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.7M | $671.67 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 357.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154468023 tokens/day lower bound._
@@ -1682,13 +1708,13 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 ### doin (0)
 (none)
 
-### tada (16843)
+### tada (16844)
+- [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
 - [`muster-improve-fixes-r2-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/muster-improve-fixes-r2-20261106.md) — orchestration muster-improve-fixes-r2-20261106 — complete
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261106-020511.md) — ---
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261105-165012.md) — ---
 - [`oros-health-checkup-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261105-230510.md) — ---
-- [`muster-daemon-git-remotes-r2-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/muster-daemon-git-remotes-r2-20261106.md) — orchestration muster-daemon-git-remotes-r2-20261106 — complete
-- … and 16838 more
+- … and 16839 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
