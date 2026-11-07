@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: doomed only by the endolin-garden-ece02cb4 Bash-tool EROFS outage (never ran); re-armed as live job verify-minion-town-recovery-outcome-production-20261107b
+withdrawn_by: builder
+withdrawn_at: 2026-11-07T16:15:31Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: gardener
