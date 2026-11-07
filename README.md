@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T19:59:22Z_
+_As of 2026-11-07T20:01:37Z_
 
 ## Latest
 
@@ -34,6 +34,7 @@ Most other watchdog notices are budget-level changes or recovered journal conten
 
 Delegation: **active**
 
+- 2026-11-07T20:00:06Z [#253](https://github.com/kriscendobot/minion.town/pull/253) `9c79d180738` screened
 - 2026-11-07T17:31:24Z [#250](https://github.com/kriscendobot/minion.town/pull/250) merged `5e8905191b6`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42396727322), watchdog ok — validated
 
 ## Messages to the maintainer
@@ -2419,7 +2420,8 @@ worst fetch p95 6.085245s/45s (unknown); 12 open notice(s); checker healthy
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (4)
+### doin (5)
+- [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr253-9c79d18-conduct.md) — Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
 - [`verify-minion-town-recovery-outcome-production-20261107e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-minion-town-recovery-outcome-production-20261107e.md) — ---
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr254-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #254
 - [`kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr252-screen-528d4a1f-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #252
