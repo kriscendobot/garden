@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T05:57:48Z_
+_As of 2026-11-07T06:03:36Z_
 
 ## Latest
 
@@ -1736,7 +1736,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 480.6k | $7.62 _(notional, rate-card)_ | 0% of 271.0M (ok) |
-| Codex | 357.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Codex | 357.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 
@@ -1744,7 +1744,7 @@ _Fleet token-unlock pace: 154611059 tokens/day lower bound._
 worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (15)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
@@ -1756,12 +1756,13 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`improve-minion-town-arc-press-breaker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-minion-town-arc-press-breaker.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (1)
-- [`improve-minion-town-arc-press-breaker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-minion-town-arc-press-breaker.md) — ---
+### doin (0)
+(none)
 
 ### tada (16844)
 - [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
