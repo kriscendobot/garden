@@ -19,6 +19,7 @@ Deliverable: `context/operations/oros-secrets-handoff.md` on `main2` (pushed dir
 5. A rollback if bwrap cannot be made to work on the Mac.
 Also report whether the deploy gate or canary should check `command -v bwrap` before advancing, and file that as a follow-up recommendation in your completion report rather than implementing it.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
