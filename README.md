@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T08:32:36Z_
+_As of 2026-11-07T08:33:37Z_
 
 ## Latest
 
@@ -612,6 +612,80 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 complete WITH FAILURES (serial): 6/6 failed: design-daemon-git-remotes-ssh-transport-r2 design-daemon-git-remotes-server-half-r2 design-daemon-git-remotes-extended-transports-r2 build-daemon-git-remotes-transport-timing-r2 build-daemon-git-remotes-phase-six-interactive-provisioning-r2 daemon-git-capability-phase-five-contract-tests-build-r2
+
+- `doomed-daily-progress-summary-20261107-080513-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20261107-080513-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/daily-progress-summary-20261107-080513; it stays HELD until a human promotes it
+> (promote-plan.sh daily-progress-summary-20261107-080513) or removes it, so nothing is lost.
+> Original job base: daily-progress-summary-20261107-080513
+>
+> --- original job body ---
+> Scheduled dispatch context (computed by the scheduler at fire time):
+>
+> - window_start: 2026-11-06T08:00:00Z (UTC, inclusive)
+> - window_end: 2026-11-07T08:00:00Z (UTC, exclusive)
+> - pacific_date: 2026-11-06 (the Pacific day this periodical covers)
+> - output: journal/periodicals/2026/11/06.md
+>
+> ---
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Daily midnight Pacific progress summary
+>
+> Act as the [journalist](../../roles/journalist/AGENT.md) with purpose
+> `daily-progress-summary` (see that role's § Daily progress summaries). Write one
+> daily progress-summary periodical covering the prior 24 hours across every project,
+> then commit it to `journal2`.
+>
+> 1. **Window.** If the scheduler prepended a "Scheduled dispatch context" block
+>    above (it does under the anchored `daily-at-00:00-America/Los_Angeles`
+>    cadence), use its `window_start`, `window_end`, `pacific_date`, and `output`
+>    verbatim. Otherwise fall back to the Pacific day that most recently closed:
+>    window `[<pacific_date> 00:00, next-day 00:00)` in America/Los_Angeles, and
+>    `output = journal/periodicals/<YYYY>/<MM>/<DD>.md` keyed by that `pacific_date`.
+> 2. **Read.** Every entry under `journal/entries/<YYYY>/<MM>/<DD>/` whose `ts:` is
+>    in `[window_start, window_end)` (a UTC window can straddle two day-directories;
+>    scan both and filter by `ts:`), plus the board transitions in the window
+>    (`jobs/{todo,doin,tada}` moves from `git -C journal log --since=... --until=...`).
+>    Scope is intentionally everything: dispatches, results, ticks, messages, and
+>    worktree-lifecycle entries alike.
+> 3. **Write.** One abstract-first periodical at `output`, partitioned by project
+>    (the `project:` slug; one section per project with any entry, plus a garden-meta
+>    section for untagged entries) and, within each, by activity kind. Do not skip a
+>    project for having only a couple of entries. Cite sources by relative path;
+>    paraphrase, do not copy. House style applies (no em-dashes in prose, no Latin
+>    shorthand, relative paths). Commit and push the one file with the usual CAS; if
+>    the file already exists for that Pacific date, overwrite it (the periodical is a
+>    function of the window, so a re-run is idempotent).
+>
+> Deliverable: the periodical file committed to `journal2`, or (empty window) a
+> one-line periodical saying nothing moved. No board writes, no upstream actions.
+>
+> ---
+> Translated from v1 `schedule/garden/20260513T070000Z--5a93f9.md`
+> (recurrence `daily-at-00:00-America/Los_Angeles`, dispatch `journalist` /
+> `daily-progress-summary`, window "prior 24 hours", scope all projects).
+> The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
+> specs keyed by cadence, not pre-computed per-fire event files. The v1 periodicals
+> output tree is archived under `legacy/v1/periodicals/`. The v1 original is
+> retained on `journal-v1` and `origin/journal`.
+>
+> The cadence is the anchored, DST-aware `daily-at-00:00-America/Los_Angeles` (which
+> the scheduler learned on main2 commit 85a1cd8e6): due-ness is decided against the
+> most recent Pacific-midnight anchor at-or-before now and `last_dispatched` is
+> stamped to that anchor, so the fire never drifts off local midnight and a 23h/25h
+> DST day is spanned correctly. It was flipped from the earlier fixed-interval
+> `daily` (which drifted, firing at each actual dispatch time rather than at local
+> midnight) once the anchored scheduler landed on the leader host; do not revert it
+> to `daily` while any leader host still runs a pre-anchor scheduler, or that
+> scheduler would treat the token as its weekly default.
 
 - `watchdog-root-repo-head-repaired-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-head-repaired-endolin-garden-ece02cb4.md)
 
@@ -1881,8 +1955,8 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 
-### doin (1)
-- [`daily-progress-summary-20261107-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261107-080513.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
 ### tada (16844)
 - [`orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1482-reweave-green-20261102 — H...
@@ -1938,6 +2012,7 @@ worst fetch p95 11.690557s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`build-daemon-git-remotes-transport-timing-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-transport-timing-r2.md) — _normal_ · ---
 - [`build-minion-town-retire-resident-role-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-retire-resident-role-20261105.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
+- [`daily-progress-summary-20261107-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20261107-080513.md) — _normal_ · Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
 - [`fixer-endojs-endo-but-for-bots-pr1595`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fixer-endojs-endo-but-for-bots-pr1595.md) — _normal_ · ---
