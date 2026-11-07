@@ -19,6 +19,7 @@ evidence: confirm this cycle local run completed, then use the host-repair diagn
 recurrence_budget: 15 minutes
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=54 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
