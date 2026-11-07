@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T21:45:23Z_
+_As of 2026-11-07T21:48:27Z_
 
 ## Latest
 
@@ -565,6 +565,10 @@ Delegation: **active**
 - `watchdog-root-repo-deploy-stalled-oros-studio-garden-ce242c49` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-oros-studio-garden-ce242c49.md)
 
 > root repo /Users/dom/garden deploy has been STALLED for ~1d: deployed sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1 is 6 commit(s) behind origin/main2 (dd3e6bc6edfd490eb8ba0936b8b79a78238088ca) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=oros-studio-garden-ce242c49)
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -2385,10 +2389,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.9M | $65.62 _(notional, rate-card)_ | 5% of 271.0M (ok) |
-| Codex | 364.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 15.3M | $72.39 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Codex | 365.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 157765504 tokens/day lower bound._
+_Fleet token-unlock pace: 158428116 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.085245s/45s (unknown); 10 open notice(s); checker healthy
