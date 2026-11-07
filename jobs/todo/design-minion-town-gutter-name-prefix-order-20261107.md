@@ -70,13 +70,6 @@ increments; do not re-post or edit them yourself.
 kriscendobot-minion.town-pr247-review-213830b3 on 2026-11-07 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1021 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-07T17:56:07Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-07T18:33:04Z -->
