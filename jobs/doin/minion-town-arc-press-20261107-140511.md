@@ -83,6 +83,7 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 <!-- garden-plain-retry-not-before: 2026-11-07T14:23:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=57,41 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
