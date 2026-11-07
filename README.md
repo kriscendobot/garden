@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-07T17:13:46Z_
+_As of 2026-11-07T17:17:28Z_
 
 ## Latest
 
@@ -1926,7 +1926,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for _home_kris_garden_journal: p95=17.689752s max=17.689752s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden_journal` has CLEARED (first seen 2026-11-07T11:26:59Z, cleared 2026-11-07T17:17:07Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
@@ -2296,13 +2300,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.7M | $31.93 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.7M | $32.91 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 359.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154964090 tokens/day lower bound._
+_Fleet token-unlock pace: 155193762 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 17.689752s/45s (unknown); 11 open notice(s); checker healthy
+worst fetch p95 3.433416s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (20)
