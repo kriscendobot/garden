@@ -28,6 +28,7 @@ Expect real conflicts. #1478 was squashed to a feat commit plus a changeset when
 <!-- garden-plain-retry-not-before: 2026-11-07T03:13:10Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=43,46 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
