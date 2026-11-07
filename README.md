@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-07T02:51:54Z_
+_As of 2026-11-07T02:55:33Z_
 
 ## Latest
 
@@ -1534,7 +1532,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.5M | $668.16 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.5M | $668.39 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 357.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 155160931 tokens/day lower bound._
@@ -1553,12 +1551,12 @@ worst fetch p95 12.065052s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`improve-transient-retry-correlation-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-transient-retry-correlation-r2.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-oros-secrets-bwrap-handoff-20261106.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
 ### doin (1)
-- [`improve-transient-retry-correlation-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-transient-retry-correlation-r2.md) — ---
+- [`build-oros-secrets-bwrap-handoff-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-oros-secrets-bwrap-handoff-20261106.md) — ---
 
 ### tada (16842)
 - [`oros-health-checkup-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/07/oros-health-checkup-20261106-020511.md) — ---
