@@ -2,6 +2,18 @@
 
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
+## 2026-11-07T17:25Z - oros-health-watch-20261107-172009
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: there is no local checkup job `oros-health-checkup-20261107-172009` on the board, so no local run completed this cycle. The earlier local checkups `-105011` and `-140511` are both still in `jobs/todo/`. Nothing has changed since the 11:08Z record. The maintainer notice `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` from 02:26:36Z is still unread, and no recovery notice exists. That notice says the Claude OAuth session expired and every monk self-disqualified. Canary r3 also failed. Sysop record `20261107T112003Z-ed6f37` lifted the drain for retry 3 (applied 11:20:26Z). Sysop record `20261107T113503Z-85ecc2` then put the drain back on at 11:35:41Z because probe `canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3` did not reach tada within 600s, and the watchdog filed `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` at 11:35:09Z. No sysop record has landed since. All three canary probes for `f2788117645d` (r1 to r3) are still in todo, and there is no `deploy/roll-completed/f2788117645d...` record. `fleet/health` was last written at 10:20:47Z (deployed `f2788117645d`, 0 of 296 units failed, 0 advisory). The claude-oros budget heartbeat at 17:01:29Z is current, status ok, 26% used. The host record shows 3 monks (2026-11-05).
+- Cause: the cause is unchanged: a credential refusal. The host is present and its deterministic services are healthy. The monks will not claim work until someone refreshes the expired Claude OAuth session. That also explains the failed canaries: the new code is not broken, there is just nobody to claim the probes.
+- Actions: observed only. No sysop operation, worker-count change, drain change, restart, or code change. A restart does not fix authorization. The drain belongs to the rolling deploy after its failed canary, so it stays until the canary passes or the maintainer explicitly picks the old SHA.
+- Final state: present, heartbeat current, held under the rolling-deploy drain after the failed canary (attempt 3 of 3), deployed `f2788117645d`, 0 failed units as of the last fleet-health record. It claims and completes nothing because all monks are credential-parked.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login` (or `claude auth login`). The pool re-probes and un-parks on its own once the credential changes. After that, the canary-failed drain still needs either a passing canary re-run or an explicit choice of the old SHA; the mechanic will not lift it.
+- Next mechanic: first look for the worker-agent-bin recovery notice. Then check that a canary for `f2788117645d` reaches tada, that the roll records completion, and that the drain lifts through the rolling-deploy workflow. Confirm that the queued checkups `-105011`/`-140511` are claimed (or reaped) and that oros completes non-canary work again. The local disk/scratch and lock-holder checks are still pending.
+
 ## 2026-11-07T11:08Z - oros-health-watch-20261107-105011
 
 - Verdict: unhealthy
