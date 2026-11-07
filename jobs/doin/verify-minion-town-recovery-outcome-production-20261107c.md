@@ -19,3 +19,13 @@ Submit the dedicated fixed address `prod-probe@minion.town` twice to the product
 Save desktop/mobile production screenshots as durable evidence (a commit on the already-merged PR head branch is acceptable evidence without changing deployed `main`). Update PR 254's phase/evidence ledger from `orchestrated-slice` to `deliverable`, adding merge/deploy/probe run URLs and observations, then post one concise top-level completion comment with the evidence. This continuation explicitly authorizes those PR edits/comments.
 
 If the bounded claim still cannot reach production, re-arm exactly one further continuation before handing off.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-07T16:54:51Z
