@@ -14,7 +14,7 @@ added_rounds: 1
 stage: panel
 iteration: 7
 resumes: 0
-stage_retries: 1
+stage_retries: 2
 current_child: kriscendobot-minion.town-pr248-gauntlet-panel-7
 state: running
 resumed_at: 2026-11-07T17:39:22Z
