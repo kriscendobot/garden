@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T12:48:55Z_
+_As of 2026-11-08T12:54:12Z_
 
 ## Latest
 
@@ -1141,30 +1141,30 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-11-07T22:15:24Z, latest 2026-11-08T12:48:30Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-11-07T22:15:24Z, latest 2026-11-08T12:53:30Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1794144028 set-by=dependabot:kriscendobot-ocapn:source <- pages:kriscendobot/garden:net
-> - kriscendobot/cosgov: watcher ticking but cooldown for 1671s (since 2026-11-08T12:20:38Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 1613s (since 2026-11-08T12:21:36Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 1631s (since 2026-11-08T12:21:18Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 1612s (since 2026-11-08T12:21:37Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 1677s (since 2026-11-08T12:20:32Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1675s (since 2026-11-08T12:20:34Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1615s (since 2026-11-08T12:21:34Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1679s (since 2026-11-08T12:20:30Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1675s (since 2026-11-08T12:20:34Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1644s (since 2026-11-08T12:21:05Z)
-> - kriscendobot/list: watcher ticking but cooldown for 1667s (since 2026-11-08T12:20:42Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 1668s (since 2026-11-08T12:20:41Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 1647s (since 2026-11-08T12:21:02Z)
-> watcher ticking but cooldown for 1659s (since 2026-11-08T12:20:50Z); detail: rest latch set-by=dependabot:kriscendobot-ocapn:source <- pages:kriscendobot/garden:net expiry=1794144028
-> - kriscendobot/minion.town: watcher ticking but cooldown for 1664s (since 2026-11-08T12:20:45Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 1603s (since 2026-11-08T12:21:46Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1600s (since 2026-11-08T12:21:49Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 1619s (since 2026-11-08T12:21:30Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1972s (since 2026-11-08T12:20:38Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1914s (since 2026-11-08T12:21:36Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 1932s (since 2026-11-08T12:21:18Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 1913s (since 2026-11-08T12:21:37Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1978s (since 2026-11-08T12:20:32Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1976s (since 2026-11-08T12:20:34Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1916s (since 2026-11-08T12:21:34Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1980s (since 2026-11-08T12:20:30Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1976s (since 2026-11-08T12:20:34Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1945s (since 2026-11-08T12:21:05Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1968s (since 2026-11-08T12:20:42Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 1969s (since 2026-11-08T12:20:41Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1948s (since 2026-11-08T12:21:02Z)
+> watcher ticking but cooldown for 1960s (since 2026-11-08T12:20:50Z); detail: rest latch set-by=dependabot:kriscendobot-ocapn:source <- pages:kriscendobot/garden:net expiry=1794144028
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1965s (since 2026-11-08T12:20:45Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1904s (since 2026-11-08T12:21:46Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1901s (since 2026-11-08T12:21:49Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 1920s (since 2026-11-08T12:21:30Z)
 
 - `doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted.md)
 
@@ -1294,23 +1294,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-11-07T11:35:09Z, latest 2026-11-08T04:11:07Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-07T11:35:09Z, cleared 2026-11-08T12:53:07Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  21585bda2b36d16e4d56ad9ec42aeb407eb55d7b
-> failing signal: probe 'canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3' did not reach tada within 600s (claim/spine broken on new code)
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `doomed-improve-claude-completion-finalizer-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-claude-completion-finalizer-requeue-exhausted.md)
 
