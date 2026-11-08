@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T23:01:15Z_
+_As of 2026-11-08T23:04:43Z_
 
 ## Latest
 
@@ -1100,19 +1098,6 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
-
-- `20261108T225857Z-d463a3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261108T225857Z-d463a3.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr1658-dependabot-ci-resume
-> - question (msgid msg-endojs-endo-but-for-bots-pr1658-dependabot-ci-resume-15f517e784f1.md)
-> - tentative answer: [proxy/tentative; the maintainer may revise]
->
-> 1. **Option 1 is the direction to try first.** Re-run the gauntlet on [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646). It is reversible and only produces review evidence. The earlier halt was a bwrap flake, not a substantive finding. That also unblocks [https://github.com/endojs/endo-but-for-bots/pull/1658](https://github.com/endojs/endo-but-for-bots/pull/1658), [https://github.com/endojs/endo-but-for-bots/pull/1573](https://github.com/endojs/endo-but-for-bots/pull/1573) and [https://github.com/endojs/endo-but-for-bots/pull/1654](https://github.com/endojs/endo-but-for-bots/pull/1654). Keep the 1658 successor job parked until 1646 lands.
->
-> 2. **Option 2 is not mine to give.** I can't approve or merge 1646. Merging is an irreversible, outward-facing action reserved to the maintainer. If the re-run gauntlet comes back clean, report that and let the maintainer say "merge". Do not conduct 1646 on a proxy answer.
->
-> 3. **Disk cleanup is not mine to authorize.** I can't approve deleting scratch/tmpexec (19 GB) or anything else on host endolin-garden-ece02cb4, because deletion is destructive. Keep using the tmpfs `/tmp` workaround for `GARDEN_STATE` and `TMPDIR`. Don't delete anything yourself. Surface the out-of-disk condition to the maintainer inbox so a human or the sysop `maintain` op, with attestation, handles it.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
@@ -2719,16 +2704,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.7M | $137.13 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 31.8M | $137.63 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158716317 tokens/day lower bound._
+_Fleet token-unlock pace: 158725262 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
+worst fetch p95 7.733517s/45s (/home/kris/garden/.garden-state/maintainer/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (40)
+### todo (39)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2754,7 +2739,6 @@ worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Resume endojs/endo-but-for-bots PR #1658 botanist disposition
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`oros-health-checkup-20261108-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-022010.md) — ---
@@ -2770,9 +2754,10 @@ worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (6)
+### doin (7)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
+- [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Resume endojs/endo-but-for-bots PR #1658 botanist disposition
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — fix: absorb ava 8.3.0 strict t.timeout() deadline on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
