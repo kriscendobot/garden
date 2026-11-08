@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T02:36:17Z_
+_As of 2026-11-08T02:37:35Z_
 
 ## Latest
 
@@ -1886,6 +1886,10 @@ Delegation: **active**
 > ---
 > Repo: endojs/endo-but-for-bots @ llm. Maintainer directive (kriskowal, review comment on [https://github.com/kriscendobot/minion.town/pull/247](https://github.com/kriscendobot/minion.town/pull/247) at designs/ordered-gutter-context-menu.md line 188, 2026-11-06T03:47:38Z): design an ordered-directory formula proposal that recasts the current directory formula as a "naturally sort ordered" directory, meaning an implicit order given by the natural sort order of the assigned names, as opposed to an ordered directory whose order is insertion order and manually re-orderable. Such a directory would be more file-like and should benefit from methods for ranged reads, operational transforms, diff and patch, hashline edits, and so on. Extend or add a design under designs/ on llm, check designs/README.md for placement in the roadmap, and land it as a DRAFT design PR on an in-repo endojs branch. Name the open questions explicitly (migration of existing directories, collation rules for "natural" sort, interaction with ranged-read and edit methods).
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261108-022010` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261108-022010.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261108-022010' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-accountant-weekly-20261107-170510-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-accountant-weekly-20261107-170510-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2445,7 +2449,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.9M | $111.41 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 27.0M | $111.40 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158257594 tokens/day lower bound._
@@ -2483,16 +2487,16 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`kriscendobot-minion.town-pr230-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr230-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #230
+### doin (0)
+(none)
 
-### tada (16938)
+### tada (16939)
+- [`kriscendobot-minion.town-pr230-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-undraft.md) — Cost
 - [`improve-dependabotany-preflight-merge-now-snapshot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-dependabotany-preflight-merge-now-snapshot.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr230-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-panel-6.md) — Cost
 - [`kriscendobot-minion.town-pr230-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-fix-5.md) — Cost
-- [`minion-town-arc-press-20261108-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-022010.md) — Cost
-- … and 16933 more
+- … and 16934 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
