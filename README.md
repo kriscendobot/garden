@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T05:18:41Z_
+_As of 2026-11-08T05:21:29Z_
 
 ## Latest
 
@@ -2462,7 +2462,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.0M | $114.44 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 28.1M | $115.59 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158592588 tokens/day lower bound._
@@ -2471,7 +2471,7 @@ _Fleet token-unlock pace: 158592588 tokens/day lower bound._
 worst fetch p95 5.530806s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (30)
+### todo (31)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2487,6 +2487,7 @@ worst fetch p95 5.530806s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ad75cf189997
 - [`oros-health-checkup-20261107-172009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-172009.md) — ---
+- [`oros-health-checkup-20261108-052012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-052012.md) — ---
 - [`oros-health-checkup-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-140511.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -2503,8 +2504,9 @@ worst fetch p95 5.530806s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (2)
+- [`oros-health-watch-20261108-052012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-052012.md) — ---
+- [`minion-town-arc-press-20261108-052012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-052012.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (16948)
 - [`screen-minion-town-pr230-da33b8b-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/screen-minion-town-pr230-da33b8b-conduct.md) — Cost
