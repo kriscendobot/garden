@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T22:05:02Z_
+_As of 2026-11-08T22:08:52Z_
 
 ## Latest
 
@@ -2162,6 +2162,14 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-self-heal-garden-comment-watcher-kriscendobot-ymax-e2e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-ymax-e2e.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: 7203544246ef32a76f871ffd13a1033846d133ec (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 7203544246ef32a76f871ffd13a1033846d133ec). Diagnosis: No fix job to post: `garden-comment-watcher@kriscendobot-ymax-e2e` failed because the disk is full, which is environmental, not a code bug.
+>
+> The captured output shows `common.sh: line 176: printf: write error: No space left on device`. That is where the exit-1 came from. `df` shows `/home/kris/garden` (`/dev/nvme0n1p2`, 3.6T) at 100% with 496K available. The watcher's own last line, logged just after the failing write, says it found no new comments on `kriscendobot/ymax-e2e`. The watcher logic itself is working.
+>
+> Until space is freed, any service that writes to `.garden-state` or the journal can fail the same way, so expect more units to fail. A maintainer needs to free space on that volume, for example by pruning old worktrees, bare-clone packs, logs or build caches. A job can't do that s
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-11-07T02:46:11Z, cleared 2026-11-07T08:41:24Z).
@@ -2616,7 +2624,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.1M | $130.95 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 31.1M | $131.05 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 373.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158575662 tokens/day lower bound._
