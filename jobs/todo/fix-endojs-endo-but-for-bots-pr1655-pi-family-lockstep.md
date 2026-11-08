@@ -1,8 +1,9 @@
 ---
 posted_at: 2026-11-08T20:23:25Z
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -35,13 +36,5 @@ decision, so put it in a separate commit or comment.
 On completion, notify the backstop recheck: the dependabotany daily sweep for endojs-endo-but-for-bots renders
 the terminal verdict on #1655 after your repair lands.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-08T20:27:43Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-08T22:13:13Z -->
