@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T03:22:45Z_
+_As of 2026-11-08T03:23:29Z_
 
 ## Latest
 
@@ -2486,13 +2486,13 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### doin (0)
 (none)
 
-### tada (16946)
+### tada (16947)
+- [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet.md) — gauntlet kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet — complete
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-undraft.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability.md) — Cost
-- [`screen-minion-town-pr230-448b347-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/screen-minion-town-pr230-448b347-conduct.md) — Cost
-- … and 16941 more
+- … and 16942 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
