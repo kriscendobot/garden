@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T23:51:38Z_
+_As of 2026-11-08T23:53:55Z_
 
 ## Latest
 
@@ -37,7 +37,6 @@ Delegation: **active**
 - 2026-11-08T03:28:53Z [#230](https://github.com/kriscendobot/minion.town/pull/230) merged `34e988750aa`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42442896086), watchdog ok — validated
 - 2026-11-08T03:25:06Z [#230](https://github.com/kriscendobot/minion.town/pull/230) `da33b8b8f18` screened
 - 2026-11-08T02:44:20Z [#230](https://github.com/kriscendobot/minion.town/pull/230) `448b3479573` screened
-- 2026-11-07T23:52:26Z [#253](https://github.com/kriscendobot/minion.town/pull/253) merged `6ee256448fd`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42427196488), watchdog ok — validated
 
 ## Messages to the maintainer
 
@@ -2553,6 +2552,18 @@ Delegation: **active**
 >
 > To fix: see the parenthetical above for a cause-specific cure; for a missing CLI, install or repair the CLI on oros-studio-garden-ce242c49 (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, $NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.
 
+- `watchdog-self-heal-garden-reputation-reducer` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-reputation-reducer.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-08T20:52:21Z, latest 2026-11-08T23:52:24Z).
+> The SAME condition (`self-heal-garden-reputation-reducer`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-reputation-reducer exited rc=1 with no scoped fix. Capture: 75f0c328722e1d5193ce0d91cd0f46feb36326c1 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 75f0c328722e1d5193ce0d91cd0f46feb36326c1). Diagnosis: The `garden-reputation-reducer` failure came from a full disk, not from a bug in the script. This is environmental, so there is no fix job to post.
+>
+> `scripts/jobs/reputation-reduce.sh` line 39 failed with `printf: write error: No space left on device`, which caused the exit code 1. `/dev/nvme0n1p2`, which holds `/home/kris/garden`, is at 100%, with 243M free of 3.6T.
+>
+> Any script that writes under the garden root can fail the same way until space is freed. Someone needs to free space on that volume. Likely candidates are old worktrees, `.garden-state` caches and journal blobs, build artifacts, and stale self-heal blobs. The reducer will recover on its own once writes succeed again. I'm not posting a self-heal-fix job, since it would also fail on the full disk and would not fix the cause.
+
 - `watchdog-self-heal-garden-receipt-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-ocapn.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-09-22T00:22:39Z, latest 2026-11-08T22:15:21Z).
@@ -2691,7 +2702,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.9M | $135.28 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.0M | $135.19 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158092568 tokens/day lower bound._
@@ -2742,8 +2753,7 @@ worst fetch p95 7.733517s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (8)
-- [`minion-town-arc-press-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-235013.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (7)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-watch-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-235013.md) — ---
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
@@ -2752,13 +2762,13 @@ worst fetch p95 7.733517s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
 - [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
-### tada (16965)
+### tada (16966)
+- [`minion-town-arc-press-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-235013.md) — Cost
 - [`improve-correlate-unit-failure-tails`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-correlate-unit-failure-tails.md) — Cost
 - [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Cost
 - [`endojs-endo-but-for-bots-pr1657-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1657-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1654-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1654-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-pr1655-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1655-dependabot.md) — Botanist report: endojs/endo-but-for-bots#1655 (@earendil-works/pi-ai 0.87.1 ...
-- … and 16960 more
+- … and 16961 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
