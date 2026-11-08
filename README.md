@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T18:09:47Z_
+_As of 2026-11-08T18:13:10Z_
 
 ## Latest
 
@@ -1521,10 +1521,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.019103s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_issue_inbox_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_issue_inbox_verify.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/issue-inbox/verify: p95=45.003124s max=45.003124s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `doomed-improve-gauntlet-notices-to-pr-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-gauntlet-notices-to-pr-20261106-requeue-exhausted.md)
 
