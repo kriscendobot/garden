@@ -8,6 +8,7 @@ scripts/jobs/scheduler.sh
 `scripts/jobs/scheduler.sh:515` dispatches the controller health watch as an LLM job despite `schedules/oros-health-watch.md:19` defining a deterministic paired-check completion gate; it twice exited unsignaled in 31s and was parked at 2026-11-08T12:03:17Z. Add a deterministic controller-mode health-watch path that reads paired completion, fleet, roll, and sysop records, writes a bounded disposition, and defers only genuinely judgmental or attested repairs. Test that routine controller cycles close without consuming a worker or requeueing.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=557 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
