@@ -23,3 +23,13 @@ Finish the disposition from an isolated project checkout. Verdict is MERGE-NOW o
 Diligence complete: base preact 10.29.8 to target 11.1.1 is not superseded; only preact moves in the lockfile with no transitive/license change; seven-day maturity floor passed 2026-11-07T05:01:22.350Z; upstream runtime/build source reviewed with no malicious behavior; GitHub Advisory DB and OSV report zero preact findings on both sides and yarn audit has no preact finding; trusted GitHub Actions publisher, SLSA provenance, and approver are unchanged. Scripts-disabled immutable install passed with --mode=skip-build. TypeSafe classification was unavailable because TYPESAFE_API_KEY is absent, so prose was manually reviewed under proceed_unclassified.
 
 Once legitimately green, rerun the conductor with --dependabot-auto-merge, post the structured botanist verdict, update the Dependabotany ledger through journal-entry.sh, drain both inboxes, and report the merge SHA.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-08T22:26:14Z
