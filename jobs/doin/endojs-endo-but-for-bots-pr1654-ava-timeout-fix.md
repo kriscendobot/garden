@@ -35,3 +35,13 @@ them under coverage. Push to the PR head branch (garden bot identity, so the
 dependabot auto-merge head gate still accepts it), drive the cover/test legs green,
 then message the botanist ledger: the daily dependabotany-recheck-endo-but-for-bots
 backstop will render the terminal verdict.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-08T20:34:51Z
