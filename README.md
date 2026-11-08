@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T03:20:00Z_
+_As of 2026-11-08T03:20:54Z_
 
 ## Latest
 
@@ -2448,7 +2448,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.7M | $113.65 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 27.8M | $114.01 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158511182 tokens/day lower bound._
@@ -2487,8 +2487,8 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #230
 
 ### tada (16945)
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-panel-1.md) — Cost
