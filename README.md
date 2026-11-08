@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T20:04:42Z_
+_As of 2026-11-08T20:09:39Z_
 
 ## Latest
 
@@ -2560,7 +2558,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.5M | $118.73 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.7M | $121.55 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 372.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158212508 tokens/day lower bound._
@@ -2609,8 +2607,11 @@ worst fetch p95 3.638600s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1657-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1657-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1657
+- [`endojs-endo-but-for-bots-pr1655-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1655-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1655
+- [`endojs-endo-but-for-bots-pr1654-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1654-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1654
+- [`endojs-endo-but-for-bots-pr1656-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1656-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1656
 
 ### tada (16960)
 - [`oros-health-watch-20261108-173513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/oros-health-watch-20261108-173513.md) — 2026-11-08T17:40Z - oros-health-watch-20261108-173513
