@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T22:24:09Z_
+_As of 2026-11-08T22:25:08Z_
 
 ## Latest
 
@@ -2181,6 +2181,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-self-heal-garden-cleric` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-cleric.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-08T20:52:23Z, latest 2026-11-08T22:24:26Z).
+> The SAME condition (`self-heal-garden-cleric`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-cleric exited rc=1 with no scoped fix. Capture: 68a3aa79e0e22388d374f2de85adc6329b20a53b (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 68a3aa79e0e22388d374f2de85adc6329b20a53b). Diagnosis: **Diagnosis: the disk is full, so this is environmental and I'm not posting a fix job.**
+>
+> - **What failed:** `garden-cleric` (worker 2) exited with code 1 after the log line `FATAL: claim failed (rc=4)`. Just before it, git printed `error: failed to write new configuration file .../clerics/2/journal/.git/config.lock`.
+> - **Cause:** `/home/kris/garden` is on `/dev/nvme0n1p2`, which is 3.4T of 3.6T used with only 348M free (100%). Git couldn't write its config lock in the cleric's journal clone, so the claim step died.
+> - **Related symptom:** the monitor logs also show it sweeping stray `tmp_pack` files from killed fetches, which is consistent with disk pressure.
+> - **Why not a code fix:** nothing in the claim script is wrong. In the same log, every earlier claim attempt ran normally and found 
+
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-ymax-e2e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-ymax-e2e.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: 7203544246ef32a76f871ffd13a1033846d133ec (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 7203544246ef32a76f871ffd13a1033846d133ec). Diagnosis: No fix job to post: `garden-comment-watcher@kriscendobot-ymax-e2e` failed because the disk is full, which is environmental, not a code bug.
@@ -2661,7 +2674,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.1M | $131.94 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 31.2M | $132.31 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158591587 tokens/day lower bound._
