@@ -24,6 +24,7 @@ Diligence complete: base preact 10.29.8 to target 11.1.1 is not superseded; only
 
 Once legitimately green, rerun the conductor with --dependabot-auto-merge, post the structured botanist verdict, update the Dependabotany ledger through journal-entry.sh, drain both inboxes, and report the merge SHA.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
