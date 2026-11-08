@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T22:25:08Z_
+_As of 2026-11-08T22:29:10Z_
 
 ## Latest
 
@@ -977,6 +977,14 @@ Delegation: **active**
 > This is an environmental fault. The watcher script behaved correctly, and any other service writing to this filesystem will likely fail the same way. Editing the watcher would not help.
 >
 > An operator needs to free space on the host, for example by pruning old worktrees, bare-repo garbage, or build and cache directories under `/home/kris/g
+
+- `watchdog-self-heal-garden-comment-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-cosgov.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 5ed15a8f1d6c35bf69eed6fac9bbd9698662d30a (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 5ed15a8f1d6c35bf69eed6fac9bbd9698662d30a). Diagnosis: The `garden-comment-watcher@kriscendobot-cosgov` failure doesn't need a fix job. The captured log tail has one line and no error:
+>
+> `[comment-watcher/kriscendobot-cosgov] no new comments on kriscendobot/cosgov since <coldstart> (source self-test OK; just quiet)`
+>
+> That is a normal quiet-poll message, and the source self-test passed. The captured tail shows no crash, trace, or fatal, and I didn't pull any other logs to find out why the unit exited 1. The tail comes from a cold start (`<coldstart>`), so the failure was probably a restart or a brief environmental problem such as a GitHub API or rate-limit hiccup or a deploy restart. A scoped code fix would be guesswork. systemd restarts the unit, so I'm not posting a JOB. If it fails again with a real error line in the captured tail, I'd diagno
 
 - `doomed-daemon-git-capability-phase-five-contract-tests-build-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daemon-git-capability-phase-five-contract-tests-build-r2-requeue-exhausted.md)
 
@@ -2210,6 +2218,16 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo-but-for-bots.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: f5031bf96305a6ba1c547ebfe54c76a9b372807f (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f5031bf96305a6ba1c547ebfe54c76a9b372807f). Diagnosis: The receipt-watcher for `kriscendobot/endo-but-for-bots` failed because the disk is full. I'm not posting a fix job, because no code change would help.
+>
+> The captured tail shows `printf: write error: No space left on device` at `common.sh:176`. Right after it, git couldn't write `.git/config.lock` while `ensure_clone()` was setting the bot name (rc=4). The watcher then exited with `FATAL: receipt journal prerequisite failed`.
+>
+> `df` now shows `/home/kris/garden` at 100% (3.4T of 3.6T used, 313M available), so the cause is still there. Anything else that writes to this filesystem is likely failing the same way. That includes other watchers, journal pushes and job claims.
+>
+> Freeing space is a maintainer action. The likely places to look are old per-job worktrees, packs and garbage in the shared
+
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-07T22:03:41Z, cleared 2026-11-08T13:22:33Z).
@@ -2486,7 +2504,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.945569s max=11898331794.176165s; hard guard=31.500000s (70% of 45s cap); remedy=fail-backoff.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-08T22:19:30Z, cleared 2026-11-08T22:28:31Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
 - `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
 
@@ -2674,13 +2696,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.2M | $132.31 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 31.4M | $134.05 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158591587 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
+worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (39)
@@ -2724,9 +2746,10 @@ worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (6)
+### doin (7)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
+- [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Resume endojs/endo-but-for-bots PR #1658 botanist disposition
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — fix: absorb ava 8.3.0 strict t.timeout() deadline on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
