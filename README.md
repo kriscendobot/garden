@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T22:34:01Z_
+_As of 2026-11-08T22:41:42Z_
 
 ## Latest
 
@@ -388,6 +388,22 @@ Delegation: **active**
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal.md)
 
 > Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/cursors/journal: p95=19.958511s max=19.958511s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
+- `watchdog-self-heal-garden-rolling-deploy` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-rolling-deploy.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-18T08:53:51Z, latest 2026-11-08T22:41:16Z).
+> The SAME condition (`self-heal-garden-rolling-deploy`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-rolling-deploy exited rc=1 with no scoped fix. Capture: 6af0d107bee4e61adaa20524e698e522bf7b0e5c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 6af0d107bee4e61adaa20524e698e522bf7b0e5c). Diagnosis: `garden-rolling-deploy` failed because the disk is full. No code fix applies, so I'm not posting a job.
+>
+> The log shows one fatal error at 22:41:03. The hard reset of the rolling-deploy journal worktree to `origin/journal2` failed on retry with "Out of diskspace" while writing `.git/index.lock`.
+>
+> `df` shows `/home/kris/garden` at 100% (3.4T of 3.6T used, 22M free). The rolling-deploy worktree is only 787M, so it isn't the cause.
+>
+> systemd will keep restarting the service and it will keep failing until space is freed. The other units that write to the journal or git objects are probably failing the same way.
+>
+> A person needs to find what is filling the volume and clear space. Likely candidates are worktree and bare-clone growth under `worktrees/`, `.garden-state/`, per-job tmp directories, and
 
 - `doomed-claude-on-minion-town-completion-press-20261107-retry-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-retry-requeue-exhausted.md)
 
@@ -2704,7 +2720,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.5M | $135.23 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 31.5M | $135.50 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158672617 tokens/day lower bound._
