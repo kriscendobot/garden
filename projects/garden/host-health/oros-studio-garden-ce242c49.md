@@ -2,6 +2,18 @@
 
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
+## 2026-11-08T08:25Z - oros-health-watch-20261108-082012
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: no local run completed this cycle. `oros-health-checkup-20261108-052012` joined the queued checkup backlog in `jobs/todo/` (13 queued, oldest 2026-11-05). No job in `jobs/doin/` names Oros. The `worker-agent-bin-monk` notice (expired Claude OAuth session, 2026-11-07T02:26:36Z) is still unread, with no recovery notice. All `21585bda2b36` canary probes r1..r3 are still unclaimed in `jobs/todo/`. The newest sysop record is still `20261108T041102Z-a4c170` (roll-owned drain reapplied at 04:11Z). The canary-failed notice was last touched at 04:15Z, and there is no newer sysop traffic. Fleet health at 02:58:33Z shows deployed `21585bda2b36` = `origin/main2`, 0/296 failed units. The claude-oros budget heartbeat at 08:01:58Z is current, status ok, 26%.
+- Cause: unchanged. The target's Claude OAuth session is expired, so all monks are credential-parked and cannot claim canaries or the local checkup.
+- Actions: observed only. No sysop operation, drain change, worker-count change, restart, restore, or code change.
+- Final state: present (heartbeat current), deployed `21585bda2b36`, 0 failed units, held under the roll-owned drain after retries 3/3. Oros claims and completes nothing.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login` (or `claude auth login`). Then re-trigger `21585bda2b36` through the rolling-deploy workflow, or explicitly hold or choose the old SHA.
+- Next mechanic: first check for the worker-agent-bin recovery notice and an Oros claim. Then require a canary to reach tada, a roll-completed record, and the roll-owned drain lift. Then confirm the checkup backlog drains or is reaped.
+
 ## 2026-11-08T05:25Z - oros-health-watch-20261108-052012
 
 - Verdict: unhealthy
