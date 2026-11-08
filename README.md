@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T12:18:18Z_
+_As of 2026-11-08T12:22:48Z_
 
 ## Latest
 
@@ -2547,8 +2547,8 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-mechanic-health-controller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mechanic-health-controller.md) — ---
 
 ### tada (16954)
 - [`minion-town-arc-press-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-113509.md) — Cost
