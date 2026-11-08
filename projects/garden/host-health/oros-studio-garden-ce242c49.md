@@ -2,6 +2,18 @@
 
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
+## 2026-11-08T05:25Z - oros-health-watch-20261108-052012
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: no local run completed this cycle. The `oros-health-checkup` schedule was last dispatched at 2026-11-08T02:20:10Z, and `oros-health-checkup-20261108-022010` is still in `jobs/todo/` with the earlier backlog. The rolling deploy moved on to `21585bda2b36`: fleet health at 02:58:33Z shows Oros deployed `21585bda2b36`, 0 of 296 failed units, 0 advisory. All three of its canary probes (`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1..r3`) are unclaimed in `jobs/todo/`. Sysop records `20261108T024704Z-9fed13` (drain off, 02:47:26Z), `-031102Z-8a405f`, `-032602Z-269cc2`, `-034102Z-3ec355`, `-035602Z-6aa4ac`, and `-041102Z-a4c170` were all acked accepted-and-applied. The last one reapplied the roll-owned drain at 04:11:56Z after r3 did not reach tada. The canary-failed notice was updated at 04:11:07Z. There is no `deploy/roll-completed/21585bda...`. The leader is still on `f2788117645d`. The `worker-agent-bin-monk` notice (expired Claude OAuth session, 2026-11-07T02:26:36Z) is still unread, and no recovery notice exists. The claude-oros budget heartbeat at 05:01:58Z is current, status ok, 26%.
+- Cause: unchanged. Claude rejects the target's OAuth session, so all three monks are credential-parked. They cannot claim the canary probes or the local checkup. The canaries fail for lack of a claimant, not because `21585bda2b36` is broken.
+- Actions: observed only. No sysop operation, drain change, worker-count change, restart, restore, or code change. No unit has failed, a restart or restore does not repair a credential refusal, and the rolling-deploy workflow owns the failed-canary drain.
+- Final state: present (heartbeat current), deployed `21585bda2b36` = `origin/main2`, 0 failed units, held under the roll-owned drain after retries 3/3. Oros claims and completes nothing.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login` (or `claude auth login`). Then re-trigger `21585bda2b36` through the rolling-deploy workflow, or explicitly hold or choose the old SHA. The mechanic will not lift the drain.
+- Next mechanic: first check for the worker-agent-bin recovery notice and an Oros claim. Then require a canary to reach tada, a roll-completed record, and the roll-owned drain lift. After that, confirm the queued checkup backlog drains or is reaped.
+
 ## 2026-11-08T02:30Z - oros-health-watch-20261108-022010
 
 - Verdict: unhealthy
