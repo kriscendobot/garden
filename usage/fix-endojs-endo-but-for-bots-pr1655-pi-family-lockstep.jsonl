@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-08T22:00:17Z","base":"fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":5537,"role":"fixer","provider":"anthropic"}
