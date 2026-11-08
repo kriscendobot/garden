@@ -23,6 +23,7 @@ recurrence_budget: 15 minutes
 <!-- garden-plain-retry-not-before: 2026-11-08T14:53:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=307,81 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
