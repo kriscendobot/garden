@@ -1,2 +1,2 @@
-base: improve-root-repo-object-store-health
+base: improve-byte-capacity-guard
 identity: mentor:scripts/jobs/root-repo-guard.sh
