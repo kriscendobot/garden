@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T03:28:06Z_
+_As of 2026-11-08T03:29:56Z_
 
 ## Latest
 
@@ -2445,7 +2445,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.0M | $114.67 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 28.0M | $114.28 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158511182 tokens/day lower bound._
@@ -2454,8 +2454,9 @@ _Fleet token-unlock pace: 158511182 tokens/day lower bound._
 worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (28)
+### todo (29)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -2484,16 +2485,16 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`screen-minion-town-pr230-da33b8b-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr230-da33b8b-conduct.md) — Screened delegated merge: kriscendobot/minion.town#230 at da33b8b8f1878ea924e...
+### doin (0)
+(none)
 
-### tada (16947)
+### tada (16948)
+- [`screen-minion-town-pr230-da33b8b-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/screen-minion-town-pr230-da33b8b-conduct.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet.md) — gauntlet kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet — complete
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-undraft.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-clean.md) — Cost
-- [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability.md) — Cost
-- … and 16942 more
+- … and 16943 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
