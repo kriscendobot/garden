@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T02:45:59Z_
+_As of 2026-11-08T02:48:09Z_
 
 ## Latest
 
@@ -1262,23 +1262,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-07T11:35:09Z, latest 2026-11-07T22:14:10Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-07T11:35:09Z, cleared 2026-11-08T02:47:10Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  3c7f9ce045e9fc9b5bace542c877cc6b909a03c3
-> failing signal: probe 'canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3' did not reach tada within 600s (claim/spine broken on new code)
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `doomed-improve-claude-completion-finalizer-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-claude-completion-finalizer-requeue-exhausted.md)
 
@@ -2456,10 +2444,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.0M | $111.80 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 27.0M | $111.40 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158257594 tokens/day lower bound._
+_Fleet token-unlock pace: 158340417 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
@@ -2494,16 +2482,16 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`screen-minion-town-pr230-448b347-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr230-448b347-conduct.md) — Screened delegated merge: kriscendobot/minion.town#230 at 448b3479573d5ecbe76...
+### doin (0)
+(none)
 
-### tada (16941)
+### tada (16942)
+- [`screen-minion-town-pr230-448b347-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/screen-minion-town-pr230-448b347-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet.md) — gauntlet kriscendobot-minion.town-pr254-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr230-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet.md) — gauntlet kriscendobot-minion.town-pr230-gauntlet — complete
 - [`kriscendobot-minion.town-pr230-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-undraft.md) — Cost
 - [`improve-dependabotany-preflight-merge-now-snapshot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-dependabotany-preflight-merge-now-snapshot.md) — Cost
-- [`kriscendobot-minion.town-pr254-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet-fix-6.md) — Cost
-- … and 16936 more
+- … and 16937 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
