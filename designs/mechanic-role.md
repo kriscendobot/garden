@@ -1,6 +1,6 @@
 ---
 created: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-08
 author: gardener
 ---
 
@@ -198,6 +198,15 @@ thin mechanic dispatches:
   to the leader and staggered after the check-up. It checks whether the local run
   completed, then follows the same diagnose order and operation ladder. It does
   not carry its own repair policy.
+
+The scheduler executes the controller watch deterministically before considering
+an LLM dispatch. It reads the prior paired check-up completion plus the bounded
+fleet-health, roll, latest sysop, and host records, then replaces
+`projects/garden/controller-health/<host>.md` with one compact disposition. A
+healthy prior pair, or a prior pair that is still pending, closes the controller
+cycle without a worker. Only settled evidence that needs diagnosis or an
+attested repair falls through to a mechanic job, with the deterministic
+disposition prepended as evidence.
 
 Each schedule body contains only the four dispatch fields, recurrence budget, and
 a link to `roles/mechanic/AGENT.md`. Existing history stays. New records go to

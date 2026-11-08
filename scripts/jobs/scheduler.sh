@@ -545,6 +545,46 @@ for name in $(list_jobs "$DIR" schedules); do
       continue
     fi
 
+    # A mechanic controller health-watch is a deterministic sensor in the
+    # routine case.  Read its paired local completion and the fleet/roll/sysop
+    # records, then commit one bounded latest-state disposition with the clock
+    # stamp.  Only a non-routine signal falls through to the ordinary LLM job
+    # dispatch below, with the disposition supplied as its evidence.  This keeps
+    # a healthy or merely-pending three-hour cycle from consuming a worker and
+    # from entering the requeue loop after an unsignaled model exit.
+    controller_disposition_path=""
+    controller_context=""
+    controller_target="$(printf '%s\n' "$body" | sed -n 's/^target_host:[[:space:]]*//p' | head -1)"
+    controller_mode="$(printf '%s\n' "$body" | sed -n 's/^mode:[[:space:]]*//p' | head -1)"
+    controller_role="$(printf '%s\n' "$body" | sed -n 's/^role:[[:space:]]*//p' | head -1)"
+    if [ "$controller_role" = mechanic ] && [ "$controller_mode" = controller ] \
+       && [[ "$name" = *-watch.md ]] && [[ "$controller_target" =~ ^[A-Za-z0-9._-]+$ ]]; then
+      controller_disposition_path="projects/garden/controller-health/$controller_target.md"
+      controller_rc=0
+      "$HERE/mechanic-health-controller.sh" "$DIR" "$name" "$base" "$stamp" "$now" \
+        "$controller_disposition_path" || controller_rc=$?
+      case "$controller_rc" in
+        0)
+          write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
+          git -C "$DIR" add "schedules/$name" "$controller_disposition_path"
+          if commit_and_push "$DIR" "schedule($name) closed deterministic controller cycle"; then
+            log "closed deterministic controller cycle $base without dispatching a worker"
+            break
+          fi
+          backoff "$attempt"
+          continue
+          ;;
+        10)
+          controller_context="$(cat "$DIR/$controller_disposition_path")"
+          log "controller cycle $base requires mechanic judgment; dispatching with deterministic disposition"
+          ;;
+        *)
+          controller_disposition_path=""
+          log "WARN controller health pass for $name failed rc=$controller_rc; dispatching mechanic fail-open"
+          ;;
+      esac
+    fi
+
     # Occupancy gate for RECURRING schedules (cybernetics-audit § 3.4, rec 8). The
     # basename is timestamped per period, so a schedule whose job outlives its
     # cadence would otherwise accumulate one live instance per period (the
@@ -608,7 +648,7 @@ for name in $(list_jobs "$DIR" schedules); do
     # (deduped on the schedule name) so the config gap is surfaced and fixed. A
     # gate that is merely erroring is transient — it exists, so a deploy-lag/typo
     # is not the cause and no escalation fires.
-    preflight_context=""
+    preflight_context="$controller_context"
     if [ -n "$preflight" ]; then
       pf="$preflight"; case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
       pf_rc=0
@@ -626,7 +666,14 @@ for name in $(list_jobs "$DIR" schedules); do
           124|137) log "WARN schedule $name preflight '$preflight' exceeded ${GARDEN_SCHEDULER_PREFLIGHT_TIMEOUT}s (rc=$pf_rc); treating as work-present (fail-open)" ;;
         esac
         if [ "$pf_rc" -eq 0 ] && [ -s "$pf_context_file" ]; then
-          preflight_context="$(cat "$pf_context_file")"
+          gate_context="$(cat "$pf_context_file")"
+          if [ -n "$preflight_context" ]; then
+            preflight_context="${preflight_context}
+
+${gate_context}"
+          else
+            preflight_context="$gate_context"
+          fi
         fi
         rm -f "$pf_context_file"
       else
@@ -735,6 +782,9 @@ for name in $(list_jobs "$DIR" schedules); do
     # Stamp last_dispatched in the same commit, preserving optional schedule config.
     write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
     git -C "$DIR" add "$target_dir/$base.md" "schedules/$name"
+    if [ -n "$controller_disposition_path" ]; then
+      git -C "$DIR" add "$controller_disposition_path"
+    fi
     # Retire the drained carry-forward files in this same CAS commit.
     if [ "${#cf_files[@]}" -gt 0 ]; then
       for cff in "${cf_files[@]}"; do
