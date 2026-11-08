@@ -35,6 +35,7 @@ decision, so put it in a separate commit or comment.
 On completion, notify the backstop recheck: the dependabotany daily sweep for endojs-endo-but-for-bots renders
 the terminal verdict on #1655 after your repair lands.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
