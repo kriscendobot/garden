@@ -67,6 +67,29 @@ if [ -n "$paired_base" ]; then
     [ -n "$paired_report" ] && paired_state=complete
   fi
 fi
+# Count every still-live instance of the paired family.  The prior pair alone is
+# always at most one cadence old, so a target that has stopped claiming its local
+# checks would otherwise read as a routine "pending" forever (2026-11-08: fourteen
+# oros checkups queued in todo/, the oldest three days old).
+paired_live=0
+paired_oldest=none
+paired_oldest_age=0
+if [ -n "$paired_prefix" ]; then
+  for state in plan todo doin; do
+    for f in "$repo/jobs/$state/$paired_prefix"-[0-9]*.md; do
+      [ -e "$f" ] || continue
+      paired_live=$((paired_live + 1))
+      ts="$(basename "$f" .md)"; ts="${ts#"$paired_prefix"-}"
+      if [[ "$ts" =~ ^([0-9]{8})-([0-9]{2})([0-9]{2})([0-9]{2})$ ]] \
+         && e="$(date -u -d "${BASH_REMATCH[1]} ${BASH_REMATCH[2]}:${BASH_REMATCH[3]}:${BASH_REMATCH[4]}" +%s 2>/dev/null)" \
+         && [ $((now - e)) -gt "$paired_oldest_age" ]; then
+        paired_oldest_age=$((now - e))
+        paired_oldest="$(basename "$f" .md)"
+      fi
+    done
+  done
+fi
+
 paired_verdict=""
 paired_status=""
 if [ -n "$paired_report" ]; then
@@ -115,10 +138,20 @@ if [ "$paired_state" = complete ]; then
     none) reasons+=(paired-completion-without-verdict) ;;
     *) reasons+=("paired-$paired_verdict") ;;
   esac
+elif [ "$paired_state" = missing ] && [ -n "$paired_base" ]; then
+  # The prior pair was dispatched yet is nowhere on the board (reaped,
+  # withdrawn, or never posted).  Waiting on it would mask the gap forever.
+  reasons+=(paired-missing)
 else
   paired_pending=1
 fi
-if [ "$paired_pending" -eq 1 ]; then
+backlog_max="${GARDEN_MECHANIC_PAIRED_MAX_AGE:-21600}"
+if [ "$paired_pending" -eq 1 ] && [ "$paired_oldest_age" -gt "$backlog_max" ]; then
+  # A paired check that has outlived two cycles is not "pending"; the target is
+  # not claiming its local checks.  That needs the controller's diagnosis.
+  disposition=mechanic-required
+  reason=paired-check-backlog
+elif [ "$paired_pending" -eq 1 ]; then
   # Do not mint a second diagnostic while the target-owned local check is still
   # queued/running (or was superseded by a newer check).  The bounded controller
   # record makes that wait visible and this cycle closes without an LLM.
@@ -161,6 +194,7 @@ cat >"$tmp" <<EOF
 - Disposition: $disposition
 - Reason: $reason
 - Prior paired local: ${paired_base:-none} / $paired_state / $paired_verdict
+- Live paired checks: count=$paired_live oldest=$paired_oldest age_s=$paired_oldest_age
 - Fleet: at=$fleet_at deployed=$deployed roll_status=$fleet_roll unit_failures=$fleet_failed
 - Roll: target=$roll_target completed=$roll_completed
 - Latest sysop: record=${sysop_file:-none} op=$sysop_op outcome=$sysop_outcome at=$sysop_at

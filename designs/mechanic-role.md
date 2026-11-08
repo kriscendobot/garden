@@ -206,7 +206,13 @@ fleet-health, roll, latest sysop, and host records, then replaces
 healthy prior pair, or a prior pair that is still pending, closes the controller
 cycle without a worker. Only settled evidence that needs diagnosis or an
 attested repair falls through to a mechanic job, with the deterministic
-disposition prepended as evidence.
+disposition prepended as evidence. "Pending" is bounded: a prior pair that
+vanished from the board, or any live paired check older than two cycles
+(`GARDEN_MECHANIC_PAIRED_MAX_AGE`, default 6h), is a settled signal that the
+target is not running its local checks. An escalation has one owner: while an
+earlier controller instance is still in `plan/`, `todo/`, or `doin/`, the cycle
+appends `Escalation: deferred to live <base>` to the disposition and closes
+without dispatching.
 
 Each schedule body contains only the four dispatch fields, recurrence budget, and
 a link to `roles/mechanic/AGENT.md`. Existing history stays. New records go to

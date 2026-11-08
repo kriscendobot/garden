@@ -575,6 +575,22 @@ for name in $(list_jobs "$DIR" schedules); do
           continue
           ;;
         10)
+          # One owner per escalation.  While an earlier controller instance is
+          # still live (queued, running, or parked after an unsignaled exit), a
+          # fresh dispatch would only pile another worker behind it.  Record the
+          # owner in the bounded disposition and close this cycle instead.
+          controller_owner="$(schedule_instance_live "$DIR" "${prefix:-${name%.md}}" || true)"
+          if [ -n "$controller_owner" ]; then
+            printf -- '- Escalation: deferred to live %s\n' "$controller_owner" >>"$DIR/$controller_disposition_path"
+            write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
+            git -C "$DIR" add "schedules/$name" "$controller_disposition_path"
+            if commit_and_push "$DIR" "schedule($name) controller escalation already owned by $controller_owner"; then
+              log "controller cycle $base needs a mechanic but $controller_owner is live; recorded, dispatched nothing"
+              break
+            fi
+            backoff "$attempt"
+            continue
+          fi
           controller_context="$(cat "$DIR/$controller_disposition_path")"
           log "controller cycle $base requires mechanic judgment; dispatching with deterministic disposition"
           ;;

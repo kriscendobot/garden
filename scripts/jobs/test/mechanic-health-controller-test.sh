@@ -139,3 +139,53 @@ grep -qx -- '- Disposition: mechanic-required' "$TR/peek/projects/garden/control
 job="$(find "$TR/peek/jobs/todo" -type f ! -name .gitkeep | head -1)"
 grep -q 'unit-failures' "$job"
 printf 'PASS: non-routine evidence alone deferred to a mechanic worker\n'
+
+# While that escalation is still live, the next non-routine cycle records the
+# owner and closes instead of piling a second mechanic behind it.
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+printf '%s\n' '- Verdict: healthy' >"$TR/mutate/jobs/tada/2026/11/08/oros-health-checkup-20261108-120000.md"
+git -C "$TR/mutate" "${git_id[@]}" add -A
+git -C "$TR/mutate" "${git_id[@]}" commit -q -m 'complete paired check'
+git -C "$TR/mutate" push -q
+now=$((now + 10800))
+run_tick
+peek
+test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 1
+grep -q -- '- Escalation: deferred to live oros-health-watch-20261108-120000' "$TR/peek/projects/garden/controller-health/test-target.md"
+grep -qx 'last_dispatched: 2026-11-08T15:00:00Z' "$TR/peek/schedules/oros-health-watch.md"
+printf 'PASS: live escalation owner suppresses a duplicate mechanic dispatch\n'
+
+# A paired local check queued for more than two cycles means the target is not
+# claiming its checks.  That is not routine "pending"; escalate once.
+now="$(date -u -d '2026-11-08T12:00:00Z' +%s)"
+seed_journal 0
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+rm "$TR/mutate/jobs/tada/2026/11/08/oros-health-checkup-20261108-083000.md"
+printf 'local pending\n' >"$TR/mutate/jobs/todo/oros-health-checkup-20261108-083000.md"
+printf 'local stuck\n' >"$TR/mutate/jobs/todo/oros-health-checkup-20261105-103515.md"
+git -C "$TR/mutate" "${git_id[@]}" add -A
+git -C "$TR/mutate" "${git_id[@]}" commit -q -m 'paired backlog'
+git -C "$TR/mutate" push -q
+run_tick
+peek
+test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 1
+grep -qx -- '- Reason: paired-check-backlog' "$TR/peek/projects/garden/controller-health/test-target.md"
+grep -q -- '- Live paired checks: count=2 oldest=oros-health-checkup-20261105-103515' "$TR/peek/projects/garden/controller-health/test-target.md"
+printf 'PASS: stale paired-check backlog escalates instead of reading as pending\n'
+
+# A prior pair that vanished from the board is settled evidence, not "pending".
+now="$(date -u -d '2026-11-08T12:00:00Z' +%s)"
+seed_journal 0
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+rm "$TR/mutate/jobs/tada/2026/11/08/oros-health-checkup-20261108-083000.md"
+git -C "$TR/mutate" "${git_id[@]}" add -A
+git -C "$TR/mutate" "${git_id[@]}" commit -q -m 'paired check vanished'
+git -C "$TR/mutate" push -q
+run_tick
+peek
+test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 1
+grep -qx -- '- Reason: paired-missing' "$TR/peek/projects/garden/controller-health/test-target.md"
+printf 'PASS: vanished paired check escalates instead of waiting forever\n'
