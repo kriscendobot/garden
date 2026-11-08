@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T11:59:02Z_
+_As of 2026-11-08T12:03:46Z_
 
 ## Latest
 
@@ -1701,6 +1699,35 @@ Delegation: **active**
 
 > oros-studio-garden-ce242c49: rolling deploy to 41579bcb938f is HALTED. All 3 canary retries are used up, and the host is drained by the roll. Two things are blocking it. (1) garden-secret-broker.service fails on Oros after each deploy, and I can't see why from the leader. (2) The monks have been credential-parked since 02:26Z because the Claude OAuth session expired. I need three things from you: (a) on Oros, as the garden user, run claude then /login. (b) Attest a read-only log pull: send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>. (c) Decide the roll: fix and re-trigger, or hold / pick the old SHA. The container recreation that secrets.md says this release needs is still pending on Oros and may be what breaks the broker. Full record: projects/garden/host-health/oros-studio-garden-ce242c49.md (20:30Z).
 
+- `doomed-oros-health-watch-20261108-113509-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261108-113509-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-watch-20261108-113509; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-watch-20261108-113509) or removes it, so nothing is lost.
+> Original job base: oros-health-watch-20261108-113509
+>
+> --- original job body ---
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: mechanic
+> requires: host=endolin-garden-ece02cb4
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> role_brief: [roles/mechanic/AGENT.md](roles/mechanic/AGENT.md)
+> target_host: oros-studio-garden-ce242c49
+> trigger: schedule/oros-health-watch
+> mode: controller
+> evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
+> recurrence_budget: 15 minutes
+
 - `doomed-improve-issue-status-source-trust-filter-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-issue-status-source-trust-filter-r2-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2520,8 +2547,8 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`oros-health-watch-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-113509.md) — ---
+### doin (0)
+(none)
 
 ### tada (16954)
 - [`minion-town-arc-press-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-113509.md) — Cost
@@ -2584,6 +2611,7 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`claude-on-minion-town-completion-press-20261107-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261107-retry.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`build-daemon-git-remotes-transport-timing-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-transport-timing-r2.md) — _normal_ · ---
 - [`build-minion-town-retire-resident-role-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-retire-resident-role-20261105.md) — _normal_ · ---
+- [`oros-health-watch-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-113509.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`daily-progress-summary-20261107-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20261107-080513.md) — _normal_ · Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
