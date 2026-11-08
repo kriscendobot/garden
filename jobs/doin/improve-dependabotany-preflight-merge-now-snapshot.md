@@ -9,6 +9,7 @@ scripts/jobs/dependabotany-preflight.sh:358 snapshots only EMBARGO rows, omittin
 Normalize and serialize non-terminal MERGE-NOW ledger rows too, so dispatched botanists receive a complete active-row snapshot without a fail-open full-ledger scan.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=588 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
