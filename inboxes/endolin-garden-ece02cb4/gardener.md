@@ -5297,3 +5297,14 @@ Inspect via `git -C journal cat-file -p d286c131d1029d9b64092393a2441d04ddf7e2d1
 
 Inspect via `git -C journal cat-file -p 2c11daa46dcb80fbb1a1804c2f1e6eb8750b91dc` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/2c11daa46dcb80fbb1a1804c2f1e6eb8750b91dc`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-11-08T21:52:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 92be3b6a1a230b0c6008a3432801b79c29d52bac
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'improve-byte-pressure-clone-recovery' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/92be3b6a1a230b0c6008a3432801b79c29d52bac
+
+Inspect via `git -C journal cat-file -p 92be3b6a1a230b0c6008a3432801b79c29d52bac` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/92be3b6a1a230b0c6008a3432801b79c29d52bac`) -- both work off-host after a plain `journal2` fetch.

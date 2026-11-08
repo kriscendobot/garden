@@ -1,0 +1,7 @@
+<3>21:52:06 [cleric/2] FATAL: could not create per-job worktree /home/kris/garden/scratch/gardener-wt-improve-byte-pressure-clone-recovery off any of origin/main2, main2, HEAD: Preparing worktree (detached HEAD f2788117645)
+error: unable to write file docs/reports/ironhorse-test262/20260814-b3c3ae93b8/report.json
+error: unable to write file references/endo-but-for-bots/roles/namer.md
+error: unable to write file references/endo-but-for-bots/roles/scribe.md
+error: unable to write file references/endo-but-for-bots/roles/stratego.md
+error: unable to write file references/endo-but-for-bots/roles/triager.md
+fatal: cannot create directory at 'references/endo-but-for-bots/skills': No space left on device
