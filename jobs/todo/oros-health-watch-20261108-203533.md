@@ -19,13 +19,6 @@ evidence: confirm this cycle local run completed, then use the host-repair diagn
 recurrence_budget: 15 minutes
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=284 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-08T20:38:09Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-08T21:03:05Z -->
