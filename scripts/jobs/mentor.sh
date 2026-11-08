@@ -232,6 +232,61 @@ if command -v journalctl >/dev/null 2>&1; then
   [ "$(printf '%s' "$jlog" | tr -d '[:space:]')" = "--Noentries--" ] && jlog=""
 fi
 
+# 2b. failed-unit tails. The priority-filtered read above carries systemd's own
+#     "garden-X.service: Failed with result 'exit-code'" records but never the
+#     child's diagnostic, which a script usually logs at info/notice level — so a
+#     digest could report five exit-code failures and not one reason. For each
+#     unique unit that systemd reported as failed in this window, deterministically
+#     append ONE bounded, same-window, all-priority tail. Units are taken in
+#     first-seen order, capped in count, lines, and bytes, and labelled, so a
+#     shared failure is diagnosable without widening routine progress noise (no
+#     failure record → no tails at all).
+: "${GARDEN_MENTOR_FAILURE_TAIL_UNITS:=5}"
+: "${GARDEN_MENTOR_FAILURE_TAIL_LINES:=40}"
+: "${GARDEN_MENTOR_FAILURE_TAIL_BYTES:=8192}"
+for _v in GARDEN_MENTOR_FAILURE_TAIL_UNITS GARDEN_MENTOR_FAILURE_TAIL_LINES GARDEN_MENTOR_FAILURE_TAIL_BYTES; do
+  [[ "${!_v}" =~ ^[0-9]+$ ]] || die "$_v must be a non-negative integer"
+done
+# Print the unique failed garden-* unit names named by systemd failure records in
+# the journal text on stdin, first-seen order.
+failed_garden_units() {
+  grep -oE "garden-[A-Za-z0-9@_.:-]+\.(service|timer|socket|path): (Failed with result|Main process exited, code=(exited|killed|dumped))" \
+    | sed -E 's/: .*$//' | awk '!seen[$0]++' || true
+}
+append_failure_tails() { # <digest>
+  local digest="$1" units unit total shown=0 tail_out
+  [ "$GARDEN_MENTOR_FAILURE_TAIL_UNITS" -gt 0 ] || return 0
+  units="$(printf '%s\n' "$jlog" | failed_garden_units)"
+  [ -n "$units" ] || return 0
+  total="$(printf '%s\n' "$units" | wc -l | tr -d ' ')"
+  while IFS= read -r unit; do
+    [ "$shown" -lt "$GARDEN_MENTOR_FAILURE_TAIL_UNITS" ] || break
+    shown=$((shown + 1))
+    tail_out="$(timeout 15 journalctl --user -u "$unit" --since "$since" --until "$tick_start" \
+      -n "$GARDEN_MENTOR_FAILURE_TAIL_LINES" --no-pager 2>/dev/null || true)"
+    [ "$(printf '%s' "$tail_out" | tr -d '[:space:]')" = "--Noentries--" ] && tail_out=""
+    printf '===== failed-unit tail %s/%s: %s (last %s lines, <=%s bytes, since %s) =====\n' \
+      "$shown" "$total" "$unit" "$GARDEN_MENTOR_FAILURE_TAIL_LINES" \
+      "$GARDEN_MENTOR_FAILURE_TAIL_BYTES" "$since" >> "$digest"
+    if [ -n "$tail_out" ]; then
+      # Keep the END of the window: the diagnostic sits just before the failure.
+      if [ "${#tail_out}" -ge "$GARDEN_MENTOR_FAILURE_TAIL_BYTES" ]; then
+        printf '(older lines elided at the byte cap)\n' >> "$digest"
+        # Drop the line the byte cut split, so every kept line is whole.
+        printf '%s\n' "$tail_out" | tail -c "$GARDEN_MENTOR_FAILURE_TAIL_BYTES" | sed 1d >> "$digest"
+      else
+        printf '%s\n' "$tail_out" >> "$digest"
+      fi
+    else
+      printf '(no journal lines for %s in this window)\n' "$unit" >> "$digest"
+    fi
+  done <<< "$units"
+  if [ "$total" -gt "$shown" ]; then
+    printf '===== failed-unit tails truncated: %s more unit(s) omitted: %s =====\n' \
+      "$((total - shown))" "$(printf '%s\n' "$units" | tail -n +"$((shown + 1))" | tr '\n' ' ')" >> "$digest"
+  fi
+}
+
 # 3. nothing to look at → stay silent
 if [ "${#new[@]}" -eq 0 ] && [ -z "$jlog" ]; then exit 0; fi
 
@@ -247,6 +302,7 @@ for f in "${new[@]}"; do
 done
 if [ -n "$jlog" ]; then
   printf '===== journalctl garden-* (since %s) =====\n%s\n' "$since" "$jlog" >> "$digest"
+  append_failure_tails "$digest"
 fi
 
 # 5. capture the digest as a content-addressed blob in the mentor's own journal
