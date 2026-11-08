@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T02:43:26Z_
+_As of 2026-11-08T02:45:59Z_
 
 ## Latest
 
@@ -34,6 +34,7 @@ Most other watchdog notices are budget-level changes or recovered journal conten
 
 Delegation: **active**
 
+- 2026-11-08T02:44:20Z [#230](https://github.com/kriscendobot/minion.town/pull/230) `448b3479573` screened
 - 2026-11-07T23:52:26Z [#253](https://github.com/kriscendobot/minion.town/pull/253) merged `6ee256448fd`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42427196488), watchdog ok — validated
 - 2026-11-07T23:48:54Z [#253](https://github.com/kriscendobot/minion.town/pull/253) `16a121842e4` screened
 - 2026-11-07T20:00:06Z [#253](https://github.com/kriscendobot/minion.town/pull/253) `9c79d180738` screened
@@ -2455,7 +2456,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.0M | $111.40 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 27.0M | $111.80 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158257594 tokens/day lower bound._
@@ -2493,8 +2494,8 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`screen-minion-town-pr230-448b347-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr230-448b347-conduct.md) — Screened delegated merge: kriscendobot/minion.town#230 at 448b3479573d5ecbe76...
 
 ### tada (16941)
 - [`kriscendobot-minion.town-pr254-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet.md) — gauntlet kriscendobot-minion.town-pr254-gauntlet — review budget reached
