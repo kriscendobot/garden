@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-08T17:27:43Z","base":"improve-byte-capacity-guard","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":364,"provider":"anthropic"}
