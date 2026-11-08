@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T17:22:05Z_
+_As of 2026-11-08T17:24:39Z_
 
 ## Latest
 
@@ -2220,6 +2220,10 @@ Delegation: **active**
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child design-daemon-git-remotes-server-half-r2: doomed and held in plan.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_orch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_orch_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/orch/journal: p95=0.021202s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+
 - `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -2536,13 +2540,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.0M | $117.45 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.1M | $118.73 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 372.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158078331 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.638600s/45s (/home/kris/garden/.garden-state/transcripts/journal); 7 open notice(s); checker healthy
+worst fetch p95 3.638600s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (34)
