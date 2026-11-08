@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T02:37:35Z_
+_As of 2026-11-08T02:39:12Z_
 
 ## Latest
 
@@ -237,6 +235,16 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 4): shared codex subscription demand active=1 queue=3 quota=ok fleet-envelope=4 target=4
+
+- `kriscendobot-minion.town-pr254-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr254-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr254-gauntlet-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion.town-pr254-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr254-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $12.83
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr254-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted.md)
 
@@ -2492,13 +2500,13 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### doin (0)
 (none)
 
-### tada (16939)
+### tada (16941)
+- [`kriscendobot-minion.town-pr254-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet.md) — gauntlet kriscendobot-minion.town-pr254-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr230-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet.md) — gauntlet kriscendobot-minion.town-pr230-gauntlet — complete
 - [`kriscendobot-minion.town-pr230-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-undraft.md) — Cost
 - [`improve-dependabotany-preflight-merge-now-snapshot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-dependabotany-preflight-merge-now-snapshot.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet-fix-6.md) — Cost
-- [`kriscendobot-minion.town-pr230-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-panel-6.md) — Cost
-- [`kriscendobot-minion.town-pr230-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-fix-5.md) — Cost
-- … and 16934 more
+- … and 16936 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
