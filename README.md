@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T20:53:58Z_
+_As of 2026-11-08T20:57:11Z_
 
 ## Latest
 
@@ -700,6 +700,14 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
+
+- `watchdog-self-heal-garden-unblock` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-unblock.md)
+
+> self-heal: garden-unblock exited rc=4 with no scoped fix. Capture: d87b2c62dbbd23593abbb1d14c7bdc89d66506dd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d87b2c62dbbd23593abbb1d14c7bdc89d66506dd). Diagnosis: I couldn't read the captured blob, and I didn't confirm what made `garden-unblock` exit 4. The most likely cause is that the disk is full, which is environmental, so I'm posting no fix job.
+>
+> `/home/kris/garden` (nvme0n1p2, 3.6T) is at 100% with only about 338 MB free. Inodes are fine at 68%. Every `git -C .garden-state/self-heal/journal cat-file …` call failed with `failed to write new configuration file /home/kris/garden/.garden-state/unblock/journal/.git/config.lock`. A tiny `touch` in that directory succeeded, so the failure is not a permissions problem. A git write that needs real space, such as rewriting `config`, may be failing on the nearly full disk. I did not check that.
+>
+> I also don't know why a command pointed at the self-heal journal tried to write the unblock journal's config
 
 - `doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted.md)
 
@@ -2456,6 +2464,12 @@ Delegation: **active**
 >
 > Comment acknowledgment condition cleared.
 
+- `watchdog-self-heal-garden-sysop` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-sysop.md)
+
+> self-heal: garden-sysop exited rc=4 with no scoped fix. Capture: be521b5f9b3208b54ee4da616aa723c2d8e05217 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p be521b5f9b3208b54ee4da616aa723c2d8e05217). Diagnosis: The `garden-sysop` failure (exit 4) is environmental: the garden's disk is nearly full. I'm not posting a fix job.
+>
+> The captured log shows one real error: `error: failed to write new configuration file /home/kris/garden/.garden-state/sysop/journal/.git/config.lock`. There was no stale lock file, and the directory is owned and writable by the garden user. The filesystem holding the garden (`/dev/nvme0n1p2`, mounted at `/home/kris/garden`) is at 100%, with about 338M free of 3.6T. Git writes its config through a temporary `config.lock` file, and that write fails when the disk has no room. The sysop is meant to run on every host and keeps going under drain, so this will keep failing and restarting until space is freed. Other writers, such as the journal index (about 12 MB) and job claims, are
+
 - `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
 
 > FYI from improve-byte-capacity-guard: host endolin-garden-ece02cb4's /home/kris/garden filesystem (/dev/nvme0n1p2, ~3.6 TiB) is at ~176-500 MiB free right now and briefly hit 0 during this job (a Claude tmp write failed with ENOSPC; tests can't use /dev/shm, which is noexec). The new root-repo-guard byte detector (main2 a6b75fe4c08, 5 GiB floor) will page on this once deployed, but the space needs reclaiming by hand now: du -xsh under .garden-state, scratch/, worktrees/.
@@ -2614,7 +2628,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.2M | $126.46 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.3M | $126.99 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 373.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158357798 tokens/day lower bound._
