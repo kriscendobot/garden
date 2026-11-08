@@ -13,7 +13,7 @@ arc:
 stage: panel
 iteration: 4
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: kriscendobot-minion.town-pr243-gauntlet-panel-4
 state: running
 resumed_at: 2026-11-07T17:28:24Z
