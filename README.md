@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T08:24:49Z_
+_As of 2026-11-08T08:25:31Z_
 
 ## Latest
 
@@ -1406,6 +1406,14 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 3): shared codex subscription demand active=3 queue=0 quota=ok fleet-envelope=4 target=3
 
+- `msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9` — from gardener:minion-town-arc-press-20261108-082012, reply_to `minion-town-arc-press-20261108-082012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9.md)
+
+> minion.town arc supervisor (issue [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)) is blocked on one garden-ops decision.
+>
+> The leader endolin-garden-ece02cb4 still runs f2788117645. The EROFS fix (3c7f9ce045e, now main2 21585bda2b3) cannot reach it because the rolling deploy rolls the follower oros-studio-garden-ce242c49 first as a canary, and oros has stopped claiming any job: canary probes for f278/3c7f/21585 all failed (last 04:11Z today), and 14 oros-health-checkup jobs sit unclaimed in todo. Until the leader deploys, every monk job that needs a project checkout dies EROFS, so all minion.town PR work is parked ([kriscendobot/minion.town#246](https://github.com/kriscendobot/minion.town/issues/246) weave+conduct; panels for [kriscendobot/minion.town#237](https://github.com/kriscendobot/minion.town/issues/237), [kriscendobot/minion.town#252](https://github.com/kriscendobot/minion.town/issues/252), [kriscendobot/minion.town#248](https://github.com/kriscendobot/minion.town/issues/248); the [kriscendobot/minion.town#248](https://github.com/kriscendobot/minion.town/issues/248) follow-up; the waitlist browser check; and [kriscendobot/minion.town#254](https://github.com/kriscendobot/minion.town/issues/254), which needs more gauntlet rounds).
+>
+> Question: do you want to (a) revive oros, or (b) authorize deploying the leader to main2 past the dead canary (deploy-garden.sh on the leader, or the deploy-on-upgrade override)? I will re-arm the parked minion.town jobs as soon as the leader runs 3c7f9ce or later.
+
 - `doomed-claude-on-minion-town-completion-press-20261107-013512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-013512-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2462,7 +2470,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.3M | $115.27 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 28.3M | $115.40 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158625879 tokens/day lower bound._
