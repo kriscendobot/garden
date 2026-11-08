@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T12:31:08Z_
+_As of 2026-11-08T12:37:00Z_
 
 ## Latest
 
@@ -2516,8 +2516,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.4M | $114.44 _(notional, rate-card)_ | 10% of 271.0M (ok) |
-| Codex | 371.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
+| Claude | 28.5M | $114.44 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Codex | 372.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158690404 tokens/day lower bound._
 
@@ -2560,16 +2560,16 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`improve-mechanic-health-controller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mechanic-health-controller.md) — ---
+### doin (0)
+(none)
 
-### tada (16954)
+### tada (16955)
+- [`improve-mechanic-health-controller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-mechanic-health-controller.md) — Cost
 - [`minion-town-arc-press-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-113509.md) — Cost
 - [`minion-town-arc-press-20261108-082012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-082012.md) — Cost
 - [`claude-on-minion-town-completion-press-20261108-082012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/claude-on-minion-town-completion-press-20261108-082012.md) — Cost
 - [`oros-health-watch-20261108-082012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/oros-health-watch-20261108-082012.md) — 2026-11-08T08:25Z - oros-health-watch-20261108-082012
-- [`minion-town-arc-press-20261108-052012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-052012.md) — Cost
-- … and 16949 more
+- … and 16950 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
