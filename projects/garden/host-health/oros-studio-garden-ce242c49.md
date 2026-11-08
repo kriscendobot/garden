@@ -14,6 +14,18 @@
 
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
+## 2026-11-08T17:40Z - oros-health-watch-20261108-173513
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local run did not complete this cycle. `oros-health-checkup-20261108-143510` is still in `jobs/todo/`, one of 16 queued checkups (oldest `oros-health-checkup-20261105-103515`), and no Oros job is in `jobs/doin/`. Nothing has changed since the 14:38Z record. The `worker-agent-bin-monk-oros-studio-garden-ce242c49` notice (expired Claude OAuth session, 2026-11-07T02:26:36Z) is still unread, with no recovery notice. `fleet/health` is still at 13:00:36Z: deployed `d02b2fae8f58` = `origin/main2`, `roll-drained`, 1/297 failed units, first `garden-secret-broker.service`. The newest sysop record is still `20261108T133802Z-013391` (the roll-owned drain reapplied). The canary-failed notice was last touched at 13:38:07Z (occurrence #5), and there is no `deploy/roll-completed/d02b2fae...`. The claude-oros heartbeat at 17:02:15Z is current, ok, 26%. Side effect: the leader is still on `f2788117645d` (rolls go followers first, so the halted roll keeps it there). That SHA predates the deterministic controller (`4e086814e60`, `d02b2fae8f5`), so no `projects/garden/controller-health/` record exists yet and every watch cycle still dispatches an LLM mechanic. Eleven earlier `oros-health-watch-*` jobs sit doomed (`requeue-exhausted`) in `jobs/plan/`.
+- Cause: unchanged. (1) Claude rejects the target's expired OAuth session, so all four monks are credential-parked. (2) `garden-secret-broker.service` fails the post-deploy unit gate; the cause is unknown until the unit log is exported.
+- Actions: observed only. No sysop operation, reset, restore, drain change, worker-count change, restart, or code change.
+- Final state: present (budget heartbeat current), deployed `d02b2fae8f58`, held under the roll-owned drain after retries 3/3, 1 failed unit. Four monks are configured but credential-parked, and Oros is claiming and completing nothing.
+- Maintainer: same as 14:38Z. (1) On oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login`. (2) Attest `send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>`. (3) Then re-trigger `d02b2fae8f58` through rolling deploy, or explicitly hold or choose the old SHA.
+- Next mechanic: first check for the worker-agent-bin recovery notice, the broker unit log, and a fresh fleet-health record with 0 failed units. Then require a canary to reach tada, a roll-completed record, and the roll workflow's drain lift. Finally confirm the leader deploys the controller and the checkup backlog drains or is reaped.
+
 ## 2026-11-08T11:38Z - oros-health-watch-20261108-113509
 
 - Verdict: unhealthy
