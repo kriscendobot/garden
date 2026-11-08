@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T17:09:16Z_
+_As of 2026-11-08T17:13:20Z_
 
 ## Latest
 
@@ -671,18 +671,6 @@ Delegation: **active**
 > Defect: `scripts/jobs/decision-append.sh:108` drops decisions when its optional 5-second clone lock wait is busy; the reaper lost `schedule-plain-retry` at 17:24:39Z and `mark-split-eligible` at 17:35:39Z.
 > Persist failed decision rows in a host-local durable spool and flush them under the ledger lock on a later successful invocation, retaining fail-open behavior for controllers.
 > Add coverage for lock contention followed by recovery to verify both rows reach the ledger once.
-
-- `watchdog-self-heal-garden-orchestrate` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-orchestrate.md)
-
-> self-heal: garden-orchestrate exited rc=1 with no scoped fix. Capture: df2188b6a8ee325f5b8e85ee174c21aac062a294 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p df2188b6a8ee325f5b8e85ee174c21aac062a294). Diagnosis: `garden-orchestrate` failed because the disk is full. I'm not posting a fix job, because no code change addresses this.
->
-> At 17:08:21 the orchestrate step hit `FATAL: hard reset of .garden-state/orch/journal to origin/journal2 failed after retry`. git then reported `write error. Out of diskspace` while writing `.git/index.lock`. The repo-lock line just before it, "cleared dead-holder metadata", is routine and unrelated.
->
-> `df` shows `/home/kris/garden` at 100% (3.6T total, 3.4T used, 107M available). Every git write on this volume will keep failing, not just orchestrate's. systemd's restart will fail the same way until space is freed.
->
-> **Escalation for the maintainer:** free space on the garden volume. The likely places to look are:
-> - old per-job project worktrees
-> - yarn and node_modules tre
 
 - `muster-daemon-git-remotes-r2-20261106-terminal-complete-with-failures` — from orchestrator:muster-daemon-git-remotes-r2-20261106-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-terminal-complete-with-failures.md)
 
@@ -1744,15 +1732,6 @@ Delegation: **active**
 
 > oros-studio-garden-ce242c49: rolling deploy to 41579bcb938f is HALTED. All 3 canary retries are used up, and the host is drained by the roll. Two things are blocking it. (1) garden-secret-broker.service fails on Oros after each deploy, and I can't see why from the leader. (2) The monks have been credential-parked since 02:26Z because the Claude OAuth session expired. I need three things from you: (a) on Oros, as the garden user, run claude then /login. (b) Attest a read-only log pull: send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>. (c) Decide the roll: fix and re-trigger, or hold / pick the old SHA. The container recreation that secrets.md says this release needs is still pending on Oros and may be what breaks the broker. Full record: projects/garden/host-health/oros-studio-garden-ce242c49.md (20:30Z).
 
-- `watchdog-self-heal-garden-monk` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-monk.md)
-
-> self-heal: garden-monk exited rc=1 with no scoped fix. Capture: cfdc8f484b78b0e3f7bb8b73a0502d68d058f99c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p cfdc8f484b78b0e3f7bb8b73a0502d68d058f99c). Diagnosis: garden-monk exited 1 because the disk is full, so the cause is environmental and there is no code fix to post. I'm emitting no JOB block.
->
-> **What happened:** the monk had been polling the board normally, skipping jobs that need other host capabilities. At 17:08:21 its hard reset of `.garden-state/monks/1/journal` to `origin/journal2` failed with `.git/index.lock write error. Out of diskspace`. That made the claim step fail, so the monk exited with rc=1. `/home/kris/garden` is on `/dev/nvme0n1p2`, which is 100% used (3.4T of 3.6T, 107M free).
->
-> **What to do:**
-> - **Free space.** The maintainer or a host-repair pass should free space on this volume. I did not delete anything. Each monk's journal worktree is about 780M, and there are at least three of them. The usual candidates are large caches
-
 - `doomed-oros-health-watch-20261108-113509-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261108-113509-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2557,7 +2536,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.9M | $117.00 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 28.9M | $117.03 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 372.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158045469 tokens/day lower bound._
