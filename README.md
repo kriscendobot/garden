@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T22:41:42Z_
+_As of 2026-11-08T22:49:32Z_
 
 ## Latest
 
@@ -390,22 +388,6 @@ Delegation: **active**
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal.md)
 
 > Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/cursors/journal: p95=19.958511s max=19.958511s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-
-- `watchdog-self-heal-garden-rolling-deploy` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-rolling-deploy.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-18T08:53:51Z, latest 2026-11-08T22:41:16Z).
-> The SAME condition (`self-heal-garden-rolling-deploy`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> self-heal: garden-rolling-deploy exited rc=1 with no scoped fix. Capture: 6af0d107bee4e61adaa20524e698e522bf7b0e5c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 6af0d107bee4e61adaa20524e698e522bf7b0e5c). Diagnosis: `garden-rolling-deploy` failed because the disk is full. No code fix applies, so I'm not posting a job.
->
-> The log shows one fatal error at 22:41:03. The hard reset of the rolling-deploy journal worktree to `origin/journal2` failed on retry with "Out of diskspace" while writing `.git/index.lock`.
->
-> `df` shows `/home/kris/garden` at 100% (3.4T of 3.6T used, 22M free). The rolling-deploy worktree is only 787M, so it isn't the cause.
->
-> systemd will keep restarting the service and it will keep failing until space is freed. The other units that write to the journal or git objects are probably failing the same way.
->
-> A person needs to find what is filling the volume and clear space. Likely candidates are worktree and bare-clone growth under `worktrees/`, `.garden-state/`, per-job tmp directories, and
 
 - `doomed-claude-on-minion-town-completion-press-20261107-retry-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-retry-requeue-exhausted.md)
 
@@ -2207,6 +2189,18 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
 
+- `msg-endojs-endo-but-for-bots-pr1658-dependabot-ci-resume-15f517e784f1` — from gardener:endojs-endo-but-for-bots-pr1658-dependabot-ci-resume, reply_to `endojs-endo-but-for-bots-pr1658-dependabot-ci-resume` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1658-dependabot-ci-resume-15f517e784f1.md)
+
+> Host endolin-garden-ece02cb4 is OUT OF DISK: the overlay root has about 310 MB free of 3.6 TB, and scratch/tmpexec alone holds 19 GB. Journal clones under .garden-state fail with "Out of diskspace", and jobs only work around it by pointing GARDEN_STATE and TMPDIR at tmpfs /tmp. This needs host cleanup.
+>
+> Separately, [https://github.com/endojs/endo-but-for-bots/pull/1658](https://github.com/endojs/endo-but-for-bots/pull/1658) (Dependabot, preact 11.1.1) is MERGE-NOW but blocked on `test-xs`. That failure is pre-existing on llm: `.node-version: lts/*` now resolves to Node 26. The fix is draft [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (pin Node 24). Its gauntlet halted on 2026-11-03 on a bwrap flake, so nothing is driving it. [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) now gates at least [https://github.com/endojs/endo-but-for-bots/pull/1658](https://github.com/endojs/endo-but-for-bots/pull/1658), [https://github.com/endojs/endo-but-for-bots/pull/1573](https://github.com/endojs/endo-but-for-bots/pull/1573) and [https://github.com/endojs/endo-but-for-bots/pull/1654](https://github.com/endojs/endo-but-for-bots/pull/1654).
+>
+> Options:
+> - Re-run the gauntlet on [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
+> - Approve [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) and have it conducted.
+>
+> The [https://github.com/endojs/endo-but-for-bots/pull/1658](https://github.com/endojs/endo-but-for-bots/pull/1658) successor (endojs-endo-but-for-bots-pr1658-dependabot-conduct-after-pr1646) auto-promotes when [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) lands.
+
 - `watchdog-self-heal-garden-cleric` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-cleric.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-11-08T20:52:23Z, latest 2026-11-08T22:24:26Z).
@@ -2722,7 +2716,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.5M | $135.50 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 31.7M | $136.96 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158672617 tokens/day lower bound._
@@ -2731,7 +2725,7 @@ _Fleet token-unlock pace: 158672617 tokens/day lower bound._
 worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (40)
+### todo (39)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2762,7 +2756,6 @@ worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261108-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-022010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
-- [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
@@ -2773,11 +2766,12 @@ worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (6)
+### doin (7)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
 - [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Resume endojs/endo-but-for-bots PR #1658 botanist disposition
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — fix: absorb ava 8.3.0 strict t.timeout() deadline on endojs/endo-but-for-bots...
+- [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
 - [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
