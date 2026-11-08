@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T03:47:30Z_
+_As of 2026-11-08T03:52:18Z_
 
 ## Latest
 
@@ -378,10 +378,6 @@ Delegation: **active**
 > Report minion-town-docs-tower-report-20261016: two items need your call.
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
