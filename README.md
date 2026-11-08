@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T22:49:32Z_
+_As of 2026-11-08T22:51:47Z_
 
 ## Latest
 
@@ -2516,11 +2516,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-08T22:19:30Z, cleared 2026-11-08T22:28:31Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-08T22:19:30Z, latest 2026-11-08T22:50:16Z).
+> The SAME condition (`journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.602402s max=126661794.177946s; hard guard=31.500000s (70% of 45s cap); remedy=lock-backoff.
 
 - `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
 
@@ -2719,10 +2719,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 31.7M | $136.96 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 373.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158672617 tokens/day lower bound._
+_Fleet token-unlock pace: 158716317 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
+worst fetch p95 4.406435s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (39)
