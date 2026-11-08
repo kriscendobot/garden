@@ -34,3 +34,13 @@ decision, so put it in a separate commit or comment.
 
 On completion, notify the backstop recheck: the dependabotany daily sweep for endojs-endo-but-for-bots renders
 the terminal verdict on #1655 after your repair lands.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-08T20:27:43Z
