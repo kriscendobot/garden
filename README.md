@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T17:27:11Z_
+_As of 2026-11-08T17:28:31Z_
 
 ## Latest
 
@@ -2391,6 +2391,10 @@ Delegation: **active**
 > Comment acknowledgment dead anomaly for kriscendobot/moddable:
 > watcher heartbeat stale (age=316s > 270s; outcome=full-poll)
 
+- `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
+
+> FYI from improve-byte-capacity-guard: host endolin-garden-ece02cb4's /home/kris/garden filesystem (/dev/nvme0n1p2, ~3.6 TiB) is at ~176-500 MiB free right now and briefly hit 0 during this job (a Claude tmp write failed with ENOSPC; tests can't use /dev/shm, which is noexec). The new root-repo-guard byte detector (main2 a6b75fe4c08, 5 GiB floor) will page on this once deployed, but the space needs reclaiming by hand now: du -xsh under .garden-state, scratch/, worktrees/.
+
 - `minion-town-pr-screening-gauntlet-halted-pr237-304dd24` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-gauntlet-halted-pr237-304dd24.md)
 
 > minion.town screen BLOCKED [https://github.com/kriscendobot/minion.town/pull/237](https://github.com/kriscendobot/minion.town/pull/237) (head 304dd2484e3): screen gauntlet kriscendobot-minion-town-pr237-screen-304dd248-gauntlet halted. Read jobs/tada/2026/11/07/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet.md and resume or replace the gauntlet; the proxy cannot produce a panel verdict for this head.
@@ -2545,7 +2549,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $120.02 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.3M | $120.10 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 372.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158078331 tokens/day lower bound._
