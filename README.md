@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T03:14:56Z_
+_As of 2026-11-08T03:18:06Z_
 
 ## Latest
 
@@ -1542,6 +1542,10 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 3): subscription claude-endolin1 spend=25712318 cap=271000000 pace-bias=0.035920 window-start=2026-11-07T04:00Z(calendar) deadline=2026-11-14T04:00Z(calendar) ceiling=4 backoff=0.5657(ramp) target=3
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-kriscendobot-minion.town-pr247-review-213830b3-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr247-review-213830b3-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2444,10 +2448,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.2M | $111.67 _(notional, rate-card)_ | 10% of 271.0M (ok) |
-| Codex | 371.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 27.7M | $113.94 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Codex | 371.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158365556 tokens/day lower bound._
+_Fleet token-unlock pace: 158511182 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
