@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T22:18:35Z_
+_As of 2026-11-08T22:20:01Z_
 
 ## Latest
 
@@ -2473,6 +2471,10 @@ Delegation: **active**
 >
 > The captured log shows one real error: `error: failed to write new configuration file /home/kris/garden/.garden-state/sysop/journal/.git/config.lock`. There was no stale lock file, and the directory is owned and writable by the garden user. The filesystem holding the garden (`/dev/nvme0n1p2`, mounted at `/home/kris/garden`) is at 100%, with about 338M free of 3.6T. Git writes its config through a temporary `config.lock` file, and that write fails when the disk has no room. The sysop is meant to run on every host and keeps going under drain, so this will keep failing and restarting until space is freed. Other writers, such as the journal index (about 12 MB) and job claims, are
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.945569s max=11898331794.176165s; hard guard=31.500000s (70% of 45s cap); remedy=fail-backoff.
+
 - `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
 
 > FYI from improve-byte-capacity-guard: host endolin-garden-ece02cb4's /home/kris/garden filesystem (/dev/nvme0n1p2, ~3.6 TiB) is at ~176-500 MiB free right now and briefly hit 0 during this job (a Claude tmp write failed with ENOSPC; tests can't use /dev/shm, which is noexec). The new root-repo-guard byte detector (main2 a6b75fe4c08, 5 GiB floor) will page on this once deployed, but the space needs reclaiming by hand now: du -xsh under .garden-state, scratch/, worktrees/.
@@ -2665,7 +2667,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 158591587 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
+worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (39)
