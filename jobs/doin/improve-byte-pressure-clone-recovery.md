@@ -11,6 +11,7 @@ At `scripts/jobs/state-clone-keeper.sh:237-248`, pressure detection measures onl
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-08T22:03:11Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
