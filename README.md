@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T02:57:00Z_
+_As of 2026-11-08T02:57:36Z_
 
 ## Latest
 
@@ -2444,7 +2444,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.1M | $111.74 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 27.1M | $111.40 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 371.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158340417 tokens/day lower bound._
@@ -2482,16 +2482,16 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #230
+### doin (0)
+(none)
 
-### tada (16942)
+### tada (16943)
+- [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability.md) — Cost
 - [`screen-minion-town-pr230-448b347-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/screen-minion-town-pr230-448b347-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet.md) — gauntlet kriscendobot-minion.town-pr254-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr230-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet.md) — gauntlet kriscendobot-minion.town-pr230-gauntlet — complete
 - [`kriscendobot-minion.town-pr230-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-undraft.md) — Cost
-- [`improve-dependabotany-preflight-merge-now-snapshot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-dependabotany-preflight-merge-now-snapshot.md) — Cost
-- … and 16937 more
+- … and 16938 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
