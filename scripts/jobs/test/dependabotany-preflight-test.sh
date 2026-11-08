@@ -7,9 +7,10 @@
 #   exit 0 = work present → dispatch the botanist ledger sweep
 #   exit 2 = no work      → advance the clock only, dispatch nothing
 # It skips (exit 2) ONLY when BOTH hold: (A) the watched repo has zero open
-# `dependabot[bot]` PRs, AND (B) the project's dependabotany ledger has no due row
-# (no active embargo whose maturity date has arrived). Any read/enumeration error
-# fails OPEN (dispatch), so a transient blip never starves the backstop.
+# `dependabot[bot]` PRs, AND (B) the project's dependabotany ledger has no
+# actionable row (no matured embargo or non-terminal MERGE-NOW). Any
+# read/enumeration error fails OPEN (dispatch), so a transient blip never starves
+# the backstop.
 #
 # Hermetic: a throwaway bare journal stands in for origin/journal2 (the gate's
 # ensure_clone/sync_clone clone from it); the open-PR source is a deterministic
@@ -31,7 +32,7 @@ hr()  { echo "----------------------------------------------------------------";
 # splice the real journal under the fixture.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 
-TR=/home/kris/.garden-dependabotany-preflight-test
+TR="${TMPDIR:-/tmp}/garden-dependabotany-preflight-test.$$"
 rm -rf "$TR"; mkdir -p "$TR"
 BARE="$TR/journal.git"
 BRANCH=journal2
@@ -178,6 +179,14 @@ terminal_pr_body() {
   printf 'project: %s\nrepo: %s\npr: %s\ndependabotany-terminal-pr: %s\n\n# Dependabotany deterministic result: terminal\n' \
     "$PROJECT" "$REPO" "$1" "$1"
 }
+merge_now_active_body() {
+  printf '# Dependabotany - %s PR #%s - MERGE-NOW blocked, still non-terminal\n\nproject: %s\nrepo: %s\npr: %s\ndependabotany-active-pr: %s\n\n- PR #%s - verdict MERGE-NOW, not terminal. The base-CI blocker is still open.\n' \
+    "$REPO" "$1" "$PROJECT" "$REPO" "$1" "$1" "$1"
+}
+escalated_active_body() {
+  printf '# Dependabotany - %s PR #%s - escalated to fixer\n\nproject: %s\nrepo: %s\npr: %s\ndependabotany-active-pr: %s\nverdict: ESCALATED (next: fixer), not terminal\n\nOn green CI, the future verdict is MERGE-NOW.\n' \
+    "$REPO" "$1" "$PROJECT" "$REPO" "$1" "$1"
+}
 
 # ============================================================================
 hr; echo "STATIC — dependabotany-preflight.sh parses (bash -n)"; hr
@@ -241,7 +250,7 @@ add_entry 2026/08/06/000003Z-c "$(terminal_pr_body 905)"
 run_pre ""
 [ "$RC" -eq 0 ] \
   && ! grep -q $'\t905\t' <<<"$CONTEXT" \
-  && grep -q $'^2026-08-06\t906\t' <<<"$CONTEXT" \
+  && grep -q $'^EMBARGO-2026-08-06\t906\t' <<<"$CONTEXT" \
   && ok "per-PR terminal marker preserves another matured embargo" \
   || bad "terminal marker drained another PR: rc=$RC CONTEXT=$CONTEXT"
 
@@ -265,7 +274,7 @@ SNAP_HEAD="$(git --git-dir="$BARE" rev-parse "$BRANCH")"
 grep -q -- "- Journal HEAD: \`$SNAP_HEAD\`" <<<"$CONTEXT" \
   && ok "snapshot is keyed to the exact scanned journal HEAD" \
   || bad "snapshot HEAD missing/wrong; CONTEXT=$CONTEXT"
-grep -q $'^2026-08-05\t902\tentries/2026/08/01/000001Z-a$' <<<"$CONTEXT" \
+grep -q $'^EMBARGO-2026-08-05\t902\tentries/2026/08/01/000001Z-a$' <<<"$CONTEXT" \
   && ok "snapshot carries a normalized maturity/PR/source row" \
   || bad "normalized row missing; CONTEXT=$CONTEXT"
 grep -q "fail open to the role's case-insensitive full scan" <<<"$CONTEXT" \
@@ -276,6 +285,36 @@ run_pre ""
 [ "$CONTEXT" = "$FIRST_CONTEXT" ] \
   && ok "same journal HEAD produces a byte-identical snapshot" \
   || bad "snapshot changed without a journal HEAD change"
+
+# ============================================================================
+hr; echo "SNAPSHOT - a blocked non-terminal MERGE-NOW row is normalized"; hr
+reset_bare
+add_entry 2026/11/02/000001Z-a "$(merge_now_active_body 1633)"
+run_pre ""
+[ "$RC" -eq 0 ] && ok "active MERGE-NOW row dispatches even with no live PR roster" || bad "exit $RC (want 0); OUT=$OUT"
+grep -q $'^MERGE-NOW\t1633\tentries/2026/11/02/000001Z-a$' <<<"$CONTEXT" \
+  && grep -q -- '- Rows: 1' <<<"$CONTEXT" \
+  && ok "snapshot carries the blocked MERGE-NOW row" \
+  || bad "MERGE-NOW row missing; CONTEXT=$CONTEXT"
+
+hr; echo "SNAPSHOT - a conditional future MERGE-NOW is not normalized as current"; hr
+reset_bare
+add_entry 2026/11/01/000001Z-a "$(escalated_active_body 1631)"
+run_pre ""
+[ "$RC" -eq 2 ] \
+  && ! grep -q $'^MERGE-NOW\t1631\t' <<<"$CONTEXT" \
+  && ok "ESCALATED marker with only a future MERGE-NOW remains outside the MERGE-NOW set" \
+  || bad "conditional MERGE-NOW became active: rc=$RC CONTEXT=$CONTEXT"
+
+hr; echo "SNAPSHOT - a later terminal marker retires MERGE-NOW"; hr
+reset_bare
+add_entry 2026/11/02/000001Z-a "$(merge_now_active_body 1633)"
+add_entry 2026/11/03/000002Z-b "$(terminal_pr_body 1633)"
+run_pre ""
+[ "$RC" -eq 2 ] \
+  && ! grep -q $'^MERGE-NOW\t1633\t' <<<"$CONTEXT" \
+  && ok "terminal marker retires the MERGE-NOW row" \
+  || bad "terminal MERGE-NOW survived: rc=$RC CONTEXT=$CONTEXT"
 
 # ============================================================================
 hr; echo "SNAPSHOT — an unrelated #<number> cross-reference never becomes a row"; hr
@@ -292,7 +331,7 @@ add_entry 2026/08/01/000001Z-a "$(printf '%s\n' \
   "- Fix tracked in PR #1546 (https://github.com/$REPO/pull/1546); recheck on EMBARGO-2026-08-04.")"
 run_pre ""
 [ "$RC" -eq 0 ] && ok "matured row dispatches" || bad "exit $RC (want 0); OUT=$OUT"
-grep -q $'^2026-08-04\t1553\tentries/2026/08/01/000001Z-a$' <<<"$CONTEXT" \
+grep -q $'^EMBARGO-2026-08-04\t1553\tentries/2026/08/01/000001Z-a$' <<<"$CONTEXT" \
   && ! grep -qE $'\t(1546|1542)\t' <<<"$CONTEXT" \
   && grep -q -- '- Rows: 1' <<<"$CONTEXT" \
   && ok "embargo row binds to the structured Dependabot PR, not the cross-reference" \
@@ -311,9 +350,9 @@ add_entry 2026/08/01/000001Z-a "$(printf '%s\n' \
   '  **EMBARGO-2026-08-04** (floor from a transitive; see #1037).' \
   '- **#197 (EMBARGO-2026-08-02)** still open; CI fix is #1546.')"
 run_pre ""
-grep -q $'^2026-08-03\t1005\t' <<<"$CONTEXT" \
-  && grep -q $'^2026-08-04\t1007\t' <<<"$CONTEXT" \
-  && grep -q $'^2026-08-02\t197\t' <<<"$CONTEXT" \
+grep -q $'^EMBARGO-2026-08-03\t1005\t' <<<"$CONTEXT" \
+  && grep -q $'^EMBARGO-2026-08-04\t1007\t' <<<"$CONTEXT" \
+  && grep -q $'^EMBARGO-2026-08-02\t197\t' <<<"$CONTEXT" \
   && ! grep -qE $'\t(1037|1546|unknown[^\t]*)\t' <<<"$CONTEXT" \
   && ok "each embargo binds to its labelled PR; cross-references ignored" \
   || bad "row-label binding wrong; CONTEXT=$CONTEXT"
@@ -326,8 +365,8 @@ add_entry 2026/08/03/000002Z-b "$(drained_body)"
 add_entry 2026/08/04/000003Z-c "$(embargo_body 801 2026-08-05)"
 run_pre ""
 [ "$RC" -eq 0 ] && ok "post-drain due row dispatches" || bad "exit $RC (want 0); OUT=$OUT"
-grep -q $'^2026-08-05\t801\tentries/2026/08/04/000003Z-c$' <<<"$CONTEXT" \
-  && ! grep -q $'^2026-08-02\t800\t' <<<"$CONTEXT" \
+grep -q $'^EMBARGO-2026-08-05\t801\tentries/2026/08/04/000003Z-c$' <<<"$CONTEXT" \
+  && ! grep -q $'^EMBARGO-2026-08-02\t800\t' <<<"$CONTEXT" \
   && grep -q -- '- Rows: 1' <<<"$CONTEXT" \
   && ok "snapshot contains only the active generation after the last drain" \
   || bad "drained history leaked into active snapshot; CONTEXT=$CONTEXT"
@@ -392,7 +431,7 @@ prline 1175 "$DEP" 'Bump compatible-pkg from 1.0.0 to 1.1.0' > "$FIX_NOPROOF"
 COMP_FIXTURE=""; COMP_LOG="$TR/compat-no-proof.log"; : > "$COMP_LOG"
 run_pre "$FIX_NOPROOF"
 [ "$RC" -eq 0 ] && ok "missing proof falls open to the ordinary recheck" || bad "exit $RC (want 0); OUT=$OUT"
-grep -q 'Dependabotany active-row snapshot (v1)' <<<"$CONTEXT" \
+grep -q 'Dependabotany active-row snapshot (v2)' <<<"$CONTEXT" \
   && ! grep -q 'declaration-compatibility preflight routing' <<<"$CONTEXT" \
   && ok "missing proof emits the ledger snapshot but no compatibility routing" \
   || bad "snapshot/routing context was wrong: $CONTEXT"

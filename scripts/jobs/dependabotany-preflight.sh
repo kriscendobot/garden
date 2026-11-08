@@ -33,8 +33,9 @@
 #
 # THE GATE. Skip (exit 2) IFF BOTH hold:
 #   (A) the watched repo has ZERO open `dependabot[bot]`-authored PRs, AND
-#   (B) the project's dependabotany ledger has NO due row (no active embargo whose
-#       maturity date has arrived).
+#   (B) the project's dependabotany ledger has NO actionable row (neither an
+#       active embargo whose maturity date has arrived nor a non-terminal
+#       MERGE-NOW row).
 # Otherwise dispatch (exit 0). Any read/enumeration error → fail OPEN (exit 0):
 # the backstop must never be starved by a transient GitHub blip or an unparseable
 # ledger, only quieted when it can PROVE there is nothing to do.
@@ -43,9 +44,10 @@
 # construction an OPEN Dependabot PR waiting for its maturity floor, so it is
 # enumerated by the open-PR source; whenever there is real recheck work, (A) is
 # false and we dispatch — regardless of how the ledger prose parses. (B) is a
-# best-effort, fail-open backstop that adds ONE extra dispatch trigger the open-PR
-# check cannot see: a ledger row left behind for a PR that was closed/merged
-# externally without the ledger being drained, so the next sweep can reconcile it.
+# best-effort, fail-open backstop that adds dispatch triggers the open-PR check
+# cannot see: an embargo or MERGE-NOW row left behind for a PR that was
+# closed/merged externally without the ledger being drained, so the next sweep
+# can reconcile it.
 # Because (B) only ever ADDS an exit-0 (dispatch) path — skipping still requires
 # (A) — no amount of ledger-parse imprecision can cause an unsafe skip of live
 # work.
@@ -182,9 +184,9 @@ if [[ ! "$journal_head" =~ ^[0-9a-f]{40}$ ]]; then
   exit 0
 fi
 
-# --- (B) is there a DUE row in the ledger? -----------------------------------
-# Reconstruct just enough of the active embargo set to answer "is any matured row
-# still active?", conservatively and fail-open:
+# --- (B) is there an ACTIONABLE row in the ledger? ---------------------------
+# Reconstruct just enough of the active set to answer whether a matured embargo
+# or non-terminal MERGE-NOW row remains, conservatively and fail-open:
 #   * the LATEST project entry that declares the embargo set drained/empty/retired
 #     means NO active rows — the reliable "off" signal a sweep always writes when
 #     it empties the set (and the termination clause then deletes the schedule);
@@ -333,10 +335,31 @@ ledger_entry_embargo_rows() {
   ' "$1" 2>/dev/null
 }
 
+# ledger_entry_merge_now_rows <entry> - print PR for every structured active
+# MERGE-NOW row in the entry.
+#
+# MERGE-NOW prose also occurs in terminal history and in conditional future
+# dispositions (for example, "MERGE-NOW after the fixer lands"). Do not infer an
+# active row from that prose alone. Botanist escalation entries carry the
+# `dependabotany-active-pr:` marker specifically to make their non-terminal row
+# recoverable; accept it only when the entry's current heading or verdict names
+# MERGE-NOW. A terminal marker later in the ledger retires it below.
+ledger_entry_merge_now_rows() {
+  local entry="$1"
+  if ! grep -qiE \
+    '^verdict:[[:space:]]*[*_`]*MERGE-NOW|^#[[:space:]][^[:cntrl:]]*MERGE-NOW' \
+    "$entry" 2>/dev/null; then
+    return 0
+  fi
+  sed -nE \
+    's/^dependabotany-active-pr:[[:space:]]*([0-9]+)[[:space:]]*$/\1/p' \
+    "$entry" 2>/dev/null
+}
+
 ledger_due=0
 declare -a SNAPSHOT_ROWS=()
 declare -a ACTIVE_LEDGER=()
-declare -A SNAPSHOT_DATE=() SNAPSHOT_PR=() SNAPSHOT_SOURCE=() TERMINAL_SOURCE=()
+declare -A SNAPSHOT_DISPOSITION=() SNAPSHOT_PR=() SNAPSHOT_SOURCE=() TERMINAL_SOURCE=()
 if [ "${#LEDGER[@]}" -gt 0 ]; then
   # Fold global drain declarations in chronology order. A drain resets all rows
   # before it; later entries can start a new active generation. This avoids
@@ -356,10 +379,11 @@ if [ "${#LEDGER[@]}" -gt 0 ]; then
     log "ledger: entry ($(basename "$last_drain")) declares the embargo set drained/retired — no later active rows"
   else
     # Normalize the conservative active set used by this gate. Each row is
-    # maturity<TAB>PR-or-unknown<TAB>journal-relative source; the PR binding is
-    # ledger_entry_embargo_rows' (above). Unknown remains explicit rather than
-    # guessing. Sorting makes the snapshot byte-deterministic for a given
-    # journal HEAD.
+    # disposition<TAB>PR-or-unknown<TAB>journal-relative source. Disposition is
+    # EMBARGO-YYYY-MM-DD or MERGE-NOW. Unknown embargo bindings remain explicit
+    # rather than guessing. MERGE-NOW rows require the structured active marker
+    # above. Sorting makes the snapshot byte-deterministic for a given journal
+    # HEAD.
     for entry in "${ACTIVE_LEDGER[@]}"; do
       rel="${entry#"$CLONE"/}"
       while IFS= read -r terminal_pr; do
@@ -372,39 +396,62 @@ if [ "${#LEDGER[@]}" -gt 0 ]; then
         [ "$key" != unknown ] || key="unknown:$rel"
         # One normalized row per PR. A later/extended maturity replaces the
         # earlier date; repeated mentions of the same date collapse.
-        if [ -z "${SNAPSHOT_DATE[$key]:-}" ] || [[ "${SNAPSHOT_DATE[$key]}" < "$d" ]]; then
-          SNAPSHOT_DATE[$key]="$d"
+        disposition="EMBARGO-$d"
+        if [ -z "${SNAPSHOT_DISPOSITION[$key]:-}" ] \
+           || { [ "${SNAPSHOT_DISPOSITION[$key]}" = MERGE-NOW ] \
+                && [[ "${SNAPSHOT_SOURCE[$key]}" < "$rel" ]]; } \
+           || { [ "${SNAPSHOT_DISPOSITION[$key]}" != MERGE-NOW ] \
+                && [[ "${SNAPSHOT_DISPOSITION[$key]}" < "$disposition" ]]; }; then
+          SNAPSHOT_DISPOSITION[$key]="$disposition"
           SNAPSHOT_PR[$key]="$line_pr"
           SNAPSHOT_SOURCE[$key]="$rel"
         fi
       done < <(ledger_entry_embargo_rows "$entry")
+      while IFS= read -r merge_pr; do
+        case "$merge_pr" in ''|*[!0-9]*) continue;; esac
+        if [ -z "${SNAPSHOT_DISPOSITION[$merge_pr]:-}" ] \
+           || [[ "${SNAPSHOT_SOURCE[$merge_pr]}" < "$rel" ]]; then
+          SNAPSHOT_DISPOSITION[$merge_pr]="MERGE-NOW"
+          SNAPSHOT_PR[$merge_pr]="$merge_pr"
+          SNAPSHOT_SOURCE[$merge_pr]="$rel"
+        fi
+      done < <(ledger_entry_merge_now_rows "$entry")
     done
     # A deterministic close records a per-PR terminal marker instead of a global
-    # "set drained" assertion. Retire only an embargo observation at or before
-    # that marker; a genuinely later embargo for the same PR remains active.
-    for key in "${!SNAPSHOT_DATE[@]}"; do
+    # "set drained" assertion. Retire only an active observation at or before
+    # that marker; a genuinely later row for the same PR remains active.
+    for key in "${!SNAPSHOT_DISPOSITION[@]}"; do
       pr="${SNAPSHOT_PR[$key]}"
       if [ "$pr" != unknown ] && [ -n "${TERMINAL_SOURCE[$pr]:-}" ] \
          && [[ "${SNAPSHOT_SOURCE[$key]}" < "${TERMINAL_SOURCE[$pr]}" || "${SNAPSHOT_SOURCE[$key]}" = "${TERMINAL_SOURCE[$pr]}" ]]; then
-        unset 'SNAPSHOT_DATE[$key]' 'SNAPSHOT_PR[$key]' 'SNAPSHOT_SOURCE[$key]'
+        unset 'SNAPSHOT_DISPOSITION[$key]' 'SNAPSHOT_PR[$key]' 'SNAPSHOT_SOURCE[$key]'
       fi
     done
-    if [ "${#SNAPSHOT_DATE[@]}" -gt 0 ]; then
-      for key in "${!SNAPSHOT_DATE[@]}"; do
-        SNAPSHOT_ROWS+=("${SNAPSHOT_DATE[$key]}"$'\t'"${SNAPSHOT_PR[$key]}"$'\t'"${SNAPSHOT_SOURCE[$key]}")
+    if [ "${#SNAPSHOT_DISPOSITION[@]}" -gt 0 ]; then
+      for key in "${!SNAPSHOT_DISPOSITION[@]}"; do
+        SNAPSHOT_ROWS+=("${SNAPSHOT_DISPOSITION[$key]}"$'\t'"${SNAPSHOT_PR[$key]}"$'\t'"${SNAPSHOT_SOURCE[$key]}")
       done
       mapfile -t SNAPSHOT_ROWS < <(printf '%s\n' "${SNAPSHOT_ROWS[@]}" | LC_ALL=C sort)
     fi
 
-    # Presumed-live set: due iff any recorded maturity date is at or before today.
-    due_date=""
+    # Presumed-live set: MERGE-NOW is already due; an embargo is due when its
+    # recorded maturity date is at or before today.
+    due_disposition=""
     for row in "${SNAPSHOT_ROWS[@]}"; do
-      d="${row%%$'\t'*}"
-      if [ "$d" \< "$today" ] || [ "$d" = "$today" ]; then due_date="$d"; break; fi
+      disposition="${row%%$'\t'*}"
+      if [ "$disposition" = MERGE-NOW ]; then
+        due_disposition="$disposition"
+        break
+      fi
+      d="${disposition#EMBARGO-}"
+      if [ "$d" \< "$today" ] || [ "$d" = "$today" ]; then
+        due_disposition="$disposition"
+        break
+      fi
     done
-    if [ -n "$due_date" ]; then
+    if [ -n "$due_disposition" ]; then
       ledger_due=1
-      log "ledger: a matured embargo row is present (maturity $due_date <= $today) and the set is not declared drained — work present"
+      log "ledger: an actionable row is present ($due_disposition) and the set is not declared drained - work present"
     else
       log "ledger: the set is live but no maturity date has arrived yet (as of $today) — no due row"
     fi
@@ -574,17 +621,22 @@ if [ "${#CLOSED_PR[@]}" -gt 0 ]; then
   kept_rows=()
   ledger_due=0
   for row in "${SNAPSHOT_ROWS[@]}"; do
-    rest="${row#*$'\t'}"; row_pr="${rest%%$'\t'*}"; d="${row%%$'\t'*}"
+    rest="${row#*$'\t'}"; row_pr="${rest%%$'\t'*}"; disposition="${row%%$'\t'*}"
     [ -n "${CLOSED_PR[$row_pr]:-}" ] && continue
     kept_rows+=("$row")
-    if [ "$d" \< "$today" ] || [ "$d" = "$today" ]; then ledger_due=1; fi
+    if [ "$disposition" = MERGE-NOW ]; then
+      ledger_due=1
+    else
+      d="${disposition#EMBARGO-}"
+      if [ "$d" \< "$today" ] || [ "$d" = "$today" ]; then ledger_due=1; fi
+    fi
   done
   SNAPSHOT_ROWS=("${kept_rows[@]}")
 fi
 
 if [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
   {
-    printf 'Dependabotany active-row snapshot (v1):\n\n'
+    printf 'Dependabotany active-row snapshot (v2):\n\n'
     printf -- '- Journal HEAD: `%s`\n' "$journal_head"
     printf -- '- Project: `%s`\n' "$project"
     printf -- '- Repository: `%s`\n' "$repo"
@@ -594,7 +646,7 @@ if [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
     printf 'not reconstruct the unindexed prose ledger. If the snapshot is unavailable,\n'
     printf "malformed, or HEAD has changed, fail open to the role's case-insensitive full scan.\n\n"
     printf '```tsv\n'
-    printf 'maturity_date\tpr\tsource\n'
+    printf 'disposition\tpr\tsource\n'
     [ "${#SNAPSHOT_ROWS[@]}" -eq 0 ] || printf '%s\n' "${SNAPSHOT_ROWS[@]}"
     printf '```\n\n'
   } > "$GARDEN_PREFLIGHT_CONTEXT_FILE"
@@ -619,8 +671,8 @@ if [ -s "$ROUTES" ] && [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
   } >> "$GARDEN_PREFLIGHT_CONTEXT_FILE"
 fi
 
-# A due ledger row still dispatches even when the live PR roster is empty, so the
-# botanist can reconcile a row whose PR was closed externally.
+# An actionable ledger row still dispatches even when the live PR roster is
+# empty, so the botanist can reconcile a row whose PR was closed externally.
 if [ "$ledger_due" -eq 1 ]; then
   log "preflight: DISPATCH — due dependabotany ledger row for '$project'"
   exit 0
