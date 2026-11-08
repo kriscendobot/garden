@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T14:33:12Z_
+_As of 2026-11-08T14:36:49Z_
 
 ## Latest
 
@@ -2507,7 +2507,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.5M | $114.44 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 28.6M | $115.28 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 372.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158711460 tokens/day lower bound._
@@ -2516,7 +2516,7 @@ _Fleet token-unlock pace: 158711460 tokens/day lower bound._
 worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (33)
+### todo (34)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2538,6 +2538,7 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
+- [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`oros-health-checkup-20261108-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-022010.md) — ---
@@ -2551,8 +2552,10 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (3)
+- [`minion-town-arc-press-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-143510.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`claude-on-minion-town-completion-press-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-143510.md) — Completion press: Claude-on-minion.town arc
+- [`oros-health-watch-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-143510.md) — ---
 
 ### tada (16955)
 - [`improve-mechanic-health-controller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-mechanic-health-controller.md) — Cost
