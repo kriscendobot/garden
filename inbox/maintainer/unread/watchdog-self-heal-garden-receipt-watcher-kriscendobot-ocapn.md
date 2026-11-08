@@ -2,13 +2,13 @@ from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
 sent_at: 2026-11-08T22:15:21Z
 watchdog_key: self-heal-garden-receipt-watcher-kriscendobot-ocapn
-notice_count: 2
+notice_count: 4
 first_seen: 2026-09-22T00:22:39Z
 last_seen: 2026-11-08T22:15:21Z
 ---
-WATCHDOG notice — occurrence #2 (first seen 2026-09-22T00:22:39Z, latest 2026-11-08T22:15:21Z).
-The SAME condition (`self-heal-garden-receipt-watcher-kriscendobot-ocapn`) has now been observed 2 times; this is ONE
-coalesced notice that updates in place, not 2 messages. Latest detail:
+WATCHDOG notice — occurrence #4 (first seen 2026-09-22T00:22:39Z, latest 2026-11-08T22:15:21Z).
+The SAME condition (`self-heal-garden-receipt-watcher-kriscendobot-ocapn`) has now been observed 4 times; this is ONE
+coalesced notice that updates in place, not 4 messages. Latest detail:
 
 self-heal: garden-receipt-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ccee23b51954f38fdcf96f1bac075b11ae394b14 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ccee23b51954f38fdcf96f1bac075b11ae394b14). Diagnosis: The `garden-receipt-watcher@kriscendobot-ocapn` failure is a full disk, not a code bug, so I'm posting no fix job.
 
