@@ -18,11 +18,11 @@ mode: controller
 evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 recurrence_budget: 15 minutes
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=307 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-08T14:53:04Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=307,81 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
