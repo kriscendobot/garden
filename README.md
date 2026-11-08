@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T02:05:58Z_
+_As of 2026-11-08T02:07:18Z_
 
 ## Latest
 
@@ -2045,10 +2045,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
 
-- `kriscendobot-minion.town-pr243-gauntlet-held-draft` — from gauntlet:kriscendobot-minion.town-pr243-gauntlet-held-draft, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr243-gauntlet-held-draft.md)
-
-> INFO: Gauntlet kriscendobot-minion.town-pr243-gauntlet passed the code panel but is held draft: Panel round passed on the code. The PR's phase/evidence ledger says ledger disposition orchestrated-slice; remaining phases owned by build-minion-town-tool-removal-landing-20261104, so the PR stays DRAFT: no stage un-drafts it until the ledger says deliverable, after which a new gauntlet run reviews the completing head.
-
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-07T22:03:41Z, cleared 2026-11-07T22:55:09Z).
@@ -2449,7 +2445,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.9M | $114.54 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 25.9M | $115.38 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 370.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157992902 tokens/day lower bound._
