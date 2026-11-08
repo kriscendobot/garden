@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T02:57:36Z_
+_As of 2026-11-08T03:00:19Z_
 
 ## Latest
 
@@ -2455,13 +2453,14 @@ _Fleet token-unlock pace: 158340417 tokens/day lower bound._
 worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (27)
+### todo (28)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-202010.md) — ---
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -2487,13 +2486,13 @@ worst fetch p95 6.681881s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### doin (0)
 (none)
 
-### tada (16943)
+### tada (16944)
+- [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion-town-pr230-screen-da33b8b8-gauntlet-viability.md) — Cost
 - [`screen-minion-town-pr230-448b347-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/screen-minion-town-pr230-448b347-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr254-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr254-gauntlet.md) — gauntlet kriscendobot-minion.town-pr254-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr230-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet.md) — gauntlet kriscendobot-minion.town-pr230-gauntlet — complete
-- [`kriscendobot-minion.town-pr230-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/kriscendobot-minion.town-pr230-gauntlet-undraft.md) — Cost
-- … and 16938 more
+- … and 16939 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
