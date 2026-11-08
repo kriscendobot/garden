@@ -1,2 +1,2 @@
-base: improve-scripted-daily-progress-summary
+base: improve-mechanic-health-controller
 identity: mentor:scripts/jobs/scheduler.sh
