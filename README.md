@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T22:08:52Z_
+_As of 2026-11-08T22:17:42Z_
 
 ## Latest
 
@@ -568,6 +566,25 @@ Delegation: **active**
 > - claude-on-minion-town-completion-press-20261107-140511
 > - minion-town-arc-press-20261107-140511
 > Both are press jobs. They landed during the known ece02cb4 tmpexec read-only sandbox outage (~09:27–16:00Z), and the 17:20Z arc press has since completed, so I think this is outage fallout. If you want them, they can be re-armed. Otherwise: 0 stalled claims, 0 absent roster jobs, 1 in-window completion, 23 parked plan rows. Observe-only; I touched nothing.
+
+- `doomed-improve-byte-pressure-clone-recovery-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-byte-pressure-clone-recovery-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/improve-byte-pressure-clone-recovery; it stays HELD until a human promotes it
+> (promote-plan.sh improve-byte-pressure-clone-recovery) or removes it, so nothing is lost.
+> Original job base: improve-byte-pressure-clone-recovery
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-08T21:51:26Z
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> scripts/jobs/state-clone-keeper.sh
+> At `scripts/jobs/state-clone-keeper.sh:237-248`, pressure detection measures only free inodes, while journal syncs repeatedly failed with `Out of diskspace` at 2026-11-08 21:34:40. Add a `df -P` byte-headroom sensor and block-pressure threshold, then run the existing conservative stale-clone recovery with tightened limits when either resource is scarce. If the keeper cannot sync under byte pressure, safely sweep only inactive unit-keyed clones after the existing idle/process/lock guards, never inbox clones whose board liveness cannot be read. Emit a deduplicated unrecovered byte-pressure alert with the measured capacity and clear it on recovery.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
@@ -2510,6 +2527,20 @@ Delegation: **active**
 >
 > To fix: see the parenthetical above for a cause-specific cure; for a missing CLI, install or repair the CLI on oros-studio-garden-ce242c49 (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, $NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.
 
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-ocapn.md)
+
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-22T00:22:39Z, latest 2026-11-08T22:15:21Z).
+> The SAME condition (`self-heal-garden-receipt-watcher-kriscendobot-ocapn`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
+>
+> self-heal: garden-receipt-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ccee23b51954f38fdcf96f1bac075b11ae394b14 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ccee23b51954f38fdcf96f1bac075b11ae394b14). Diagnosis: The `garden-receipt-watcher@kriscendobot-ocapn` failure is a full disk, not a code bug, so I'm posting no fix job.
+>
+> The service exited 1 with `FATAL: receipt journal prerequisite failed for kriscendobot/ocapn (rc=4)`. Underneath that, `printf` reported "No space left on device". Git then could not write `.garden-state/receipt-watcher/journal-kriscendobot-ocapn/.git/config.lock` while `ensure_clone` was setting `user.name`.
+>
+> `df` shows `/home/kris/garden` at 100% (3.4T of 3.6T used, 0 available). Any other unit that writes to that filesystem will probably fail the same way. Systemd's restart will keep failing until space is freed.
+>
+> The fix is operational: free space on that volume. Likely places to look are old worktrees, aborted-repack garbage in the shared root repo (the sysop `maintain` 
+
 - `doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2626,7 +2657,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.1M | $131.05 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 31.1M | $131.94 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 373.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158575662 tokens/day lower bound._
@@ -2635,7 +2666,7 @@ _Fleet token-unlock pace: 158575662 tokens/day lower bound._
 worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (40)
+### todo (39)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2674,16 +2705,15 @@ worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-203533.md) — ---
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
 ### doin (6)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
-- [`improve-byte-pressure-clone-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-byte-pressure-clone-recovery.md) — ---
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — fix: absorb ava 8.3.0 strict t.timeout() deadline on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
+- [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
 ### tada (16963)
 - [`endojs-endo-but-for-bots-pr1657-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1657-dependabot.md) — Cost
@@ -2789,6 +2819,7 @@ worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`ironhorse-xs-oracle-bump-10-0-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-xs-oracle-bump-10-0-0.md) — _normal_ · IronHorse: bump the XS oracle to Moddable 10.0.0 and mirror the compiler deltas
 - [`claude-on-minion-town-completion-press-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261107-075009.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`improve-muster-autoarchive-watchdog-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-muster-autoarchive-watchdog-20261106.md) — _normal_ · ---
+- [`improve-byte-pressure-clone-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-byte-pressure-clone-recovery.md) — _normal_ · ---
 - [`claude-on-minion-town-completion-press-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261107-140511.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`oros-health-watch-20261105-230510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-230510.md) — _normal_ · ---
 - [`endo-but-for-bots-pi-family-1x-upgrade`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-but-for-bots-pi-family-1x-upgrade.md) — _normal_ · endo-but-for-bots: upgrade the pi family (@earendil-works/*) to 1.x together
