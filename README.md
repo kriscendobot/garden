@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T21:59:10Z_
+_As of 2026-11-08T22:05:02Z_
 
 ## Latest
 
@@ -2618,10 +2616,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.1M | $130.58 _(notional, rate-card)_ | 11% of 271.0M (ok) |
-| Codex | 373.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
+| Claude | 31.1M | $130.95 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Codex | 373.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158515446 tokens/day lower bound._
+_Fleet token-unlock pace: 158575662 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
@@ -2653,7 +2651,6 @@ worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`improve-byte-pressure-clone-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-byte-pressure-clone-recovery.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`oros-health-checkup-20261108-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-022010.md) — ---
@@ -2667,15 +2664,16 @@ worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-203533.md) — ---
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
 ### doin (6)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
+- [`improve-byte-pressure-clone-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-byte-pressure-clone-recovery.md) — ---
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — fix: absorb ava 8.3.0 strict t.timeout() deadline on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
-- [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
 ### tada (16963)
 - [`endojs-endo-but-for-bots-pr1657-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1657-dependabot.md) — Cost
