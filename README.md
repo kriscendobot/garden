@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-08T15:03:03Z_
+_As of 2026-11-08T15:04:38Z_
 
 ## Latest
 
@@ -1100,6 +1098,35 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Design the daemon-side server half of `daemon-git-remotes` for `endojs/endo-but-for-bots` on `llm`: capability-URL minting, partition lifecycle, revocation, and content-store ownership needed to move the minion.town Git remote service into Endo.
+
+- `doomed-oros-health-watch-20261108-143510-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261108-143510-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-watch-20261108-143510; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-watch-20261108-143510) or removes it, so nothing is lost.
+> Original job base: oros-health-watch-20261108-143510
+>
+> --- original job body ---
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: mechanic
+> requires: host=endolin-garden-ece02cb4
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> role_brief: [roles/mechanic/AGENT.md](roles/mechanic/AGENT.md)
+> target_host: oros-studio-garden-ce242c49
+> trigger: schedule/oros-health-watch
+> mode: controller
+> evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
+> recurrence_budget: 15 minutes
 
 - `orchestrate-build-minion-town-ordered-gutter-20261104-child-build-minion-town-ordered-gutter-inc1-20261104-failed` — from orchestrator:orchestrate-build-minion-town-ordered-gutter-20261104-child-build-minion-town-ordered-gutter-inc1-20261104-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orchestrate-build-minion-town-ordered-gutter-20261104-child-build-minion-town-ordered-gutter-inc1-20261104-failed.md)
 
@@ -2554,8 +2581,8 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`oros-health-watch-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-143510.md) — ---
+### doin (0)
+(none)
 
 ### tada (16957)
 - [`minion-town-arc-press-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-143510.md) — Cost
@@ -2689,6 +2716,7 @@ worst fetch p95 3.937884s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`claude-on-minion-town-completion-press-20261105-195009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261105-195009.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`minion-town-arc-press-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-135010.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
+- [`oros-health-watch-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-143510.md) — _normal_ · ---
 - [`minion-town-mcp-guide-remaining-slices-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-guide-remaining-slices-20261104.md) — _normal_ · Finish the MCP guide's remaining slices (kriscendobot/minion.town#235)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
