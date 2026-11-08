@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T18:14:08Z_
+_As of 2026-11-08T18:16:33Z_
 
 ## Latest
 
@@ -385,6 +385,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/cursors/journal: p95=19.958511s max=19.958511s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `doomed-claude-on-minion-town-completion-press-20261107-retry-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-retry-requeue-exhausted.md)
 
