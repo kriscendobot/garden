@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T14:57:29Z_
+_As of 2026-11-08T14:57:59Z_
 
 ## Latest
 
@@ -642,10 +642,6 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261108-143510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261108-143510.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261108-143510' has remained unclaimed for 1200s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-decision-ledger-contention-spool-r2-requeue-exhausted.md)
 
