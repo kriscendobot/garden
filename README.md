@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T21:44:14Z_
+_As of 2026-11-08T21:50:27Z_
 
 ## Latest
 
@@ -778,6 +778,14 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden HEAD had DRIFTED (detached 36f97ae8eff5991a3e615ab291e0e99648484211) to a STALE main2 ancestor (36f97ae8eff5991a3e615ab291e0e99648484211) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03). Re-detached HEAD onto ad75cf18999770a06e962a6acb615ce6bf44ddde (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20261107T095201Z. (host=endolin-garden-ece02cb4)
+
+- `watchdog-self-heal-garden-issue-inbox` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-issue-inbox.md)
+
+> self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: d57e8a4f1ec17b5bbbb8e9a2a59cffad53f39bed (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d57e8a4f1ec17b5bbbb8e9a2a59cffad53f39bed). Diagnosis: The `garden-issue-inbox` failure looks transient, and I'm not posting a fix job.
+>
+> The captured log tail has only two lines. The watcher loaded 8 maintainers from `journal:maintainers/allowlist`. It then logged `cursor unchanged for kriscendobot-garden (acted 0; dropped 0; failed=0; floor=none)`. There is no error, trace, or fatal line, and the tail ends on a normal cycle result. Nothing in it points to a script bug.
+>
+> The exit code of 1 therefore comes from something outside the captured output, most likely a signal or restart (for example the deploy or drain activity on 2026-11-07) or a transient `git`/`gh` failure that wasn't logged. The two known fail-open or crash bugs for this unit, the bare `cursor-get.sh` crash and the clone-lock contention, are already fixed. If this recurs, check w
 
 - `doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted.md)
 
@@ -2574,13 +2582,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.7M | $128.43 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.8M | $129.14 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 373.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158411413 tokens/day lower bound._
+_Fleet token-unlock pace: 158515446 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.231677s/45s (unknown); 9 open notice(s); checker healthy
+worst fetch p95 3.362809s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (39)
