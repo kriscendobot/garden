@@ -24,7 +24,7 @@ hr()  { echo "----------------------------------------------------------------";
 # GARDEN_*/JOURNAL_* state underneath the fixture (mirrors run-test.sh / clone-keeper).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 
-TR=/home/kris/.garden-root-guard-test
+TR="${ROOT_GUARD_TEST_DIR:-/home/kris/.garden-root-guard-test}"
 git_id=(-c user.name=test -c user.email=test@localhost)
 rm -rf "$TR"; mkdir -p "$TR"
 
@@ -99,6 +99,20 @@ alerted() { grep -q "^$1" "$ALERTS"; }
 DF_STUB="$TR/df-stub.sh"
 cat > "$DF_STUB" <<'EOF'
 #!/bin/bash
+# `-Pk` is the byte axis (invariant D2), keyed by TEST_DF_BYTES_MODE; anything else
+# (`-Pi`) is the inode axis (invariant D), keyed by TEST_DF_MODE.
+if [ "${1:-}" = "-Pk" ]; then
+  case "${TEST_DF_BYTES_MODE:-healthy}" in
+    # 100 GiB fs, 50 GiB available.
+    healthy)   printf 'Filesystem 1024-blocks Used Available Capacity Mounted on\n/dev/test 104857600 52428800 52428800 50%% /fixture\n' ;;
+    # 100 GiB fs, 494 MiB available (the 2026-11-08 shape).
+    low)       printf 'Filesystem 1024-blocks Used Available Capacity Mounted on\n/dev/test 104857600 104351680 505920 100%% /fixture\n' ;;
+    # Same 494 MiB, reported in 512-byte units: the parsed header must scale it.
+    low512)    printf 'Filesystem 512-blocks Used Available Capacity Mounted on\n/dev/test 209715200 208703360 1011840 100%% /fixture\n' ;;
+    malformed) printf 'not df output\n' ;;
+  esac
+  exit 0
+fi
 case "${TEST_DF_MODE:-healthy}" in
   healthy)   printf 'Filesystem Inodes IUsed IFree IUse%% Mounted on\n/dev/test 100000 90000 10000 90%% /fixture\n' ;;
   low)       printf 'Filesystem Inodes IUsed IFree IUse%% Mounted on\n/dev/test 100000 96000 4000 96%% /fixture\n' ;;
@@ -108,6 +122,7 @@ EOF
 chmod +x "$DF_STUB"
 export GARDEN_ROOT_GUARD_DF_CMD="$DF_STUB"
 export TEST_DF_MODE=healthy
+export TEST_DF_BYTES_MODE=healthy
 
 # ============================================================================
 hr; echo "CASE 1 — HEALTHY: detached at main2 tip, canonical origin → no repair"; hr
@@ -531,6 +546,49 @@ run_guard_log
 unset GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT
 rm -f "$GARDEN_STATE/root-repo-guard/inode-unknown-count"
 export TEST_DF_MODE=healthy
+
+# ============================================================================
+hr; echo "CASE 20 — HOST BYTES: low free-byte headroom alerts, recovery clears, unit is parsed, blind df streaks"; hr
+fresh_root
+rm -f "$GARDEN_STATE/root-repo-guard/bytes-unknown-count"
+export TEST_DF_BYTES_MODE=low
+run_guard_log
+alerted "root-repo-low-disk-bytes-testhost" && ok "<5 GiB available alerts the maintainer" || bad "no low-byte alert"
+logged "BYTES-HEADROOM-LOW" && ok "low byte headroom is classified on its own axis" || bad "low byte classification missing"
+grep -q "Out of diskspace" "$GLOG" && ok "alert names the journal-sync 'Out of diskspace' impact" || bad "low-byte alert omits journal-sync impact"
+! alerted "root-repo-low-inodes-testhost" && ok "byte exhaustion does not raise an inode alert" || bad "byte exhaustion raised an inode alert"
+! logged "root repo healthy" && ok "low bytes suppresses the healthy line" || bad "healthy line printed despite low bytes"
+
+export TEST_DF_BYTES_MODE=healthy
+run_guard
+{ alerted "root-repo-low-disk-bytes-testhost" && grep -q "RECOVERED:" "$ALERTS"; } \
+  && ok "byte-headroom recovery closes the alert episode" || bad "byte recovery did not clear the alert"
+
+export TEST_DF_BYTES_MODE=low512
+run_guard_log
+alerted "root-repo-low-disk-bytes-testhost" && grep -q "518062080 bytes" "$GLOG" \
+  && ok "a 512-blocks header is scaled from the parsed unit" || bad "512-byte df units mis-scaled"
+export TEST_DF_BYTES_MODE=healthy; run_guard
+
+export GARDEN_ROOT_GUARD_MIN_FREE_BYTES=0
+export TEST_DF_BYTES_MODE=low
+run_guard
+! alerted "root-repo-low-disk-bytes-testhost" && ok "threshold 0 disables the byte check" || bad "byte check fired while disabled"
+unset GARDEN_ROOT_GUARD_MIN_FREE_BYTES
+
+export GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT=2
+export TEST_DF_BYTES_MODE=malformed
+run_guard_log
+{ logged "BYTES-CHECK-UNKNOWN" && ! alerted "root-repo-bytes-check-unknown-testhost" && ! alerted "root-repo-low-disk-bytes-testhost"; } \
+  && ok "1st unparseable df -Pk is classified unknown, quietly, with no false low-byte alert" || bad "first byte unknown mishandled"
+run_guard_log
+alerted "root-repo-bytes-check-unknown-testhost" && ok "consecutive unparseable df -Pk crosses the streak and pages" || bad "no blind-byte-sensor alert"
+export TEST_DF_BYTES_MODE=healthy
+run_guard
+{ alerted "root-repo-bytes-check-unknown-testhost" && grep -q "RECOVERED:" "$ALERTS"; } \
+  && [ ! -f "$GARDEN_STATE/root-repo-guard/bytes-unknown-count" ] \
+  && ok "a clean df -Pk parse clears the blindness episode and streak" || bad "byte blindness not cleared"
+unset GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT
 
 # ============================================================================
 hr; echo "RESULT"; hr

@@ -106,6 +106,17 @@
 #      GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT (audit § 2.7: a silent detector is
 #      indistinguishable from a missing one). The streak resets on the first clean parse.
 #
+#   D2. The HOST FILESYSTEM has BYTE headroom — the twin of D's inode axis. A parsed
+#      `df -Pk` free-byte reading below GARDEN_ROOT_GUARD_MIN_FREE_BYTES (default
+#      5 GiB) alerts the maintainer, and the notice clears on recovery (persistent
+#      alert state via alert_maintainer / alert_maintainer_clear, keyed per host).
+#      Grounding: 2026-11-08T17:08Z every journal consumer on one host (orch, cursor,
+#      bulletin, monk and cleric state clones) failed its sync reset with "Out of
+#      diskspace" while the inode-only detector stayed silent. Detection only, for
+#      the same reason as D: deciding what is safe to reclaim is a human/sweeper call.
+#      An unparseable `df -Pk` is counted as a BLIND streak and pages once it crosses
+#      GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT, exactly like D's inode sensor.
+#
 #   E. The root WORKING TREE is clean. deploy-garden.sh aborts on a dirty TRACKED
 #      worktree (never clobber); in the autonomous rolling deploy that abort would
 #      wedge a host behind an unread notice (the nine-day stall). So a stray tracked
@@ -213,6 +224,17 @@ INODE_ALERT_KEY="root-repo-low-inodes-$GARDEN"
 : "${GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT:=3}"
 INODE_UNKNOWN_ALERT_KEY="root-repo-inode-check-unknown-$GARDEN"
 INODE_UNKNOWN_COUNT="$GUARD_STATE/inode-unknown-count"
+
+# --- invariant D2 knobs (host filesystem BYTE headroom) ----------------------
+# Absolute free-byte floor (df's "Available" column, i.e. what an unprivileged writer
+# can still use — reserved root blocks excluded). 5 GiB covers one aborted repack's
+# temp packs plus a round of journal-clone resets; 0 disables the byte check.
+: "${GARDEN_ROOT_GUARD_MIN_FREE_BYTES:=5368709120}"
+: "${GARDEN_ROOT_GUARD_BYTES_PATH:=$GARDEN_ROOT_GUARD_INODE_PATH}"
+: "${GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT:=$GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT}"
+BYTES_ALERT_KEY="root-repo-low-disk-bytes-$GARDEN"
+BYTES_UNKNOWN_ALERT_KEY="root-repo-bytes-check-unknown-$GARDEN"
+BYTES_UNKNOWN_COUNT="$GUARD_STATE/bytes-unknown-count"
 
 # --- authorized gc-lock escalation (the sysop `maintain` op) ------------------
 # By DEFAULT the guard never breaks a `gc.pid` lock: a lock that MIGHT belong to a live
@@ -782,6 +804,63 @@ guard_inode_headroom() {
   return 0
 }
 
+# --- INVARIANT D2: host filesystem BYTE headroom ----------------------------
+# Detection only, parallel to D. `df -Pk` forces POSIX one-line-per-fs output in
+# 1024-byte units; the block size is still READ from the header ("<N>-blocks") rather
+# than assumed, so a df honoring a different unit cannot be mis-scaled silently.
+human_bytes() {  # human_bytes <bytes>
+  awk -v b="$1" 'BEGIN { split("B KiB MiB GiB TiB PiB", u, " "); i = 1
+    while (b >= 1024 && i < 6) { b /= 1024; i++ } printf "%.1f %s", b, u[i] }'
+}
+guard_byte_headroom() {
+  local path="$GARDEN_ROOT_GUARD_BYTES_PATH" out hdr line unit fs total _used avail _cap mount
+  if ! [[ "$GARDEN_ROOT_GUARD_MIN_FREE_BYTES" =~ ^[0-9]+$ ]] \
+     || [ "$GARDEN_ROOT_GUARD_MIN_FREE_BYTES" -eq 0 ]; then
+    return 0   # disabled
+  fi
+
+  out="$("$GARDEN_ROOT_GUARD_DF_CMD" -Pk -- "$path" 2>/dev/null || true)"
+  hdr="$(printf '%s\n' "$out" | awk 'NR == 1 { print $2 }')"
+  line="$(printf '%s\n' "$out" | awk 'NR > 1 { line=$0 } END { print line }')"
+  unit="${hdr%-blocks}"
+  read -r fs total _used avail _cap mount _ <<< "$line"
+  if [[ ! "$unit" =~ ^[0-9]+$ ]] || [ "$unit" -eq 0 ] \
+     || [[ ! "${total:-}" =~ ^[0-9]+$ ]] || [ "${total:-0}" -eq 0 ] \
+     || [[ ! "${avail:-}" =~ ^[0-9]+$ ]]; then
+    mkdir -p "$GUARD_STATE" 2>/dev/null || true
+    local n
+    n="$(cat "$BYTES_UNKNOWN_COUNT" 2>/dev/null || echo 0)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0
+    n=$(( n + 1 )); printf '%s\n' "$n" > "$BYTES_UNKNOWN_COUNT" 2>/dev/null || true
+    if [ "$n" -ge "$GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT" ]; then
+      local msg="host disk-byte-headroom detector is BLIND: 'df -Pk $path' has returned output this guard cannot parse for $n consecutive tick(s) (>= the ${GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT}-tick threshold). While the sensor cannot read free bytes it cannot warn before disk exhaustion wedges every journal consumer ('Out of diskspace' on sync resets), so this silent detector is now indistinguishable from a missing one. Run 'df -Pk $path' by hand and check why its output changed shape. (host=$GARDEN)"
+      log "BYTES-CHECK-UNKNOWN: $msg"
+      alert_maintainer "$BYTES_UNKNOWN_ALERT_KEY" "$msg"
+    else
+      log "BYTES-CHECK-UNKNOWN: could not classify byte headroom for $path from 'df -Pk' output ($n/$GARDEN_ROOT_GUARD_BYTES_UNKNOWN_ALERTS_AT consecutive); leaving alert state unchanged"
+    fi
+    return 1
+  fi
+
+  rm -f "$BYTES_UNKNOWN_COUNT" 2>/dev/null || true
+  alert_maintainer_clear "$BYTES_UNKNOWN_ALERT_KEY" \
+    "host disk-byte-headroom detector for $path is readable again on $GARDEN; 'df -Pk' output parses."
+
+  local free_b total_b pct free_h min_h
+  free_b=$(( avail * unit )); total_b=$(( total * unit ))
+  pct="$(awk -v f="$free_b" -v t="$total_b" 'BEGIN { printf "%.2f", (f * 100) / t }')"
+  free_h="$(human_bytes "$free_b")"; min_h="$(human_bytes "$GARDEN_ROOT_GUARD_MIN_FREE_BYTES")"
+  if [ "$free_b" -lt "$GARDEN_ROOT_GUARD_MIN_FREE_BYTES" ]; then
+    local msg="host filesystem BYTE headroom is CRITICAL: filesystem $fs mounted at ${mount:-<unknown>} (the filesystem backing $path) has $free_h ($free_b bytes, ${pct}%) available, below the $min_h (${GARDEN_ROOT_GUARD_MIN_FREE_BYTES}-byte) threshold. This is byte-capacity exhaustion, distinct from inode exhaustion: once it hits zero every journal consumer's sync reset fails with 'Out of diskspace' (orch, cursor, bulletin, monk and cleric clones alike) and the fleet wedges. Find the space with 'du -xsh' under \$GARDEN_STATE, scratch/, and worktrees/ (aborted-repack objects/pack/tmp_* and stale build output are the usual culprits) and re-check 'df -Pk $path'. (host=$GARDEN)"
+    log "BYTES-HEADROOM-LOW: $msg"
+    alert_maintainer "$BYTES_ALERT_KEY" "$msg"
+    return 1
+  fi
+
+  alert_maintainer_clear "$BYTES_ALERT_KEY" \
+    "host filesystem byte headroom recovered to $free_h available (${pct}% of $fs, threshold $min_h; host=$GARDEN)."
+  return 0
+}
+
 # --- stalled-deploy watch ----------------------------------------------------
 # When the recorded deployed sha is an ancestor of origin/main2 (a normal lag) for
 # longer than the threshold, alert ONCE per window. Cleared when caught up.
@@ -837,11 +916,13 @@ guard_deploy_lag() {
 }
 
 guard_root_repo() {
-  # D is a host-filesystem invariant, not a git-repo invariant. Run it first so a
+  # D/D2 are host-filesystem invariants, not git-repo invariants. Run them first so a
   # damaged/missing root checkout cannot suppress the warning that explains why git
   # writes are failing in the first place.
   local inode_ok=0
   guard_inode_headroom && inode_ok=1
+  local bytes_ok=0
+  guard_byte_headroom && bytes_ok=1
 
   if ! git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
     log "WARN: root repo at $ROOT is not a git repository; skipping"
@@ -881,8 +962,8 @@ guard_root_repo() {
   guard_deploy_lag "$up"
 
   if [ "$origin_ok" -eq 1 ] && [ "$head_ok" -eq 1 ] && [ "$obj_ok" -eq 1 ] \
-     && [ "$inode_ok" -eq 1 ] && [ "$tree_ok" -eq 1 ]; then
-    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, working tree clean, object store maintainable, host inode headroom above ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}%"
+     && [ "$inode_ok" -eq 1 ] && [ "$bytes_ok" -eq 1 ] && [ "$tree_ok" -eq 1 ]; then
+    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, working tree clean, object store maintainable, host inode headroom above ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}%, disk bytes above $(human_bytes "$GARDEN_ROOT_GUARD_MIN_FREE_BYTES")"
   fi
   return 0
 }
