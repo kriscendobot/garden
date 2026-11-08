@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T04:23:31Z_
+_As of 2026-11-08T04:27:22Z_
 
 ## Latest
 
@@ -214,10 +214,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3' has remained unclaimed for 1201s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
