@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-08T17:24:39Z_
+_As of 2026-11-08T17:27:11Z_
 
 ## Latest
 
@@ -2386,6 +2386,11 @@ Delegation: **active**
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
 
+- `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/moddable:
+> watcher heartbeat stale (age=316s > 270s; outcome=full-poll)
+
 - `minion-town-pr-screening-gauntlet-halted-pr237-304dd24` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-gauntlet-halted-pr237-304dd24.md)
 
 > minion.town screen BLOCKED [https://github.com/kriscendobot/minion.town/pull/237](https://github.com/kriscendobot/minion.town/pull/237) (head 304dd2484e3): screen gauntlet kriscendobot-minion-town-pr237-screen-304dd248-gauntlet halted. Read jobs/tada/2026/11/07/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet.md and resume or replace the gauntlet; the proxy cannot produce a panel verdict for this head.
@@ -2540,7 +2545,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.1M | $118.73 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.3M | $120.02 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 372.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158078331 tokens/day lower bound._
