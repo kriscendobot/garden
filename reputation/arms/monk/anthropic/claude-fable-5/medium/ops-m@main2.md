@@ -1,0 +1,13 @@
+kind: monk
+provider: anthropic
+model: claude-fable-5
+thoughtfulness: medium
+work_class: ops:m
+target: main2
+attempts: 3
+accepts: 3
+censored: 3
+estimated: 3
+mean_dollars: 0.049013
+m2: 0.009701
+acceptance_rate: 1.0000
