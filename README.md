@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T03:24:42Z_
+_As of 2026-11-09T03:26:36Z_
 
 ## Latest
 
@@ -35,7 +35,6 @@ Most other watchdog notices are budget-level changes or recovered journal conten
 Delegation: **active**
 
 - 2026-11-08T03:28:53Z [#230](https://github.com/kriscendobot/minion.town/pull/230) merged `34e988750aa`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/42442896086), watchdog ok — validated
-- 2026-11-08T03:25:06Z [#230](https://github.com/kriscendobot/minion.town/pull/230) `da33b8b8f18` screened
 
 ## Messages to the maintainer
 
