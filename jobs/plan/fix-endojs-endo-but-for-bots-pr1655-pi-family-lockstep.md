@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: unknown
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-09T02:23:39Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-09T02:23:39Z
+---
+
+---
 posted_at: 2026-11-08T20:23:25Z
 role: fixer
 tier: minion
@@ -35,16 +56,3 @@ decision, so put it in a separate commit or comment.
 
 On completion, notify the backstop recheck: the dependabotany daily sweep for endojs-endo-but-for-bots renders
 the terminal verdict on #1655 after your repair lands.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-08T22:13:13Z -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-08T22:13:22Z
