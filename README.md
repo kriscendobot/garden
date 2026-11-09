@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T02:19:04Z_
+_As of 2026-11-09T02:24:41Z_
 
 ## Latest
 
@@ -617,6 +617,53 @@ Delegation: **active**
 > scripts/jobs/state-clone-keeper.sh
 > At `scripts/jobs/state-clone-keeper.sh:237-248`, pressure detection measures only free inodes, while journal syncs repeatedly failed with `Out of diskspace` at 2026-11-08 21:34:40. Add a `df -P` byte-headroom sensor and block-pressure threshold, then run the existing conservative stale-clone recovery with tightened limits when either resource is scarce. If the keeper cannot sync under byte pressure, safely sweep only inactive unit-keyed clones after the existing idle/process/lock guards, never inbox clones whose board liveness cannot be read. Emit a deduplicated unrecovered byte-pressure alert with the measured capacity and clear it on recovery.
 
+- `doomed-fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep; it stays HELD until a human promotes it
+> (promote-plan.sh fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep) or removes it, so nothing is lost.
+> Original job base: fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-08T20:23:25Z
+> role: fixer
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots PR #1655
+>
+> Repo: endojs/endo-but-for-bots (base `llm`). PR: [https://github.com/endojs/endo-but-for-bots/pull/1655](https://github.com/endojs/endo-but-for-bots/pull/1655)
+> (dependabot, `@earendil-works/pi-ai` 0.87.1 -> 1.4.0). Sibling: [https://github.com/endojs/endo-but-for-bots/pull/1657](https://github.com/endojs/endo-but-for-bots/pull/1657)
+> (dependabot, `@earendil-works/pi-coding-agent` 0.87.1 -> 1.4.0). Escalated by botanist job
+> `endojs-endo-but-for-bots-pr1655-dependabot` (next: fixer).
+>
+> Diagnosis (already done, do not re-derive): #1655 moves only pi-ai, so `@earendil-works/pi-agent-core@0.87.1`
+> (still `^0.87.1` in agent-tools, agentry, lal) keeps its own nested pi-ai 0.87.1 copy. Lint fails in
+> `lint:types` for @endo/agentry, @endo/lal, @endo/daemon with TS2322 at
+> `packages/agentry/src/harness/pi-agent.js:82` (pi-ai 1.4.0 `streamSimple` not assignable to pi-agent-core
+> 0.87.1 `StreamFn`), plus the same in `packages/lal/test/pi-agent-tools.test.js:204` and
+> `packages/lal/test/smallcaps-footgun.test.js:152,237,285,487`. Runtime is also at risk because agentry registers
+> providers into the 1.4.0 copy's registry while pi-agent-core holds 0.87.1 types/helpers.
+> CI run: https://github.com/endojs/endo-but-for-bots/actions/runs/42517897642
+>
+> Task: move the pi family in lockstep so one pi-ai copy resolves: bump `@earendil-works/pi-agent-core` (1.4.0
+> pins `pi-ai: 1.4.0` exactly) and `@earendil-works/pi-coding-agent` to ^1.4.0 alongside pi-ai (pi-tui is already
+> ^1.4.0 on llm). Absorb any pi-agent-core / pi-coding-agent 1.x API changes in agent-tools, agentry, and lal.
+> Decide whether to land it on #1655's head (then #1657 becomes REJECT-superseded) or as a combined PR. Run
+> `yarn lint:types` for agentry/lal/daemon plus their tests locally before pushing. Every new or moved version you
+> add must clear botanist diligence (maturity floor of 7 days past the freshest moved version, OSV/GHSA clean,
+> no install scripts). pi-agent-core 1.4.0 was published 2026-10-21T22:43Z. Optionally propose a dependabot
+> `groups:` entry for `@earendil-works/*` so the family is proposed together in future; that is a project
+> decision, so put it in a separate commit or comment.
+>
+> On completion, notify the backstop recheck: the dependabotany daily sweep for endojs-endo-but-for-bots renders
+> the terminal verdict on #1655 after your repair lands.
+
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
 > RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-07T11:17:36Z, cleared 2026-11-08T23:00:26Z).
@@ -830,11 +877,11 @@ Delegation: **active**
 
 - `watchdog-root-repo-head-repaired-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-head-repaired-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-14T21:14:53Z, latest 2026-11-07T09:52:01Z).
-> The SAME condition (`root-repo-head-repaired-endolin-garden-ece02cb4`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-14T21:14:53Z, latest 2026-11-09T02:22:02Z).
+> The SAME condition (`root-repo-head-repaired-endolin-garden-ece02cb4`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> root repo /home/kris/garden HEAD had DRIFTED (detached 36f97ae8eff5991a3e615ab291e0e99648484211) to a STALE main2 ancestor (36f97ae8eff5991a3e615ab291e0e99648484211) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03). Re-detached HEAD onto ad75cf18999770a06e962a6acb615ce6bf44ddde (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20261107T095201Z. (host=endolin-garden-ece02cb4)
+> root repo /home/kris/garden HEAD had DRIFTED (detached e522b2762e0f915bb3761df44681dc2bb1e8a36a) to a STALE main2 ancestor (e522b2762e0f915bb3761df44681dc2bb1e8a36a) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03). Re-detached HEAD onto f2788117645dde4304eb6a8dd98c59a9050ad56c (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20261109T022202Z. (host=endolin-garden-ece02cb4)
 
 - `watchdog-self-heal-garden-issue-inbox` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-issue-inbox.md)
 
@@ -1392,23 +1439,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-11-07T11:35:09Z, latest 2026-11-09T00:29:08Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-07T11:35:09Z, cleared 2026-11-09T02:23:09Z).
+> It was observed 7 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  49e7e418ff18f414f8d98a6b750ee07cd7ada339
-> failing signal: 1 failed unit(s) (first: garden-secret-broker.service)
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `doomed-improve-claude-completion-finalizer-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-claude-completion-finalizer-requeue-exhausted.md)
 
@@ -2792,7 +2827,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $133.16 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.6M | $133.99 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 374.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157623057 tokens/day lower bound._
@@ -2843,18 +2878,17 @@ worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outboun
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (3)
-- [`improve-self-heal-responder-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-responder-diagnostics.md) — ---
+### doin (2)
+- [`improve-dependabot-base-ci-escalation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-base-ci-escalation.md) — ---
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
-- [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
-### tada (16971)
+### tada (16972)
+- [`improve-self-heal-responder-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/improve-self-heal-responder-diagnostics.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261109-020540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/dependabotany-recheck-endo-but-for-bots-20261109-020540.md) — Cost
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/claude-on-minion-town-completion-press-20261108-203533.md) — Completion report
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/minion-town-arc-press-20261108-203533.md) — ---
 - [`deadmail-20261109T010715Z-fd3af9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/deadmail-20261109T010715Z-fd3af9.md) — Cost
-- [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — Completion report
-- … and 16966 more
+- … and 16967 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2994,6 +3028,7 @@ worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outboun
 - [`improve-production-acceptance-deferred-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-production-acceptance-deferred-probe.md) — _normal_ · ---
 - [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-builtins-order-port.md) — _normal_ · Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20261010-133536.md) — _normal_ · Press the Claude-on-minion.town arc forward
+- [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — _normal_ · fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 - [`oros-health-watch-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-200509.md) — _normal_ · ---
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
