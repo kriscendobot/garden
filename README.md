@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-09T06:28:04Z_
+_As of 2026-11-09T06:34:28Z_
 
 ## Latest
 
@@ -616,6 +614,35 @@ Delegation: **active**
 > ---
 > scripts/jobs/state-clone-keeper.sh
 > At `scripts/jobs/state-clone-keeper.sh:237-248`, pressure detection measures only free inodes, while journal syncs repeatedly failed with `Out of diskspace` at 2026-11-08 21:34:40. Add a `df -P` byte-headroom sensor and block-pressure threshold, then run the existing conservative stale-clone recovery with tightened limits when either resource is scarce. If the keeper cannot sync under byte pressure, safely sweep only inactive unit-keyed clones after the existing idle/process/lock guards, never inbox clones whose board liveness cannot be read. Emit a deduplicated unrecovered byte-pressure alert with the measured capacity and clear it on recovery.
+
+- `doomed-oros-health-watch-20261109-060512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261109-060512-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-watch-20261109-060512; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-watch-20261109-060512) or removes it, so nothing is lost.
+> Original job base: oros-health-watch-20261109-060512
+>
+> --- original job body ---
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: mechanic
+> requires: host=endolin-garden-ece02cb4
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> role_brief: [roles/mechanic/AGENT.md](roles/mechanic/AGENT.md)
+> target_host: oros-studio-garden-ce242c49
+> trigger: schedule/oros-health-watch
+> mode: controller
+> evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
+> recurrence_budget: 15 minutes
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
@@ -2849,8 +2876,8 @@ worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outboun
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`oros-health-watch-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261109-060512.md) — ---
+### doin (0)
+(none)
 
 ### tada (16977)
 - [`minion-town-arc-press-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/minion-town-arc-press-20261109-060512.md) — Cost
@@ -2888,6 +2915,7 @@ worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outboun
 - [`screen-minion-town-pr253-9c79d18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr253-9c79d18-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#253 at 9c79d1807388884a67b...
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
 - [`moddable-10-0-0-ironhorse-callability-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-callability-port.md) — _normal_ · Port revoked-Proxy callability and constructability to IronHorse
+- [`oros-health-watch-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261109-060512.md) — _normal_ · ---
 - [`weave-endojs-endo-but-for-bots-pr1538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1538.md) — _normal_ · ---
 - [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261107-043512.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
