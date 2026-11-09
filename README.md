@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-09T01:32:49Z_
+_As of 2026-11-09T01:34:27Z_
 
 ## Latest
 
@@ -2845,19 +2843,18 @@ worst fetch p95 10.802158s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (4)
-- [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
 - [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
-### tada (16968)
+### tada (16969)
+- [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/minion-town-arc-press-20261108-203533.md) — ---
 - [`deadmail-20261109T010715Z-fd3af9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/deadmail-20261109T010715Z-fd3af9.md) — Cost
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — Completion report
 - [`minion-town-arc-press-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-235013.md) — Cost
 - [`improve-correlate-unit-failure-tails`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-correlate-unit-failure-tails.md) — Cost
-- [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Cost
-- … and 16963 more
+- … and 16964 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
