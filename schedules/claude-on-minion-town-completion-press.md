@@ -20,13 +20,14 @@ requeue work, change worker/unit state, or do the arc's work.
 Run this once against the fetched producer clone:
 
 ```sh
-scripts/jobs/claude-on-minion-town-completion-report.sh > completion-report.json
+scripts/jobs/claude-on-minion-town-completion-report.sh --write-progress > completion-report.json
 ```
 
-The wrapper derives the window from this schedule's two latest dispatch stamps
-and supplies the standing exact-base, prefix, orchestration, arc-artifact, and
-literal selectors. Its JSON is the authoritative reconciliation. Do not rebuild
-the roster or re-count transitions by hand. It reports:
+The wrapper derives the window from this schedule's two latest dispatch stamps,
+supplies the standing exact-base, prefix, orchestration, arc-artifact, and literal
+selectors, and writes the one compact progress entry. Its JSON is the
+authoritative reconciliation. Do not rebuild the roster, re-count transitions,
+or write another progress entry by hand. It reports:
 
 - every selected job's current `todo`, `doin`, `plan`, `orch`, `gauntlet`,
   `tada`, or `absent` location;
@@ -35,20 +36,17 @@ the roster or re-count transitions by hand. It reports:
 - claims older than their resolved handler budget; and
 - prior-roster jobs now absent without an in-window tada transition.
 
-Use `jq` to render a concise summary. The agent is reserved for interpreting
-exceptions in `doom_delta`, `stalled_claims`, `absent_prior_roster`, and
-completions carrying `orchestration_failed: true`. Read only those named job
-records/reports when necessary to explain impact. A carried doom is context, not
-a new alert. An active `jobs/gauntlet/` control record is a location, not a
-disappearance. Inspect a newly completed design/build deliverable only when its
-completion event or report makes the landed artifact uncertain.
+The generated progress entry contains the report window and counts, every
+non-tada roster row, every in-window completion basename, and the deterministic
+exception inventory. The agent is reserved for interpreting exceptions in
+`doom_delta`, `stalled_claims`, `absent_prior_roster`, and completions carrying
+`orchestration_failed: true`. Read only those named job records/reports when
+necessary to explain impact. A carried doom is context, not a new alert. An
+active `jobs/gauntlet/` control record is a location, not a disappearance.
+Inspect a newly completed design/build deliverable only when its completion
+event or report makes the landed artifact uncertain.
 
-## Output and alert discipline
-
-Always write one compact progress entry with `scripts/jobs/journal-entry.sh`.
-Include the report window and counts, the non-tada roster rows, each in-window
-completion basename, and any exception disposition. This generated subset is the
-auditable roster delta; do not paste hundreds of unchanged historical tada rows.
+## Alert discipline
 
 Message the maintainer once, with `scripts/jobs/message-user.sh`, only when the
 report establishes one of these conditions:
