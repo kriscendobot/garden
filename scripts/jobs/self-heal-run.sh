@@ -75,6 +75,7 @@ unset GARDEN_CLONE_LOCK_SOFT GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY
 : "${SELF_HEAL_HANDLER_KILL_AFTER:=20}" # grace before the handler timeout SIGKILLs a TERM-ignoring handler at its wall
 : "${SELF_HEAL_RESPONDER_TIMEOUT:=300}" # hard cap on the responder (a hung claude never wedges restart)
 : "${SELF_HEAL_RESPONDER_KILL_AFTER:=10}" # grace before timeout SIGKILLs a TERM-ignoring responder at its wall
+: "${SELF_HEAL_RESPONDER_STDERR_BYTES:=4096}" # bounded stderr tail logged when the responder fails
 : "${SELF_HEAL_REAP_GRACE:=5}"          # grace before reap_process_group SIGKILLs the responder's process group
 : "${SELF_HEAL_RESTART_BACKOFF:=0}"    # optional sleep before returning rc (systemd RestartSec usually suffices)
 : "${SELF_HEAL_CAPTURE_ONLY:=0}"       # 1 → capture+escalate-by-inbox only, never invoke a responder
@@ -113,9 +114,11 @@ got_signal=0
 # handler sweeps that group so a `claude` responder can never outlive this wrapper
 # in the unit cgroup — even if we exit by an untrapped path.
 responder_pgid=""
+responder_stderr=""
 cleanup() {
   [ -n "$responder_pgid" ] && reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"
   rm -f "$capture" 2>/dev/null || true
+  [ -z "$responder_stderr" ] || rm -f "$responder_stderr" 2>/dev/null || true
 }
 trap cleanup EXIT
 
@@ -305,27 +308,56 @@ fi
 # responder never blocks the restart and never crashes us.
 log "diagnosing '$context' failure via responder (blob $sha, role $(basename "$role_brief"))"
 responder_cmd=("$SELF_HEAL_HANDLER" "$sha" "$SELF_HEAL_CLONE" "$context" "$rc" "$work_id" "$role_brief")
+responder_timeout_applied=0
 if command -v timeout >/dev/null 2>&1; then
   responder_cmd=(timeout --foreground --signal=TERM \
     --kill-after="$SELF_HEAL_RESPONDER_KILL_AFTER" "$SELF_HEAL_RESPONDER_TIMEOUT" \
     "${responder_cmd[@]}")
+  responder_timeout_applied=1
 fi
+
+# Keep a small diagnostic from the responder itself. The service failure is the
+# content-addressed blob above; this separate tail explains why its attempted
+# diagnosis failed (CLI error, policy refusal, timeout, etc.). Flatten newlines so
+# every byte stays on the one priority-tagged journald record instead of producing
+# unclassified continuation lines.
+responder_stderr="$(mktemp "${TMPDIR:-/tmp}/self-heal-responder-stderr.XXXXXX")"
+log_responder_failure() { # <classification> <status>
+  local classification="$1" status="$2" stderr_tail="<empty>"
+  if [ -s "$responder_stderr" ]; then
+    stderr_tail="$(tail -c "$SELF_HEAL_RESPONDER_STDERR_BYTES" "$responder_stderr" 2>/dev/null \
+      | tr '\r\n' '  ' || true)"
+    [ -n "$stderr_tail" ] || stderr_tail="<empty>"
+  fi
+  log "WARN: responder for '$context' failed classification=$classification status=$status failure-blob=$sha stderr-tail: $stderr_tail"
+}
+
 set -m
-"${responder_cmd[@]}" >/dev/null 2>&1 &
+"${responder_cmd[@]}" >/dev/null 2>"$responder_stderr" &
 responder_pgid=$!
 set +m
 # A stop signal DURING diagnosis must reap the group (never orphan `claude`),
 # then still preserve the wrapped service's rc so systemd sees its failure.
-trap 'reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"; exit "$rc"' TERM INT
+trap 'reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"; log_responder_failure interrupted signal; exit "$rc"' TERM INT
 rrc=0
 wait "$responder_pgid" || rrc=$?
 trap - TERM INT
-[ "$rrc" -eq 0 ] || log "responder for '$context' failed or timed out (best-effort; ignored)"
 # Reap UNCONDITIONALLY, for every outcome: on a fired timeout `claude` is still
 # alive in the group; on a clean return the group is empty and this is a fast
-# no-op. ZERO orphans outlive the responder either way.
+# no-op. Do this before reading stderr so a surviving descendant cannot append
+# after the diagnostic tail has already been logged.
 reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"
 responder_pgid=""
+if [ "$rrc" -ne 0 ]; then
+  responder_classification="exit"
+  if [ "$responder_timeout_applied" -eq 1 ]; then
+    case "$rrc" in
+      124|137) responder_classification="timeout" ;;
+      125|126|127) responder_classification="launch-error" ;;
+    esac
+  fi
+  log_responder_failure "$responder_classification" "$rrc"
+fi
 
 [ "$SELF_HEAL_RESTART_BACKOFF" -gt 0 ] 2>/dev/null && sleep "$SELF_HEAL_RESTART_BACKOFF"
 exit "$rc"

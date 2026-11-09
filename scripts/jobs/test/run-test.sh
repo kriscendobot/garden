@@ -2942,6 +2942,47 @@ set +e; SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_HANDLER_TIMEOUT=0 \
   && ok "SELF_HEAL_HANDLER_TIMEOUT=0 disables the deadline; genuine failure still diagnosed (rc=6)" \
   || bad "disabled-deadline path broke the normal failure route (rc=$rhd3 calls=$(shcalls))"
 
+# (14) RESPONDER FAILURE DIAGNOSTIC — retain a bounded responder stderr tail and
+# identify an ordinary non-zero responder exit, while naming the service failure
+# blob the responder had been asked to diagnose. A long prefix proves this is a
+# tail, not unbounded responder output copied into journald.
+: > "$SHCALLS"
+responder_noise="RESPONDER-UNBOUNDED-PREFIX $(printf '%0400d' 0) responder-exit-tail"
+set +e
+SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_RESPONDER_STDERR_BYTES=64 \
+  SELF_HEAL_STUB_STDERR="$responder_noise" SELF_HEAL_STUB_RC=17 \
+  "$SHRUN" garden-responder-exit -- bash -c 'echo service-failure >&2; exit 10' \
+  >"$TR/selfheal-responder-exit.log" 2>&1
+rdiag=$?
+set -e
+diag_sha="$(sed -n 's/.*failure-blob=\([0-9a-f]\{40\}\).*/\1/p' "$TR/selfheal-responder-exit.log" | head -1)"
+{ [ "$rdiag" -eq 10 ] \
+    && grep -q 'classification=exit status=17' "$TR/selfheal-responder-exit.log" \
+    && grep -q 'stderr-tail: .*responder-exit-tail' "$TR/selfheal-responder-exit.log" \
+    && ! grep -q 'RESPONDER-UNBOUNDED-PREFIX' "$TR/selfheal-responder-exit.log" \
+    && [ -n "$diag_sha" ] \
+    && git -C "$GARDEN_STATE/self-heal/journal" cat-file -p "$diag_sha" 2>/dev/null | grep -q service-failure; } \
+  && ok "responder non-zero exit logs classification + bounded stderr tail + inspectable failure-blob SHA" \
+  || bad "responder exit diagnostic incomplete (wrapper-rc=$rdiag sha=$diag_sha log=$(tail -n 2 "$TR/selfheal-responder-exit.log"))"
+
+# (15) RESPONDER TIMEOUT DIAGNOSTIC — distinguish timeout from an ordinary exit,
+# preserve the wrapped service rc, and retain stderr emitted before the wedge.
+: > "$SHCALLS"
+set +e
+SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_RESPONDER_TIMEOUT=1 SELF_HEAL_RESPONDER_KILL_AFTER=1 \
+  SELF_HEAL_RESPONDER_STDERR_BYTES=128 SELF_HEAL_STUB_STDERR='responder-timeout-tail' \
+  SELF_HEAL_STUB_SLEEP=30 \
+  "$SHRUN" garden-responder-timeout -- bash -c 'echo timed-service-failure >&2; exit 11' \
+  >"$TR/selfheal-responder-timeout.log" 2>&1
+rdiag_timeout=$?
+set -e
+{ [ "$rdiag_timeout" -eq 11 ] \
+    && grep -Eq 'classification=timeout status=(124|137)' "$TR/selfheal-responder-timeout.log" \
+    && grep -q 'failure-blob=[0-9a-f]\{40\}' "$TR/selfheal-responder-timeout.log" \
+    && grep -q 'stderr-tail: .*responder-timeout-tail' "$TR/selfheal-responder-timeout.log"; } \
+  && ok "responder timeout logs timeout classification + bounded stderr tail + failure-blob SHA" \
+  || bad "responder timeout diagnostic incomplete (wrapper-rc=$rdiag_timeout log=$(tail -n 2 "$TR/selfheal-responder-timeout.log"))"
+
 unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER JOURNAL_REMOTE
 
 # ============================================================================
