@@ -1,3 +1,16 @@
+
+## 2026-11-09T15:55Z - oros-health-watch-20261109-155023
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local run did not complete. The checkup schedule's `last_dispatched` is 12:35:24Z, and `oros-health-checkup-20261109-123524` is still in `jobs/todo/`. It is one of 23 queued Oros checkups; none is in `jobs/doin/` or `jobs/tada/`. The `worker-agent-bin-monk-oros-studio-garden-ce242c49` notice (expired Claude OAuth session, last_seen 2026-11-07T02:26:36Z) is still in maintainer `unread/`, with no recovery notice. `fleet/health` is unchanged at 02:57:49Z: deployed `16ea23b4137b` (= `origin/main2`), `roll-drained`, 1/296 failed units, first `garden-secret-broker.service`. The newest sysop record is still `20261109T034402Z-e76e60` (roll-owned drain). The claude-oros heartbeat sampled at 15:32:29Z is current: `ok`, 26%, spend unchanged, so Oros is present but idle. Journal tip read at `2682e75e88e` (15:44:40Z).
+- Cause: unchanged. (1) Claude rejects the expired OAuth session, so all four monks are credential-parked. (2) `garden-secret-broker.service` fails the post-deploy unit gate. Its cause stays unknown until the unit log is exported.
+- Actions: observed only. No sysop operation, reset, restore, drain change, worker-count change, restart, or code change. The reasons are the same as in earlier cycles.
+- Final state: Oros is present but unhealthy. It is at `16ea23b4137b` with 1 failed unit, held under a roll-owned drain, with four monks credential-parked, and it is claiming and completing nothing.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login`. Also attest `send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>`. Consider pausing the oros-health-checkup and oros-health-watch schedules until the login is fixed: 23 unclaimable checkups have piled up.
+- Next mechanic: first check for the worker-agent-bin recovery notice and the broker unit log. Then require a fresh fleet-health record with 0 failed units, an Oros claim and completion, a canary that passes, a `roll-completed` record, and the roll workflow's drain lift.
+
 ## 2026-11-09T12:40Z - oros-health-watch-20261109-123524
 
 - Verdict: unhealthy
