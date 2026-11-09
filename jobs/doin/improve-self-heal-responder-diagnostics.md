@@ -9,6 +9,7 @@ scripts/jobs/self-heal-run.sh:314 discards responder stderr, leaving the 2026-11
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=646 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
