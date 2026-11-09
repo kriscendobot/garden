@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T21:20:06Z_
+_As of 2026-11-09T21:22:41Z_
 
 ## Latest
 
@@ -2892,8 +2892,8 @@ worst fetch p95 3.397494s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-deterministic-claude-arc-progress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deterministic-claude-arc-progress.md) — ---
 
 ### tada (16990)
 - [`claude-on-minion-town-completion-press-20261109-210518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/claude-on-minion-town-completion-press-20261109-210518.md) — Cost
