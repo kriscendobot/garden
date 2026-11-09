@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T21:05:03Z_
+_As of 2026-11-09T21:07:02Z_
 
 ## Latest
 
@@ -2835,7 +2835,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $133.47 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.9M | $133.77 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 374.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157897482 tokens/day lower bound._
@@ -2892,8 +2892,8 @@ worst fetch p95 3.397494s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20261109-210518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261109-210518.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16989)
 - [`minion-town-arc-press-20261109-185027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/minion-town-arc-press-20261109-185027.md) — Cost
