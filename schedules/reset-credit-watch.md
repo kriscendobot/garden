@@ -1,5 +1,5 @@
 cadence: weekly-at-Mon-09:00-America/Los_Angeles
-last_dispatched: 2026-11-02T17:00:00Z
+last_dispatched: 2026-11-09T17:00:00Z
 job_basename_prefix: reset-credit-watch
 ---
 ---
