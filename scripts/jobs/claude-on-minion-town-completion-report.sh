@@ -114,6 +114,7 @@ if [ "$write_progress" -eq 1 ]; then
   progress="$(mktemp)"
   trap 'rm -f "$out" "$progress"' EXIT
   "$HERE/claude-on-minion-town-progress-entry.py" "$out" > "$progress"
-  GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress "$progress"
+  # Keep stdout pure JSON for callers that redirect it to a report file.
+  GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress "$progress" >&2
 fi
 exit "$rc"
