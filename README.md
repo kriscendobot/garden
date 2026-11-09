@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T01:15:04Z_
+_As of 2026-11-09T01:18:56Z_
 
 ## Latest
 
@@ -2536,9 +2536,18 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-sysop` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-sysop.md)
 
-> self-heal: garden-sysop exited rc=4 with no scoped fix. Capture: be521b5f9b3208b54ee4da616aa723c2d8e05217 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p be521b5f9b3208b54ee4da616aa723c2d8e05217). Diagnosis: The `garden-sysop` failure (exit 4) is environmental: the garden's disk is nearly full. I'm not posting a fix job.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-08T20:56:14Z, latest 2026-11-09T01:18:12Z).
+> The SAME condition (`self-heal-garden-sysop`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> The captured log shows one real error: `error: failed to write new configuration file /home/kris/garden/.garden-state/sysop/journal/.git/config.lock`. There was no stale lock file, and the directory is owned and writable by the garden user. The filesystem holding the garden (`/dev/nvme0n1p2`, mounted at `/home/kris/garden`) is at 100%, with about 338M free of 3.6T. Git writes its config through a temporary `config.lock` file, and that write fails when the disk has no room. The sysop is meant to run on every host and keeps going under drain, so this will keep failing and restarting until space is freed. Other writers, such as the journal index (about 12 MB) and job claims, are
+> self-heal: garden-sysop exited rc=4 with no scoped fix. Capture: c39d90c0fb4b28de5e7a7a8c9c69849e1d6f1742 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p c39d90c0fb4b28de5e7a7a8c9c69849e1d6f1742). Diagnosis: The `garden-sysop` failure (exit 4) was caused by a full disk, not a code bug. I'm posting no fix job.
+>
+> The captured log tail shows `printf: write error: No space left on device` from `common.sh` line 176. It also shows a failed write of `.garden-state/sysop/journal/.git/config.lock` and a failed write of a repo-lock holder file. `df` confirms `/home/kris/garden` (`/dev/nvme0n1p2`, 3.6T) is at 100% with 0 bytes available.
+>
+> The sysop was one casualty of the full disk. Every garden service that writes under `.garden-state` or the journal worktrees will fail the same way until space is freed. Restarting the sysop won't help until then.
+>
+> **Action for the maintainer or whoever sits at the host:**
+> - Free space on that filesystem. Likely candidates are old per-job project worktrees, `node_modules
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
 
@@ -2783,10 +2792,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $131.80 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.2M | $131.82 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 374.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158116393 tokens/day lower bound._
+_Fleet token-unlock pace: 158153836 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.802158s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
