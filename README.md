@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T01:11:12Z_
+_As of 2026-11-09T01:14:03Z_
 
 ## Latest
 
@@ -311,6 +311,35 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-improve-fixes-r2-20261106 observed child improve-issue-status-source-budget-r2: doomed and held in plan.
+
+- `doomed-oros-health-watch-20261108-203533-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261108-203533-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-watch-20261108-203533; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-watch-20261108-203533) or removes it, so nothing is lost.
+> Original job base: oros-health-watch-20261108-203533
+>
+> --- original job body ---
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: mechanic
+> requires: host=endolin-garden-ece02cb4
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> role_brief: [roles/mechanic/AGENT.md](roles/mechanic/AGENT.md)
+> target_host: oros-studio-garden-ce242c49
+> trigger: schedule/oros-health-watch
+> mode: controller
+> evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
+> recurrence_budget: 15 minutes
 
 - `doomed-oros-health-watch-20261105-135010-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261105-135010-requeue-exhausted.md)
 
@@ -2754,7 +2783,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $132.20 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.2M | $131.80 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 374.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158116393 tokens/day lower bound._
@@ -2805,21 +2834,19 @@ worst fetch p95 7.733517s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (6)
+### doin (4)
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261108-203533.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261108-203533.md) — ---
-- [`deadmail-20261109T010715Z-fd3af9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261109T010715Z-fd3af9.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
 - [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
-### tada (16967)
+### tada (16968)
+- [`deadmail-20261109T010715Z-fd3af9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/deadmail-20261109T010715Z-fd3af9.md) — Cost
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — Completion report
 - [`minion-town-arc-press-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-235013.md) — Cost
 - [`improve-correlate-unit-failure-tails`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-correlate-unit-failure-tails.md) — Cost
 - [`endojs-endo-but-for-bots-pr1658-dependabot-ci-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1658-dependabot-ci-resume.md) — Cost
-- [`endojs-endo-but-for-bots-pr1657-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/endojs-endo-but-for-bots-pr1657-dependabot.md) — Cost
-- … and 16962 more
+- … and 16963 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2880,6 +2907,7 @@ worst fetch p95 7.733517s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`oros-health-watch-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-235013.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
+- [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-203533.md) — _normal_ · ---
 - [`fixer-endojs-endo-but-for-bots-pr1595`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fixer-endojs-endo-but-for-bots-pr1595.md) — _normal_ · ---
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`improve-suppress-routine-retry-progress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-suppress-routine-retry-progress.md) — _normal_ · ---
