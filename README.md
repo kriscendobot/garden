@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T03:23:08Z_
+_As of 2026-11-09T03:24:42Z_
 
 ## Latest
 
@@ -2792,7 +2792,7 @@ _Fleet token-unlock pace: 157684784 tokens/day lower bound._
 worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outbound-journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (42)
+### todo (41)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-075009.md) — ---
@@ -2819,7 +2819,6 @@ worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outboun
 - [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`oros-health-checkup-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-235013.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-watch-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261109-030512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-030512.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
@@ -2839,13 +2838,13 @@ worst fetch p95 11.348029s/45s (/home/kris/garden/.garden-state/producer/outboun
 ### doin (0)
 (none)
 
-### tada (16975)
+### tada (16976)
+- [`oros-health-watch-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/oros-health-watch-20261109-030512.md) — 2026-11-09T03:24Z - oros-health-watch-20261109-030512 (re-run after a requeue)
 - [`minion-town-arc-press-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/minion-town-arc-press-20261109-030512.md) — Cost
 - [`claude-on-minion-town-completion-press-20261109-025011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/claude-on-minion-town-completion-press-20261109-025011.md) — Cost
 - [`improve-dependabot-base-ci-escalation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/improve-dependabot-base-ci-escalation.md) — Cost
 - [`improve-self-heal-responder-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/improve-self-heal-responder-diagnostics.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20261109-020540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/dependabotany-recheck-endo-but-for-bots-20261109-020540.md) — Cost
-- … and 16970 more
+- … and 16971 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
