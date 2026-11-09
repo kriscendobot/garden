@@ -1,2 +1,2 @@
-base: improve-rest-scope-dependabot-cooldown
+base: improve-dependabot-base-ci-escalation
 identity: mentor:scripts/jobs/dependabot-watcher.sh
