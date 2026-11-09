@@ -244,8 +244,22 @@ jw_mtime_sig() {  # jw_mtime_sig <jw-abs> <path-list-file>
 # untracked files. Pages the maintainer ONLY when the backup could not capture
 # something (genuinely unpreservable WIP). Returns 0 in every case (a heal, an
 # aborted heal, or an unpreservable page) so a tick is never marked Failed.
+# Bound the lossless-backup store. Without this every aborted heal (active writer,
+# 2026-07 onward) left a fresh full copy of the same untracked tree, ~87 MB each,
+# every 30 minutes (5.8k copies by 2026-11-09). Keep the newest GARDEN_JW_BACKUP_KEEP
+# directories regardless of age, and drop older ones past GARDEN_JW_BACKUP_DAYS.
+jw_prune_backups() {
+  local root="$GARDEN_JW_BACKUP_DIR" keep="${GARDEN_JW_BACKUP_KEEP:-10}" days="${GARDEN_JW_BACKUP_DAYS:-14}" d
+  [ -d "$root" ] || return 0
+  while IFS= read -r d; do
+    [ -n "$d" ] && rm -rf -- "${root:?}/${d:?}"
+  done < <(cd "$root" && find . -mindepth 1 -maxdepth 1 -type d -mtime +"$days" -printf '%T@ %f\n' 2>/dev/null \
+             | sort -rn | tail -n +"$((keep + 1))" | cut -d' ' -f2-)
+}
+
 heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirty-count>
   local jw="$1" ahead="$2" behind="$3" dirty_count="$4"
+  jw_prune_backups
 
   # Enumerate the two path classes we must preserve.
   local tmp; tmp="$(mktemp -d "${TMPDIR:-/tmp}/jw-heal.XXXXXX")"
@@ -304,7 +318,10 @@ heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirt
 
   # ---- 2. GATE on no-active-writer (the final guard before the reset). -----
   if jw_active_writer "$jw_abs" "$all_list"; then
-    log "SKIP: active writer in $jw; aborting self-heal this tick (transient — will heal next tick). Backup captured at $backup"
+    # Nothing was reset, so every backed-up path is still in the worktree; drop this
+    # tick's copy rather than re-copy the same tree every 30 minutes.
+    case "$backup" in "$GARDEN_JW_BACKUP_DIR"/?*) rm -rf -- "$backup";; esac
+    log "SKIP: active writer in $jw; aborting self-heal this tick (transient — will heal next tick). Backup discarded (tree untouched)"
     rm -rf "$tmp"
     return 0
   fi
