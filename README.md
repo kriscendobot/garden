@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T22:23:27Z_
+_As of 2026-11-09T22:24:40Z_
 
 ## Latest
 
@@ -415,10 +415,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.060611s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261109-220510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261109-220510.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261109-220510' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal.md)
 
@@ -1541,10 +1537,6 @@ Delegation: **active**
 > ---
 > scripts/jobs/screen-delegated-prs.sh
 > scripts/jobs/screen-delegated-prs.sh:150 turns an exhausted journal CAS retry into `die`, causing the dedicated unit failure recorded at 2026-11-07T17:50:45Z. Preserve the bounded retry and failure streak, but classify contention/transient journal failures as a clean, deferred tick after recording the coalesced watchdog state; reserve nonzero exit for unrecoverable local faults.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-ssh-transport-r2-failed.md)
 
