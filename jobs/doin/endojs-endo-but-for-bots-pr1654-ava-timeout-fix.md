@@ -41,6 +41,7 @@ backstop will render the terminal verdict.
 <!-- garden-plain-retry-not-before: 2026-11-09T00:53:05Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=276 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
