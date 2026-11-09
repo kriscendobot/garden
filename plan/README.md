@@ -214,5 +214,6 @@ flowchart LR
   endor_tui_phase_6 --> endor_tui_phase_8
   endo_posix_sandbox --> daemon_agent_tools
   endo_claude --> endo_claude_agents_capability
+  daemon_git_remotes --> git_remote_capability
   daemon_git_next_steps --> git_remote_capability
 ```
