@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T06:19:00Z_
+_As of 2026-11-09T06:22:36Z_
 
 ## Latest
 
@@ -614,6 +614,10 @@ Delegation: **active**
 > ---
 > scripts/jobs/state-clone-keeper.sh
 > At `scripts/jobs/state-clone-keeper.sh:237-248`, pressure detection measures only free inodes, while journal syncs repeatedly failed with `Out of diskspace` at 2026-11-08 21:34:40. Add a `df -P` byte-headroom sensor and block-pressure threshold, then run the existing conservative stale-clone recovery with tightened limits when either resource is scarce. If the keeper cannot sync under byte pressure, safely sweep only inactive unit-keyed clones after the existing idle/process/lock guards, never inbox clones whose board liveness cannot be read. Emit a deduplicated unrecovered byte-pressure alert with the measured capacity and clear it on recovery.
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261109-060512` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261109-060512.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261109-060512' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
