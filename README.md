@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T02:09:44Z_
+_As of 2026-11-09T02:14:07Z_
 
 ## Latest
 
@@ -2792,7 +2792,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $132.62 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.5M | $133.65 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 374.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157587781 tokens/day lower bound._
@@ -2843,7 +2843,8 @@ worst fetch p95 10.802158s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (3)
+### doin (4)
+- [`dependabotany-recheck-endo-but-for-bots-20261109-020540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261109-020540.md) — ---
 - [`improve-self-heal-responder-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-responder-diagnostics.md) — ---
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
 - [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
