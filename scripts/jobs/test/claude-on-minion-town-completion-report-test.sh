@@ -15,6 +15,8 @@ git init -q --bare "$BARE"
 git init -q "$SEED"; git -C "$SEED" checkout -q -b "$BRANCH"
 mkdir -p "$SEED"/{jobs/{todo,doin,tada,plan,orch,gauntlet},schedules}
 touch "$SEED/jobs/todo/.gitkeep"
+printf '%s\n' '---' 'role: designer' '---' 'selected arc work' \
+  > "$SEED/jobs/todo/design-minion-town-claude-harness-provisioning.md"
 stamp() {
   printf '%s\n' '---' 'cadence: 6h' "last_dispatched: $1" \
     'job_basename_prefix: claude-on-minion-town-completion-press' '---' \
@@ -43,6 +45,24 @@ if "$JOBS/claude-on-minion-town-completion-report.sh" > "$out" 2>"$TR/err" \
   echo "PASS: refreshed producer clone reports the current window"
 else
   echo "FAIL: stale window or error"; cat "$out" "$TR/err"; fail=1
+fi
+
+# The write mode must preserve the JSON report on stdout and land exactly the
+# deterministic compact entry, including the outstanding roster row.
+if "$JOBS/claude-on-minion-town-completion-report.sh" --write-progress > "$out" 2>"$TR/err" \
+   && jq -e '.counts.roster == 1' "$out" >/dev/null; then
+  entry_path="$(git --git-dir "$BARE" ls-tree -r --name-only "$BRANCH" entries \
+    | tail -1)"
+  entry="$(git --git-dir "$BARE" show "$BRANCH:$entry_path")"
+  if grep -q '^counts: 1 roster; 0 completed in-window; 1 outstanding;' <<<"$entry" \
+     && grep -q '^- design-minion-town-claude-harness-provisioning: todo$' <<<"$entry" \
+     && grep -q '^- none (nominal)$' <<<"$entry"; then
+    echo "PASS: write-progress posted deterministic compact entry"
+  else
+    echo "FAIL: compact progress entry shape"; printf '%s\n' "$entry"; fail=1
+  fi
+else
+  echo "FAIL: write-progress mode"; cat "$out" "$TR/err"; fail=1
 fi
 
 # No newer dispatch upstream at all: the newest stamp is older than the cadence,

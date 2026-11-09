@@ -1,6 +1,8 @@
 #!/bin/bash
 # Deterministic roster/report for the standing Claude-on-minion.town completion press.
-# Usage: claude-on-minion-town-completion-report.sh [--since ISO [--until ISO]]
+# Usage: claude-on-minion-town-completion-report.sh [--write-progress] [--since ISO [--until ISO]]
+# --write-progress preserves the JSON on stdout and deterministically renders
+# and posts the compact progress entry from that same report.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCHEDULE=claude-on-minion-town-completion-press
@@ -16,11 +18,15 @@ export GARDEN_REPO_LOCK_WAIT=$(( lock_wait > 240 ? lock_wait : 240 ))
 
 window=(--schedule "$SCHEDULE")
 pinned=1
+write_progress=0
+pass_args=()
 for arg in "$@"; do
   case "$arg" in
+    --write-progress) write_progress=1; continue;;
     --since|--since=*|--schedule|--schedule=*) window=();;
     --repo|--repo=*|--ref|--ref=*) pinned=0;;
   esac
+  pass_args+=("$arg")
 done
 
 # The default window comes from the schedule's dispatch stamps, so it is only as
@@ -64,7 +70,7 @@ if [ "${#window[@]}" -gt 0 ] && [ "$pinned" -eq 1 ]; then
   window+=(--repo "$clone" --ref "$ref")
 fi
 
-args=("${window[@]}" "$@" --format json --expand-job-references
+args=("${window[@]}" "${pass_args[@]}" --format json --expand-job-references
   --select-orchestration claude-on-minion-town-designs
   --select-prefix claude-on-minion-town-press-
   --select-prefix claude-on-minion-town-completion-press-
@@ -103,4 +109,11 @@ for attempt in 1 2; do
   printf 'claude-on-minion-town-completion-report: rc 124; retrying once\n' >&2
 done
 cat "$out"
+[ "$rc" -eq 0 ] || exit "$rc"
+if [ "$write_progress" -eq 1 ]; then
+  progress="$(mktemp)"
+  trap 'rm -f "$out" "$progress"' EXIT
+  "$HERE/claude-on-minion-town-progress-entry.py" "$out" > "$progress"
+  GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress "$progress"
+fi
 exit "$rc"
