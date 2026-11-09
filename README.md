@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-09T01:54:15Z_
+_As of 2026-11-09T01:56:19Z_
 
 ## Latest
 
@@ -2792,10 +2792,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.3M | $132.40 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.3M | $131.73 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 374.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 158154199 tokens/day lower bound._
+_Fleet token-unlock pace: 157557803 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.802158s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
@@ -2843,19 +2843,18 @@ worst fetch p95 10.802158s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 - [`oros-health-checkup-20261107-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-232010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (4)
+### doin (3)
 - [`improve-self-heal-responder-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-responder-diagnostics.md) — ---
 - [`endojs-endo-but-for-bots-pr1658-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1658-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1658
-- [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261108-203533.md) — Completion press: Claude-on-minion.town arc
 - [`fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1655-pi-family-lockstep.md) — fixer: lockstep @earendil-works/pi-* family bump for endojs/endo-but-for-bots...
 
-### tada (16969)
+### tada (16970)
+- [`claude-on-minion-town-completion-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/claude-on-minion-town-completion-press-20261108-203533.md) — Completion report
 - [`minion-town-arc-press-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/minion-town-arc-press-20261108-203533.md) — ---
 - [`deadmail-20261109T010715Z-fd3af9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/deadmail-20261109T010715Z-fd3af9.md) — Cost
 - [`endojs-endo-but-for-bots-pr1654-ava-timeout-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/endojs-endo-but-for-bots-pr1654-ava-timeout-fix.md) — Completion report
 - [`minion-town-arc-press-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/minion-town-arc-press-20261108-235013.md) — Cost
-- [`improve-correlate-unit-failure-tails`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/08/improve-correlate-unit-failure-tails.md) — Cost
-- … and 16964 more
+- … and 16965 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
