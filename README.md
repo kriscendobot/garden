@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-09T16:13:15Z_
+_As of 2026-11-09T16:16:05Z_
 
 ## Latest
 
@@ -244,10 +242,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr254-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261109-155023` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261109-155023.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261109-155023' has remained unclaimed for 1199s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-r2-requeue-exhausted.md)
 
