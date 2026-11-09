@@ -38,6 +38,10 @@
 #   P. no compatibility proof → fall open to the full review
 #   BCI. exact failed-check overlap with the base is carried into the job, an
 #      all-shared rollup suppresses repeat diagnosis, and comparisons are capped
+#   ESC. when every observed failure on a base SHA is shared, ONE stable-keyed
+#      <slug>-base-ci-<sha12> shepherd repair job is posted per base (idempotent,
+#      malformed/partial proofs never escalate); already-posted PRs are reprobed
+#      inside the same cap under a per-PR TTL so a MERGE-NOW-blocked backlog escalates
 #   MIG. a migration hook is named only for its exact (repo, package) row
 #   Q. a primary REST-quota source refusal arms the host-wide gh-api latch for the
 #      full primary-quota window (not the 300s transient default), and a later tick
@@ -51,7 +55,7 @@ export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
-TR=/home/kris/.garden-depw-test
+TR="${GARDEN_DEPW_TEST_DIR:-$HOME/.garden-depw-test}"
 SLUG=endojs-endo-but-for-bots
 REPO=endojs/endo-but-for-bots
 DEP='dependabot[bot]'
@@ -463,6 +467,97 @@ has_in_body "$BARE_BCI" "$SLUG-pr811-dependabot" 'dependabot-base-ci-shared: 1' 
   && ! grep -q ' 813$' "$BASE_CI_LOG" \
   && ok "per-tick cap stopped after exactly three base-rollup comparisons" \
   || bad "base-CI comparison cap was not enforced ($(tr '\n' ' ' < "$BASE_CI_LOG"))"
+
+! board_has "$BARE_BCI" "$SLUG-base-ci-${BASE_A:0:12}" \
+  && ok "a base with PR-only failures on some PR earns no shared-outage repair job" \
+  || bad "partial-overlap base was escalated to a repair job"
+
+# ============================================================================
+hr; echo "ESC — an all-shared base outage earns ONE stable-keyed repair job per base SHA"; hr
+BARE_ESC="$TR/esc.git"; seed_bare "$BARE_ESC"
+FIX_ESC="$TR/fix-esc.tsv"
+{ depline 820 'Bump one from 1.0.0 to 1.1.0'
+  depline 821 'Bump two from 1.0.0 to 1.1.0'
+  depline 822 'Bump three from 1.0.0 to 1.1.0'
+  depline 823 'Bump four from 1.0.0 to 1.1.0'
+  depline 824 'Bump five from 1.0.0 to 1.1.0'; } > "$FIX_ESC"
+BASE_X=1111111111111111111111111111111111111111
+BASE_Y=2222222222222222222222222222222222222222
+BASE_Z=3333333333333333333333333333333333333333
+BASE_CI_FIX_ESC="$TR/base-ci-esc.tsv"
+{ printf '820\tshared\t%s\t%s\t2\t2\t2\t1\n' "$BASE_X" "$HEAD_810"
+  printf '821\tshared\t%s\t%s\t1\t2\t1\t1\n' "$BASE_X" "$HEAD_811"
+  printf '822\tshared\t%s\t%s\t1\t1\t1\t1\n' "$BASE_Y" "$HEAD_813"
+  # 823 absent: no proof, fails open and is never a repair member.
+  # 824 malformed (claims all-shared with shared < pr_failed): rejected outright.
+  printf '824\tshared\t%s\t%s\t3\t3\t1\t1\n' "$BASE_Z" "$HEAD_813"; } > "$BASE_CI_FIX_ESC"
+BASE_CI_LOG_ESC="$TR/base-ci-esc.log"; : > "$BASE_CI_LOG_ESC"
+BASE_CI_FIXTURE="$BASE_CI_FIX_ESC" BASE_CI_LOG="$BASE_CI_LOG_ESC" GARDEN_DEP_BASE_CI_MAX_CHECKS=5 \
+  run_dep "$TR/state-esc" "$BARE_ESC" "$FIX_ESC"
+RX="$SLUG-base-ci-${BASE_X:0:12}"; RY="$SLUG-base-ci-${BASE_Y:0:12}"; RZ="$SLUG-base-ci-${BASE_Z:0:12}"
+has_in_body "$BARE_ESC" "$RX" 'role: shepherd' \
+  && has_in_body "$BARE_ESC" "$RX" "dependabot-base-ci-base: $BASE_X" \
+  && has_in_body "$BARE_ESC" "$RX" 'dependabot-base-ci-prs: 820,821' \
+  && has_in_body "$BARE_ESC" "$RX" "https://github.com/$REPO/pull/820" \
+  && has_in_body "$BARE_ESC" "$RX" "https://github.com/$REPO/pull/821" \
+  && ok "two all-shared PRs on one base share ONE repair job keyed on that base SHA" \
+  || bad "shared-base repair job missing or malformed ($RX)"
+has_in_body "$BARE_ESC" "$RY" 'dependabot-base-ci-prs: 822' \
+  && ok "a different base SHA earns its own repair job" || bad "second base repair job missing ($RY)"
+! board_has "$BARE_ESC" "$RZ" \
+  && ! has_in_body "$BARE_ESC" "$SLUG-pr824-dependabot" 'dependabot-base-ci: v1' \
+  && ok "a malformed proof is rejected (no annotation, no escalation)" \
+  || bad "malformed base-CI proof leaked into a job"
+! has_in_body "$BARE_ESC" "$RX" 'pull/823' && ! has_in_body "$BARE_ESC" "$RX" 'pull/822' \
+  && ok "no-proof and other-base PRs are not listed as repair members" \
+  || bad "repair job lists a non-member PR"
+has_in_body "$BARE_ESC" "$SLUG-pr820-dependabot" "\`$RX\`; cite it as the escalation" \
+  && ok "the all-shared botanist body cites the repair job instead of opening another" \
+  || bad "botanist body does not cite the base repair job"
+[ "$(todo_count "$BARE_ESC")" -eq 7 ] \
+  && ok "exactly 5 botanist + 2 repair jobs posted" || bad "expected 7 jobs, got $(todo_count "$BARE_ESC")"
+run_dep "$TR/state-esc" "$BARE_ESC" "$FIX_ESC"
+BASE_CI_FIXTURE="$BASE_CI_FIX_ESC" GARDEN_DEP_BASE_CI_REPROBE_SECS=0 \
+  run_dep "$TR/state-esc" "$BARE_ESC" "$FIX_ESC"
+[ "$(todo_count "$BARE_ESC")" -eq 7 ] \
+  && ok "re-ticks on the same outage are idempotent (no duplicate repair job)" \
+  || bad "re-tick duplicated a repair job ($(todo_count "$BARE_ESC"))"
+
+# ============================================================================
+hr; echo "ESC-POSTED — already-posted (MERGE-NOW-blocked) PRs are reprobed, TTL-bounded, and escalate"; hr
+BARE_EP="$TR/esc-posted.git"; seed_bare "$BARE_EP"
+v="$(mktemp -d "$TR/ep.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE_EP" "$v"
+for n in 830 831; do echo "done botanist" > "$v/jobs/doin/$SLUG-pr$n-dependabot.md"; done
+git -C "$v" add -A; git -C "$v" "${git_id[@]}" commit -q -m "seed posted botanist jobs"
+git -C "$v" push -q origin "$BRANCH"; rm -rf "$v"
+FIX_EP="$TR/fix-esc-posted.tsv"
+{ depline 830 'Bump six from 1.0.0 to 1.1.0'; depline 831 'Bump seven from 1.0.0 to 1.1.0'; } > "$FIX_EP"
+BASE_CI_FIX_EP="$TR/base-ci-esc-posted.tsv"
+{ printf '830\tshared\t%s\t%s\t1\t1\t1\t1\n' "$BASE_X" "$HEAD_810"
+  printf '831\tshared\t%s\t%s\t1\t1\t1\t1\n' "$BASE_X" "$HEAD_811"; } > "$BASE_CI_FIX_EP"
+BASE_CI_LOG_EP="$TR/base-ci-esc-posted.log"; : > "$BASE_CI_LOG_EP"
+BASE_CI_FIXTURE="$BASE_CI_FIX_EP" BASE_CI_LOG="$BASE_CI_LOG_EP" GARDEN_DEP_BASE_CI_MAX_CHECKS=1 \
+  run_dep "$TR/state-esc-posted" "$BARE_EP" "$FIX_EP"
+has_in_body "$BARE_EP" "$RX" 'dependabot-base-ci-prs: 830' \
+  && [ "$(wc -l < "$BASE_CI_LOG_EP")" -eq 1 ] \
+  && ok "a posted PR blocked on base is reprobed within the cap and escalates" \
+  || bad "posted PR reprobe/escalation failed ($(tr '\n' ' ' < "$BASE_CI_LOG_EP"))"
+[ "$(job_body "$BARE_EP" "$SLUG-pr830-dependabot")" = "done botanist" ] \
+  && ok "the existing botanist job is not rewritten by the reprobe" || bad "reprobe rewrote a posted botanist job"
+BASE_CI_FIXTURE="$BASE_CI_FIX_EP" BASE_CI_LOG="$BASE_CI_LOG_EP" GARDEN_DEP_BASE_CI_MAX_CHECKS=1 \
+  run_dep "$TR/state-esc-posted" "$BARE_EP" "$FIX_EP"
+[ "$(wc -l < "$BASE_CI_LOG_EP")" -eq 2 ] && grep -q ' 831$' "$BASE_CI_LOG_EP" \
+  && ok "the per-PR reprobe TTL rotates the backlog through the shared cap" \
+  || bad "reprobe TTL did not rotate ($(tr '\n' ' ' < "$BASE_CI_LOG_EP"))"
+BASE_CI_FIXTURE="$BASE_CI_FIX_EP" BASE_CI_LOG="$BASE_CI_LOG_EP" GARDEN_DEP_BASE_CI_MAX_CHECKS=4 \
+  run_dep "$TR/state-esc-posted" "$BARE_EP" "$FIX_EP"
+[ "$(wc -l < "$BASE_CI_LOG_EP")" -eq 2 ] \
+  && ok "PRs reprobed inside the TTL are not re-read" \
+  || bad "reprobe ignored the TTL ($(tr '\n' ' ' < "$BASE_CI_LOG_EP"))"
+[ "$(todo_count "$BARE_EP")" -eq 1 ] \
+  && ok "the reprobe path posts only the repair job, never a duplicate botanist" \
+  || bad "expected one todo job, got $(todo_count "$BARE_EP")"
 
 # ============================================================================
 hr; echo "R — cgroup straggler sweep waits until the cgroup is EMPTY (not one-shot)"; hr
