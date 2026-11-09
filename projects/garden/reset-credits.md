@@ -4,14 +4,14 @@ The durable inventory of **manual mid-week quota resets** the maintainer can app
 
 Standing policy (kriskowal 2026-09-30): spend a subscription to **90%**, never 100%, before a reset; the last 10% is maintainer discretion. Use credits **mid-week, before they expire**.
 
-## Inventory (reconciled 2026-11-02 by reset-credit-watch; credits per kriskowal 2026-10-10/11)
+## Inventory (reconciled 2026-11-09 by reset-credit-watch; credits per kriskowal 2026-10-10/11)
 
 | Subscription | Credits available | Expires | Notes |
 | --- | --- | --- | --- |
-| claude-endolin1 ("endolin-claude1") | **none** | n/a | Last credit used 2026-09-30T19:40Z. Window from 10-31T03:00Z, next natural reset 11-07T04:00Z (PST); ledger 70% at 11-02T13:43Z (95.6M tokens at 11-02T17:01Z). |
+| claude-endolin1 ("endolin-claude1") | **none** | n/a | Last credit used 2026-09-30T19:40Z. Window from 11-07T04:00Z, next natural reset 11-14T04:00Z (PST); meter 12% at 11-09T16:33Z (dashboard 84% at 11-04T22:03Z in the prior window). |
 | claude-endolin2 ("endolin-claude2") | **none** | n/a | Only credit (exp 10-22) used 2026-10-06T18:39Z. Retired for now (kriskowal 2026-10-11). |
-| codex-endolin ("endolin-codex1") | **0 or 1** (unconfirmed since 10-26) | 2026-11-06 | Per kriskowal 2026-10-10: "resets expire Oct 29 and Nov 6, no hurry". 10-16T03:51Z manual reset recorded as the 10-29 credit. Whether the 10-23T00:20Z manual reset spent the 11-06 credit is still unanswered. Last reading 91%, unchanged since about 11-01T03:30Z because no codex tokens have been spent since then. The expected 10-30T00:20Z natural reset does not show in the meter (13% before and after), so the true window and next natural reset are unknown; the live window anchor is still 10-23T00:20Z. |
-| claude-oros | unknown (treat as none) | | Active, not derotated: spending on oros-studio (17.6M tokens at 11-02T17:03Z), ledger 11% at 11-02T17:04Z, window from 10-27T10:00Z, next natural reset 11-03T11:00Z (MST). Credit count still unconfirmed. |
+| codex-endolin ("endolin-codex1") | **none** | n/a | The 10-29 credit was used 10-16. The 11-06 credit (if not already spent by the 10-23T00:20Z reset) is past expiry as of 2026-11-09. Window reset to 0% at about 11-04T22:05Z (maintainer: "0% resetting in 6d 20h"), from 91%; whether that was the 11-06 credit is unconfirmed but moot. Next reset about 11-11T18:05Z. Dashboard 24% at 11-05T15:27Z; live meter anchor is still stale (10-23). |
+| claude-oros | unknown (treat as none) | | Active: ledger 26% at 11-09T16:31Z, window from 11-03T11:00Z, next natural reset 11-10T11:00Z (MST). Credit count still unconfirmed. |
 
 Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00 America/Los_Angeles** (Sat 03:00Z in PDT, Sat 04:00Z in PST). codex-endolin resets on a rolling 7 days from its last reset. claude-oros ("claude-oros-studio1") resets **Tuesday 04:00 America/Denver** (10:00Z in MDT, 11:00Z in MST; corrected 2026-10-01 per the oros operator).
 
@@ -22,6 +22,8 @@ Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00
 - codex-endolin: maintainer also plans to spend one codex credit this week once it is spent (kriskowal 2026-10-05: "I plan to reset endolin-claude2 and endolin-codex1 this week, whenever they're spent"). Readings 2026-10-05T05:15Z: claude1 61%, claude2 70%, codex 44% (natural reset in 4d16h, ~2026-10-09T21:10Z).
 
 ## Use log
+
+- 2026-11-09 (reset-credit-watch): no live credits remain. codex-endolin rolled to 0% at about 11-04T22:05Z (maintainer checkpoint, not recorded as a use; plausibly the 11-06 credit, after a 91% plateau). Either way the 11-06 credit has expired. No new credits have been stated by the maintainer.
 
 - 2026-11-02 (reset-credit-watch): no reset events or maintainer statements since 10-23, and no new use recorded. The 10-26 question about the 10-23T00:20Z codex reset is unanswered, so codex stays "0 or 1". Codex meter climbed 13% to 91% between 10-30 and 11-01, then stopped spending. Maintainer asked to read the dashboard and decide before the 11-06 expiry.
 
