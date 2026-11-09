@@ -1,3 +1,15 @@
+## 2026-11-09T09:25Z - oros-health-watch-20261109-092024
+
+- Verdict: unhealthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local run did not complete this cycle. `oros-health-checkup-20261109-060512` is still in `jobs/todo/`, one of 21 queued Oros checkups (oldest `oros-health-checkup-20261105-103515`). No Oros job is in `jobs/doin/`, and no newer checkup has been dispatched (the checkup schedule's `last_dispatched` is still 06:05:12Z). Nothing has changed since the 06:09Z record. The `worker-agent-bin-monk-oros-studio-garden-ce242c49` notice from 2026-11-07 (expired Claude OAuth session) is still in maintainer `unread/`, with no recovery notice. `fleet/health` is still at 02:57:49Z: deployed `16ea23b4137b` (= this job's `origin/main2`), `roll-drained`, 1/296 failed units, first `garden-secret-broker.service`. The newest sysop record is still `20261109T034402Z-e76e60` (roll-owned drain on, accepted-and-applied at 03:44:49Z), and there is no `deploy/roll-completed/16ea23b4...` record. The claude-oros heartbeat sampled at 09:02:14Z is current: `ok`, 26%. The deterministic 3h/12h disposition report at journal tip `cdbe11a41a5b` has no Oros claims or completions. The leader is still on `f2788117645d`.
+- Cause: unchanged. (1) Claude rejects the target's expired OAuth session, so all four monks are credential-parked. (2) `garden-secret-broker.service` fails the post-deploy unit gate; the cause is unknown until the unit log is exported.
+- Actions: observed only. No sysop operation, reset, restore, drain change, worker-count change, restart, or code change. Restore and restart do not fix rejected credentials, a reset would not fix the recurring broker failure, and the rolling-deploy workflow owns the drain.
+- Final state: Oros is present and deployed at `16ea23b4137b` but unhealthy: 1 failed unit, held under a roll-owned drain after 3/3 retries, four monks credential-parked, and it is claiming and completing nothing.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login` (or `claude auth login`). Also attest `send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>`. After both faults clear, let rolling deploy revalidate the tip, or explicitly choose to hold or use the old SHA.
+- Next mechanic: first check for the worker-agent-bin recovery notice and the broker unit log. Then require a fresh fleet-health record with 0 failed units, an Oros claim and completion, a canary that passes, a `roll-completed` record, and the roll workflow's drain lift. The queued local mechanic still owns disk, lock-holder, and contention evidence.
+
 ## 2026-11-09T06:09Z - oros-health-watch-20261109-060512
 
 - Verdict: unhealthy
