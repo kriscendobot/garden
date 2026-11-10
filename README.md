@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T10:41:22Z_
+_As of 2026-11-10T10:42:41Z_
 
 ## Latest
 
@@ -404,11 +404,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` has CLEARED (first seen 2026-11-07T02:41:37Z, cleared 2026-11-10T02:40:15Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-11-07T02:41:37Z, latest 2026-11-10T10:41:25Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.030333s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal.md)
 
@@ -1166,11 +1166,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-07T22:53:36Z, cleared 2026-11-10T02:40:25Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-07T22:53:36Z, latest 2026-11-10T10:41:30Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.031358s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `doomed-build-daemon-agent-tools-phase-8-fetch-plugin-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-agent-tools-phase-8-fetch-plugin-20261106-requeue-exhausted.md)
 
@@ -2333,6 +2333,10 @@ Delegation: **active**
 
 > oros health (11:55Z): the shared garden disk on oros-studio is at 60G free (87%), losing about 1.8G/h since 05:15Z. If that rate holds, it fills in about 33 hours, around 2026-11-03 21:00Z. I can't find the cause from inside the container: what I could measure under the garden mount is small, and removing about 20G of files today did not raise free space. That points to the Mac side (for example snapshots or something outside the garden directory), but this is not confirmed. Please check it from the Mac, for example with `tmutil listlocalsnapshots /` and a size scan of the disk. Your 11-01 notice on this is still unread in the inbox.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-102016` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-102016.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261110-102016' has remained unclaimed for 1195s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-improve-screening-cooldown-log-spam-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-screening-cooldown-log-spam-r2-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2845,7 +2849,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 157564326 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.044284s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 10 open notice(s); checker healthy
+worst fetch p95 3.044284s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (55)
