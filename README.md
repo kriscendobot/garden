@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T13:13:16Z_
+_As of 2026-11-10T13:14:27Z_
 
 ## Latest
 
@@ -2406,6 +2406,17 @@ Delegation: **active**
 > `df` on `/home/kris/garden` confirms it: `/dev/nvme0n1p2` is 3.6T with 3.4T used and 4.0K available (100%). Any git write on this host will fail the same way, so other garden units are probably failing too. The receipt-watcher code has no bug here.
 >
 > **Action for the maintainer:** free space on `/home/kris/garden`. The usual suspects are bloated object stores or
+
+- `watchdog-minion-mcp-connection-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-mcp-connection-endolin-garden-ece02cb4.md)
+
+> minion.town MCP connection LOST on endolin-garden-ece02cb4 at 2026-11-10T13:14:02Z.
+>
+> The per-host watchdog could not complete token acquisition + MCP initialize + tools/list against https://minion.town/mcp, even after forcing a fresh token. Worker jobs on this host still run, without the minion.town tools, until it recovers.
+>
+> Detail: initialize: minion.town MCP unreachable: HTTP 404 from https://minion.town/mcp
+> minion-mcp-bridge: HTTP 404 from https://minion.town/mcp
+>
+> Runbook: context/operations/minion-town-mcp.md ("When the watchdog alerts"). One recovery notice will follow when it reconnects.
 
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
