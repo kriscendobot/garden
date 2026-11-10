@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T04:44:18Z_
+_As of 2026-11-10T04:46:13Z_
 
 ## Latest
 
@@ -544,11 +544,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-11-07T02:41:43Z, latest 2026-11-10T02:50:47Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` has CLEARED (first seen 2026-11-07T02:41:43Z, cleared 2026-11-10T04:45:44Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.029587s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-verify-minion-town-recovery-outcome-production-20261107-requeue-exhausted.md)
 
@@ -2845,7 +2845,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 158026883 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal); 11 open notice(s); checker healthy
+worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (52)
