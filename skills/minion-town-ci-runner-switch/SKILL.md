@@ -5,6 +5,15 @@ author: liaison
 
 # Skill: minion-town-ci-runner-switch
 
+> **TORN DOWN 2026-11-10.** At the maintainer's request the `ci.minion.town` runner
+> was removed: the spot host, its VPC, elastic IP and DNS record, the JIT-minter Lambda,
+> both IAM roles, and the stored GitHub token (Secrets Manager deletion, 7-day
+> recovery window). minion.town CI runs on GitHub-hosted runners (`CI_RUNS_ON` is
+> `"ubuntu-latest"`). The rest of this page is history; do not unset `CI_RUNS_ON`,
+> or jobs will queue for a runner that no longer exists. A billing block on the
+> `kriscendobot` account will now stall minion.town CI until it lifts.
+
+
 Switch kriscendobot/minion.town's CI between GitHub-hosted runners and the
 self-hosted ephemeral runner at `ci.minion.town`, in either direction, with one
 repository variable. Use it when a GitHub Actions **billing block** stops

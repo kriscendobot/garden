@@ -6,6 +6,15 @@ author: gardener
 
 # ci.minion.town: the self-hosted Actions runner
 
+> **TORN DOWN 2026-11-10.** At the maintainer's request the `ci.minion.town` runner
+> was removed: the spot host, its VPC, elastic IP and DNS record, the JIT-minter Lambda,
+> both IAM roles, and the stored GitHub token (Secrets Manager deletion, 7-day
+> recovery window). minion.town CI runs on GitHub-hosted runners (`CI_RUNS_ON` is
+> `"ubuntu-latest"`). The rest of this page is history; do not unset `CI_RUNS_ON`,
+> or jobs will queue for a runner that no longer exists. A billing block on the
+> `kriscendobot` account will now stall minion.town CI until it lifts.
+
+
 On 2026-09-30 the kriscendobot account hit an account-wide GitHub Actions
 billing block, and hosted jobs stopped starting (kriscendobot/minion.town#144).
 In response, the job `build-ci-minion-town-actions-runner` built a self-hosted,
