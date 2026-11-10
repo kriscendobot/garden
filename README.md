@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-10T10:43:47Z_
+_As of 2026-11-10T10:45:51Z_
 
 ## Latest
 
@@ -2334,10 +2332,6 @@ Delegation: **active**
 - `msg-oros-health-checkup-20261102-103514-37fd8774fafa` — from gardener:oros-health-checkup-20261102-103514, reply_to `oros-health-checkup-20261102-103514` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261102-103514-37fd8774fafa.md)
 
 > oros health (11:55Z): the shared garden disk on oros-studio is at 60G free (87%), losing about 1.8G/h since 05:15Z. If that rate holds, it fills in about 33 hours, around 2026-11-03 21:00Z. I can't find the cause from inside the container: what I could measure under the garden mount is small, and removing about 20G of files today did not raise free space. That points to the Mac side (for example snapshots or something outside the garden directory), but this is not confirmed. Please check it from the Mac, for example with `tmutil listlocalsnapshots /` and a size scan of the disk. Your 11-01 notice on this is still unread in the inbox.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-102016` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-102016.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261110-102016' has remained unclaimed for 1195s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-improve-screening-cooldown-log-spam-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-screening-cooldown-log-spam-r2-requeue-exhausted.md)
 
