@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T12:53:41Z_
+_As of 2026-11-10T12:55:39Z_
 
 ## Latest
 
@@ -1759,10 +1759,6 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-bots dependabotany ledger whose maturity date has arrived or whose recorded blocker has cleared. Recover the ledger with: grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'. Execute the now-due verdict for each PR: MERGE-NOW through ci-wait-merge.sh --dependabot-auto-merge, REJECT closes, EMBARGO re-defers. Current row: #1629 (setup-python 7.1.0) is held on [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r3.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r3' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
