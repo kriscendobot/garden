@@ -1,3 +1,15 @@
+## 2026-11-10T04:10Z - oros-health-watch-20261110-040516
+
+- Verdict: unhealthy (operator-held on credentials; roll-owned drain after the canary failed for good)
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local run did not complete. No checkup exists for this cycle: the `oros-health-checkup` schedule last dispatched at 01:05:10Z (cadence 3h). `oros-health-checkup-20261110-010510` is still unclaimed in `jobs/todo/`, with 27 Oros checkups queued. All 18 Oros canary probes (every roll since `f2788117645d`, including `6a1e44eafd6a` r1–r3) are still in `jobs/todo/`. The newest sysop record is still `20261109T231402Z-1f1774` (`drain on [rolling-deploy]`, failed canary, 23:15:14Z). `fleet/health` is unchanged at 21:59:03Z (`6a1e44eafd6a`, 0/297 failed units). The `worker-agent-bin-monk` notice (OAuth session expired, last_seen 2026-11-07T02:26:36Z) is still unread with no recovery. The claude-oros heartbeat at 03:32:14Z is `ok` with spend flat at 59113428, so Oros is present but idle. No `roll-completed` record exists for `6a1e44eafd6a`, and `deploy/leader-sha` is still `f2788117645d`. Journal tip read at `afb1c8f47d1` (03:44:10Z).
+- Cause: unchanged from 01:15Z. Claude rejects the expired OAuth session, so all four monks are credential-parked. Nothing can claim the canary probe, so the roll's failed-canary drain stands.
+- Actions: observed only. I sent no sysop operation, reset, restore, drain change, worker-count change, restart, or code change. The drain is roll-owned after a failed canary, so it stays per skill §4. No unit is failed, and neither restore nor a restart repairs rejected credentials.
+- Final state: Oros is present at `6a1e44eafd6a` with 0 failed units, drained by rolling-deploy, and claims and completes nothing. The leader's deploy is still held behind the failed follower canary.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login`. After that, the roll workflow (or a maintainer `drain off` decision) re-validates the canary. Please also pause the `oros-health-checkup` and `oros-health-watch` schedules until the login is done: 27 unclaimable checkups and 18 stale canary probes are queued.
+- Next mechanic: first check for the worker-agent-bin recovery notice. Then check for a canary probe reaching `tada/`, a `roll-completed/6a1e44...` record, and the roll lifting its own drain. Do not lift the failed-canary drain by hand.
+
 ## 2026-11-10T01:15Z - oros-health-watch-20261110-010510
 
 - Verdict: unhealthy (operator-held on credentials; roll-owned drain after the canary failed for good)
