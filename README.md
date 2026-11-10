@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-10T16:52:36Z_
+_As of 2026-11-10T16:54:44Z_
 
 ## Latest
 
@@ -2909,7 +2907,7 @@ _Fleet token-unlock pace: 154241004 tokens/day lower bound._
 worst fetch p95 4.027863s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
-### todo (60)
+### todo (59)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2939,7 +2937,6 @@ worst fetch p95 4.027863s/45s (unknown); 9 open notice(s); checker healthy
 - [`oros-health-checkup-20261108-052012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-052012.md) — ---
 - [`oros-health-checkup-20261109-092024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-092024.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 74a2b296b40d
-- [`oros-health-watch-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261110-163511.md) — ---
 - [`oros-health-checkup-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-140511.md) — ---
 - [`oros-health-checkup-20261108-082012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-082012.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
@@ -2974,13 +2971,13 @@ worst fetch p95 4.027863s/45s (unknown); 9 open notice(s); checker healthy
 ### doin (0)
 (none)
 
-### tada (17008)
+### tada (17009)
+- [`oros-health-watch-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-163511.md) — 2026-11-10T16:53Z - oros-health-watch-20261110-163511 (requeue re-check)
 - [`minion-town-arc-press-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/minion-town-arc-press-20261110-163511.md) — Cost
 - [`claude-on-minion-town-completion-press-20261110-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/claude-on-minion-town-completion-press-20261110-152013.md) — Cost
 - [`oros-health-watch-20261110-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-133510.md) — 2026-11-10T13:40Z - oros-health-watch-20261110-133510
 - [`minion-town-arc-press-20261110-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/minion-town-arc-press-20261110-133510.md) — Cost
-- [`improve-deterministic-host-health-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/improve-deterministic-host-health-watch.md) — Cost
-- … and 17003 more
+- … and 17004 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
