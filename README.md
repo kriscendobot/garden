@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T07:18:32Z_
+_As of 2026-11-10T07:21:29Z_
 
 ## Latest
 
@@ -2839,7 +2839,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $136.03 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 34.7M | $137.25 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 158061748 tokens/day lower bound._
@@ -2848,7 +2848,7 @@ _Fleet token-unlock pace: 158061748 tokens/day lower bound._
 worst fetch p95 4.743639s/45s (/home/kris/garden/.garden-state/secret-watchdog/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (52)
+### todo (53)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2858,6 +2858,7 @@ worst fetch p95 4.743639s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`oros-health-checkup-20261109-123524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-123524.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
+- [`oros-health-checkup-20261110-072010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-072010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261108-173513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-173513.md) — ---
@@ -2902,8 +2903,9 @@ worst fetch p95 4.743639s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (2)
+- [`oros-health-watch-20261110-072010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261110-072010.md) — ---
+- [`minion-town-arc-press-20261110-072010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261110-072010.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (16999)
 - [`oros-health-watch-20261110-040516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-040516.md) — 2026-11-10T04:10Z - oros-health-watch-20261110-040516
