@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T07:38:28Z_
+_As of 2026-11-10T07:42:54Z_
 
 ## Latest
 
@@ -2685,6 +2685,10 @@ Delegation: **active**
 > `df` shows `/home/kris/garden` at 100% (3.4T of 3.6T used, 0 available). Any other unit that writes to that filesystem will probably fail the same way. Systemd's restart will keep failing until space is freed.
 >
 > The fix is operational: free space on that volume. Likely places to look are old worktrees, aborted-repack garbage in the shared root repo (the sysop `maintain` 
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-072010` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-072010.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261110-072010' has remained unclaimed for 1198s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-claude-on-minion-town-completion-press-20261107-075009-requeue-exhausted.md)
 
