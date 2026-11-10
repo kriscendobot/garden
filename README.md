@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T06:43:13Z_
+_As of 2026-11-10T06:48:12Z_
 
 ## Latest
 
@@ -203,11 +203,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-11-07T02:46:16Z, cleared 2026-11-10T02:40:46Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-11-07T02:46:16Z, latest 2026-11-10T06:46:11Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_unblock_journal`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.038546s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
@@ -1466,11 +1466,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-11-06T02:46:39Z, latest 2026-11-10T02:50:42Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_reducer_journal`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` has CLEARED (first seen 2026-11-06T02:46:39Z, cleared 2026-11-10T06:45:50Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.037088s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` cleared on endolin-garden-ece02cb4.
 
 - `muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-build-daemon-git-remotes-transport-timing-r2-failed.md)
 
@@ -1663,11 +1663,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` has CLEARED (first seen 2026-11-07T16:47:16Z, cleared 2026-11-09T22:40:37Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-11-07T16:47:16Z, latest 2026-11-10T06:46:00Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_screening_journal`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.038218s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `doomed-improve-gauntlet-notices-to-pr-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-gauntlet-notices-to-pr-20261106-requeue-exhausted.md)
 
@@ -2076,11 +2076,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_sysop_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-11-09T15:00:48Z, cleared 2026-11-10T02:40:40Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-09T15:00:48Z, latest 2026-11-10T06:46:05Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_sysop_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: p95=0.030921s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `orchestrate-build-minion-town-ordered-gutter-20261104-halted` — from orchestrator:orchestrate-build-minion-town-ordered-gutter-20261104-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orchestrate-build-minion-town-ordered-gutter-20261104-halted.md)
 
@@ -2845,7 +2845,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 158061748 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal); 10 open notice(s); checker healthy
+worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (52)
