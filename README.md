@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T13:49:46Z_
+_As of 2026-11-10T13:52:42Z_
 
 ## Latest
 
@@ -2302,6 +2302,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-133510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-133510.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261110-133510' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-self-heal-garden-cleric` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-cleric.md)
 
