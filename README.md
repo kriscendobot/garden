@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T15:18:11Z_
+_As of 2026-11-10T15:21:46Z_
 
 ## Latest
 
@@ -2879,13 +2879,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.1M | $136.03 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 35.2M | $136.32 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154213030 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.416039s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
+worst fetch p95 3.986291s/45s (/home/kris/garden/.garden-state/producer/outbound-journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (58)
@@ -2948,8 +2948,8 @@ worst fetch p95 3.416039s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20261110-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261110-152013.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (17006)
 - [`oros-health-watch-20261110-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-133510.md) — 2026-11-10T13:40Z - oros-health-watch-20261110-133510
