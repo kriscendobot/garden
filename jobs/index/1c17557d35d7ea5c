@@ -1,0 +1,2 @@
+base: improve-deterministic-host-health-watch
+identity: mentor:scripts/jobs/host-health-watch.sh
