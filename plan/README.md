@@ -207,6 +207,7 @@ flowchart LR
   endor_tui_phase_2 --> endor_tui_phase_4
   endor_tui_phase_2 --> endor_tui_phase_5
   daemon_xs_worker_debugger --> endor_tui_phase_5
+  endor_tui_phase_5 --> endor_tui_phase_6
   endor_tui_phase_5 --> endor_tui_phase_7
   endor_tui_phase_3 --> endor_tui_phase_8
   endor_tui_phase_4 --> endor_tui_phase_8
