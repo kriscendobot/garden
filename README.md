@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T01:23:51Z_
+_As of 2026-11-10T01:24:49Z_
 
 ## Latest
 
@@ -239,10 +239,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-010510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261110-010510.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261110-010510' has remained unclaimed for 903s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `kriscendobot-minion.town-pr254-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr254-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr254-gauntlet-review-budget-reached.md)
 
