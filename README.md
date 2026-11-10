@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T10:20:05Z_
+_As of 2026-11-10T10:21:55Z_
 
 ## Latest
 
@@ -2839,7 +2839,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.8M | $136.03 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 34.9M | $136.32 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157550563 tokens/day lower bound._
@@ -2848,7 +2848,7 @@ _Fleet token-unlock pace: 157550563 tokens/day lower bound._
 worst fetch p95 2.900608s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (53)
+### todo (54)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2893,6 +2893,7 @@ worst fetch p95 2.900608s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
+- [`oros-health-checkup-20261110-102016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-102016.md) — ---
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-113509.md) — ---
@@ -2903,8 +2904,9 @@ worst fetch p95 2.900608s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (2)
+- [`minion-town-arc-press-20261110-102016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261110-102016.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`oros-health-watch-20261110-102016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261110-102016.md) — ---
 
 ### tada (17002)
 - [`claude-on-minion-town-completion-press-20261110-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/claude-on-minion-town-completion-press-20261110-092012.md) — Cost
