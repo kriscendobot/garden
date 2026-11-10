@@ -5618,7 +5618,12 @@ _seed_clone_from_root() {
   done
   rm -rf "$tmp"
   mkdir -p "$(dirname "$dir")"
+  # GARDEN_JOURNAL_BORROW_OBJECTS=1 (set by the sandbox launcher for its ephemeral
+  # per-job state): share the root repo's object store through an alternate instead
+  # of copying its pack. Full history, ~20 MiB of .git instead of ~335 MiB.
   if git init -q "$tmp" >/dev/null 2>&1 \
+     && { [ "${GARDEN_JOURNAL_BORROW_OBJECTS:-0}" != 1 ] \
+          || printf '%s\n' "$GARDEN_ROOT/.git/objects" > "$tmp/.git/objects/info/alternates"; } \
      && git -C "$tmp" remote add -t "$JOURNAL_BRANCH" origin "$remote" >/dev/null 2>&1 \
      && journal_seed_from_root "$tmp" \
      && GARDEN_REPO_GIT_TIMEOUT="$GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT" \
@@ -5662,7 +5667,8 @@ reclone_clone() {
   # runs a git subcommand IN $GARDEN_ROOT, so this respects the root-repo invariant.
   local ref_flags=()
   if [ -d "$GARDEN_ROOT/.git" ]; then
-    ref_flags=(--reference-if-able "$GARDEN_ROOT/.git" --dissociate)
+    ref_flags=(--reference-if-able "$GARDEN_ROOT/.git")
+    [ "${GARDEN_JOURNAL_BORROW_OBJECTS:-0}" = 1 ] || ref_flags+=(--dissociate)
   fi
   # Journal callers already own their cadence/outer clone retry policy (notably
   # inbox-read's three-attempt cold-clone loop). Keep this primitive to one

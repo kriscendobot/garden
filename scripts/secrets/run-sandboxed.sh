@@ -114,12 +114,17 @@ fi
 if [ -n "${GARDEN_STATE:-}" ]; then
   sbx_root="$GARDEN_STATE/sandbox-state"
   if mkdir -p "$sbx_root" 2>/dev/null; then
-    find "$sbx_root" -mindepth 1 -maxdepth 1 -type d -name 'sbx-state.*' -mmin +2880 \
+    find "$sbx_root" -mindepth 1 -maxdepth 1 -type d -name 'sbx-state.*' -mmin +360 \
       -exec rm -rf {} + 2>/dev/null || true
     if job_state="$(mktemp -d "$sbx_root/sbx-state.XXXXXX" 2>/dev/null)"; then
       args+=(--bind "$job_state" "$job_state" --setenv GARDEN_STATE "$job_state")
       # Clone paths inherited from the parent point into the read-only host state
       # (and at the supervising worker's own clone); re-derive them per job.
+      # Per-job journal clones borrow objects from the host's root repo instead of
+      # copying them: a full copy was ~335 MiB of pack per job (131 GB across 259
+      # jobs, 2026-11-09). The borrow is read-only and safe because the job state is
+      # deleted on exit. See _seed_clone_from_root / reclone_clone in common.sh.
+      args+=(--setenv GARDEN_JOURNAL_BORROW_OBJECTS 1)
       args+=(--unsetenv GARDEN_WORKER_CLONE --unsetenv GARDEN_PRODUCER_CLONE
              --unsetenv GARDEN_INBOX_CLONE --unsetenv GARDEN_JOURNAL_CLONE_BASE
              --unsetenv JOURNAL_REMOTE_CACHE)
@@ -137,4 +142,25 @@ if [ -n "${GARDEN_STATE:-}" ]; then
     fi
   fi
 fi
-exec bwrap "${args[@]}" -- "$@"
+# Run bwrap as a child (not exec) so the per-job directories can be removed when it
+# exits; they are ~0.4 GiB each (a journal working tree) and nothing reads them
+# afterwards. Signals are forwarded so a handler timeout still stops the job. A
+# SIGKILLed launcher cannot clean up; the age sweeps above catch that case.
+# shellcheck disable=SC2317  # invoked via trap
+sbx_cleanup() {
+  [ -z "${job_state:-}" ] || rm -rf -- "${job_state:?}" 2>/dev/null || true
+  [ -z "${job_tmp:-}" ] || rm -rf -- "${job_tmp:?}" 2>/dev/null || true
+}
+trap sbx_cleanup EXIT
+bwrap "${args[@]}" -- "$@" <&0 &
+sbx_child=$!
+for sig in TERM INT HUP QUIT; do
+  # shellcheck disable=SC2064
+  trap "kill -s $sig $sbx_child 2>/dev/null || true" "$sig"
+done
+sbx_rc=0
+while :; do
+  wait "$sbx_child" && sbx_rc=0 || sbx_rc=$?
+  kill -0 "$sbx_child" 2>/dev/null || break
+done
+exit "$sbx_rc"
