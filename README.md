@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-10T21:44:05Z_
+_As of 2026-11-10T21:49:30Z_
 
 ## Latest
 
