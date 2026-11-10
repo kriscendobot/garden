@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T16:38:25Z_
+_As of 2026-11-10T16:42:07Z_
 
 ## Latest
 
@@ -404,11 +404,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-11-07T02:41:37Z, latest 2026-11-10T10:41:25Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` has CLEARED (first seen 2026-11-07T02:41:37Z, cleared 2026-11-10T16:41:17Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.030333s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_cursors_journal.md)
 
@@ -1195,11 +1195,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-07T22:53:36Z, latest 2026-11-10T10:41:30Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-07T22:53:36Z, cleared 2026-11-10T16:41:39Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.031358s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-build-daemon-agent-tools-phase-8-fetch-plugin-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-agent-tools-phase-8-fetch-plugin-20261106-requeue-exhausted.md)
 
@@ -2621,6 +2621,21 @@ Delegation: **active**
 >
 > Comment acknowledgment condition cleared.
 
+- `msg-minion-town-arc-press-20261110-163511-75a23ad64b38` — from gardener:minion-town-arc-press-20261110-163511, reply_to `minion-town-arc-press-20261110-163511` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261110-163511-75a23ad64b38.md)
+
+> minion.town production went dark at about 13:14Z today (2026-11-10), and the cause is DNS, not the app. Is this repoint yours?
+>
+> What I found:
+> - The authoritative Route53 answer (awsdns, TTL 60) for both `minion.town` and `ocap.site` is now `34.225.237.208`, an Amazon address that looks like us-east-1. The documented production host is EC2 `i-0380cd68b90020fad`, EIP `13.56.17.18`, in us-west-1.
+> - `npm.`, `ci.`, `github-idp.` and `siwe-idp.minion.town` no longer resolve at all, so the zone seems to have been rewritten down to its apex records.
+> - The new address runs Caddy and serves a static "Minion Town" page that says "There are no accounts here". Every app route (`/mcp`, `/api/guest`, `/soon`, the clips on `*.ocap.site`) answers 404.
+> - The real host is healthy. Pinned to `13.56.17.18`, `/mcp` answers 401 and `/soon` answers 200.
+> - Effects: the prod probe has been red since 14:52Z ([https://github.com/kriscendobot/minion.town/issues/256](https://github.com/kriscendobot/minion.town/issues/256)), and the garden's MCP watchdog has reported the connection lost since 13:14Z.
+>
+> This garden host has no AWS credentials, and no journal record or repo commit explains the change, so I have not touched DNS.
+>
+> The question: if you made this change on purpose (a rebuild or a new direction), say so and I will re-baseline the arc and the probe. If you didn't, it is a possible zone compromise. Restoring the A records for the apex and the subdomains to `13.56.17.18` needs you or a credentialed host, and the Route53 change history should be checked.
+
 - `watchdog-self-heal-garden-sysop` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-sysop.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-11-08T20:56:14Z, latest 2026-11-09T01:18:12Z).
@@ -2879,13 +2894,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.3M | $136.86 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 35.3M | $136.03 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154222435 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.027863s/45s (unknown); 11 open notice(s); checker healthy
+worst fetch p95 4.027863s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (59)
@@ -2949,17 +2964,16 @@ worst fetch p95 4.027863s/45s (unknown); 11 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (2)
+### doin (1)
 - [`oros-health-watch-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261110-163511.md) — ---
-- [`minion-town-arc-press-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261110-163511.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (17007)
+### tada (17008)
+- [`minion-town-arc-press-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/minion-town-arc-press-20261110-163511.md) — Cost
 - [`claude-on-minion-town-completion-press-20261110-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/claude-on-minion-town-completion-press-20261110-152013.md) — Cost
 - [`oros-health-watch-20261110-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-133510.md) — 2026-11-10T13:40Z - oros-health-watch-20261110-133510
 - [`minion-town-arc-press-20261110-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/minion-town-arc-press-20261110-133510.md) — Cost
 - [`improve-deterministic-host-health-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/improve-deterministic-host-health-watch.md) — Cost
-- [`minion-town-arc-press-20261110-102016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/minion-town-arc-press-20261110-102016.md) — Cost
-- … and 17002 more
+- … and 17003 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
