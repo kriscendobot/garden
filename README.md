@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T03:15:07Z_
+_As of 2026-11-10T03:21:00Z_
 
 ## Latest
 
@@ -1285,30 +1285,30 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-11-07T22:15:24Z, latest 2026-11-10T03:14:42Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-11-07T22:15:24Z, latest 2026-11-10T03:19:43Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1794281157 set-by=receipt:kriscendobot-moddable:PR source:primary-quota <- pages:kriscendobot/garden:net
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2912s (since 2026-11-10T02:26:10Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2917s (since 2026-11-10T02:26:05Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2915s (since 2026-11-10T02:26:07Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2905s (since 2026-11-10T02:26:17Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> watcher ticking but cooldown for 2881s (since 2026-11-10T02:26:41Z); detail: rest latch set-by=receipt:kriscendobot-moddable:PR source:primary-quota <- pages:kriscendobot/garden:net expiry=1794281157
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2924s (since 2026-11-10T02:25:58Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2926s (since 2026-11-10T02:25:56Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2925s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 3213s (since 2026-11-10T02:26:10Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3218s (since 2026-11-10T02:26:05Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3216s (since 2026-11-10T02:26:07Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/list: watcher ticking but cooldown for 3206s (since 2026-11-10T02:26:17Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> watcher ticking but cooldown for 3182s (since 2026-11-10T02:26:41Z); detail: rest latch set-by=receipt:kriscendobot-moddable:PR source:primary-quota <- pages:kriscendobot/garden:net expiry=1794281157
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3225s (since 2026-11-10T02:25:58Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3227s (since 2026-11-10T02:25:56Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 3226s (since 2026-11-10T02:25:57Z)
 
 - `doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted.md)
 
@@ -2864,7 +2864,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.3M | $133.47 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 34.3M | $133.76 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157991620 tokens/day lower bound._
@@ -2926,8 +2926,8 @@ worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20261110-032009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261110-032009.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16996)
 - [`dependabotany-recheck-endo-but-for-bots-20261110-022017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/dependabotany-recheck-endo-but-for-bots-20261110-022017.md) — Cost
