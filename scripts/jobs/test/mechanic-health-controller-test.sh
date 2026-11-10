@@ -71,6 +71,19 @@ outcome: accepted-and-applied
 at: 2026-11-08T11:30:00Z
 EOF
   printf 'monks: 3\n' >"$seed/hosts/test-target"
+  printf 'test-leader\n' >"$seed/leader"
+  mkdir -p "$seed/projects/garden/host-health"
+  cat >"$seed/projects/garden/host-health/test-target.md" <<'EOF2'
+# Host health: test-target
+
+## 2026-11-08T10:00Z - oros-health-watch-20261108-083000
+
+- Verdict: unhealthy (controller commentary is not local evidence)
+
+## 2026-11-08T11:40Z - oros-health-checkup-20261108-113000
+
+- **Verdict:** healthy
+EOF2
   git -C "$seed" "${git_id[@]}" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m seed
   git -C "$seed" remote add origin "$bare"
@@ -136,9 +149,15 @@ run_tick
 peek
 test "$(find "$TR/peek/jobs/todo" -type f ! -name .gitkeep | wc -l)" -eq 1
 grep -qx -- '- Disposition: mechanic-required' "$TR/peek/projects/garden/controller-health/test-target.md"
-job="$(find "$TR/peek/jobs/todo" -type f ! -name .gitkeep | head -1)"
+job="$(find "$TR/peek/jobs/todo" -type f -name 'mechanic-repair-test-target-20261108-*.md' | head -1)"
+test -n "$job"
 grep -q 'unit-failures' "$job"
-printf 'PASS: non-routine evidence alone deferred to a mechanic worker\n'
+grep -qx 'role: mechanic' "$job"
+grep -qx 'requires: host=test-leader' "$job"
+grep -qx 'tier: mentor' "$job"
+if grep -q 'confirm this cycle' "$job"; then echo 'FAIL: repair job carries the confirmation prompt' >&2; exit 1; fi
+grep -q 'posted mechanic repair' "$TR/tick.log" || grep -q 'posted jobs/todo/mechanic-repair' "$TR/tick.log"
+printf 'PASS: unhealthy evidence posts one mechanic repair job, not the confirmation prompt\n'
 
 # While that escalation is still live, the next non-routine cycle records the
 # owner and closes instead of piling a second mechanic behind it.
@@ -151,8 +170,9 @@ git -C "$TR/mutate" push -q
 now=$((now + 10800))
 run_tick
 peek
-test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 1
-grep -q -- '- Escalation: deferred to live oros-health-watch-20261108-120000' "$TR/peek/projects/garden/controller-health/test-target.md"
+test "$(find "$TR/peek/jobs/todo" -type f -name 'mechanic-repair-*.md' | wc -l)" -eq 1
+test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 0
+grep -q -- '- Escalation: owned by mechanic-repair-test-target-20261108-' "$TR/peek/projects/garden/controller-health/test-target.md"
 grep -qx 'last_dispatched: 2026-11-08T15:00:00Z' "$TR/peek/schedules/oros-health-watch.md"
 printf 'PASS: live escalation owner suppresses a duplicate mechanic dispatch\n'
 
@@ -170,7 +190,7 @@ git -C "$TR/mutate" "${git_id[@]}" commit -q -m 'paired backlog'
 git -C "$TR/mutate" push -q
 run_tick
 peek
-test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 1
+test "$(find "$TR/peek/jobs/todo" -type f -name 'mechanic-repair-test-target-*.md' | wc -l)" -eq 1
 grep -qx -- '- Reason: paired-check-backlog' "$TR/peek/projects/garden/controller-health/test-target.md"
 grep -q -- '- Live paired checks: count=2 oldest=oros-health-checkup-20261105-103515' "$TR/peek/projects/garden/controller-health/test-target.md"
 printf 'PASS: stale paired-check backlog escalates instead of reading as pending\n'
@@ -186,6 +206,67 @@ git -C "$TR/mutate" "${git_id[@]}" commit -q -m 'paired check vanished'
 git -C "$TR/mutate" push -q
 run_tick
 peek
-test "$(find "$TR/peek/jobs/todo" -type f -name 'oros-health-watch-*.md' | wc -l)" -eq 1
+test "$(find "$TR/peek/jobs/todo" -type f -name 'mechanic-repair-test-target-*.md' | wc -l)" -eq 1
 grep -qx -- '- Reason: paired-missing' "$TR/peek/projects/garden/controller-health/test-target.md"
 printf 'PASS: vanished paired check escalates instead of waiting forever\n'
+
+# A paired check that completed healthy is not enough on its own: the target's
+# host-health record must carry a fresh LOCAL entry.  A stale one escalates.
+now="$(date -u -d '2026-11-08T12:00:00Z' +%s)"
+seed_journal 0
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+sed -i 's/^## 2026-11-08T11:40Z - /## 2026-11-07T23:00Z - /' "$TR/mutate/projects/garden/host-health/test-target.md"
+git -C "$TR/mutate" "${git_id[@]}" commit -qam 'stale local record'
+git -C "$TR/mutate" push -q
+run_tick
+peek
+grep -qx -- '- Reason: local-record-stale' "$TR/peek/projects/garden/controller-health/test-target.md"
+test "$(find "$TR/peek/jobs/todo" -type f -name 'mechanic-repair-test-target-*.md' | wc -l)" -eq 1
+printf 'PASS: stale local host-health record posts a repair job\n'
+
+# Once today's repair for the same evidence has completed, the same reason set
+# does not post again the same UTC day.
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+rj="$(cd "$TR/mutate/jobs/todo" && ls mechanic-repair-test-target-*.md)"
+mkdir -p "$TR/mutate/jobs/tada/2026/11/08"
+git -C "$TR/mutate" mv "jobs/todo/$rj" "jobs/tada/2026/11/08/$rj"
+printf '%s\n' '- Verdict: healthy' >"$TR/mutate/jobs/tada/2026/11/08/oros-health-checkup-20261108-120000.md"
+git -C "$TR/mutate" add -A
+git -C "$TR/mutate" "${git_id[@]}" commit -qm 'repair completed'
+git -C "$TR/mutate" push -q
+now=$((now + 10800))
+run_tick
+peek
+test "$(find "$TR/peek/jobs/todo" -type f ! -name .gitkeep | wc -l)" -eq 0
+grep -q -- "- Escalation: owned by ${rj%.md}" "$TR/peek/projects/garden/controller-health/test-target.md"
+printf 'PASS: identical evidence posts at most one repair per day\n'
+
+# A local entry with a non-healthy verdict escalates even when fresh.
+now="$(date -u -d '2026-11-08T12:00:00Z' +%s)"
+seed_journal 0
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+sed -i 's/^- \*\*Verdict:\*\* healthy/- **Verdict:** degraded (disk)/' "$TR/mutate/projects/garden/host-health/test-target.md"
+git -C "$TR/mutate" "${git_id[@]}" commit -qam 'degraded local record'
+git -C "$TR/mutate" push -q
+run_tick
+peek
+grep -qx -- '- Reason: local-record-degraded' "$TR/peek/projects/garden/controller-health/test-target.md"
+printf 'PASS: unhealthy local verdict posts a repair job\n'
+
+# The controller is leader-only: a follower writes and posts nothing.
+now="$(date -u -d '2026-11-08T12:00:00Z' +%s)"
+seed_journal 1
+rm -rf "$TR/mutate"
+git clone -q --branch journal2 "$bare" "$TR/mutate"
+printf 'other-leader\n' >"$TR/mutate/leader"
+git -C "$TR/mutate" "${git_id[@]}" commit -qam 'leader elsewhere'
+git -C "$TR/mutate" push -q
+run_tick
+peek
+test "$(find "$TR/peek/jobs/todo" -type f ! -name .gitkeep | wc -l)" -eq 0
+test ! -e "$TR/peek/projects/garden/controller-health/test-target.md"
+grep -q 'not the leader' "$TR/tick.log"
+printf 'PASS: follower host skips the controller watch\n'

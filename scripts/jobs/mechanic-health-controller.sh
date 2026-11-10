@@ -123,6 +123,30 @@ if [ -n "$sysop_file" ]; then
   sysop_at="$(read_record_field "$sysop" at)"; [ -n "$sysop_at" ] || sysop_at=missing
 fi
 
+# The target's own durable host-health record (skills/host-repair § Inputs).
+# Only entries written by the paired LOCAL checkup prove the target inspected
+# itself; controller entries in the same file are the leader's commentary.  The
+# newest local entry must be fresh and must carry a healthy verdict.
+local_record="$repo/projects/garden/host-health/$target.md"
+local_at=missing
+local_base=none
+local_verdict=none
+if [ -n "$paired_prefix" ] && [ -f "$local_record" ]; then
+  # Entries are newest-first, headed `## <UTC timestamp> - <job base>`.
+  local_head="$(grep -m1 -E "^## [0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:]+Z - $paired_prefix-[0-9]" "$local_record" || true)"
+  if [ -n "$local_head" ]; then
+    local_at="$(printf '%s\n' "$local_head" | sed -E 's/^## ([^ ]+) - .*/\1/' | bounded)"
+    local_base="$(printf '%s\n' "$local_head" | sed -E 's/^## [^ ]+ - ([A-Za-z0-9._-]+).*/\1/' | bounded)"
+    local_verdict="$(awk -v h="$local_head" '
+        $0 == h { on = 1; next }
+        on && /^## / { exit }
+        on && /Verdict/ { sub(/^.*Verdict/, ""); sub(/^[*:[:space:]]+/, ""); print; exit }
+      ' "$local_record" | bounded)"
+    local_verdict="$(printf '%s' "$local_verdict" | tr '[:upper:]' '[:lower:]' | sed -nE 's/^([a-z-]+).*/\1/p')"
+    [ -n "$local_verdict" ] || local_verdict=none
+  fi
+fi
+
 host="$repo/hosts/$target"
 workers="$(read_record_field "$host" monks)"; [ -n "$workers" ] || workers=unknown
 
@@ -173,6 +197,18 @@ else
   else
     reasons+=(fleet-health-missing)
   fi
+  local_max_age="${GARDEN_MECHANIC_LOCAL_MAX_AGE:-${GARDEN_MECHANIC_HEALTH_MAX_AGE:-21600}}"
+  if [ "$local_at" = missing ]; then
+    reasons+=(local-record-missing)
+  elif local_epoch="$(date -u -d "$local_at" +%s 2>/dev/null)"; then
+    [ $(( now - local_epoch )) -le "$local_max_age" ] || reasons+=(local-record-stale)
+    case "$local_verdict" in
+      healthy) ;;
+      *) reasons+=("local-record-$local_verdict") ;;
+    esac
+  else
+    reasons+=(local-record-unreadable)
+  fi
   case "$sysop_outcome" in
     none|accepted-and-applied) ;;
     *) reasons+=("sysop-$sysop_outcome") ;;
@@ -195,6 +231,7 @@ cat >"$tmp" <<EOF
 - Reason: $reason
 - Prior paired local: ${paired_base:-none} / $paired_state / $paired_verdict
 - Live paired checks: count=$paired_live oldest=$paired_oldest age_s=$paired_oldest_age
+- Local host-health record: at=$local_at base=$local_base verdict=$local_verdict
 - Fleet: at=$fleet_at deployed=$deployed roll_status=$fleet_roll unit_failures=$fleet_failed
 - Roll: target=$roll_target completed=$roll_completed
 - Latest sysop: record=${sysop_file:-none} op=$sysop_op outcome=$sysop_outcome at=$sysop_at

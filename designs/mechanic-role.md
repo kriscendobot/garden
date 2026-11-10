@@ -199,20 +199,30 @@ thin mechanic dispatches:
   completed, then follows the same diagnose order and operation ladder. It does
   not carry its own repair policy.
 
-The scheduler executes the controller watch deterministically before considering
-an LLM dispatch. It reads the prior paired check-up completion plus the bounded
-fleet-health, roll, latest sysop, and host records, then replaces
+The scheduler executes the controller watch deterministically through the
+leader-only `scripts/jobs/host-health-watch.sh`; the confirmation is never an LLM
+dispatch. It reads the prior paired check-up completion, the newest *local*
+entry in the target's `projects/garden/host-health/<host>.md` (its age, bounded
+by `GARDEN_MECHANIC_LOCAL_MAX_AGE`, default 6h, and its verdict; controller
+entries in the same file do not count), plus the bounded fleet-health, roll,
+latest sysop, and host records, then replaces
 `projects/garden/controller-health/<host>.md` with one compact disposition. A
-healthy prior pair, or a prior pair that is still pending, closes the controller
-cycle without a worker. Only settled evidence that needs diagnosis or an
-attested repair falls through to a mechanic job, with the deterministic
-disposition prepended as evidence. "Pending" is bounded: a prior pair that
+healthy prior pair with a fresh healthy local record, or a prior pair that is
+still pending, closes the controller cycle without a worker. Only stale or
+unhealthy evidence posts a mechanic **repair** job,
+`mechanic-repair-<host>-<YYYYMMDD>-<reason-fingerprint>`, whose body carries the
+deterministic disposition as evidence and tells the mechanic that confirmation
+is already done. It does not re-dispatch the schedule's own "confirm this cycle"
+body, which is used only fail-open when the deterministic pass errors.
+(2026-11-10: a mentor handed only the confirmation prompt exited 0 unsignaled in
+22 s and exhausted its retry.) "Pending" is bounded: a prior pair that
 vanished from the board, or any live paired check older than two cycles
 (`GARDEN_MECHANIC_PAIRED_MAX_AGE`, default 6h), is a settled signal that the
-target is not running its local checks. An escalation has one owner: while an
-earlier controller instance is still in `plan/`, `todo/`, or `doin/`, the cycle
-appends `Escalation: deferred to live <base>` to the disposition and closes
-without dispatching.
+target is not running its local checks. An escalation has one owner. While a
+repair job for the target or an earlier controller instance is still in
+`plan/`, `todo/`, or `doin/`, or today's repair for the same reason set has
+already completed, the cycle appends `Escalation: owned by <base>` to the
+disposition and closes without posting. A non-leader host writes nothing.
 
 Each schedule body contains only the four dispatch fields, recurrence budget, and
 a link to `roles/mechanic/AGENT.md`. Existing history stays. New records go to

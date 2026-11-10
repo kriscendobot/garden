@@ -545,13 +545,16 @@ for name in $(list_jobs "$DIR" schedules); do
       continue
     fi
 
-    # A mechanic controller health-watch is a deterministic sensor in the
-    # routine case.  Read its paired local completion and the fleet/roll/sysop
-    # records, then commit one bounded latest-state disposition with the clock
-    # stamp.  Only a non-routine signal falls through to the ordinary LLM job
-    # dispatch below, with the disposition supplied as its evidence.  This keeps
-    # a healthy or merely-pending three-hour cycle from consuming a worker and
-    # from entering the requeue loop after an unsignaled model exit.
+    # A mechanic controller health-watch is a deterministic sensor, not an LLM
+    # dispatch.  host-health-watch.sh (leader-only) reads the paired local
+    # checkup, the target's host-health record freshness, and the fleet/roll/
+    # sysop records, then writes one bounded latest-state disposition.  Healthy
+    # or pending cycles close here without a worker.  Stale or unhealthy evidence
+    # stages ONE deduplicated mechanic REPAIR job carrying the disposition, which
+    # rides this same CAS commit with the clock stamp.  The schedule's own
+    # "confirm this cycle" body is dispatched only fail-open, when the
+    # deterministic pass itself errors (2026-11-10: a mentor handed only the
+    # confirmation prompt exited 0 unsignaled in 22 s and exhausted its retry).
     controller_disposition_path=""
     controller_context=""
     controller_target="$(printf '%s\n' "$body" | sed -n 's/^target_host:[[:space:]]*//p' | head -1)"
@@ -561,38 +564,33 @@ for name in $(list_jobs "$DIR" schedules); do
        && [[ "$name" = *-watch.md ]] && [[ "$controller_target" =~ ^[A-Za-z0-9._-]+$ ]]; then
       controller_disposition_path="projects/garden/controller-health/$controller_target.md"
       controller_rc=0
-      "$HERE/mechanic-health-controller.sh" "$DIR" "$name" "$base" "$stamp" "$now" \
-        "$controller_disposition_path" || controller_rc=$?
+      controller_posted="$("$HERE/host-health-watch.sh" "$DIR" "$name" "$base" "$stamp" "$now" \
+        "$controller_disposition_path")" || controller_rc=$?
       case "$controller_rc" in
-        0)
+        0|10)
           write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
           git -C "$DIR" add "schedules/$name" "$controller_disposition_path"
-          if commit_and_push "$DIR" "schedule($name) closed deterministic controller cycle"; then
-            log "closed deterministic controller cycle $base without dispatching a worker"
+          if [ "$controller_rc" -eq 10 ]; then
+            git -C "$DIR" add "$controller_posted"
+            controller_msg="schedule($name) posted mechanic repair ${controller_posted##*/}"
+          else
+            controller_msg="schedule($name) closed deterministic controller cycle"
+          fi
+          if commit_and_push "$DIR" "$controller_msg"; then
+            if [ "$controller_rc" -eq 10 ]; then
+              log "controller cycle $base found stale/unhealthy evidence; posted $controller_posted"
+              dispatched=$((dispatched+1))
+            else
+              log "closed deterministic controller cycle $base without dispatching a worker"
+            fi
             break
           fi
           backoff "$attempt"
           continue
           ;;
-        10)
-          # One owner per escalation.  While an earlier controller instance is
-          # still live (queued, running, or parked after an unsignaled exit), a
-          # fresh dispatch would only pile another worker behind it.  Record the
-          # owner in the bounded disposition and close this cycle instead.
-          controller_owner="$(schedule_instance_live "$DIR" "${prefix:-${name%.md}}" || true)"
-          if [ -n "$controller_owner" ]; then
-            printf -- '- Escalation: deferred to live %s\n' "$controller_owner" >>"$DIR/$controller_disposition_path"
-            write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
-            git -C "$DIR" add "schedules/$name" "$controller_disposition_path"
-            if commit_and_push "$DIR" "schedule($name) controller escalation already owned by $controller_owner"; then
-              log "controller cycle $base needs a mechanic but $controller_owner is live; recorded, dispatched nothing"
-              break
-            fi
-            backoff "$attempt"
-            continue
-          fi
-          controller_context="$(cat "$DIR/$controller_disposition_path")"
-          log "controller cycle $base requires mechanic judgment; dispatching with deterministic disposition"
+        3)
+          log "controller cycle $base skipped: this host is not the leader"
+          break
           ;;
         *)
           controller_disposition_path=""
