@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T03:05:11Z_
+_As of 2026-11-10T03:10:27Z_
 
 ## Latest
 
@@ -1285,30 +1285,30 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-11-07T22:15:24Z, latest 2026-11-10T03:04:42Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> WATCHDOG notice — occurrence #21 (first seen 2026-11-07T22:15:24Z, latest 2026-11-10T03:09:43Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 21 times; this is ONE
+> coalesced notice that updates in place, not 21 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1794281157 set-by=receipt:kriscendobot-moddable:PR source:primary-quota <- pages:kriscendobot/garden:net
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2312s (since 2026-11-10T02:26:10Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2317s (since 2026-11-10T02:26:05Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2315s (since 2026-11-10T02:26:07Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2305s (since 2026-11-10T02:26:17Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> watcher ticking but cooldown for 2281s (since 2026-11-10T02:26:41Z); detail: rest latch set-by=receipt:kriscendobot-moddable:PR source:primary-quota <- pages:kriscendobot/garden:net expiry=1794281157
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2324s (since 2026-11-10T02:25:58Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2326s (since 2026-11-10T02:25:56Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2325s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2612s (since 2026-11-10T02:26:10Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2617s (since 2026-11-10T02:26:05Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2615s (since 2026-11-10T02:26:07Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2605s (since 2026-11-10T02:26:17Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> watcher ticking but cooldown for 2581s (since 2026-11-10T02:26:41Z); detail: rest latch set-by=receipt:kriscendobot-moddable:PR source:primary-quota <- pages:kriscendobot/garden:net expiry=1794281157
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2624s (since 2026-11-10T02:25:58Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2626s (since 2026-11-10T02:25:56Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 2625s (since 2026-11-10T02:25:57Z)
 
 - `doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted.md)
 
