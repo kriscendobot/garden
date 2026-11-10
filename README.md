@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T12:19:36Z_
+_As of 2026-11-10T12:22:38Z_
 
 ## Latest
 
@@ -899,6 +899,10 @@ Delegation: **active**
 > The captured log tail has only two lines. The watcher loaded 8 maintainers from `journal:maintainers/allowlist`. It then logged `cursor unchanged for kriscendobot-garden (acted 0; dropped 0; failed=0; floor=none)`. There is no error, trace, or fatal line, and the tail ends on a normal cycle result. Nothing in it points to a script bug.
 >
 > The exit code of 1 therefore comes from something outside the captured output, most likely a signal or restart (for example the deploy or drain activity on 2026-11-07) or a transient `git`/`gh` failure that wasn't logged. The two known fail-open or crash bugs for this unit, the bare `cursor-get.sh` crash and the clone-lock contention, are already fixed. If this recurs, check w
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r2' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-transport-timing-r2-requeue-exhausted.md)
 
