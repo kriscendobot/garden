@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-10T01:03:32Z_
+_As of 2026-11-10T01:06:32Z_
 
 ## Latest
 
@@ -2842,7 +2842,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.1M | $133.47 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 34.2M | $134.33 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 374.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 157949108 tokens/day lower bound._
@@ -2851,7 +2851,7 @@ _Fleet token-unlock pace: 157949108 tokens/day lower bound._
 worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (50)
+### todo (51)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2866,6 +2866,7 @@ worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`oros-health-checkup-20261109-155023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-155023.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
+- [`oros-health-checkup-20261110-010510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-010510.md) — ---
 - [`oros-health-checkup-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-202010.md) — ---
 - [`oros-health-checkup-20261109-220510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-220510.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
@@ -2903,8 +2904,9 @@ worst fetch p95 10.100154s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (2)
+- [`minion-town-arc-press-20261110-010510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261110-010510.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`oros-health-watch-20261110-010510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261110-010510.md) — ---
 
 ### tada (16993)
 - [`oros-health-watch-20261109-220510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/09/oros-health-watch-20261109-220510.md) — 2026-11-09T22:15Z - oros-health-watch-20261109-220510
