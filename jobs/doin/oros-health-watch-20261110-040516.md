@@ -17,3 +17,13 @@ trigger: schedule/oros-health-watch
 mode: controller
 evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 recurrence_budget: 15 minutes
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-10T04:05:30Z
