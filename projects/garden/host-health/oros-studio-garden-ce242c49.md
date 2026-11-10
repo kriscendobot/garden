@@ -1,3 +1,15 @@
+## 2026-11-10T22:55Z - oros-health-watch-20261110-225011
+
+- Verdict: operator-held (unchanged since 19:40Z: expired credentials; roll-owned failed-canary drain on `1c72004901d7`; recurring `garden-secret-broker.service` failure)
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local run did not complete. The newest checkup, `oros-health-checkup-20261110-193511`, is unclaimed in `jobs/todo/` with 32 others (33 Oros checkups queued, none in `doin/`). A `watchdog-unclaimable-host-requirements` notice for it was posted at 19:52Z and auto-cleared at 19:55Z. Nothing has changed since 19:40Z. `fleet/health` is still 18:28:44Z: `1c72004901d7` (= `origin/main2`), 1/297 failed units, first `garden-secret-broker.service`. The newest sysop record is still `20261110T191102Z-bc69d2` (`drain on [rolling-deploy]`, failed canary). There is no later operation and still no `unit-log` record. `deploy/roll/oros-studio-garden-ce242c49` = `1c72004901d7` and `deploy/leader-sha` = `f2788117645d`. The `worker-agent-bin-monk` notice (expired OAuth) is still unread with no recovery. The claude-oros heartbeat at 22:31:38Z is `ok`, with spend 0 in every sample since 20:01Z. New: at 20:48Z the `journal-lock-contention` notice for Oros `/Users/dom/garden/.garden-state/repo-watcher/journal` was amended to #3 (p95 0.027s, 1 giveup, 0 steals). That is minor and self-limiting.
+- Cause: unchanged. (1) Claude rejects the expired OAuth session, so all monks are credential-parked and nothing on Oros claims. (2) `garden-secret-broker.service` fails after a deploy, cause unknown without an attested log pull.
+- Actions: observed only. I sent no sysop operation, reset, restore, drain change, worker-count change, restart, or code change. The reasons are the same as at 19:40Z: the drain is roll-owned (§4), a reset would erase the broker evidence, and a restore or restart cannot repair credentials.
+- Final state: Oros is present at `1c72004901d7` with 1 failed unit, drained by rolling-deploy. It claims and completes nothing. The leader stays at `f2788117645d`.
+- Maintainer: unchanged. (a) On Oros, as the garden user, run `claude` then `/login`. (b) Attest `send-host-op.sh oros-studio-garden-ce242c49 op=unit-log name=garden-secret-broker.service lines=80 authorized_by=<login>`. (c) Decide whether to re-trigger or hold the `1c72004901d7` roll. Pause the `oros-health-checkup` and `oros-health-watch` schedules until (a) is done; each cycle adds one more unclaimable checkup (33 now).
+- Next mechanic: same as at 19:40Z. First check for the `unit-log` record and the worker-agent-bin recovery notice. Then look for 0 failed units, an Oros claim and completion, a passing canary, and the roll lifting its own drain. Do not reset the broker or lift the drain by hand.
+
 ## 2026-11-10T19:40Z - oros-health-watch-20261110-193511
 
 - Verdict: operator-held (expired credentials; roll-owned drain after the canary failed for good on `1c72004901d7`, with a recurring `garden-secret-broker.service` failure)
