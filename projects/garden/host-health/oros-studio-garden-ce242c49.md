@@ -1,3 +1,16 @@
+
+## 2026-11-10T13:40Z - oros-health-watch-20261110-133510
+
+- Verdict: unhealthy (operator-held on expired credentials; roll-owned drain after the canary failed again)
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: this cycle's paired local run did not complete. The newest checkup, `oros-health-checkup-20261110-102016`, is unclaimed in `jobs/todo/`, along with 29 other Oros checkups (30 total). **What changed since 10:25Z:** the leader re-rolled `74a2b296b40d` (= `origin/main2`) to Oros. `fleet/health` at 11:29:51Z shows `deployed`, `74a2b296b40d`, 0/297 failed units, so the `garden-secret-broker.service` failure has cleared without anyone acting on it. Sysop records, all accepted-and-applied with none refused: `20261110T111703Z-81bfcd` drain off 11:17:33Z; `…114403Z-c66ad3` drain on (retry 1/3) 11:44:58Z; `…115903Z-0aba9d` off 11:59:27Z; `…121402Z-dd4a9c` on (retry 2/3) 12:14:52Z; `…122903Z-2ebaca` off 12:29:28Z; `…124402Z-651138` `drain on [rolling-deploy]`, final: "probe 'canary-probe-…-74a2b296b40d-r3' did not reach tada within 600s", 12:45:22Z. All three `74a2b296b40d` probes (r1–r3) are still unclaimed in `jobs/todo/`. The `rolling-deploy-canary-failed` notice is at occurrence #11 (12:44:07Z). The `worker-agent-bin-monk` notice (OAuth session expired, last_seen 2026-11-07T02:26:36Z) is still unread with no recovery. The claude-oros heartbeat at 13:01:55Z is `ok`, but spend is 0 in the new window, so Oros is present and idle. `deploy/leader-sha` is still `f2788117645d`.
+- Cause: the broker fault cleared on the redeploy, which leaves one cause. Claude rejects the expired OAuth session, so all four monks are credential-parked. Nothing on Oros can claim the probe, so the canary times out. The probe's "claim/spine broken on new code" wording is the generic timeout message and does not show a code regression.
+- Actions: observed only. I sent no sysop operation, reset, restore, drain change, worker-count change, restart, or code change. The roll owns the failed-canary drain (§4). No unit is failed, and a restore or restart cannot repair rejected credentials. The broker `unit-log` pull is no longer needed unless the failure recurs.
+- Final state: Oros is present at `74a2b296b40d` with 0 failed units, drained by rolling-deploy after a failed canary, and claims and completes nothing. The leader stays at `f2788117645d`, held behind this follower canary.
+- Maintainer: on oros-studio-garden-ce242c49, as the garden user, run `claude` then `/login`. That is now the only blocker; after it, the roll workflow re-validates the canary. Please also pause the `oros-health-checkup` and `oros-health-watch` schedules until the login is done: 30 unclaimable checkups and the stale probes are queued.
+- Next mechanic: first check for the worker-agent-bin recovery notice. Then check for an Oros claim and completion, a `74a2b296b40d` canary probe reaching `tada/`, and the roll lifting its own drain. Do not lift the failed-canary drain by hand. If `garden-secret-broker.service` fails again after a deploy, request the attested `unit-log` pull.
+
 ## 2026-11-10T10:25Z - oros-health-watch-20261110-102016
 
 - Verdict: unhealthy (operator-held on expired credentials; roll-owned drain after a persistent canary failure)
