@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T03:34:35Z_
+_As of 2026-11-11T03:35:55Z_
 
 ## Latest
 
@@ -2903,7 +2903,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.0M | $138.57 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 36.1M | $138.89 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151581763 tokens/day lower bound._
@@ -2981,8 +2981,8 @@ worst fetch p95 3.934160s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1646-gauntlet-20261111-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1646
 
 ### tada (17016)
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111-viability.md) — Cost
