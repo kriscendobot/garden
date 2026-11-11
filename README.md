@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T03:04:03Z_
+_As of 2026-11-11T03:04:36Z_
 
 ## Latest
 
@@ -2915,7 +2915,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.0M | $140.03 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 36.0M | $139.54 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 375.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151571901 tokens/day lower bound._
@@ -2992,17 +2992,16 @@ worst fetch p95 2.733839s/45s (/home/kris/garden/.garden-state/cursors/journal);
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (2)
+### doin (1)
 - [`shepherd-endojs-endo-but-for-bots-pr1646-20261111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1646-20261111.md) — ---
-- [`dependabotany-recheck-endo-but-for-bots-20261111-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261111-023509.md) — ---
 
-### tada (17013)
+### tada (17014)
+- [`dependabotany-recheck-endo-but-for-bots-20261111-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/dependabotany-recheck-endo-but-for-bots-20261111-023509.md) — Cost
 - [`improve-ci-watcher-stale-red`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/improve-ci-watcher-stale-red.md) — Cost
 - [`oros-health-watch-20261111-015011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-015011.md) — 2026-11-11T01:55Z - oros-health-watch-20261111-015011
 - [`oros-health-watch-20261110-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-225011.md) — 2026-11-10T22:55Z - oros-health-watch-20261110-225011
 - [`oros-health-watch-20261110-193511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-193511.md) — 2026-11-10T19:40Z - oros-health-watch-20261110-193511
-- [`oros-health-watch-20261110-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/10/oros-health-watch-20261110-163511.md) — 2026-11-10T16:53Z - oros-health-watch-20261110-163511 (requeue re-check)
-- … and 17008 more
+- … and 17009 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
