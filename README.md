@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T16:04:58Z_
+_As of 2026-11-11T16:06:00Z_
 
 ## Latest
 
@@ -2928,7 +2928,7 @@ _Fleet token-unlock pace: 149663422 tokens/day lower bound._
 worst fetch p95 2.164142s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (79)
+### todo (80)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2959,6 +2959,7 @@ worst fetch p95 2.164142s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`minion-town-arc-press-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-050510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`claude-on-minion-town-completion-press-20261111-035010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-035010.md) — Completion press: Claude-on-minion.town arc
+- [`claude-on-minion-town-completion-press-20261111-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-160514.md) — Completion press: Claude-on-minion.town arc
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`oros-health-checkup-20261110-193511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-193511.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
