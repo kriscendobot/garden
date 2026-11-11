@@ -1,2 +1,2 @@
-base: improve-budget-level-tempfail
+base: improve-codex-reset-deadline-ingestion
 identity: mentor:scripts/jobs/budget-level.sh
