@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T22:44:27Z_
+_As of 2026-11-11T22:46:21Z_
 
 ## Latest
 
@@ -1417,11 +1417,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-11-09T02:53:14Z, cleared 2026-11-09T08:47:01Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-09T02:53:14Z, latest 2026-11-11T22:45:25Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.030301s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `doomed-oros-health-watch-20261107-140511-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261107-140511-requeue-exhausted.md)
 
@@ -2930,7 +2930,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.0M | $144.27 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 38.0M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148820006 tokens/day lower bound._
@@ -3026,16 +3026,16 @@ worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`context-graph-size-audit-focused-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit-focused-20261111-222010.md) — context-graph-size-audit-focused (recurring)
+### doin (0)
+(none)
 
-### tada (17028)
+### tada (17029)
+- [`context-graph-size-audit-focused-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/context-graph-size-audit-focused-20261111-222010.md) — Completion report
 - [`oros-health-watch-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-205010.md) — Oros health watch, cycle 2026-11-11T20:50Z: operator-held
 - [`improve-codex-reset-deadline-ingestion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/improve-codex-reset-deadline-ingestion.md) — Cost
 - [`oros-health-watch-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-173515.md) — Completion report: oros-health-watch-20261111-173515
 - [`fu-qwen-model-watch-20260728-180502-1-20261111-165016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/fu-qwen-model-watch-20260728-180502-1-20261111-165016.md) — Result
-- [`oros-health-watch-20261111-142014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-142014.md) — 2026-11-11T14:25Z - oros-health-watch-20261111-142014
-- … and 17023 more
+- … and 17024 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
