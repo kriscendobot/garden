@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T05:19:31Z_
+_As of 2026-11-11T05:22:36Z_
 
 ## Latest
 
@@ -2362,6 +2362,10 @@ Delegation: **active**
 > `df` now shows `/home/kris/garden` at 100% (3.4T of 3.6T used, 313M available), so the cause is still there. Anything else that writes to this filesystem is likely failing the same way. That includes other watchers, journal pushes and job claims.
 >
 > Freeing space is a maintainer action. The likely places to look are old per-job worktrees, packs and garbage in the shared
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261111-050510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261111-050510.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261111-050510' has remained unclaimed for 903s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
