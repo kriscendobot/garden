@@ -1,2 +1,2 @@
-base: improve-ci-cooldown-collateral
+base: improve-ci-watcher-stale-red
 identity: mentor:scripts/jobs/ci-watcher.sh
