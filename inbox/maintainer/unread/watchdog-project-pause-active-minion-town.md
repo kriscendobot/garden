@@ -1,16 +1,16 @@
 from_host: endolin-garden-ece02cb4
-from: watchdog:claim/3
-sent_at: 2026-11-11T06:35:56Z
+from: watchdog:claim/2
+sent_at: 2026-11-11T07:35:57Z
 watchdog_key: project-pause-active-minion-town
-notice_count: 14234
+notice_count: 16330
 first_seen: 2026-11-10T19:35:37Z
-last_seen: 2026-11-11T06:35:56Z
+last_seen: 2026-11-11T07:35:57Z
 ---
-WATCHDOG notice — occurrence #14234 (first seen 2026-11-10T19:35:37Z, latest 2026-11-11T06:35:56Z).
-The SAME condition (`project-pause-active-minion-town`) has now been observed 14234 times; this is ONE
-coalesced notice that updates in place, not 14234 messages. Latest detail:
+WATCHDOG notice — occurrence #16330 (first seen 2026-11-10T19:35:37Z, latest 2026-11-11T07:35:57Z).
+The SAME condition (`project-pause-active-minion-town`) has now been observed 16330 times; this is ONE
+coalesced notice that updates in place, not 16330 messages. Latest detail:
 
-PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261110-225011' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261111-015011' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 This means work for a PAUSED project reached a chokepoint — most likely a host running
 a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
