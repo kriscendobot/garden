@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T08:49:36Z_
+_As of 2026-11-11T08:51:12Z_
 
 ## Latest
 
@@ -199,7 +199,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=160714998 cap=271000000 pace-bias=0.845126 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.9241(ramp) target=4
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:50:27Z, latest 2026-11-11T08:50:22Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-4`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=37538849 cap=271000000 pace-bias=0.839774 window-start=2026-11-07T04:00Z(calendar) deadline=2026-11-14T04:00Z(calendar) ceiling=4 backoff=0.8001(ramp) target=4
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
@@ -3227,7 +3231,7 @@ worst fetch p95 3.934160s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 4 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
