@@ -1,5 +1,5 @@
 cadence: 30d
-last_dispatched: 2026-10-12T22:20:07Z
+last_dispatched: 2026-11-11T22:20:10Z
 job_basename_prefix: context-graph-size-audit-focused
 ---
 ---
