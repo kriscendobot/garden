@@ -1,13 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-11T04:44:07Z
+sent_at: 2026-11-11T11:24:26Z
 watchdog_key: journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal
 notice_count: 6
 first_seen: 2026-11-05T22:52:21Z
-last_seen: 2026-11-11T04:44:07Z
+last_seen: 2026-11-11T11:24:26Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #6 (first seen 2026-11-05T22:52:21Z, latest 2026-11-11T04:44:07Z).
-The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal`) has now been observed 6 times; this is ONE
-coalesced notice that updates in place, not 6 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-05T22:52:21Z, cleared 2026-11-11T11:24:26Z).
+It was observed 6 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.041889s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
