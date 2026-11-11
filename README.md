@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-11T18:28:29Z_
+_As of 2026-11-11T18:35:40Z_
 
 ## Latest
 
@@ -2925,10 +2923,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.8M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
-| Codex | 376.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 37.9M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Codex | 377.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149133148 tokens/day lower bound._
+_Fleet token-unlock pace: 148963814 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 12 open notice(s); checker healthy
@@ -3018,16 +3016,16 @@ worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`improve-codex-reset-deadline-ingestion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-codex-reset-deadline-ingestion.md) — ---
+### doin (0)
+(none)
 
-### tada (17026)
+### tada (17027)
+- [`improve-codex-reset-deadline-ingestion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/improve-codex-reset-deadline-ingestion.md) — Cost
 - [`oros-health-watch-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-173515.md) — Completion report: oros-health-watch-20261111-173515
 - [`fu-qwen-model-watch-20260728-180502-1-20261111-165016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/fu-qwen-model-watch-20260728-180502-1-20261111-165016.md) — Result
 - [`oros-health-watch-20261111-142014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-142014.md) — 2026-11-11T14:25Z - oros-health-watch-20261111-142014
 - [`oros-health-watch-20261111-110512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-110512.md) — 2026-11-11T11:10Z - oros-health-watch-20261111-110512
-- [`oros-health-watch-20261111-080510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-080510.md) — 2026-11-11T08:10Z - oros-health-watch-20261111-080510
-- … and 17021 more
+- … and 17022 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
