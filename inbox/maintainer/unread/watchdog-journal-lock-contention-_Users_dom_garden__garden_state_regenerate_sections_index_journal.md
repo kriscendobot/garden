@@ -1,14 +1,13 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-10T00:42:36Z
+sent_at: 2026-11-11T04:39:34Z
 watchdog_key: journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal
-notice_count: 3
+notice_count: 4
 first_seen: 2026-11-08T12:40:58Z
-last_seen: 2026-11-10T00:42:36Z
-recovered: true
+last_seen: 2026-11-11T04:39:34Z
 ---
-RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-08T12:40:58Z, cleared 2026-11-10T00:42:36Z).
-It was observed 3 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #4 (first seen 2026-11-08T12:40:58Z, latest 2026-11-11T04:39:34Z).
+The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal`) has now been observed 4 times; this is ONE
+coalesced notice that updates in place, not 4 messages. Latest detail:
 
-Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
+Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.044218s, giveups=1, steals=0 (max 3/window), wait floor=60s.
