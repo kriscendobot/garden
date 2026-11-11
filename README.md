@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T09:33:48Z_
+_As of 2026-11-11T09:36:32Z_
 
 ## Latest
 
@@ -497,11 +497,11 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #18547 (first seen 2026-11-10T19:35:37Z, latest 2026-11-11T08:36:04Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 18547 times; this is ONE
-> coalesced notice that updates in place, not 18547 messages. Latest detail:
+> WATCHDOG notice — occurrence #21593 (first seen 2026-11-10T19:35:37Z, latest 2026-11-11T09:36:04Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 21593 times; this is ONE
+> coalesced notice that updates in place, not 21593 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261110-225011' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'claude-on-minion-town-completion-press-20261110-213511' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
