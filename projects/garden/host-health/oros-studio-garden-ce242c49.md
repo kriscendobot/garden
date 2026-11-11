@@ -1,3 +1,15 @@
+## 2026-11-11T14:25Z - oros-health-watch-20261111-142014
+
+- Verdict: operator-held. Nothing has changed since 11:10Z. The OAuth session is still expired, and the roll-owned failed-canary drain on `cf5a399d6381` is still in place.
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local run did not complete. There are now 38 unclaimed Oros checkups in `jobs/todo/`, the newest being `oros-health-checkup-20261111-110512`. None are in `doin/` or `tada/`. Its `watchdog-unclaimable-host-requirements` notice has been moved to maintainer `read/`. `fleet/health` still reads 2026-11-11T03:22:49Z: `cf5a399d6381` (= `origin/main2`), 0/297 failed units. The newest sysop record is still `20261111T043802Z-57d2f2` (`drain on [rolling-deploy]`, final). `deploy/roll/<oros>` = `cf5a399d6381` and `deploy/leader-sha` = `f2788117645d`. The `worker-agent-bin-monk` notice is still unread, with no recovery. The claude-oros heartbeat at 14:01:31Z is fresh, with spend 0. The unread `root-repo-deploy-stalled` notice dates from 2026-11-06 (deployed `2c082b9`) and is stale, because Oros is now deployed at `origin/main2`.
+- Cause: unchanged. The expired Claude OAuth session credential-parks every monk on Oros, so canary probes and checkups go unclaimed.
+- Actions: observed only. I sent no sysop operation, reset, restore, drain change, worker-count change, restart, or code change. The drain is roll-owned (§4), no unit is failed, and a restore or restart cannot fix credentials.
+- Final state: Oros is present at `cf5a399d6381` with 0 failed units and a rolling-deploy drain. It claims and completes nothing. The leader stays at `f2788117645d`.
+- Maintainer: unchanged. (a) On Oros, as the garden user, run `claude` then `/login`. (b) Then re-trigger or hold the `cf5a399d6381` roll. (c) Until (a) is done, pause the `oros-health-checkup` and `oros-health-watch` schedules and sweep the stale canary probes and checkups. The stale `root-repo-deploy-stalled` notice may be dismissed.
+- Next mechanic: first check for the worker-agent-bin recovery notice or any Oros claim. Then look for a cf5a399 canary probe reaching `tada/` and the roll lifting its own drain. Do not lift the drain by hand.
+
 ## 2026-11-11T11:10Z - oros-health-watch-20261111-110512
 
 - Verdict: operator-held. Nothing has changed since 08:10Z. The OAuth session is still expired, and the roll-owned failed-canary drain on `cf5a399d6381` is still in place.
