@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T17:49:52Z_
+_As of 2026-11-11T17:52:35Z_
 
 ## Latest
 
@@ -684,6 +684,10 @@ Delegation: **active**
 - `watchdog-root-repo-deploy-stalled-oros-studio-garden-ce242c49` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-oros-studio-garden-ce242c49.md)
 
 > root repo /Users/dom/garden deploy has been STALLED for ~1d: deployed sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1 is 6 commit(s) behind origin/main2 (dd3e6bc6edfd490eb8ba0936b8b79a78238088ca) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=oros-studio-garden-ce242c49)
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261111-173515` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261111-173515.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261111-173515' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-oros-health-watch-20261110-102016-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261110-102016-requeue-exhausted.md)
 
