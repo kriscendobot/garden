@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T22:28:07Z_
+_As of 2026-11-11T22:33:50Z_
 
 ## Latest
 
@@ -2931,7 +2931,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.9M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
-| Codex | 377.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Codex | 377.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148820006 tokens/day lower bound._
 
@@ -2939,7 +2939,7 @@ _Fleet token-unlock pace: 148820006 tokens/day lower bound._
 worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (85)
+### todo (86)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2960,6 +2960,7 @@ worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ cf5a399d6381
+- [`context-graph-size-audit-focused-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/context-graph-size-audit-focused-20261111-222010.md) — context-graph-size-audit-focused (recurring)
 - [`oros-health-checkup-20261110-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-225011.md) — ---
 - [`oros-health-checkup-20261110-010510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-010510.md) — ---
 - [`oros-health-checkup-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-202010.md) — ---
@@ -3026,8 +3027,8 @@ worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`context-graph-size-audit-focused-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit-focused-20261111-222010.md) — context-graph-size-audit-focused (recurring)
+### doin (0)
+(none)
 
 ### tada (17028)
 - [`oros-health-watch-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-205010.md) — Oros health watch, cycle 2026-11-11T20:50Z: operator-held
