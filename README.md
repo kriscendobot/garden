@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T04:42:02Z_
+_As of 2026-11-11T04:42:35Z_
 
 ## Latest
 
@@ -1440,6 +1440,10 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
