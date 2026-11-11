@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T02:08:44Z_
+_As of 2026-11-11T02:11:17Z_
 
 ## Latest
 
@@ -1988,10 +1988,6 @@ Delegation: **active**
 - `msg-reset-credit-watch-20261109-170519-6a0254967ba8` — from gardener:reset-credit-watch-20261109-170519, reply_to `reset-credit-watch-20261109-170519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261109-170519-6a0254967ba8.md)
 
 > Reset-credit watch 2026-11-09: no action this week. No live credits are left: the codex 11-06 credit has expired (codex rolled to 0% about 11-04T22:05Z; if that was the credit, it was used in time). Status: claude-endolin1 is at 12% (about 5%/day, roughly 33% by its 11-14T04:00Z reset), no credits. claude-oros is at 26%, resets 11-10T11:00Z, credits unknown. codex-endolin was at 24% on 11-05 (the meter anchor is stale), resets about 11-11T18:05Z, no credits. claude-endolin2 is retired. If you're granted new credits, tell the liaison and I'll plan around them.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261111-015011` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261111-015011.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261111-015011' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-kriscendobot-minion.town-pr248-0e30f0e6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr248-0e30f0e6-requeue-exhausted.md)
 
