@@ -17,6 +17,8 @@ export GARDEN_TAG=budget-level
 : "${GARDEN_BUDGET_LEVEL_ACTUATION_LATCH_DIR:=$GARDEN_STATE/budget-level/actuation-tempfailures}"
 : "${GARDEN_BUDGET_LEVEL_SET_WORKERS:=$HERE/set-workers.sh}"
 : "${GARDEN_BUDGET_LEVEL_SEND_HOST_OP:=$HERE/send-host-op.sh}"
+: "${GARDEN_BUDGET_LEVEL_APPEND_RESET_EVENT:=$HERE/append-reset-event.sh}"
+: "${GARDEN_CODEX_LOGDIR:=${HOME:-/home/$(id -un 2>/dev/null || echo kris)}/.codex/sessions}"
 : "${GARDEN_WORKER_LEVELING_PATH:=config/worker-leveling}"
 scheduled=false; [ "$#" -gt 0 ] && scheduled=true
 finish() { if $scheduled; then exit 2; else exit 0; fi; }
@@ -178,6 +180,57 @@ pool_failure() { # pool host operation exit_status
 report_freeze()   { if alert_maintainer_edge "$1" "$2" "$3"; then log "WARN: $3"; fi; }
 report_unfreeze() { if alert_maintainer_edge_clear "$1" "$2"; then log "$2"; fi; }
 
+# The Codex CLI records the provider's authoritative primary-window deadline on
+# token_count events.  When a manual OpenAI pool has outlived its last planned
+# deadline, consume the freshest such reading before declaring the deadline
+# unknown.  Only the freshest event is authoritative: an older well-formed row
+# must not mask a newer malformed/cleared reading.  Keep the scan bounded to the
+# newest rollout files; active sessions append to one of these files.
+codex_telemetry_future_reset_epoch() { # [now-epoch]
+  local now="${1:-$(date -u +%s)}" candidates reset
+  command -v jq >/dev/null 2>&1 || return 1
+  [ -d "$GARDEN_CODEX_LOGDIR" ] && [ -r "$GARDEN_CODEX_LOGDIR" ] || return 1
+  candidates="$(mktemp "${TMPDIR:-/tmp}/garden-codex-reset-files.XXXXXX")" || return 1
+  { find "$GARDEN_CODEX_LOGDIR" -maxdepth 6 -type f -name '*.jsonl' \
+      -printf '%T@\t%p\0' 2>/dev/null | sort -z -nr | head -z -n 20 | cut -z -f2- >"$candidates"; } || true
+  [ -s "$candidates" ] || { rm -f "$candidates"; return 1; }
+  reset="$(xargs -0 jq -Rrn '
+    [ inputs | fromjson? // empty
+      | select(.type == "event_msg" and .payload.type == "token_count")
+      | { observed: ((.timestamp // "") | sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601?),
+          reset: .payload.rate_limits.primary.resets_at }
+      | select(.observed != null) ]
+    | sort_by(.observed) | last // empty
+    | select((.reset | type) == "number" and .reset == (.reset | floor))
+    | .reset | tostring' <"$candidates" 2>/dev/null || true)"
+  rm -f "$candidates"
+  [[ "$reset" =~ ^[0-9]+$ ]] && [ "$reset" -gt "$now" ] || return 1
+  printf '%s\n' "$reset"
+}
+
+codex_pool_is_local() { # subscription journal-clone
+  local pool="$1" dir="$2" mapping
+  mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  [ -r "$mapping" ] || return 0 # legacy single-host configuration
+  awk -v p="$pool" -v h="$GARDEN" '$1==p && $2==h && $3=="cleric" { found=1 } END { exit !found }' "$mapping"
+}
+
+ingest_codex_reset_deadline() { # subscription journal-clone [now-epoch]
+  local pool="$1" dir="$2" now="${3:-$(date -u +%s)}" row provider kind reset_epoch reset_at
+  row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || return 1
+  IFS=$'\t' read -r _ provider kind _ <<<"$row"
+  [ "$provider:$kind" = openai:percent ] || return 1
+  codex_pool_is_local "$pool" "$dir" || return 1
+  reset_epoch="$(codex_telemetry_future_reset_epoch "$now")" || return 1
+  reset_at="$(date -u -d "@$reset_epoch" +%FT%TZ 2>/dev/null)" || return 1
+  GARDEN_PRODUCER_CLONE="$dir" /bin/bash "$GARDEN_BUDGET_LEVEL_APPEND_RESET_EVENT" "$pool" \
+    --type expected-next-scheduled --precision scheduled --at "$reset_at" \
+    --evidence "Codex rollout rate_limits.primary.resets_at=$reset_epoch" \
+    --note "deterministically ingested by budget-level before fallback" \
+    --dedup-key "codex-primary-reset-$reset_epoch" >/dev/null 2>&1 || return 1
+  log "ingested Codex provider reset deadline for $pool from rollout telemetry: $reset_at"
+}
+
 # Input rows: id, weight, floor, cap. Implements bounded Hamilton apportionment.
 apportion() { awk -F '\t' -v total="$1" '
  {id[++n]=$1;w[n]=$2+0;a[n]=$3+0;cap[n]=$4+0;left-=a[n]}
@@ -224,6 +277,13 @@ case "$rc" in 0);;3)log "budget pool config absent; leveling is off";finish;;4)l
 # fallback; ask once per episode for the reset time that would resolve it.
 while read -r rpool _;do case "$rpool" in ''|'#'*)continue;;esac
  IFS=$'\t' read -r _ rsrc rdetail < <(token_backoff_fraction_for "$rpool" "$DIR")
+ if [ "$rsrc" = fallback ];then
+  # A successful append updates this clone through append-reset-event.sh. Re-read
+  # the ramp immediately so this tick never emits the fallback alert it repaired.
+  if ingest_codex_reset_deadline "$rpool" "$DIR" "${GARDEN_USAGE_NOW:-$(date -u +%s)}";then
+   IFS=$'\t' read -r _ rsrc rdetail < <(token_backoff_fraction_for "$rpool" "$DIR")
+  fi
+ fi
  if [ "$rsrc" = fallback ];then
   report_freeze "token-backoff-reset-unknown-$rpool" "$rdetail" "token backoff for $rpool is on the 0.95 fallback: $rdetail. Record the next reset time so the standing ramp can resume."
  else
