@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-11T16:58:41Z_
+_As of 2026-11-11T17:04:39Z_
 
 ## Latest
 
@@ -2922,15 +2920,15 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.7M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
-| Codex | 376.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Codex | 376.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149663422 tokens/day lower bound._
+_Fleet token-unlock pace: 149113375 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.164142s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (81)
+### todo (80)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2975,7 +2973,6 @@ worst fetch p95 2.164142s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ cf5a399d6381
 - [`oros-health-checkup-20261107-140511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-140511.md) — ---
 - [`oros-health-checkup-20261108-082012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-082012.md) — ---
-- [`fu-qwen-model-watch-20260728-180502-1-20261111-165016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20261111-165016.md) — ---
 - [`minion-town-arc-press-20261111-142014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-142014.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-050510.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
@@ -3016,13 +3013,13 @@ worst fetch p95 2.164142s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### doin (0)
 (none)
 
-### tada (17024)
+### tada (17025)
+- [`fu-qwen-model-watch-20260728-180502-1-20261111-165016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/fu-qwen-model-watch-20260728-180502-1-20261111-165016.md) — Result
 - [`oros-health-watch-20261111-142014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-142014.md) — 2026-11-11T14:25Z - oros-health-watch-20261111-142014
 - [`oros-health-watch-20261111-110512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-110512.md) — 2026-11-11T11:10Z - oros-health-watch-20261111-110512
 - [`oros-health-watch-20261111-080510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-080510.md) — 2026-11-11T08:10Z - oros-health-watch-20261111-080510
 - [`oros-health-watch-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-050510.md) — Cost
-- [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111.md) — gauntlet endojs-endo-but-for-bots-pr1646-gauntlet-20261111 — complete
-- … and 17019 more
+- … and 17020 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
