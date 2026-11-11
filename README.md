@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T04:10:10Z_
+_As of 2026-11-11T04:12:30Z_
 
 ## Latest
 
@@ -2442,6 +2442,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` cleared on oros-studio-garden-ce242c49.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r2' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-server-half-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-server-half-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-server-half-r2-failed.md)
 
