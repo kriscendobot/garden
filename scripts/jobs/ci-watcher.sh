@@ -25,6 +25,11 @@
 #         shepherd already live for that PR, post <slug>-pr<N>-shepherd
 #       → back off on a rollup still QUEUED/IN_PROGRESS; do nothing on green.
 #
+# PRs whose head is older than the activity window skip the per-tick rollup read, so
+# a LOW-FREQUENCY STALE-PR SWEEP (at most once per GARDEN_CI_STALE_SWEEP_INTERVAL,
+# a few reads reserved out of the same per-tick budget, rotated by its own cursor)
+# re-reads them so a persistent completed-red PR still mints its shepherd.
+#
 # A second per-tick pass — the STALE-SHEPHERD RE-VALIDATION SWEEP — closes the
 # false-positive-wedge loop: a shepherd minted from a point-in-time red whose CI
 # self-heals BEFORE the job is claimed (a flake that later passes, or an in-progress
@@ -118,6 +123,29 @@ esac
 # one another's place. The cursor is only a fairness hint (never authoritative event
 # state), so losing it safely restarts at the source's first row.
 : "${GARDEN_CI_ROLLUP_CURSOR:=$GARDEN_STATE/ci-watcher/rollup-cursor-$slug}"
+# Stale-PR rollup sweep (the #1646 gap). Gate 3 (ACTIVITY_WINDOW) skips a PR whose
+# head is older than the window BEFORE its rollup read, which is the right steady-
+# state relief but means an UNCHANGED completed-red PR beyond the window would never
+# mint a shepherd (endojs/endo-but-for-bots#1646, 2026-11-11T02:43:51Z: red, quiet,
+# no auto-shepherd, needed a manual post). So at most once per STALE_SWEEP_INTERVAL
+# seconds, a tick RESERVES STALE_SWEEP_BUDGET reads out of the whole-tick
+# ROLLUP_BUDGET (never in addition to it) and spends them on the stale-skipped
+# eligible PRs, rotated by their own durable cursor so successive sweeps walk the
+# whole stale tail. A RED verdict mints the SAME deterministic shepherd basename as
+# the primary pass (idempotent across todo/doin/tada). Budget 0 or an empty
+# interval disables the sweep. Like the primary cursor, the stamp and cursor are
+# fairness hints only; losing them just makes the next tick sweep from the start.
+: "${GARDEN_CI_STALE_SWEEP_INTERVAL:=1800}"
+: "${GARDEN_CI_STALE_SWEEP_BUDGET:=2}"
+case "$GARDEN_CI_STALE_SWEEP_BUDGET" in
+  ''|*[!0-9]*) log "WARN: invalid GARDEN_CI_STALE_SWEEP_BUDGET='$GARDEN_CI_STALE_SWEEP_BUDGET'; using 2"; GARDEN_CI_STALE_SWEEP_BUDGET=2 ;;
+esac
+case "$GARDEN_CI_STALE_SWEEP_INTERVAL" in
+  ''|*[!0-9]*) [ -z "$GARDEN_CI_STALE_SWEEP_INTERVAL" ] || log "WARN: invalid GARDEN_CI_STALE_SWEEP_INTERVAL='$GARDEN_CI_STALE_SWEEP_INTERVAL'; sweep disabled"
+               GARDEN_CI_STALE_SWEEP_BUDGET=0 ;;
+esac
+: "${GARDEN_CI_STALE_SWEEP_CURSOR:=$GARDEN_STATE/ci-watcher/stale-sweep-cursor-$slug}"
+: "${GARDEN_CI_STALE_SWEEP_STAMP:=$GARDEN_STATE/ci-watcher/stale-sweep-last-$slug}"
 # Host-scoped latch that dedups the stale-shepherd sweep's "journal fetch failed"
 # warning across the per-repo CI watchers (see § Journal-outage latch below). The
 # unit template gives every repo instance one GARDEN_ROOT, while invocation-local
@@ -332,7 +360,7 @@ retire_stale_shepherd() {  # retire_stale_shepherd <base> <verdict-phrase>
 # The source runs `gh --paginate`, which forks git credential helpers; bound it under
 # `timeout` and reap the whole process group on signal/exit so a systemd stop mid-tick
 # cannot orphan a git child into the unit cgroup (mirrors comment-watcher.sh's reap).
-SRC="$(mktemp)"; ERRF="$(mktemp)"; ORDERED_SRC="$(mktemp)"
+SRC="$(mktemp)"; ERRF="$(mktemp)"; ORDERED_SRC="$(mktemp)"; STALE_SRC="$(mktemp)"; ACTIVE_SRC="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
 # Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time cgroup
 # SIGKILL backstop, which never covers a clean tick exit. The negated-PGID reap in
@@ -420,7 +448,7 @@ reap_cgroup_stragglers() {
   done
 }
 cleanup() {
-  rm -f "$SRC" "$ERRF" "$ORDERED_SRC"
+  rm -f "$SRC" "$ERRF" "$ORDERED_SRC" "$STALE_SRC" "$ACTIVE_SRC"
   local pid="$SOURCE_TIMEOUT_PID"
   SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
   if [ -n "$pid" ]; then
@@ -565,15 +593,77 @@ awk -F '\t' -v cursor="$rollup_cursor" '
     for (i=1; i<=cut; i++) print row[i]
   }
 ' "$SRC" > "$ORDERED_SRC"
-persist_rollup_cursor() {  # persist_rollup_cursor <pr-number>
-  local pr="$1" dir tmp
-  dir="$(dirname "$GARDEN_CI_ROLLUP_CURSOR")"
+persist_state_line() {  # persist_state_line <file> <value> — atomic, best-effort
+  local file="$1" val="$2" dir tmp
+  dir="$(dirname "$file")"
   mkdir -p "$dir" 2>/dev/null || return 0
-  tmp="$(mktemp "$GARDEN_CI_ROLLUP_CURSOR.tmp.XXXXXX" 2>/dev/null)" || return 0
-  if ! printf '%s\n' "$pr" > "$tmp" || ! mv -f "$tmp" "$GARDEN_CI_ROLLUP_CURSOR"; then
+  tmp="$(mktemp "$file.tmp.XXXXXX" 2>/dev/null)" || return 0
+  if ! printf '%s\n' "$val" > "$tmp" || ! mv -f "$tmp" "$file"; then
     rm -f "$tmp"
   fi
 }
+persist_rollup_cursor() {  # persist_rollup_cursor <pr-number>
+  persist_state_line "$GARDEN_CI_ROLLUP_CURSOR" "$1"
+}
+read_state_number() {  # read_state_number <file> -> the file's first line if numeric, else empty
+  local v=""
+  [ -r "$1" ] && { IFS= read -r v < "$1" || v=""; }
+  case "$v" in ''|*[!0-9]*) v="" ;; esac
+  printf '%s' "$v"
+}
+# Is the low-frequency stale-PR sweep due this tick? Due when enabled and the last
+# sweep stamp is absent, unreadable, in the future (clock skew), or older than the
+# interval. The decision is taken ONCE, before the primary scan, so the reservation
+# below is known up front.
+stale_sweep_due=0
+if [ "$GARDEN_CI_STALE_SWEEP_BUDGET" -gt 0 ] && [ -n "${GARDEN_CI_ACTIVITY_WINDOW:-}" ]; then
+  now_epoch="$(date +%s)"
+  last_sweep="$(read_state_number "$GARDEN_CI_STALE_SWEEP_STAMP")"
+  if [ -z "$last_sweep" ] || [ "$last_sweep" -gt "$now_epoch" ] \
+     || [ $((now_epoch - last_sweep)) -ge "$GARDEN_CI_STALE_SWEEP_INTERVAL" ]; then
+    stale_sweep_due=1
+  fi
+fi
+# --- post the deterministic auto-shepherd for a RED bot PR --------------------
+# Shared by the primary scan and the stale-PR sweep so both mint the identical
+# basename and body. Increments $posted on a confirmed landing.
+post_red_shepherd() {  # post_red_shepherd <pr> <head-repo> [via-note]
+  local pr="$1" head="$2" via="${3:-}" base jb
+  base="$slug-pr$pr-shepherd"
+  # Anti-thrash: if a shepherd for this PR is already live (todo/doin) OR already
+  # anywhere in the lifecycle, do not re-post. post-job.sh is also idempotent by
+  # basename, so this is belt-and-suspenders + a clean log line.
+  if posted_anywhere "$base"; then
+    log "#$pr is red but a shepherd job ($base) already exists — idempotent skip"
+    return 0
+  fi
+
+  jb="$(mktemp)"
+  {
+    printf '# shepherd (auto: red CI) on %s PR #%s\n\n' "$repo" "$pr"
+    printf 'handler-timeout: %s\n\n' "$GARDEN_SHEPHERD_HANDLER_TIMEOUT"
+    printf 'CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).\n'
+    printf 'Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status\n'
+    printf 'watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.\n\n'
+    [ -z "$via" ] || printf '%s\n\n' "$via"
+    printf 'PR: https://github.com/%s/pull/%s\n' "$repo" "$pr"
+    printf 'Head: %s (bot-pushable)\n\n' "$head"
+    printf 'Read the failing checks and drive them green (see roles/shepherd/AGENT.md).\n'
+    printf 'If the failure is out of a shepherd''s scope, escalate to a fixer per the\n'
+    printf 'shepherd→fixer auto-chain. Re-fetch the live check state before acting;\n'
+    printf 'this job was minted from a rollup read at post time.\n'
+  } > "$jb"
+  "$GARDEN_CI_POST" "$base" "$jb" >/dev/null 2>&1 || true
+  rm -f "$jb"
+
+  if posted_anywhere "$base" fresh; then
+    log "posted $base (auto-shepherd on red CI for #$pr)"
+    posted=$((posted+1))
+  else
+    log "WARN: post of $base did not reach origin/$JOURNAL_BRANCH — will retry next tick"
+  fi
+}
+
 # Activity-bound cutoff: PRs whose head branch was last touched before this epoch are
 # skipped without a rollup read. Computed once/tick from GARDEN_CI_ACTIVITY_WINDOW; 0
 # (empty window, or an unparseable expression) means "no bound — read every PR".
@@ -606,15 +696,40 @@ while IFS=$'\t' read -r pr author head updated _title; do
   if [ "$activity_cutoff" -gt 0 ] && [ -n "$updated" ]; then
     upd_epoch="$(date -d "$updated" +%s 2>/dev/null || echo 0)"
     if [ "$upd_epoch" -gt 0 ] && [ "$upd_epoch" -lt "$activity_cutoff" ]; then
+      # Remember it for the low-frequency stale-PR sweep (after the rollup pass).
+      printf '%s\t%s\n' "$pr" "$head" >> "$STALE_SRC"
       stale=$((stale+1)); continue
     fi
   fi
+  printf '%s\t%s\n' "$pr" "$head" >> "$ACTIVE_SRC"
+done < "$ORDERED_SRC"
+
+# Reserve the stale sweep's reads out of the whole-tick budget when it is due AND the
+# gate pass found stale candidates (an empty stale set reserves nothing), so a
+# primary scan that saturates its allowance every tick cannot starve the stale tail
+# forever, and the tick total never exceeds GARDEN_CI_ROLLUP_BUDGET. The reserve is
+# clamped so the primary scan keeps at least one read when the budget allows it.
+stale_reserve=0
+if [ "$stale_sweep_due" -eq 1 ] && [ "$stale" -gt 0 ]; then
+  stale_reserve="$GARDEN_CI_STALE_SWEEP_BUDGET"
+  [ "$stale_reserve" -le "$stale" ] || stale_reserve="$stale"
+  if [ "$GARDEN_CI_ROLLUP_BUDGET" -le 1 ]; then
+    stale_reserve=0
+  elif [ "$stale_reserve" -ge "$GARDEN_CI_ROLLUP_BUDGET" ]; then
+    stale_reserve=$((GARDEN_CI_ROLLUP_BUDGET - 1))
+  fi
+fi
+primary_budget=$((GARDEN_CI_ROLLUP_BUDGET - stale_reserve))
+
+# Rollup pass over the gated, in-window PRs (in fair-cursor order).
+while IFS=$'\t' read -r pr head; do
+  [ -n "$pr" ] || continue
 
   # A spent budget is an ordinary pacing boundary, not an outage. Keep walking the
   # in-memory snapshot only to preserve complete summary counts; issue no more
   # GraphQL reads. The cursor still names the last VISITED PR, so the rotated source
   # starts with these deferred eligible PRs on the next tick.
-  if [ "$rollup_spent" -ge "$GARDEN_CI_ROLLUP_BUDGET" ]; then
+  if [ "$rollup_spent" -ge "$primary_budget" ]; then
     rollup_deferred=$((rollup_deferred+1))
     continue
   fi
@@ -653,40 +768,8 @@ while IFS=$'\t' read -r pr author head updated _title; do
         continue ;;
   esac
   red=$((red+1))
-
-  base="$slug-pr$pr-shepherd"
-  # Anti-thrash: if a shepherd for this PR is already live (todo/doin) OR already
-  # anywhere in the lifecycle, do not re-post. post-job.sh is also idempotent by
-  # basename, so this is belt-and-suspenders + a clean log line.
-  if posted_anywhere "$base"; then
-    log "#$pr is red but a shepherd job ($base) already exists — idempotent skip"
-    continue
-  fi
-
-  jb="$(mktemp)"
-  {
-    printf '# shepherd (auto: red CI) on %s PR #%s\n\n' "$repo" "$pr"
-    printf 'handler-timeout: %s\n\n' "$GARDEN_SHEPHERD_HANDLER_TIMEOUT"
-    printf 'CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).\n'
-    printf 'Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status\n'
-    printf 'watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.\n\n'
-    printf 'PR: https://github.com/%s/pull/%s\n' "$repo" "$pr"
-    printf 'Head: %s (bot-pushable)\n\n' "$head"
-    printf 'Read the failing checks and drive them green (see roles/shepherd/AGENT.md).\n'
-    printf 'If the failure is out of a shepherd''s scope, escalate to a fixer per the\n'
-    printf 'shepherd→fixer auto-chain. Re-fetch the live check state before acting;\n'
-    printf 'this job was minted from a rollup read at post time.\n'
-  } > "$jb"
-  "$GARDEN_CI_POST" "$base" "$jb" >/dev/null 2>&1 || true
-  rm -f "$jb"
-
-  if posted_anywhere "$base" fresh; then
-    log "posted $base (auto-shepherd on red CI for #$pr)"
-    posted=$((posted+1))
-  else
-    log "WARN: post of $base did not reach origin/$JOURNAL_BRANCH — will retry next tick"
-  fi
-done < "$ORDERED_SRC"
+  post_red_shepherd "$pr" "$head"
+done < "$ACTIVE_SRC"
 
 log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $stale stale-skipped, $red red, $pending in-progress, $unreadable unreadable, $posted shepherd job(s) posted; rollup budget $rollup_spent/$GARDEN_CI_ROLLUP_BUDGET spent, $rollup_deferred eligible deferred"
 
@@ -706,6 +789,59 @@ fi
 # across the tick rather than clustered at the front, e.g. an activity-bounded handful.)
 if [ "$unreadable" -gt 0 ] && [ "$unreadable" -eq "$((ours - stale))" ]; then
   log "WARN: $unreadable/$((ours - stale)) read bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR"
+fi
+
+# ── Stale-PR rollup sweep (low-frequency, bounded, rotating) ─────────────────
+# Gate 3 skipped every eligible bot PR whose head is older than the activity window.
+# When the sweep is due (see stale_sweep_due above), spend the reserved reads on
+# those skipped PRs, rotated by a durable per-repo cursor past the last stale PR
+# read, so a persistent completed-red PR beyond the window still mints its shepherd
+# within ceil(stale PRs / STALE_SWEEP_BUDGET) sweep intervals. Runs only after the
+# cascade breaker (which exits above) stayed disarmed, and a primary-quota refusal
+# stops the tick exactly as in the primary scan.
+stale_swept=0; stale_red=0
+if [ "$stale_sweep_due" -eq 1 ]; then
+  if [ "$stale_reserve" -gt 0 ]; then
+    stale_cursor="$(read_state_number "$GARDEN_CI_STALE_SWEEP_CURSOR")"
+    stale_ordered="$(awk -F '\t' -v cursor="$stale_cursor" '
+      { row[NR]=$0; if (cursor != "" && $1 == cursor) cut=NR }
+      END {
+        if (cut == "") cut=0
+        for (i=cut+1; i<=NR; i++) print row[i]
+        for (i=1; i<=cut; i++) print row[i]
+      }' "$STALE_SRC")"
+    while IFS=$'\t' read -r pr head; do
+      [ -n "$pr" ] || continue
+      [ "$stale_swept" -lt "$stale_reserve" ] || break
+      [ "$rollup_spent" -lt "$GARDEN_CI_ROLLUP_BUDGET" ] || break
+      rerr="$(mktemp)"
+      set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>"$rerr"; rrc=$?; set -e
+      rollup_spent=$((rollup_spent+1)); stale_swept=$((stale_swept+1))
+      persist_state_line "$GARDEN_CI_STALE_SWEEP_CURSOR" "$pr"
+      case "$rrc" in
+        0)  rm -f "$rerr" ;;
+        10) rm -f "$rerr"; log "stale-sweep #$pr green — nothing to do"; continue ;;
+        11) rm -f "$rerr"; log "stale-sweep #$pr has no checks reported — nothing to do"; continue ;;
+        12) rm -f "$rerr"; log "stale-sweep #$pr CI still in progress/queued — backing off"; continue ;;
+        *)  rtext="$(cat "$rerr" 2>/dev/null || true)"
+            if rollup_hit_primary_quota "$rtext" "stale-sweep #$pr rollup"; then
+              rm -f "$rerr"
+              exit 0
+            fi
+            rmsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
+            log "WARN: stale-sweep #$pr rollup unreadable (rc=$rrc): ${rmsg:-<no stderr>} — skipping (never guess a state)"
+            continue ;;
+      esac
+      stale_red=$((stale_red+1))
+      log "stale-sweep #$pr is RED beyond the ${GARDEN_CI_ACTIVITY_WINDOW} activity window"
+      post_red_shepherd "$pr" "$head" \
+        "Found by the low-frequency stale-PR sweep: the PR head is older than the ${GARDEN_CI_ACTIVITY_WINDOW} activity window, so the per-tick scan skips it."
+    done <<< "$stale_ordered"
+  fi
+  # Stamp the sweep as done even with no stale candidates: the interval paces the
+  # reservation, and an empty stale set needs no re-check until the next interval.
+  persist_state_line "$GARDEN_CI_STALE_SWEEP_STAMP" "$(date +%s)"
+  log "stale-PR sweep on $repo: read $stale_swept of $stale stale-skipped PR(s) (reserve $stale_reserve), $stale_red red"
 fi
 
 # ── Journal-outage latch (dedup the stale-shepherd sweep warning) ─────────────

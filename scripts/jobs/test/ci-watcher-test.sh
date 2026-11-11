@@ -23,6 +23,10 @@
 #      aborts the tick before the tail red PR, so no shepherd is posted (rate-limit)
 #   K. an early successful read disarms the circuit-breaker → later unreadable reads
 #      do NOT abort ("zero successful reads so far this tick" clause)
+#   W. the low-frequency stale-PR sweep: a completed-red PR beyond the activity window
+#      still mints its shepherd when the sweep is due (the #1646 gap); the sweep is
+#      interval-paced, rotates across the stale tail with its own cursor, and its
+#      reads are reserved OUT of (never added to) the whole-tick rollup budget
 #   K2. a configurable rollup budget caps each tick and a persisted fair cursor makes
 #      the next tick visit the previously-deferred eligible PRs before wrapping
 #   L. the ci-rollup handler routes its `gh pr view` read through common.sh's
@@ -588,7 +592,8 @@ BARE_I="$TR/i.git"; seed_bare "$BARE_I"
 FIX_I="$TR/fix-i.tsv"
 { prline 90 kriscendobot "$REPO" "$FRESH_TS"     # fresh red → shepherd
   prline 91 kriscendobot "$REPO" "$STALE_TS"; } > "$FIX_I"   # stale red → skipped
-run_ci_env "$TR/state-i" "$BARE_I" "$FIX_I" "90=0 91=0" "$SLUG" GARDEN_CI_ACTIVITY_WINDOW="3 days"
+run_ci_env "$TR/state-i" "$BARE_I" "$FIX_I" "90=0 91=0" "$SLUG" GARDEN_CI_ACTIVITY_WINDOW="3 days" \
+  GARDEN_CI_STALE_SWEEP_BUDGET=0   # isolate Gate 3 from the low-frequency stale sweep (case W)
 board_has "$BARE_I" "$SLUG-pr90-shepherd" && ok "fresh red PR #90 shepherded" || bad "#90 not shepherded"
 board_has "$BARE_I" "$SLUG-pr91-shepherd" && bad "stale #91 wrongly shepherded (read despite being beyond the window)" || ok "stale #91 skipped before its rollup read"
 
@@ -1087,6 +1092,75 @@ kill "$VB_HOLDER" 2>/dev/null || true; wait "$VB_HOLDER" 2>/dev/null || true
 [ -s "$ROOT_VB/.garden-state/journal-outage-cooldown/marker" ] \
   && ok "busy VERIFY lock opens the shared outage cooldown for sibling instances" \
   || bad "busy VERIFY lock did not open the shared outage cooldown"
+
+# ============================================================================
+hr; echo "W — low-frequency stale-PR sweep shepherds a persistent red beyond the window"; hr
+# W1: the sweep is due on a fresh state (no stamp) → the stale red PR is read and
+# shepherded alongside the fresh one; a same-interval re-run does NOT sweep again.
+BARE_W="$TR/w.git"; seed_bare "$BARE_W"; STATE_W="$TR/state-w"
+FIX_W="$TR/fix-w.tsv"
+{ prline 140 kriscendobot "$REPO" "$FRESH_TS"
+  prline 141 kriscendobot "$REPO" "$STALE_TS"
+  prline 142 kriscendobot "$REPO" "$STALE_TS"; } > "$FIX_W"
+CALLS_W="$TR/w.calls"; : > "$CALLS_W"
+run_ci_env "$STATE_W" "$BARE_W" "$FIX_W" "140=10 141=0 142=10" "$SLUG" \
+  GARDEN_CI_ACTIVITY_WINDOW="3 days" CI_ROLLUP_CALLS="$CALLS_W"
+board_has "$BARE_W" "$SLUG-pr141-shepherd" && ok "stale red #141 shepherded by the stale-PR sweep" \
+  || bad "stale red #141 never shepherded (the #1646 gap)"
+[ -s "$STATE_W/ci-watcher/stale-sweep-last-$SLUG" ] && ok "sweep stamp persisted" || bad "sweep stamp missing"
+: > "$CALLS_W"
+run_ci_env "$STATE_W" "$BARE_W" "$FIX_W" "140=10 141=0 142=10" "$SLUG" \
+  GARDEN_CI_ACTIVITY_WINDOW="3 days" CI_ROLLUP_CALLS="$CALLS_W"
+# (#141 IS re-read — by the stale-SHEPHERD re-validation of its queued auto-shepherd,
+# not by the stale-PR sweep — so assert pacing on the stale green #142.)
+grep -qx 142 "$CALLS_W" && bad "stale #142 re-read inside the sweep interval ($(tr '\n' ' ' < "$CALLS_W"))" \
+  || ok "sweep is interval-paced: no stale re-read before the interval elapses"
+
+# W2: rotation — three stale PRs, one sweep read each, interval 0 → successive ticks
+# walk the whole stale tail via the stale cursor, then wrap.
+BARE_W2="$TR/w2.git"; seed_bare "$BARE_W2"; STATE_W2="$TR/state-w2"
+FIX_W2="$TR/fix-w2.tsv"
+{ prline 150 kriscendobot "$REPO" "$STALE_TS"
+  prline 151 kriscendobot "$REPO" "$STALE_TS"
+  prline 152 kriscendobot "$REPO" "$STALE_TS"; } > "$FIX_W2"
+CALLS_W2="$TR/w2.calls"; : > "$CALLS_W2"
+for _ in 1 2 3 4; do
+  run_ci_env "$STATE_W2" "$BARE_W2" "$FIX_W2" "150=10 151=10 152=10" "$SLUG" \
+    GARDEN_CI_ACTIVITY_WINDOW="3 days" GARDEN_CI_STALE_SWEEP_INTERVAL=0 \
+    GARDEN_CI_STALE_SWEEP_BUDGET=1 CI_ROLLUP_CALLS="$CALLS_W2"
+done
+[ "$(tr '\n' ' ' < "$CALLS_W2")" = '150 151 152 150 ' ] \
+  && ok "stale sweep rotates across the stale tail and wraps" \
+  || bad "stale sweep rotation wrong ($(tr '\n' ' ' < "$CALLS_W2"))"
+
+# W3: the reserve comes OUT of the whole-tick budget: budget 2, three fresh + one
+# stale, sweep due → one primary read + one stale read, never three.
+BARE_W3="$TR/w3.git"; seed_bare "$BARE_W3"
+FIX_W3="$TR/fix-w3.tsv"
+{ prline 160 kriscendobot "$REPO" "$FRESH_TS"
+  prline 161 kriscendobot "$REPO" "$FRESH_TS"
+  prline 162 kriscendobot "$REPO" "$FRESH_TS"
+  prline 163 kriscendobot "$REPO" "$STALE_TS"; } > "$FIX_W3"
+CALLS_W3="$TR/w3.calls"; : > "$CALLS_W3"
+run_ci_env "$TR/state-w3" "$BARE_W3" "$FIX_W3" "160=10 161=10 162=10 163=10" "$SLUG" \
+  GARDEN_CI_ACTIVITY_WINDOW="3 days" GARDEN_CI_ROLLUP_BUDGET=2 CI_ROLLUP_CALLS="$CALLS_W3"
+[ "$(tr '\n' ' ' < "$CALLS_W3")" = '160 163 ' ] \
+  && ok "stale reserve fits inside the whole-tick rollup budget" \
+  || bad "stale sweep broke the whole-tick budget ($(tr '\n' ' ' < "$CALLS_W3"))"
+
+# W4: a primary-quota refusal in the stale sweep stops the tick (no further reads).
+BARE_W4="$TR/w4.git"; seed_bare "$BARE_W4"
+FIX_W4="$TR/fix-w4.tsv"
+{ prline 170 kriscendobot "$REPO" "$STALE_TS"
+  prline 171 kriscendobot "$REPO" "$STALE_TS"; } > "$FIX_W4"
+CALLS_W4="$TR/w4.calls"; : > "$CALLS_W4"
+run_ci_env "$TR/state-w4" "$BARE_W4" "$FIX_W4" "171=0" "$SLUG" \
+  GARDEN_CI_ACTIVITY_WINDOW="3 days" CI_ROLLUP_PRIMARY_QUOTA_PR=170 CI_ROLLUP_CALLS="$CALLS_W4" \
+  GARDEN_API_COOLDOWN_DIR="$TR/state-w4/gh-api-cooldown"
+[ "$(tr '\n' ' ' < "$CALLS_W4")" = '170 ' ] \
+  && ok "primary quota stops the stale sweep before its next read" \
+  || bad "stale sweep continued past quota ($(tr '\n' ' ' < "$CALLS_W4"))"
+board_has "$BARE_W4" "$SLUG-pr171-shepherd" && bad "stale sweep posted past a quota stop" || ok "no post after the quota stop"
 
 # ============================================================================
 hr; echo "V — default VERIFY/RETIRE clones are PER-SLUG (no shared clone_lock)"; hr
