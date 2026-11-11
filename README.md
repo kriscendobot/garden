@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T05:06:01Z_
+_As of 2026-11-11T05:08:10Z_
 
 ## Latest
 
@@ -2915,7 +2915,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.5M | $144.18 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 37.5M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 376.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151521878 tokens/day lower bound._
@@ -2998,16 +2998,16 @@ worst fetch p95 3.934160s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`oros-health-watch-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261111-050510.md) — ---
+### doin (0)
+(none)
 
-### tada (17020)
+### tada (17021)
+- [`oros-health-watch-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-050510.md) — Cost
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111.md) — gauntlet endojs-endo-but-for-bots-pr1646-gauntlet-20261111 — complete
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1646-gauntlet-20261111-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/endojs-endo-but-for-bots-pr1646-gauntlet-20261111-viability.md) — Cost
-- … and 17015 more
+- … and 17016 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
