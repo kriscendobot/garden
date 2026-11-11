@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-11T18:03:58Z_
+_As of 2026-11-11T18:05:39Z_
 
 ## Latest
 
@@ -2475,6 +2475,10 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_orch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_orch_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/orch/journal: p95=0.021202s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-token-backoff-reset-unknown-codex-endolin` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-token-backoff-reset-unknown-codex-endolin.md)
+
+> token backoff for codex-endolin is on the 0.95 fallback: next reset for codex-endolin after 2026-11-11T18:05Z unclear; record it (append-reset-event.sh codex-endolin --type expected-next-scheduled --precision scheduled --at <ISO>). Record the next reset time so the standing ramp can resume.
 
 - `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed.md)
 
