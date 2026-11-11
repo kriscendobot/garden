@@ -27,6 +27,7 @@ Precedent runs: journal/reports/context-graph-size-audit-focused-2026-08-13.md
 (the first, hand-posted run this recurring schedule continues).
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=221 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
