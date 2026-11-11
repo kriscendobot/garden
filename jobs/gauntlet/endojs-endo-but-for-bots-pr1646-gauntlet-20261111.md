@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1646
 build_job: endojs-endo-but-for-bots-pin-node-version-24
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 1
+stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1646-gauntlet-20261111-panel-1
+current_child: endojs-endo-but-for-bots-pr1646-gauntlet-20261111-undraft
 state: running
 created_by: shepherd
 created_at: 2026-11-11T03:31:31Z
