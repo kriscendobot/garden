@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-11T20:51:23Z_
+_As of 2026-11-11T20:54:35Z_
 
 ## Latest
 
@@ -1334,6 +1332,13 @@ Delegation: **active**
 > - **Codex:** Leave `codex-endolin` percent-calibrated and out of the token total.
 > - **Dropped arcs:** The restored ranking omits `ironhorse-test262-ratchet`, `minion-town-claude-api` and `garden-book`. Their carried-forward slates should lapse with the reset, as the restored ranking implies. If the maintainer wants any of them funded this week, they can request it and you can re-slice then.
 > - **Open items:** There are no held plans, watchdog notices or budget requests, so nothing is blocked.
+
+- `msg-oros-health-watch-20261111-205010-04ba7ec6ee39` — from gardener:oros-health-watch-20261111-205010, reply_to `oros-health-watch-20261111-205010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261111-205010-04ba7ec6ee39.md)
+
+> Oros (oros-studio-garden-ce242c49) is still operator-held. The roll moved it to 18fc7b17375 and failed the canary again; retries ran out at 19:29Z and it stays drained. There are two blockers, and both need someone at the machine:
+> (1) The Claude OAuth session has expired. Fix: run claude, then /login, as the garden user.
+> (2) garden-secret-broker.service fails after deploy. It failed the same way on 11-07 through 11-10. Check it with: journalctl --user -u garden-secret-broker -n 80
+> I lifted nothing and reset nothing; the drain is roll-owned. Full record: projects/garden/host-health/oros-studio-garden-ce242c49.md
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
@@ -2925,10 +2930,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.9M | $144.27 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 37.9M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148971756 tokens/day lower bound._
+_Fleet token-unlock pace: 148808659 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 9 open notice(s); checker healthy
@@ -3020,16 +3025,16 @@ worst fetch p95 4.175017s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`oros-health-watch-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261111-205010.md) — ---
+### doin (0)
+(none)
 
-### tada (17027)
+### tada (17028)
+- [`oros-health-watch-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-205010.md) — Oros health watch, cycle 2026-11-11T20:50Z: operator-held
 - [`improve-codex-reset-deadline-ingestion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/improve-codex-reset-deadline-ingestion.md) — Cost
 - [`oros-health-watch-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-173515.md) — Completion report: oros-health-watch-20261111-173515
 - [`fu-qwen-model-watch-20260728-180502-1-20261111-165016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/fu-qwen-model-watch-20260728-180502-1-20261111-165016.md) — Result
 - [`oros-health-watch-20261111-142014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-142014.md) — 2026-11-11T14:25Z - oros-health-watch-20261111-142014
-- [`oros-health-watch-20261111-110512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-110512.md) — 2026-11-11T11:10Z - oros-health-watch-20261111-110512
-- … and 17022 more
+- … and 17023 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
