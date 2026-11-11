@@ -9,6 +9,7 @@ scripts/jobs/budget-level.sh:228 left codex-endolin on the 0.95 fallback at 2026
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=449 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
