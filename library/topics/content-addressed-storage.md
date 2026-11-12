@@ -172,6 +172,8 @@
 | [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing](../sections/literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing.md) | literate-ai ADR 0044 | `literate_ai.action_worker` materializes CAS-verified source into a private workspace to run only the source-index action, optionally fetching blobs from a private HTTPS CAS. |
 | [Scion changesets and derived data](../sections/web--anthropic-redesigning-source-control--changesets-and-derived-data.md) | Anthropic Scion | Changesets point to compressed file contents by content address while query indexes remain derived projections. |
 | [Scion scalable object delivery](../sections/web--anthropic-redesigning-source-control--scalable-object-delivery.md) | Anthropic Scion | Immutable named trees and blobs make recursive sparse fetches resumable and cacheable at every tier. |
+| [Git object storage primer](../sections/web--openai-scaling-git--git-object-storage-primer.md) | OpenAI Pando | Objects, refs, loose and packed storage, haves/wants, thin push packs, and what replication must guarantee. |
+| [Pando compaction](../sections/web--openai-scaling-git--compaction-and-time-to-first-byte.md) | OpenAI Pando | LSM-style L0 to L4 pack covers improve compression and act as a skip list; packs are never garbage-collected. |
 
 ## See also
 
