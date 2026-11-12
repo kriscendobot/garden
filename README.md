@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T22:29:24Z_
+_As of 2026-11-12T22:33:03Z_
 
 ## Latest
 
@@ -2343,6 +2343,10 @@ Delegation: **active**
 >
 > Orchestration muster-improve-fixes-r2-20261106 complete WITH FAILURES (serial): 7/7 failed: improve-candidate-gate-empty-diagnostic-r2 improve-decision-ledger-contention-spool-r2 improve-issue-status-source-budget-r2 improve-issue-status-source-trust-filter-r2 improve-screening-cooldown-log-spam-r2 improve-transient-retry-budget-r2 improve-transient-retry-correlation-r2
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r2' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `doomed-oros-health-watch-20261107-075009-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261107-075009-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -3005,7 +3009,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 39.8M | $146.00 _(notional, rate-card)_ | 15% of 271.0M (ok) |
-| Codex | 377.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147255516 tokens/day lower bound._
 
