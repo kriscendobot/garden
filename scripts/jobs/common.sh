@@ -10390,7 +10390,12 @@ host_capability_probe() { # <token> — one authoritative, uncached probe
     aws) "$GARDEN_AWS_VERIFY" "$GARDEN_ROOT" >/dev/null 2>&1 ;;
     # File shape and metadata are checked locally without egress. A legacy
     # variable alone deliberately does not satisfy the migration capability.
-    typesafe) declare -F secret_available >/dev/null 2>&1 && secret_available typesafe ;;
+    # Maintainer opt-out (2026-11-12): a host-local marker file satisfies the
+    # capability WITHOUT a key, so scholar-ingest runs with the foreign-content
+    # classifier failing open.  Explicit and revertible: delete the file.
+    typesafe)
+      [ -e "$GARDEN_STATE/config/typesafe-bypass" ] && return 0
+      declare -F secret_available >/dev/null 2>&1 && secret_available typesafe ;;
     *) return 1 ;;
   esac
 }
