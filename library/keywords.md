@@ -168,6 +168,8 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - software-neutral lifecycle kernel, hexagonal lifecycle kernel, OVA extraction, OVA two-phase rebase, Literate AI ADR 0001, Literate AI ADR 0002, Python reference kernel, runtime dependency admission policy, OpenSpec contributor tooling -> specification-authority-chain
 - Scion, Anthropic Scion, agent-scale source control, always-online source control, asymmetric source-control server -> scion-source-control
 - Scion changeset, Scion derived data, changeset log, derived repository index, recursively derived source-control data -> scion-changeset-derived-data
+- Pando, OpenAI Pando, Express pack cache, ref version, packfile cover, L0 packfile, LSM packfile compaction, causal consistency for Git refs, trunk-only ref advertisement, Git pack reuse, Scaling Git at OpenAI -> pando-git-backend
+- packfile-uri, packfile URIs, explicit haves, offloaded packfiles, parallel pack indexing -> git-packfile-uri
 - sparse checkout, virtualized checkout, optional working copy, demand-materialized working copy, sparse working tree -> sparse-virtualized-working-copy
 - Endo Gateway, host gateway, gateway bootstrap registrar, public-key-keyed routing table, `@endo/gateway` -> endo-gateway
 - endopi edit tool, edit-by-replacement, exact-string replacement, `oldText`, `newText`, `editText`, structured diff preview -> llm-exact-string-editing
