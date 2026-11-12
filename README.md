@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T18:34:03Z_
+_As of 2026-11-12T18:37:21Z_
 
 ## Latest
 
@@ -497,11 +497,11 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:claim/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #67883 (first seen 2026-11-10T19:35:37Z, latest 2026-11-12T17:36:21Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 67883 times; this is ONE
-> coalesced notice that updates in place, not 67883 messages. Latest detail:
+> WATCHDOG notice — occurrence #68299 (first seen 2026-11-10T19:35:37Z, latest 2026-11-12T18:36:22Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 68299 times; this is ONE
+> coalesced notice that updates in place, not 68299 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'claude-on-minion-town-completion-press-20261111-035010' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261111-015011' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
@@ -2939,10 +2939,11 @@ _Fleet token-unlock pace: 147533650 tokens/day lower bound._
 worst fetch p95 2.174201s/45s (/home/kris/garden/.garden-state/mentor/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (100)
+### todo (102)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
+- [`oros-health-checkup-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-183511.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261112-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-092012.md) — ---
 - [`oros-health-checkup-20261110-040516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-040516.md) — ---
@@ -2968,6 +2969,7 @@ worst fetch p95 2.174201s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261110-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-225011.md) — ---
 - [`oros-health-checkup-20261110-010510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-010510.md) — ---
 - [`oros-health-checkup-20261107-202010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-202010.md) — ---
+- [`minion-town-arc-press-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-183511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261111-015011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-015011.md) — ---
 - [`oros-health-checkup-20261109-220510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-220510.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
@@ -3041,8 +3043,8 @@ worst fetch p95 2.174201s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`oros-health-watch-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261112-183511.md) — ---
 
 ### tada (17036)
 - [`oros-health-watch-20261112-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-152013.md) — Cost
