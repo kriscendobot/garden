@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T21:28:01Z_
+_As of 2026-11-12T21:29:00Z_
 
 ## Latest
 
@@ -2992,7 +2992,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.4M | $147.15 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.4M | $147.40 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 377.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147170345 tokens/day lower bound._
@@ -3102,18 +3102,17 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (3)
+### doin (2)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Ingest lividlabs/codefall and whyrusleeping/ycc as meta-harness references
-- [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — shepherd (auto: shared base-CI outage) on endojs/endo-but-for-bots base 48d6f...
 
-### tada (17040)
+### tada (17041)
+- [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — Cost
 - [`fu-scholar-ingest-yavashark-ironhorse-20261030-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/fu-scholar-ingest-yavashark-ironhorse-20261030-3.md) — Cost
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-openai-scaling-git.md) — scholar-ingest-openai-scaling-git: completion report
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-yavashark-ironhorse-20261030.md) — Completion report: scholar-ingest-yavashark-ironhorse-20261030
 - [`oros-health-watch-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-183511.md) — 2026-11-12T19:05Z - oros-health-watch-20261112-183511 (re-run after reaper re...
-- [`oros-health-watch-20261112-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-152013.md) — Cost
-- … and 17035 more
+- … and 17036 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
