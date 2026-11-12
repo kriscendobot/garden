@@ -31,6 +31,7 @@ in the library. If the evidence exceeds the job budget, write what is supported 
 follow-on `scholar-ingest-<repo>` job for the remainder.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=405 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
