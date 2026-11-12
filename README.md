@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-12T21:29:00Z_
+_As of 2026-11-12T21:31:27Z_
 
 ## Latest
 
@@ -280,16 +278,6 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Build Phase 6 interactive Git-clone provisioning in endojs/endo-but-for-bots from `daemon-git-remotes`: compose mount creation, endpoint policy, and sealed credentials into `provideGitClone`, with contract tests.
-
-- `msg-endojs-endo-but-for-bots-base-ci-48d6f3e08bcc-f83c4807747c` — from gardener:endojs-endo-but-for-bots-base-ci-48d6f3e08bcc, reply_to `endojs-endo-but-for-bots-base-ci-48d6f3e08bcc` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-base-ci-48d6f3e08bcc-f83c4807747c.md)
-
-> Base-CI outage on endojs/endo-but-for-bots `llm` (tip 48d6f3e08bcc, unchanged since 2026-11-02): test-xs is red on the base and on every open Dependabot PR ([endojs/endo-but-for-bots#1654](https://github.com/endojs/endo-but-for-bots/issues/1654), [endojs/endo-but-for-bots#1655](https://github.com/endojs/endo-but-for-bots/issues/1655), [endojs/endo-but-for-bots#1657](https://github.com/endojs/endo-but-for-bots/issues/1657), [endojs/endo-but-for-bots#1658](https://github.com/endojs/endo-but-for-bots/issues/1658)).
->
-> Root cause: the workflow's endo/.node-version is `lts/*`. That alias moved from Node 24.22.1 to 26.13.0 between run attempt 1 (green, 11-02) and attempt 2 (red, 11-03) of the same base commit. Under Node 26, the hardened262 baseline entry `sesNode/module test/intrinsics/ThrowTypeError/intrinsic-metadata.js` flips from passed to failed. The code did not change.
->
-> There is already a repair: [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (pin .node-version to 24, a one-file change). It is non-draft, MERGEABLE/CLEAN, and its 26 checks pass, test-xs included. The 2026-11-11 gauntlet re-run finished clean → panel → un-draft. Its base llm-48d6f3e equals the live llm tip.
->
-> It needs your merge word (`merge #1646`). Two parked jobs are waiting on it: the [endojs/endo-but-for-bots#1658](https://github.com/endojs/endo-but-for-bots/issues/1658) conduct and the [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) conduct. After it lands, the Dependabot PRs need re-pinning or re-running. Node 26 compatibility of that SES ThrowTypeError assertion is still a deliberate follow-up, which [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/issues/1646) body already notes.
 
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed.md)
 
@@ -1252,6 +1240,21 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
+
+- `msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-1ce631a67cd7` — from gardener:scholar-ingest-meta-harnesses-codefall-ycc-20261029, reply_to `scholar-ingest-meta-harnesses-codefall-ycc-20261029` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-1ce631a67cd7.md)
+
+> scholar-ingest-meta-harnesses-codefall-ycc still blocked at the foreign-content gate — and the just-landed typesafe-bypass does not yet unblock it.
+>
+> Diagnosis (new since the prior message):
+> - The bypass commit c2a2b3c899a wired the `typesafe-bypass` marker only into the CLAIM gate (`host_capability_probe`/`secret_available` path in common.sh ~10396). The commit comment intends the classifier to "fail open" so scholar-ingest runs keyless.
+> - But `fetch-source.sh` (~line 216) hard-refuses whenever `CLASSIFY_REQUIRE=1 && ! secret_available typesafe`, and it does NOT consult the bypass marker. So even WITH the marker set, fetch-source.sh exits 4 and no bytes are fetched. The "fail open" intent is defeated at the fetch preflight.
+> - Additionally the marker is NOT currently present on this host: `/home/kris/garden/.garden-state/config/typesafe-bypass` is absent and `$GARDEN_STATE/config/typesafe-bypass` (sandbox view) is absent. Yet a keyless monk still claimed the job, so the claim gate's typesafe enforcement is worth re-inspecting (you flagged this before).
+>
+> To unblock scholar-ingest on a keyless host, two changes are needed, both outside scholar authority (routing as a self-improvement lesson to mentor/liaison):
+>   (a) make `fetch-source.sh` honor the bypass marker the same way the claim gate does — fall through to a fetch + `proceed_unclassified` disposition (recording a content_caveat), instead of exit 4; and
+>   (b) arm the host marker: `touch $GARDEN_STATE/config/typesafe-bypass`.
+>
+> This attempt read no external content and committed nothing. Ending without the completion signal so the job requeues, per skills/foreign-content-preclassification halt_unclassified. It will keep requeuing on keyless/bypass-incomplete hosts until (a)+(b) land or a TypeSafe-capable host claims it.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
@@ -2994,7 +2997,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.4M | $147.40 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.4M | $147.71 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 377.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147170345 tokens/day lower bound._
