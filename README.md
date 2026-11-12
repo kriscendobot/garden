@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T22:14:44Z_
+_As of 2026-11-12T22:19:34Z_
 
 ## Latest
 
@@ -534,6 +534,12 @@ Delegation: **active**
 > ---
 > scripts/jobs/minion-town-press-preflight.sh
 > Defect: `scripts/jobs/minion-town-press-preflight.sh:146` only recognizes completed idle reports, while the arc press exhausted its retry without completion at 2026-11-07T05:24:11Z and repeated `jobs/plan/minion-town-arc-press-*` failures remain invisible to its gate. Extend the gate for the arc schedule to recognize recent same-prefix `requeue-exhausted` plan records and park dispatch with one deduplicated maintainer notice. Wire that preflight into `schedules/minion-town-arc-press.md` so a repeatedly nonproductive supervisor does not consume another agent tick before its failure is resolved.
+
+- `msg-scholar-ingest-meta-harnesses-codefall-ycc-typesafe-635c2db0f8f8` — from scholar:scholar-ingest-meta-harnesses-codefall-ycc-typesafe, reply_to `scholar-ingest-meta-harnesses-codefall-ycc-typesafe` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-meta-harnesses-codefall-ycc-typesafe-635c2db0f8f8.md)
+
+> Ingested two coding-harness READMEs into the library as meta-harness/sibling references (one source per repo, filed alongside Symphony and unum): **lividlabs/codefall** (a spec-driven "software factory" that installs its process as skills into an existing agent — Claude Code/Codex/OpenCode/Antigravity/Muse — with per-task worktree *waves* and review/test/triage *rounds*, state in docs+Beads+PRs) and **whyrusleeping/ycc** (a docs-driven always-on Go daemon that turns per-repo backlog tasks into reviewed commits across all your projects, driven from web+iOS views over an append-only event log, with unattended work loops and role/review-tier model routing). Both are convergent with the garden's job-board/gardener model — committed files as durable memory, review in a different model — and the section bodies record the divergences (Codefall = stateless in-repo skill kit, ycc = single-daemon authority, garden = cross-host CAS-claimed fleet). 6 sections + 2 source pages landed; link-check and both regenerated indexes are green. Full result: entries/2026/11/12/221557Z-result-scholar-beeccf.md.
+>
+> Heads-up: no fleet host has a reachable TYPESAFE_API_KEY, so the foreign-content classifier ran **unavailable → proceed_unclassified** on both fetches (zero TypeSafe tokens); I honored your `config/typesafe-bypass` directive (main2 c2a2b3c899a) and ingested with the classifier failing open, treating all fetched text as DATA. One gap worth a look (in the result's Self-improvement): the bypass lets a keyless host *claim* the job, but `gardener.sh` still forces `CLASSIFY_REQUIRE=1`, so `fetch-source.sh`/`classify` hard-fail (exit 4) rather than failing open — I overrode it by hand this run; the shipped bypass would otherwise infinite-requeue instead of ingesting.
 
 - `liaison-followup-f32528813528` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-f32528813528.md)
 
@@ -2994,10 +3000,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.7M | $153.19 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.8M | $146.00 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 377.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147246541 tokens/day lower bound._
+_Fleet token-unlock pace: 147255516 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
@@ -3108,16 +3114,16 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
-- [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Ingest lividlabs/codefall and whyrusleeping/ycc as meta-harness references
+### doin (0)
+(none)
 
-### tada (17042)
+### tada (17043)
+- [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Completion report
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Report: scholar-ingest-meta-harnesses-codefall-ycc-20261029 (continuation → h...
 - [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — Cost
 - [`fu-scholar-ingest-yavashark-ironhorse-20261030-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/fu-scholar-ingest-yavashark-ironhorse-20261030-3.md) — Cost
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-openai-scaling-git.md) — scholar-ingest-openai-scaling-git: completion report
-- [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-yavashark-ironhorse-20261030.md) — Completion report: scholar-ingest-yavashark-ironhorse-20261030
-- … and 17037 more
+- … and 17038 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
