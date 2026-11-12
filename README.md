@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T22:43:22Z_
+_As of 2026-11-12T22:44:36Z_
 
 ## Latest
 
@@ -1769,11 +1769,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-11-07T16:47:16Z, latest 2026-11-12T14:43:36Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_screening_journal`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` has CLEARED (first seen 2026-11-07T16:47:16Z, cleared 2026-11-12T22:43:43Z).
+> It was observed 7 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.025203s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-improve-gauntlet-notices-to-pr-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-gauntlet-notices-to-pr-20261106-requeue-exhausted.md)
 
@@ -3010,10 +3010,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 147255516 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 13 open notice(s); checker healthy
+worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (103)
+### todo (104)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
@@ -3034,6 +3034,7 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`oros-health-checkup-20261110-072010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-072010.md) — ---
 - [`minion-town-arc-press-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-060516.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
+- [`canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 84543b04ac1f
 - [`oros-health-checkup-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-173515.md) — ---
 - [`oros-health-checkup-20261108-173513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-173513.md) — ---
 - [`oros-health-checkup-20261109-155023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-155023.md) — ---
