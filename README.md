@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T22:23:25Z_
+_As of 2026-11-12T22:24:13Z_
 
 ## Latest
 
@@ -2401,6 +2401,10 @@ Delegation: **active**
 >
 > Until space is freed, any service that writes to `.garden-state` or the journal can fail the same way, so expect more units to fail. A maintainer needs to free space on that volume, for example by pruning old worktrees, bare-clone packs, logs or build caches. A job can't do that s
 
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/gardener-scaler/journal: attempts p95=- max=- (cap 50), classes cas=4 server-reject=0 definite-fail=1.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-11-07T02:46:11Z, cleared 2026-11-11T12:42:20Z).
@@ -3006,7 +3010,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 147255516 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
+worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (103)
