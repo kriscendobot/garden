@@ -342,6 +342,9 @@
 | [Principles for agent-scale source control](../sections/web--anthropic-redesigning-source-control--agent-scale-principles.md) | Anthropic engineering | Online agent and job clients permit server-side operations, API-only workflows, and optional sparse working copies. |
 | [Scion engineering and operations lessons](../sections/web--anthropic-redesigning-source-control--engineering-and-operations-lessons.md) | Anthropic engineering | High agent throughput amplifies the need for human system judgment, intent review, simulation, fuzzing, and post-merge validation. |
 | [Scion ecosystem directions](../sections/web--anthropic-redesigning-source-control--ecosystem-directions.md) | Anthropic engineering | Anthropic limits Scion to extreme scale while predicting that transferable agent-driven pressure will reach more organizations. |
+| [Pando overview](../sections/web--openai-scaling-git--overview.md) | OpenAI Pando | Pando, OpenAI's Git-compatible monorepo backend, trades repository-wide ref consistency and per-client packs for scalable writes and line-rate reads. |
+| [Why OpenAI needed a new source control system](../sections/web--openai-scaling-git--why-a-new-source-control-system.md) | OpenAI Pando | Codex-driven parallel pushes and fetches drove reliability below 90%; Pando scales writers per branch and readers by pack reuse. |
+| [Building and deploying Pando](../sections/web--openai-scaling-git--building-and-deploying-pando.md) | OpenAI Pando | Codex-built Rust in 10 weeks with conformance, deterministic simulation, and Lean/TLA+; migrated behind a write-through proxy. |
 
 ## See also
 
