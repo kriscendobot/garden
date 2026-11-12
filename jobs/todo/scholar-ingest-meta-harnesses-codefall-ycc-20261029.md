@@ -1,8 +1,9 @@
 ---
 posted_at: 2026-10-29T17:02:05Z
 role: scholar
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -31,13 +32,6 @@ in the library. If the evidence exceeds the job budget, write what is supported 
 follow-on `scholar-ingest-<repo>` job for the remainder.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=405 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-12T20:59:44Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-12T21:23:05Z -->
