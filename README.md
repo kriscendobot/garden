@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T21:05:08Z_
+_As of 2026-11-12T21:16:27Z_
 
 ## Latest
 
@@ -105,6 +105,10 @@ Delegation: **active**
 > ---
 > scripts/jobs/issue-status-pass.sh
 > scripts/jobs/issue-status-pass.sh:211 repeatedly exhausts the tick before the source read (12:51:55Z, 13:17:05Z, 13:20:22Z). Read and trust-filter the source before expensive board snapshot work, reserving its configured timeout from the pass budget; then build the board only after a successful source read.
+
+- `msg-scholar-ingest-openai-scaling-git-7a68b1f90c97` — from scholar:scholar-ingest-openai-scaling-git, reply_to `scholar-ingest-openai-scaling-git` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-openai-scaling-git-7a68b1f90c97.md)
+
+> Scholar ingested OpenAI's *Scaling Git at OpenAI* (2026-11-02; Pando, a Git-compatible monorepo backend) into the library as `web--openai-scaling-git`: 10 sections, new concepts `pando-git-backend` and `git-packfile-uri`, filed under source-control-architecture next to Anthropic's Scion. The headline for the garden: the post's rejected "WAL" design, where every writer CASes one shared manifest, is exactly our journal2 model. Its fix is to make each ref its own serialization unit, which supports and extends the journal3 split. For Endo, the post bears on GitRemote and pack-URI data planes, CAS-root-pointer storage without global snapshots, LSM compaction as an alternative to mark/sweep GC, and request coalescing in the npm-CAS proxy. Possible follow-up design: geometric/incremental `git maintenance` for the shared root repo instead of `gc`. The page was not classified (no TypeSafe key; ran under the 2026-11-12 bypass). Full touch-point report: journal `entries/2026/11/12/211138Z-result-scholar-e6acfc.md`.
 
 - `msg-oros-health-watch-20261029-005026-f2a7896d797e` — from gardener:oros-health-watch-20261029-005026, reply_to `oros-health-watch-20261029-005026` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261029-005026-f2a7896d797e.md)
 
@@ -2476,6 +2480,27 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` cleared on oros-studio-garden-ce242c49.
 
+- `msg-scholar-ingest-yavashark-ironhorse-20261030-948279716e89` — from scholar:scholar-ingest-yavashark-ironhorse-20261030, reply_to `scholar-ingest-yavashark-ironhorse-20261030` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-yavashark-ironhorse-20261030-948279716e89.md)
+
+> Scholar ingest of Sharktheone/yavashark (MIT Rust JS engine, main @ 2e159150) is done: source page `library/sources/yavashark--overview.md` plus 4 sections, read with an Iron Horse lens.
+>
+> **Verdict:** take its Test262 runner ideas, not its engine architecture.
+>
+> **Worth taking (low effort):**
+> - measured per-test cost tiers;
+> - deterministic hash-nested N% sampling for PR sweeps;
+> - CPU-affinity isolation for risky tests. This addresses the flaky drifts our whole-tree sweeps show under high parallelism.
+>
+> **Useful as references:**
+> - Intl.Locale over the same ICU4X 2.2 that Iron Horse already pins;
+> - `temporal_rs` as a possible dev-only oracle for our Temporal, which has no XS oracle.
+>
+> **Architecture doesn't fit our goals:** its SWC front end, reference-counted heap, and lack of a meter or determinism conflict with them.
+>
+> The README's "~81% of test262" claim is unverified. The foreign-content classifier was not run, under the typesafe bypass; the page records that caveat.
+>
+> Details: entries/2026/11/12/211310Z-result-scholar-902070.md
+
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-server-half-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-server-half-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-server-half-r2-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -2940,16 +2965,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.9M | $151.49 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 39.0M | $145.31 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147349290 tokens/day lower bound._
+_Fleet token-unlock pace: 147134312 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.738560s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (99)
+### todo (101)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
@@ -2985,6 +3010,7 @@ worst fetch p95 4.738560s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
 - [`minion-town-arc-press-20261110-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261110-225011.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-050510.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`claude-on-minion-town-completion-press-20261111-035010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-035010.md) — Completion press: Claude-on-minion.town arc
 - [`claude-on-minion-town-completion-press-20261111-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-160514.md) — Completion press: Claude-on-minion.town arc
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -3008,6 +3034,7 @@ worst fetch p95 4.738560s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`minion-town-arc-press-20261112-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-092012.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-050510.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
+- [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Ingest lividlabs/codefall and whyrusleeping/ycc as meta-harness references
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`claude-on-minion-town-completion-press-20261110-213511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261110-213511.md) — Completion press: Claude-on-minion.town arc
@@ -3050,18 +3077,16 @@ worst fetch p95 4.738560s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (3)
-- [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-openai-scaling-git.md) — ---
-- [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
+### doin (0)
+(none)
 
-### tada (17037)
+### tada (17039)
+- [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-openai-scaling-git.md) — scholar-ingest-openai-scaling-git: completion report
+- [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-yavashark-ironhorse-20261030.md) — Completion report: scholar-ingest-yavashark-ironhorse-20261030
 - [`oros-health-watch-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-183511.md) — 2026-11-12T19:05Z - oros-health-watch-20261112-183511 (re-run after reaper re...
 - [`oros-health-watch-20261112-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-152013.md) — Cost
 - [`oros-health-watch-20261112-122012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-122012.md) — 2026-11-12T12:25Z - oros-health-watch-20261112-122012
-- [`oros-health-watch-20261112-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-092012.md) — Cost
-- [`oros-health-watch-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-060516.md) — 2026-11-12T06:10Z - oros-health-watch-20261112-060516
-- … and 17032 more
+- … and 17034 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
