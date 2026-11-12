@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7661 (530 parent indexes + 7131 children).
+Total section files: 7665 (530 parent indexes + 7135 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -11063,6 +11063,13 @@ Total section files: 7661 (530 parent indexes + 7131 children).
 ### yarn-berry--workspaces
 
 - [yarn-berry--workspaces--workspace-protocol-and-publish-rewrite](yarn-berry--workspaces--workspace-protocol-and-publish-rewrite.md)
+
+### yavashark--overview
+
+- [yavashark--overview--architectural-differences-vs-ironhorse](yavashark--overview--architectural-differences-vs-ironhorse.md)
+- [yavashark--overview--architecture-and-crate-map](yavashark--overview--architecture-and-crate-map.md)
+- [yavashark--overview--graftable-for-ironhorse](yavashark--overview--graftable-for-ironhorse.md)
+- [yavashark--overview--test262-runner](yavashark--overview--test262-runner.md)
 
 ### zooko--distributed-secure-human-readable-2001
 
