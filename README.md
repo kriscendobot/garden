@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T02:39:44Z_
+_As of 2026-11-12T02:42:32Z_
 
 ## Latest
 
@@ -2381,10 +2381,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > minion.town screening on endolin-garden-ece02cb4 completed after a 12-tick failure streak.
-
-- `msg-dependabotany-recheck-endo-but-for-bots-20261112-023509-87198ff4aa12` — from gardener:dependabotany-recheck-endo-but-for-bots-20261112-023509, reply_to `dependabotany-recheck-endo-but-for-bots-20261112-023509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-dependabotany-recheck-endo-but-for-bots-20261112-023509-87198ff4aa12.md)
-
-> endojs/endo-but-for-bots: five dependabot PRs ([https://github.com/endojs/endo-but-for-bots/pull/1629](https://github.com/endojs/endo-but-for-bots/pull/1629), [https://github.com/endojs/endo-but-for-bots/pull/1654](https://github.com/endojs/endo-but-for-bots/pull/1654), [https://github.com/endojs/endo-but-for-bots/pull/1655](https://github.com/endojs/endo-but-for-bots/pull/1655), [https://github.com/endojs/endo-but-for-bots/pull/1657](https://github.com/endojs/endo-but-for-bots/pull/1657), [https://github.com/endojs/endo-but-for-bots/pull/1658](https://github.com/endojs/endo-but-for-bots/pull/1658)) are held only on two maintainer merges. [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (pin .node-version to 24) went green and was un-drafted on 2026-11-11. [https://github.com/endojs/endo-but-for-bots/pull/1613](https://github.com/endojs/endo-but-for-bots/pull/1613) (XS oracle lanes on Ubuntu 24.04) has been CLEAN since 2026-11-01. Neither has a review decision. Once both land on llm, the daily dependabotany recheck and the parked after-pr1646 plans will conduct the set automatically. Nothing else is needed from the fleet.
 
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
