@@ -13,3 +13,13 @@ Then report on relevant touch points for:
 - **Git** itself: scaling techniques described (e.g. repo maintenance, fetch/push protocol, large-repo features) and how they relate to the garden's own shared-repo/worktree/journal-CAS practices.
 
 Write the library entry per journal/library/conventions.md, and put the touch-point report in the job's result entry (cite sections of the source).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-12T20:59:34Z
