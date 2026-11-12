@@ -92,6 +92,7 @@
 | [Concurrent transform and the priority convention](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os code-change.ts | The server-order priority pairing, the ChangeSet transform law, and per-path edit/set/remove transform rules. |
 | [gefs/betree-write-optimized-data-structure](../sections/papers--bernstein-gefs-good-enough-file-system-2023--betree-write-optimized-data-structure.md) | GEFS paper | The Bεtree: a write-optimized B+ tree with pivot-node write buffers and upsert messages; low write amplification under copy-on-write. |
 | [Scion changesets and derived data](../sections/web--anthropic-redesigning-source-control--changesets-and-derived-data.md) | Anthropic Scion | An append-only first-parent delta log feeds recursively computed blame, path-history, commit-graph, copy-detection, and search structures. |
+| [Pando compaction](../sections/web--openai-scaling-git--compaction-and-time-to-first-byte.md) | OpenAI Pando | LSM-style L0 to L4 pack covers improve compression and act as a skip list; packs are never garbage-collected. |
 
 ## See also
 
