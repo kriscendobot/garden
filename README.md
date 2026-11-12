@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T03:13:03Z_
+_As of 2026-11-12T03:14:07Z_
 
 ## Latest
 
@@ -2939,7 +2939,7 @@ _Fleet token-unlock pace: 148849054 tokens/day lower bound._
 worst fetch p95 4.049648s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (89)
+### todo (90)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
@@ -2973,6 +2973,7 @@ worst fetch p95 4.049648s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`claude-on-minion-town-completion-press-20261111-035010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-035010.md) — Completion press: Claude-on-minion.town arc
 - [`claude-on-minion-town-completion-press-20261111-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-160514.md) — Completion press: Claude-on-minion.town arc
+- [`oros-health-watch-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261112-030515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`oros-health-checkup-20261110-193511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-193511.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -3030,8 +3031,8 @@ worst fetch p95 4.049648s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
-- [`oros-health-watch-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261112-030515.md) — ---
+### doin (0)
+(none)
 
 ### tada (17031)
 - [`dependabotany-recheck-endo-but-for-bots-20261112-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/dependabotany-recheck-endo-but-for-bots-20261112-023509.md) — Dependabotany recheck: endojs/endo-but-for-bots, 2026-11-12
