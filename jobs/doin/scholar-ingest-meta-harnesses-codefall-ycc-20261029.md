@@ -37,6 +37,7 @@ follow-on `scholar-ingest-<repo>` job for the remainder.
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=405,476 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
