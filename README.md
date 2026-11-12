@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-12T21:00:54Z_
+_As of 2026-11-12T21:05:08Z_
 
 ## Latest
 
@@ -1350,31 +1348,11 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #32 (first seen 2026-11-07T22:15:24Z, latest 2026-11-12T20:55:24Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 32 times; this is ONE
-> coalesced notice that updates in place, not 32 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-11-07T22:15:24Z, cleared 2026-11-12T21:03:27Z).
+> It was observed 32 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1794517127 set-by=dependabot:kriscendobot-endo-but-for-bots:source <- pages:kriscendobot/garden:net
-> gh-api GraphQL-only marker: expiry=1794517127 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 3375s (since 2026-11-12T19:59:09Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 3387s (since 2026-11-12T19:58:57Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3396s (since 2026-11-12T19:58:48Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3333s (since 2026-11-12T19:59:51Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3373s (since 2026-11-12T19:59:11Z)
-> - kriscendobot/list: watcher ticking but cooldown for 3366s (since 2026-11-12T19:59:18Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 3339s (since 2026-11-12T19:59:45Z)
-> watcher ticking but cooldown for 3394s (since 2026-11-12T19:58:50Z); detail: rest latch set-by=dependabot:kriscendobot-endo-but-for-bots:source <- pages:kriscendobot/garden:net expiry=1794517127
-> - kriscendobot/minion.town: watcher ticking but cooldown for 3397s (since 2026-11-12T19:58:47Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 3346s (since 2026-11-12T19:59:38Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3378s (since 2026-11-12T19:59:06Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 3382s (since 2026-11-12T19:59:02Z)
+> Comment acknowledgment condition cleared.
 
 - `doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-muster-autoarchive-watchdog-20261106-requeue-exhausted.md)
 
@@ -1479,6 +1457,10 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
+
+- `msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-760b72567d84` — from gardener:scholar-ingest-meta-harnesses-codefall-ycc-20261029, reply_to `scholar-ingest-meta-harnesses-codefall-ycc-20261029` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-760b72567d84.md)
+
+> Scholar ingest stopped at the mandatory foreign-content pre-classification gate. The worker was claimed with `CLASSIFY_REQUIRE=1`, but `TYPESAFE_API_KEY` is absent. `scripts/jobs/fetch-source.sh https://raw.githubusercontent.com/lividlabs/codefall/main/README.md` refused before fetching any bytes and exited 4, as required by `skills/foreign-content-preclassification/SKILL.md`. No upstream content was read and no library files were changed. Please requeue on a TypeSafe-capable worker; the implicit `requires: typesafe` claim gate may also need inspection because this worker should not have claimed the job.
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -2404,17 +2386,11 @@ Delegation: **active**
 
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-11-07T22:03:41Z, latest 2026-11-12T20:11:48Z).
-> The SAME condition (`minion-town-screening-tick-failed-endolin-garden-ece02cb4`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-07T22:03:41Z, cleared 2026-11-12T21:02:52Z).
+> It was observed 13 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> minion.town screening on endolin-garden-ece02cb4 has not completed for 3 consecutive proxy ticks (first failure 2026-11-12T20:01:42Z).
->
-> Failure class: github-deferred
-> Latest detail: gh api screen:pr-list admission refused: host-shared gh-api cooldown live (2819s left, tag dependabot:kriscendobot-endo-but-for-bots:source <- pages:kriscendobot/garden:net; API rate limit already exceeded for user); not issued 
->
-> No screening gate was bypassed and the delegation was not resumed. The proxy will retry on its next tick and post a recovery update after a completed screen.
-> Runbook: context/operations/minion-town-screening.md
+> minion.town screening on endolin-garden-ece02cb4 completed after a 12-tick failure streak.
 
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
@@ -2964,10 +2940,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.8M | $146.03 _(notional, rate-card)_ | 14% of 271.0M (ok) |
-| Codex | 377.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 38.9M | $151.49 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Codex | 377.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147315491 tokens/day lower bound._
+_Fleet token-unlock pace: 147349290 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.738560s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 11 open notice(s); checker healthy
