@@ -31,12 +31,12 @@ garden's gardener/board design. Cross-link the two sources and any existing harn
 in the library. If the evidence exceeds the job budget, write what is supported and post a
 follow-on `scholar-ingest-<repo>` job for the remainder.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=405 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-12T21:23:05Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=405,476 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
