@@ -1,5 +1,5 @@
 cadence: 3h
-last_dispatched: 2026-11-12T03:05:15Z
+last_dispatched: 2026-11-12T06:05:16Z
 job_basename_prefix: minion-town-arc-press
 ---
 ---
