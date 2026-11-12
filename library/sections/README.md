@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7665 (530 parent indexes + 7135 children).
+Total section files: 7671 (530 parent indexes + 7141 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1226,6 +1226,12 @@ Total section files: 7665 (530 parent indexes + 7135 children).
 ### cloudflare-w4p--worker-isolation
 
 - [cloudflare-w4p--worker-isolation--modes](cloudflare-w4p--worker-isolation--modes.md)
+
+### codefall--readme
+
+- [codefall--readme--overview](codefall--readme--overview.md)
+- [codefall--readme--pipeline-state-and-sandboxing](codefall--readme--pipeline-state-and-sandboxing.md)
+- [codefall--readme--spec-driven-lifecycle](codefall--readme--spec-driven-lifecycle.md)
 
 ### collections--pkg-clear-readme
 
@@ -11070,6 +11076,12 @@ Total section files: 7665 (530 parent indexes + 7135 children).
 - [yavashark--overview--architecture-and-crate-map](yavashark--overview--architecture-and-crate-map.md)
 - [yavashark--overview--graftable-for-ironhorse](yavashark--overview--graftable-for-ironhorse.md)
 - [yavashark--overview--test262-runner](yavashark--overview--test262-runner.md)
+
+### ycc--readme
+
+- [ycc--readme--daemon-models-and-credentials](ycc--readme--daemon-models-and-credentials.md)
+- [ycc--readme--overview](ycc--readme--overview.md)
+- [ycc--readme--repository-is-the-memory](ycc--readme--repository-is-the-memory.md)
 
 ### zooko--distributed-secure-human-readable-2001
 
