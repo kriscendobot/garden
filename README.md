@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T16:48:40Z_
+_As of 2026-11-12T16:50:37Z_
 
 ## Latest
 
@@ -2939,7 +2939,7 @@ _Fleet token-unlock pace: 147533650 tokens/day lower bound._
 worst fetch p95 2.426067s/45s (/home/kris/garden/.garden-state/producer/outbound-journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (99)
+### todo (100)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
@@ -3024,6 +3024,7 @@ worst fetch p95 2.426067s/45s (/home/kris/garden/.garden-state/producer/outbound
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261110-102016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-102016.md) — ---
 - [`oros-health-checkup-20261111-110512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-110512.md) — ---
+- [`claude-on-minion-town-completion-press-20261112-165009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-165009.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-043512.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-113509.md) — ---
