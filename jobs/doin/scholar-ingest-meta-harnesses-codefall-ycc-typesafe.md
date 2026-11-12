@@ -30,6 +30,7 @@ Capture what each harness is and how it handles the agent loop, tools, sandboxin
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-12T21:43:05Z -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
