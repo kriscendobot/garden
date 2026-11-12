@@ -30,6 +30,7 @@ garden's gardener/board design. Cross-link the two sources and any existing harn
 in the library. If the evidence exceeds the job budget, write what is supported and post a
 follow-on `scholar-ingest-<repo>` job for the remainder.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=405 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
