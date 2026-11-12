@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-12T00:06:23Z_
+_As of 2026-11-12T00:08:26Z_
 
 ## Latest
 
@@ -2932,7 +2930,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.1M | $144.49 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 38.1M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148828679 tokens/day lower bound._
@@ -3030,16 +3028,16 @@ worst fetch p95 2.295260s/45s (/home/kris/garden/.garden-state/producer/outbound
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`oros-health-watch-20261112-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261112-000509.md) — ---
+### doin (0)
+(none)
 
-### tada (17029)
+### tada (17030)
+- [`oros-health-watch-20261112-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-000509.md) — Oros health watch, cycle oros-health-watch-20261112-000509
 - [`context-graph-size-audit-focused-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/context-graph-size-audit-focused-20261111-222010.md) — Completion report
 - [`oros-health-watch-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-205010.md) — Oros health watch, cycle 2026-11-11T20:50Z: operator-held
 - [`improve-codex-reset-deadline-ingestion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/improve-codex-reset-deadline-ingestion.md) — Cost
 - [`oros-health-watch-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-173515.md) — Completion report: oros-health-watch-20261111-173515
-- [`fu-qwen-model-watch-20260728-180502-1-20261111-165016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/fu-qwen-model-watch-20260728-180502-1-20261111-165016.md) — Result
-- … and 17024 more
+- … and 17025 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
