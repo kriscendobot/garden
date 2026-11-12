@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T23:04:09Z_
+_As of 2026-11-12T23:06:15Z_
 
 ## Latest
 
@@ -78,10 +78,6 @@ Delegation: **active**
 > scripts/jobs/reaper.sh
 > Defect: `scripts/jobs/reaper.sh:1091` increments the plain-exit counter for a `reap-now` transient unless the fleet brake is engaged, exhausting an innocent job’s sole retry; `design-daemon-git-remotes-extended-transports` hit rc=75 again after that charged retry at 2026-11-05T19:33:37Z.
 > Treat non-outage `reap-now` transient cycles as non-attributable: preserve the prior retry count, requeue with bounded backoff, and reserve split-eligible parking for deterministic or otherwise attributable failures.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r3.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r3' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-improve-issue-status-source-budget-r2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-issue-status-source-budget-r2-requeue-exhausted.md)
 
