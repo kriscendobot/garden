@@ -38,3 +38,13 @@ sections in the source's library entry:
 Say plainly when a connection is speculative, and distinguish what you verified in the code
 from what the README claims. If the evidence exceeds the job budget, write what is supported
 and post a follow-on `scholar-ingest-<repo>` job for the remainder.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-12T21:00:05Z
