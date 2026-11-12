@@ -21,6 +21,7 @@ The cost and economics of running LLM coding agents at scale: how spend accrues,
 | [Willison price-war overview](../sections/web--willison-opus-sol-luna-price-war--overview.md) | coding-agent-economics, frontier-model-apis | Same-day frontier releases framed as a price war; a dated snapshot of the model-pricing landscape. |
 | [Willison 2026-09 price landscape](../sections/web--willison-opus-sol-luna-price-war--pricing-and-the-price-war.md) | coding-agent-economics, frontier-model-apis | The 2026-09-22 price table one snapshot after Allen Pike's mid-2026 spread; GPT-6 Luna at $0.10/$0.50. |
 | [Opus 5.5 price cut](../sections/web--willison-opus-sol-luna-price-war--opus-5-5-price-cut.md) | coding-agent-economics, frontier-model-apis | Opus 5.5's 20% cut to $4/$20 and 60% cache-read drop; the tier the garden runs its designer and builder on. |
+| [ycc: the daemon, model routing, and credentials](../sections/ycc--readme--daemon-models-and-credentials.md) | coding-agent-economics, llm-agent-frameworks | Risk-tiered review (standard vs comprehensive parallel reviewers) and optional [budget] session_cost/loop_cost caps that stop sessions and work loops at a dollar or token limit. |
 
 ## See also
 
