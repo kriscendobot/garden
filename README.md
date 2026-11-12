@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T06:04:22Z_
+_As of 2026-11-12T06:07:23Z_
 
 ## Latest
 
@@ -2930,7 +2930,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.2M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 38.3M | $144.37 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148857218 tokens/day lower bound._
@@ -2939,9 +2939,10 @@ _Fleet token-unlock pace: 148857218 tokens/day lower bound._
 worst fetch p95 4.811957s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (90)
+### todo (92)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
+- [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261110-040516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-040516.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ cf5a399d6381
@@ -2953,6 +2954,7 @@ worst fetch p95 4.811957s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`oros-health-checkup-20261110-072010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-072010.md) — ---
+- [`minion-town-arc-press-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-060516.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-173515.md) — ---
@@ -3031,8 +3033,8 @@ worst fetch p95 4.811957s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`oros-health-watch-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261112-060516.md) — ---
 
 ### tada (17032)
 - [`oros-health-watch-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-030515.md) — oros-health-watch-20261112-030515: completion report
