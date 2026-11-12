@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7651 (530 parent indexes + 7121 children).
+Total section files: 7661 (530 parent indexes + 7131 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -10926,6 +10926,19 @@ Total section files: 7651 (530 parent indexes + 7121 children).
 
 - [web--oh-my-pi-design-rust-core--divergence-ledger-against-source](web--oh-my-pi-design-rust-core--divergence-ledger-against-source.md)
 - [web--oh-my-pi-design-rust-core--explainer-account-of-the-rust-core](web--oh-my-pi-design-rust-core--explainer-account-of-the-rust-core.md)
+
+### web--openai-scaling-git
+
+- [web--openai-scaling-git--building-and-deploying-pando](web--openai-scaling-git--building-and-deploying-pando.md)
+- [web--openai-scaling-git--causal-consistency](web--openai-scaling-git--causal-consistency.md)
+- [web--openai-scaling-git--compaction-and-time-to-first-byte](web--openai-scaling-git--compaction-and-time-to-first-byte.md)
+- [web--openai-scaling-git--contributing-back-to-git](web--openai-scaling-git--contributing-back-to-git.md)
+- [web--openai-scaling-git--existing-distributed-git-service-patterns](web--openai-scaling-git--existing-distributed-git-service-patterns.md)
+- [web--openai-scaling-git--git-object-storage-primer](web--openai-scaling-git--git-object-storage-primer.md)
+- [web--openai-scaling-git--line-rate-fetch-and-clone](web--openai-scaling-git--line-rate-fetch-and-clone.md)
+- [web--openai-scaling-git--overview](web--openai-scaling-git--overview.md)
+- [web--openai-scaling-git--scaling-pushes](web--openai-scaling-git--scaling-pushes.md)
+- [web--openai-scaling-git--why-a-new-source-control-system](web--openai-scaling-git--why-a-new-source-control-system.md)
 
 ### web--openai-symphony-codex-orchestration
 
