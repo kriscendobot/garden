@@ -110,6 +110,7 @@
 | [OpenSandbox signed endpoint URLs](../sections/opensandbox--docs-guides-secure-access--signed-urls-key-rotation-and-routing-modes.md) | OpenSandbox Secure Access | Expiring signatures can route through host, header, or URI modes. |
 | [cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels](../sections/cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels.md) | cap-talk 2012-September | Brian Warner: make the VatID the base32 public key and apply NaCl box/unbox per message instead of TLS per connection — self-authenticating identity, connectionless store-and-forward; the OCapN-over-Noise antecedent. |
 | [Scion scalable object delivery](../sections/web--anthropic-redesigning-source-control--scalable-object-delivery.md) | Anthropic Scion | Node daemons, regional memory caches, and authoritative servers share one immutable-object RPC protocol with enforced failure-domain tiering. |
+| [Pando line-rate fetch and clone](../sections/web--openai-scaling-git--line-rate-fetch-and-clone.md) | OpenAI Pando | Fetch planning selects stored packs in O(log Δ) and serves them by packfile-uri from the Express regional cache. |
 
 ## See also
 
