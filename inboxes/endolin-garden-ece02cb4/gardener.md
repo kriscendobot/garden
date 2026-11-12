@@ -5308,3 +5308,14 @@ Inspect via `git -C journal cat-file -p 2c11daa46dcb80fbb1a1804c2f1e6eb8750b91dc
 
 Inspect via `git -C journal cat-file -p 92be3b6a1a230b0c6008a3432801b79c29d52bac` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/92be3b6a1a230b0c6008a3432801b79c29d52bac`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-11-12T21:32:19Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 1433d9bb2d5d67fa579a809cdeef70aec967c2b2
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'scholar-ingest-meta-harnesses-codefall-ycc-20261029' exit-0-unsatisfying but elapsed near-constant (405,476s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/endolin-garden-ece02cb4/captures/1433d9bb2d5d67fa579a809cdeef70aec967c2b2
+
+Inspect via `git -C journal cat-file -p 1433d9bb2d5d67fa579a809cdeef70aec967c2b2` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/1433d9bb2d5d67fa579a809cdeef70aec967c2b2`) -- both work off-host after a plain `journal2` fetch.
