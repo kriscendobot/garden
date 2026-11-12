@@ -29,3 +29,13 @@ state handling, model/provider routing), and where it differs from the other and
 garden's gardener/board design. Cross-link the two sources and any existing harness entries
 in the library. If the evidence exceeds the job budget, write what is supported and post a
 follow-on `scholar-ingest-<repo>` job for the remainder.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-12T20:59:44Z
