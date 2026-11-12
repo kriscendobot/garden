@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T22:33:55Z_
+_As of 2026-11-12T22:36:15Z_
 
 ## Latest
 
@@ -2342,10 +2342,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration muster-improve-fixes-r2-20261106 complete WITH FAILURES (serial): 7/7 failed: improve-candidate-gate-empty-diagnostic-r2 improve-decision-ledger-contention-spool-r2 improve-issue-status-source-budget-r2 improve-issue-status-source-trust-filter-r2 improve-screening-cooldown-log-spam-r2 improve-transient-retry-budget-r2 improve-transient-retry-correlation-r2
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r2.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r2' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-oros-health-watch-20261107-075009-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261107-075009-requeue-exhausted.md)
 
