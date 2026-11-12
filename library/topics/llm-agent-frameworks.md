@@ -99,6 +99,8 @@
 | [native loader candidates, no JS fallback](../sections/oh-my-pi--packages-natives-native-loader-state--native-loader-candidates-and-no-js-fallback.md) | oh-my-pi `packages/natives` loader | One N-API addon tried across paths and CPU variants; no load means an aggregated error, not a JavaScript fallback. |
 | [literate-ai--docs-architecture-framework-premise-assessment--verdict-and-comparison](../sections/literate-ai--docs-architecture-framework-premise-assessment--verdict-and-comparison.md) | literate-ai framework premise assessment | Self-assessed 6.5/10; scored against OpenSpec, Spec Kit, OpenAPI Generator, BMAD, MetaGPT, GPT Pilot, GPT Engineer; differentiation is the trust kernel. |
 | [literate-ai--docs-architecture-ova-model-evaluation--what-ova-got-right](../sections/literate-ai--docs-architecture-ova-model-evaluation--what-ova-got-right.md) | literate-ai OVA evaluation | Eight invariants to keep: apps as Components, specs as checked inputs, revision-bound evidence, staged generation, Component model policy, and more. |
+| [Codefall pipeline, waves, rounds, and file/bead/PR state](../sections/codefall--readme--pipeline-state-and-sandboxing.md) | Codefall (lividlabs) | Mechanics across loop/tools/sandboxing/state/routing: specify→plan→implement with parallel per-task worktree waves and review/test/triage rounds; every step a durable file, bead, or PR. |
+| [ycc: the daemon, model routing, and credentials](../sections/ycc--readme--daemon-models-and-credentials.md) | ycc (whyrusleeping) | The daemon owns the work and clients are views over an append-only event log (Connect RPC); roles/review-tiers route across anthropic/openai/openai-compatible/ollama; credentials stripped from tool shells as a safety net, not a sandbox. |
 
 ## See also
 
