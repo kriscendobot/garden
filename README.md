@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T21:53:53Z_
+_As of 2026-11-12T21:56:36Z_
 
 ## Latest
 
@@ -403,10 +403,6 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Design Phase 7’s bounded SSH and Noise transport extension for `endojs/endo-but-for-bots` from `designs/daemon-git-remotes.md` on `llm`, specifying authority, credential, and GitRemote contracts before implementation.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261112-213515` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261112-213515.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261112-213515' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -2998,7 +2994,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.6M | $149.48 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.7M | $150.39 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 377.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147232809 tokens/day lower bound._
