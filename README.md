@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-12T18:59:13Z_
+_As of 2026-11-12T19:05:08Z_
 
 ## Latest
 
@@ -2932,16 +2930,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.5M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 38.6M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147533650 tokens/day lower bound._
+_Fleet token-unlock pace: 147307130 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.278370s/45s (/home/kris/garden/.garden-state/follow-up/journal); 10 open notice(s); checker healthy
+worst fetch p95 11.067617s/45s (/home/kris/garden/.garden-state/producer/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (103)
+### todo (102)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
@@ -3003,7 +3001,6 @@ worst fetch p95 3.278370s/45s (/home/kris/garden/.garden-state/follow-up/journal
 - [`oros-health-checkup-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-050510.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`oros-health-watch-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261112-183511.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`claude-on-minion-town-completion-press-20261110-213511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261110-213511.md) — Completion press: Claude-on-minion.town arc
@@ -3049,13 +3046,13 @@ worst fetch p95 3.278370s/45s (/home/kris/garden/.garden-state/follow-up/journal
 ### doin (0)
 (none)
 
-### tada (17036)
+### tada (17037)
+- [`oros-health-watch-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-183511.md) — 2026-11-12T19:05Z - oros-health-watch-20261112-183511 (re-run after reaper re...
 - [`oros-health-watch-20261112-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-152013.md) — Cost
 - [`oros-health-watch-20261112-122012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-122012.md) — 2026-11-12T12:25Z - oros-health-watch-20261112-122012
 - [`oros-health-watch-20261112-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-092012.md) — Cost
 - [`oros-health-watch-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-060516.md) — 2026-11-12T06:10Z - oros-health-watch-20261112-060516
-- [`oros-health-watch-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-030515.md) — oros-health-watch-20261112-030515: completion report
-- … and 17031 more
+- … and 17032 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
