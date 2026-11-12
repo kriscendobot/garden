@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:claim/3
-sent_at: 2026-11-12T18:36:22Z
+sent_at: 2026-11-12T19:36:21Z
 watchdog_key: project-pause-active-minion-town
-notice_count: 68299
+notice_count: 68343
 first_seen: 2026-11-10T19:35:37Z
-last_seen: 2026-11-12T18:36:22Z
+last_seen: 2026-11-12T19:36:21Z
 ---
-WATCHDOG notice — occurrence #68299 (first seen 2026-11-10T19:35:37Z, latest 2026-11-12T18:36:22Z).
-The SAME condition (`project-pause-active-minion-town`) has now been observed 68299 times; this is ONE
-coalesced notice that updates in place, not 68299 messages. Latest detail:
+WATCHDOG notice — occurrence #68343 (first seen 2026-11-10T19:35:37Z, latest 2026-11-12T19:36:21Z).
+The SAME condition (`project-pause-active-minion-town`) has now been observed 68343 times; this is ONE
+coalesced notice that updates in place, not 68343 messages. Latest detail:
 
 PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261111-015011' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 This means work for a PAUSED project reached a chokepoint — most likely a host running
