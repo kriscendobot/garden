@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T06:24:37Z_
+_As of 2026-11-12T06:27:53Z_
 
 ## Latest
 
@@ -274,10 +274,6 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Build Phase 6 interactive Git-clone provisioning in endojs/endo-but-for-bots from `daemon-git-remotes`: compose mount creation, endpoint policy, and sealed credentials into `provideGitClone`, with contract tests.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261112-060516` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261112-060516.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261112-060516' has remained unclaimed for 928s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed` — from orchestrator:muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-daemon-git-remotes-r2-20261106-child-design-daemon-git-remotes-extended-transports-r2-failed.md)
 
