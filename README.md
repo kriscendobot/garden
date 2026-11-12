@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T02:38:17Z_
+_As of 2026-11-12T02:39:44Z_
 
 ## Latest
 
@@ -2382,6 +2382,10 @@ Delegation: **active**
 >
 > minion.town screening on endolin-garden-ece02cb4 completed after a 12-tick failure streak.
 
+- `msg-dependabotany-recheck-endo-but-for-bots-20261112-023509-87198ff4aa12` — from gardener:dependabotany-recheck-endo-but-for-bots-20261112-023509, reply_to `dependabotany-recheck-endo-but-for-bots-20261112-023509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-dependabotany-recheck-endo-but-for-bots-20261112-023509-87198ff4aa12.md)
+
+> endojs/endo-but-for-bots: five dependabot PRs ([https://github.com/endojs/endo-but-for-bots/pull/1629](https://github.com/endojs/endo-but-for-bots/pull/1629), [https://github.com/endojs/endo-but-for-bots/pull/1654](https://github.com/endojs/endo-but-for-bots/pull/1654), [https://github.com/endojs/endo-but-for-bots/pull/1655](https://github.com/endojs/endo-but-for-bots/pull/1655), [https://github.com/endojs/endo-but-for-bots/pull/1657](https://github.com/endojs/endo-but-for-bots/pull/1657), [https://github.com/endojs/endo-but-for-bots/pull/1658](https://github.com/endojs/endo-but-for-bots/pull/1658)) are held only on two maintainer merges. [https://github.com/endojs/endo-but-for-bots/pull/1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (pin .node-version to 24) went green and was un-drafted on 2026-11-11. [https://github.com/endojs/endo-but-for-bots/pull/1613](https://github.com/endojs/endo-but-for-bots/pull/1613) (XS oracle lanes on Ubuntu 24.04) has been CLEAN since 2026-11-01. Neither has a review decision. Once both land on llm, the daily dependabotany recheck and the parked after-pr1646 plans will conduct the set automatically. Nothing else is needed from the fleet.
+
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
 > WATCHDOG notice — occurrence #6 (first seen 2026-10-16T18:44:42Z, latest 2026-10-17T18:14:24Z).
@@ -2930,7 +2934,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.1M | $144.68 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 38.1M | $143.76 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148838824 tokens/day lower bound._
@@ -3028,16 +3032,16 @@ worst fetch p95 4.049648s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20261112-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261112-023509.md) — ---
+### doin (0)
+(none)
 
-### tada (17030)
+### tada (17031)
+- [`dependabotany-recheck-endo-but-for-bots-20261112-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/dependabotany-recheck-endo-but-for-bots-20261112-023509.md) — Dependabotany recheck: endojs/endo-but-for-bots, 2026-11-12
 - [`oros-health-watch-20261112-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-000509.md) — Oros health watch, cycle oros-health-watch-20261112-000509
 - [`context-graph-size-audit-focused-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/context-graph-size-audit-focused-20261111-222010.md) — Completion report
 - [`oros-health-watch-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-205010.md) — Oros health watch, cycle 2026-11-11T20:50Z: operator-held
 - [`improve-codex-reset-deadline-ingestion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/improve-codex-reset-deadline-ingestion.md) — Cost
-- [`oros-health-watch-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/11/oros-health-watch-20261111-173515.md) — Completion report: oros-health-watch-20261111-173515
-- … and 17025 more
+- … and 17026 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
