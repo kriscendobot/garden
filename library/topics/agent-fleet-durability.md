@@ -10,6 +10,8 @@
 | [Git-ref journal durability — RMW-CAS, primitive selection, cutover](../sections/unum--lore-journal-durability.md) | unum LORE | Concurrent git-ref writers need read-modify-write CAS (re-read + re-run the mutate) not a blind overlay; pick the primitive by file lifecycle; migrate journal-then-untrack atomically so a re-clone never sees neither copy. |
 | [Crash-safe automated-lifecycle guards](../sections/unum--lore-crash-safe-guards.md) | unum LORE | Write the recovery breadcrumb before the killswitch; a source-gated auto-clear never undoes a human's deliberate pause; guard session resume on the recorded model; at context exhaustion recap-and-keep-claimed, never re-ready. |
 | [graceful tree termination and harness protection](../sections/oh-my-pi--crates-pi-shell-src-process--graceful-tree-termination-and-harness-protection.md) | oh-my-pi `pi-shell` process | TERM wave, bounded grace, re-walk, KILL wave; the harness pid and its subtree are pruned from every sweep. |
+| [ycc: the repository is the memory](../sections/ycc--readme--repository-is-the-memory.md) | ycc (whyrusleeping) | spec.md/backlog/memory.md/git as durable state; disposable sessions rebuild context; spec and code change together; todo/proposed/blocked task authority; unattended work loops. |
+| [ycc: the daemon, model routing, and credentials](../sections/ycc--readme--daemon-models-and-credentials.md) | ycc (whyrusleeping) | The daemon owns the work and clients are views over an append-only event log (Connect RPC); roles/review-tiers route across anthropic/openai/openai-compatible/ollama; credentials stripped from tool shells as a safety net, not a sandbox. |
 
 ## See also
 
