@@ -177,3 +177,5 @@ inference provider broker, AgentInference, brokered Messages, inference reservat
 - hardened text codecs, hardened TextEncoder, hardened TextDecoder, `TextEncoder`, `TextDecoder`, `hardened-text-codecs-shim` -> permits-buckets
 - `HttpClient`, `HttpClientControl`, origin allowlist, network fetch, `http-confine`, `confined-fetch` -> endoclaw
 - Git capability, capability-scoped agent tools, confined agent tools -> policy-vs-capability-authorization
+- codefall, lividlabs/codefall, software factory, meta-harness, spec-driven development kit, Beads, bead, `bd`, EARS acceptance criteria, `/codefall-specify`, `/codefall-plan`, `/codefall-implement`, waves, rounds, ADR scaffold, Clean Architecture profile -> agentic-sdlc
+- ycc, whyrusleeping/ycc, docs-driven coding harness, work loop, ycc daemon, `spec.md`/`backlog`/`memory.md`, `ycc spec-check`, coordinator/implementer/reviewers roles, review tiers, `ycc login`, the daemon owns the work clients are views -> agent-fleet-orchestration
