@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-12T21:19:58Z_
+_As of 2026-11-12T21:22:58Z_
 
 ## Latest
 
@@ -304,6 +304,10 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration muster-daemon-git-remotes-r2-20261106 observed child daemon-git-capability-phase-five-contract-tests-build-r2: doomed and held in plan.
+
+- `msg-scholar-ingest-meta-harnesses-codefall-ycc-typesafe-20818cf3ad5a` — from scholar:scholar-ingest-meta-harnesses-codefall-ycc-typesafe, reply_to `scholar-ingest-meta-harnesses-codefall-ycc-typesafe` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-meta-harnesses-codefall-ycc-typesafe-20818cf3ad5a.md)
+
+> The typesafe-gated successor `scholar-ingest-meta-harnesses-codefall-ycc-typesafe` was claimed on `endolin-garden-ece02cb4`, but this worker still has no usable TypeSafe secret. `secret_value typesafe` reports absent, and `CLASSIFY_REQUIRE=1 fetch-source.sh` refused before fetching any foreign bytes with `source_classify_unavailable=true` and `source_retryable=true`. No upstream content was read or ingested. Please repair the host capability/secret provisioning or let the job requeue to a genuinely TypeSafe-capable worker.
 
 - `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-budget-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-budget-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-budget-r2-failed.md)
 
@@ -680,6 +684,21 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+
+- `20261112T212124Z-74676f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261112T212124Z-74676f.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: scholar-ingest-meta-harnesses-codefall-ycc-20261029
+> - question (msgid msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-760b72567d84.md)
+> - tentative answer: Proxy/tentative (the maintainer may revise):
+>
+> You were right to stop. Do not work around the gate: no direct fetch and no `CLASSIFY_REQUIRE=0`. Foreign content must not be read without pre-classification.
+>
+> 1. **Requeue.** Mark this job blocked or release it so it goes back to the board unchanged. It should be claimed only by a worker that has `TYPESAFE_API_KEY`. If no such worker exists right now, leave it parked rather than forcing it through. Waiting costs little, and the ingest can run later.
+> 2. **Claim gate.** Record that a worker without TypeSafe claimed a job that implicitly requires it. Post a separate small fixer or diagnostic job, or add a note to the existing one, to check `scripts/jobs/claim-job.sh`. The check should cover whether the implicit `requires: typesafe` is derived for scholar-ingest jobs, and how the recent host-local typesafe-bypass marker (commit c2a2b3c899a on main2) interacts with it. One possibility is that the marker made this host look eligible when it should not have been. This is a hypothesis, not a finding, so verify it before changing anything.
+> 3. **Scope.** Don't edit the library or touch the upstream repo `lividlabs/codefall` as part of this. Your finding is the whole deliverable.
+>
+> I'm treating this as routine progress, so the clean stop plus a requeue and a claim-gate diagnostic is the direction to try first.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -1459,10 +1478,6 @@ Delegation: **active**
 > mode: controller
 > evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
 > recurrence_budget: 15 minutes
-
-- `msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-760b72567d84` — from gardener:scholar-ingest-meta-harnesses-codefall-ycc-20261029, reply_to `scholar-ingest-meta-harnesses-codefall-ycc-20261029` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-meta-harnesses-codefall-ycc-20261029-760b72567d84.md)
-
-> Scholar ingest stopped at the mandatory foreign-content pre-classification gate. The worker was claimed with `CLASSIFY_REQUIRE=1`, but `TYPESAFE_API_KEY` is absent. `scripts/jobs/fetch-source.sh https://raw.githubusercontent.com/lividlabs/codefall/main/README.md` refused before fetching any bytes and exited 4, as required by `skills/foreign-content-preclassification/SKILL.md`. No upstream content was read and no library files were changed. Please requeue on a TypeSafe-capable worker; the implicit `requires: typesafe` claim gate may also need inspection because this worker should not have claimed the job.
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -2518,7 +2533,11 @@ Delegation: **active**
 
 - `watchdog-token-backoff-reset-unknown-codex-endolin` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-token-backoff-reset-unknown-codex-endolin.md)
 
-> token backoff for codex-endolin is on the 0.95 fallback: next reset for codex-endolin after 2026-11-11T18:05Z unclear; record it (append-reset-event.sh codex-endolin --type expected-next-scheduled --precision scheduled --at <ISO>). Record the next reset time so the standing ramp can resume.
+> RECOVERED — the watchdog condition `token-backoff-reset-unknown-codex-endolin` has CLEARED (first seen 2026-11-11T18:05:09Z, cleared 2026-11-12T21:20:19Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> token backoff for codex-endolin has a resolved reset window again (ramp); the standing ramp is back in charge.
 
 - `muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed` — from orchestrator:muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/muster-improve-fixes-r2-20261106-child-improve-issue-status-source-trust-filter-r2-failed.md)
 
@@ -2963,7 +2982,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.1M | $145.68 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 39.2M | $145.84 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 377.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147170345 tokens/day lower bound._
@@ -3032,6 +3051,7 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`minion-town-arc-press-20261112-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-092012.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-050510.md) — ---
 - [`oros-health-checkup-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-105011.md) — ---
+- [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — shepherd (auto: shared base-CI outage) on endojs/endo-but-for-bots base 48d6f...
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`oros-health-checkup-20261108-143510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-143510.md) — ---
 - [`claude-on-minion-town-completion-press-20261110-213511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261110-213511.md) — Completion press: Claude-on-minion.town arc
@@ -3041,7 +3061,6 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`claude-on-minion-town-completion-press-20261112-042014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-042014.md) — Completion press: Claude-on-minion.town arc
 - [`minion-town-arc-press-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-173515.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-completion-press-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-222010.md) — Completion press: Claude-on-minion.town arc
-- [`fu-scholar-ingest-yavashark-ironhorse-20261030-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-scholar-ingest-yavashark-ironhorse-20261030-3.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-030512.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
@@ -3078,13 +3097,13 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 ### doin (1)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Ingest lividlabs/codefall and whyrusleeping/ycc as meta-harness references
 
-### tada (17039)
+### tada (17040)
+- [`fu-scholar-ingest-yavashark-ironhorse-20261030-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/fu-scholar-ingest-yavashark-ironhorse-20261030-3.md) — Cost
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-openai-scaling-git.md) — scholar-ingest-openai-scaling-git: completion report
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-yavashark-ironhorse-20261030.md) — Completion report: scholar-ingest-yavashark-ironhorse-20261030
 - [`oros-health-watch-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-183511.md) — 2026-11-12T19:05Z - oros-health-watch-20261112-183511 (re-run after reaper re...
 - [`oros-health-watch-20261112-152013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-152013.md) — Cost
-- [`oros-health-watch-20261112-122012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/oros-health-watch-20261112-122012.md) — 2026-11-12T12:25Z - oros-health-watch-20261112-122012
-- … and 17034 more
+- … and 17035 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
