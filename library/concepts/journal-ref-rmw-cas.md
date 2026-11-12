@@ -13,6 +13,7 @@ The discipline for **safely concurrent-writing and migrating files on a git ref*
 | Section | One-line summary |
 |---|---|
 | [unum--lore-journal-durability](../sections/unum--lore-journal-durability.md) | The full cluster: RMW-CAS via UpdateFileOnRef, primitive-selection-by-lifecycle, and journal-then-untrack cutover atomicity. |
+| [web--openai-scaling-git--existing-distributed-git-service-patterns](../sections/web--openai-scaling-git--existing-distributed-git-service-patterns.md) | OpenAI's modeled WAL Git service: CAS on one shared manifest serializes even unrelated pushes, the same shape as the garden's journal2 CAS. |
 
 ## See also
 
