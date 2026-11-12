@@ -31,19 +31,4 @@ garden's gardener/board design. Cross-link the two sources and any existing harn
 in the library. If the evidence exceeds the job budget, write what is supported and post a
 follow-on `scholar-ingest-<repo>` job for the remainder.
 
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-12T21:23:05Z -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=405,476 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-12T21:23:20Z
+<!-- garden-reaped: 0 -->
