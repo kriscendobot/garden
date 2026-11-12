@@ -345,6 +345,11 @@
 | [Pando overview](../sections/web--openai-scaling-git--overview.md) | OpenAI Pando | Pando, OpenAI's Git-compatible monorepo backend, trades repository-wide ref consistency and per-client packs for scalable writes and line-rate reads. |
 | [Why OpenAI needed a new source control system](../sections/web--openai-scaling-git--why-a-new-source-control-system.md) | OpenAI Pando | Codex-driven parallel pushes and fetches drove reliability below 90%; Pando scales writers per branch and readers by pack reuse. |
 | [Building and deploying Pando](../sections/web--openai-scaling-git--building-and-deploying-pando.md) | OpenAI Pando | Codex-built Rust in 10 weeks with conformance, deterministic simulation, and Lean/TLA+; migrated behind a write-through proxy. |
+| [What is Codefall?](../sections/codefall--readme--overview.md) | Codefall (lividlabs) | A meta-harness/software factory that installs a spec-driven process as skills into an existing coding agent rather than running its own loop; compared to Symphony, unum, and the garden board. |
+| [Why spec-driven development](../sections/codefall--readme--spec-driven-lifecycle.md) | Codefall (lividlabs) | Five reasons to agree in writing before building: the record prevents context decay, a lifecycle replaces vibe coding, ADRs catch drift, every round records bugs, skills guide without constraining. |
+| [Codefall pipeline, waves, rounds, and file/bead/PR state](../sections/codefall--readme--pipeline-state-and-sandboxing.md) | Codefall (lividlabs) | Mechanics across loop/tools/sandboxing/state/routing: specify→plan→implement with parallel per-task worktree waves and review/test/triage rounds; every step a durable file, bead, or PR. |
+| [ycc — a docs-driven coding harness](../sections/ycc--readme--overview.md) | ycc (whyrusleeping) | A self-contained Go daemon that turns per-repo backlog tasks into reviewed commits for all your projects, driven from web + iOS clients; compared to Codefall, Symphony, unum, the garden board. |
+| [ycc: the repository is the memory](../sections/ycc--readme--repository-is-the-memory.md) | ycc (whyrusleeping) | spec.md/backlog/memory.md/git as durable state; disposable sessions rebuild context; spec and code change together; todo/proposed/blocked task authority; unattended work loops. |
 
 ## See also
 
