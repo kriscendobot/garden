@@ -39,6 +39,7 @@ MAINTAINER DECISION (kriskowal, 2026-11-13, https://github.com/kriscendobot/gard
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=3796 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
