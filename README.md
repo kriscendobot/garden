@@ -1,17 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-13T02:36:11Z_
+_As of 2026-11-13T02:37:44Z_
 
 ## Latest
 
-Board activity was quiet: the only transition was a fresh [endo-but-for-bots dependabotany recheck](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) posted to todo. No claims or completions were recorded. The earlier recheck for 2026-11-07 was parked after its retry was exhausted, so this one may need a human to promote it.
+Little moved this cycle: the only board transition was a claim of `dependabotany-recheck-endo-but-for-bots-20261113-023510`, which is now in progress. It is the scheduled recheck of the dependabot ledger for endo-but-for-bots. Last time, the earlier recheck was parked after its retry was exhausted, with [endojs/endo-but-for-bots#1629](https://github.com/endojs/endo-but-for-bots/pull/1629) still held on [#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
 
-Several items need the maintainer's attention:
+Items that need a maintainer's attention:
 
-- **Oros is still held.** It has stopped claiming jobs, and canary probes and health checkups keep piling up in todo. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Fixing both needs someone at the machine. Because the canary is dead, the leader is stuck on `f2788117645` and cannot get the EROFS fix. Until then, monk jobs that need a project checkout die, so the parked minion.town PR work stays parked. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
-- **minion.town is paused, and production looks to be down.** The pause watchdog has now refused queued minion.town press jobs 200 times. A separate message reports that production DNS was repointed to `34.225.237.208` on 2026-11-10 and that the app routes return 404. The cause is unconfirmed. The message asks whether you made the change on purpose and says a possible zone compromise would need a credentialed host to check Route53.
-- **Disk space is low.** The leader host has had roughly 176–500 MiB free and briefly hit 0, so space needs to be reclaimed by hand.
-- **Other open items.** Several parked daily-summary and build jobs are waiting on a maintainer promote or removal. The Oros bubblewrap hand-off build is among them. Journal lock-contention notices keep recurring, and the minion.town settings-simplification report needs `deploy-accounts-store.sh` run before merge.
+- **Oros is still down.** It remains drained and failed its canary again. Both fixes need someone at the machine: re-login to Claude, and a look at why the secret broker fails after deploy. Its canary probes and health checkups keep piling up in todo.
+- **The leader is stuck on an old revision because of Oros.** The EROFS fix cannot roll out while the Oros canary is dead, so every minion.town job that needs a project checkout fails. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
+- **minion.town production is dark.** DNS now points at an unfamiliar address, and the supervisor wants to know whether the change was intentional or a possible zone compromise. The project is also paused, and the pause watchdog has now refused work 201 times.
+- **The leader host is nearly out of disk space.** A job reported about 176–500 MiB free on `/home/kris/garden`, and it briefly hit zero. This needs manual reclaiming.
+- **Parked jobs await promotion or removal.** The daily progress summaries for 11-05 and 11-06, the Phase 8 fetch-plugin build and the Oros bwrap hand-off all hit exhausted retries.
+- **Several decisions are pending on your side:** the minion.town beta settings report asks you to run `deploy-accounts-store.sh` before merging, and the Iron Horse test-infra adoption question has no job posted yet.
 
 ## Maintainer review docket
 
@@ -112,13 +114,13 @@ Delegation: **active**
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #200 (first seen 2026-11-10T19:35:37Z, latest 2026-11-13T01:36:22Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 200 times; this is ONE
-> coalesced notice that updates in place, not 200 messages. Latest detail:
+> WATCHDOG notice — occurrence #201 (first seen 2026-11-10T19:35:37Z, latest 2026-11-13T02:36:21Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 201 times; this is ONE
+> coalesced notice that updates in place, not 201 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261113-005014' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261111-015011' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
@@ -396,7 +398,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.4M | $156.93 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 42.7M | $158.50 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147554087 tokens/day lower bound._
@@ -405,7 +407,7 @@ _Fleet token-unlock pace: 147554087 tokens/day lower bound._
 worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (108)
+### todo (107)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
@@ -433,7 +435,6 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`oros-health-checkup-20261109-155023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-155023.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
-- [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — ---
 - [`minion-town-arc-press-20261112-213515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-213515.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-cf5a399d6381-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ cf5a399d6381
 - [`oros-health-checkup-20261110-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-225011.md) — ---
@@ -515,8 +516,8 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — ---
 
 ### tada (17043)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Completion report
