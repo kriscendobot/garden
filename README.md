@@ -1,27 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T05:13:35Z_
+_As of 2026-11-13T05:19:30Z_
 
 ## Latest
 
-The board moved in file terms: no job posts, claims, or completions resolved since the last bulletin. The board is still clogged with Oros work. About 100 of the 110 todo jobs are `oros-health-checkup`, `canary-probe-oros-studio-garden-ce242c49-*`, and minion.town press jobs that nothing is claiming.
+The Oros follower is the main problem. [`oros-studio-garden-ce242c49`](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still drained and operator-held. It failed the rolling-deploy canary again with `garden-secret-broker.service` failing after the deploy, and its Claude OAuth session has expired. The leader cannot deploy until the canary passes. That leaves the leader on `f2788117645` without the monk EROFS fix, so any job that needs a project checkout still dies. Both fixes need someone at the Oros machine: run `/login`, then check `journalctl --user -u garden-secret-broker`. Otherwise the maintainer could authorize deploying the leader past the dead canary.
 
-**Oros is the main blocker.** The rolling deploy halted on a failed canary for `oros-studio-garden-ce242c49` after three automatic retries, so the leader `endolin-garden-ece02cb4` cannot advance past `f2788117645`. Oros is drained and operator-held, with two causes:
-- Its Claude OAuth session has expired and needs `/login` at the machine.
-- `garden-secret-broker.service` fails after each deploy, as it has since 11-07.
+Other items:
 
-The stuck leader is why monk jobs that need a project checkout keep dying with EROFS. The EROFS fix is already on `main2`. The arc supervisor is asking you to either revive Oros or authorize a leader deploy past the dead canary.
-
-**Other items that need you:**
-- **minion.town DNS:** the supervisor reports that production DNS now points at an unfamiliar address and that most subdomains no longer resolve. It asks whether the repoint was deliberate. If it wasn't, the supervisor flags a possible zone compromise and says restoring `13.56.17.18` needs you or a credentialed host.
-- **Pause enforcement:** the minion.town pause is being enforced against the same `claude-on-minion-town-completion-press` job, and the watchdog count has reached 1080.
-- **Disk space:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero. It needs a manual cleanup under `.garden-state`, `scratch/`, and `worktrees/`.
-- **Deploy-gated settings change:** `mt-beta-settings-simplify` needs you to run `deploy-accounts-store.sh` before merging, and your veto check on four choices.
-- **Held jobs:** several jobs are parked and held for your go-ahead, including `daily-progress-summary-20261107-013512`, `daily-progress-summary-20261107-080513`, `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, `build-oros-secrets-bwrap-handoff-20261106`, and `dependabotany-recheck-endo-but-for-bots-20261107-013512`.
-
-Several journal-lock contention notices cleared on their own. The Ironhorse ratchet is still halted on a wrong base.
+- **minion.town DNS.** An arc supervisor reported production going dark around 13:14Z on 11-10 because DNS was repointed to a different host. The maintainer needs to say whether that was intentional or a possible zone compromise.
+- **minion.town pause.** The project pause is still being enforced. The watchdog has now logged 1080 refused claims, including a Claude-on-minion.town completion press.
+- **Disk space.** The leader filesystem was nearly full, with a few hundred MiB free and briefly 0. It needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **Parked jobs.** The reaper parked several jobs after their retries were exhausted: two daily progress summaries, a daemon-agent-tools fetch-plugin build, the Oros secrets bwrap hand-off, and a dependabot recheck.
+- **Journal lock contention.** Several notices cleared, including the reducer, the bulletin and the unblock journal. Others are still open, and the worktree-sweeper one is at its 10th occurrence.
+- **Board.** The board is crowded with unclaimed Oros health-check and canary-probe jobs. Recent completions include `improve-secret-watchdog-missing-outbound` and a dependabotany recheck for endo-but-for-bots.
 
 ## Maintainer review docket
 
@@ -438,10 +430,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.4M | $183.84 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 49.8M | $185.21 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 378.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147704776 tokens/day lower bound._
+_Fleet token-unlock pace: 147779230 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
