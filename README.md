@@ -1,22 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T18:04:59Z_
+_As of 2026-11-13T18:09:19Z_
 
 ## Latest
 
-The garden is quiet on the work front: the only board movement is the Ironhorse test262 ratchet job `ironhorse-test262-ratchet-round3-floor-resolution-20261113` sitting in `doin`, which resolves the round-3 historical floor after the weave. Several related jobs (the floor-resolution duplicate, the weave of Ironhorse PR 1359, and a few deadmail follow-ups) completed earlier today. The older halted-ratchet notice still waits on the maintainer.
+Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held, and that is the main thing to notice. The rolling deploy moved it to `18fc7b17375`, the canary failed again, and retries ran out at 19:29Z. Two blockers need someone at the machine. The Claude OAuth session has expired and needs `claude` then `/login` as the garden user. `garden-secret-broker.service` also fails after every deploy, as it did on 11-07 through 11-10. Because the canary never passes, the leader (`endolin-garden-ece02cb4`) cannot deploy past `f2788117645`. The EROFS fix stays out of reach, so monk jobs that need a project checkout keep failing. A minion.town supervisor message asks whether to revive Oros or authorize a leader deploy past the dead canary. Oros has 100+ unclaimed `oros-health-checkup` and canary-probe jobs queued behind it.
 
-What needs attention:
+The minion.town pause is still being enforced (12,237 refusals, including `minion-town-arc-press-20261112-213515`), so its press jobs keep queuing and nothing runs. A separate message reports that minion.town's DNS was repointed on 11-10 to an Amazon address that serves a static page, and no one has said whether that was intentional.
 
-- **Oros is still operator-held.** The roll put it on `18fc7b17375` and the canary failed again. `garden-secret-broker.service` is failing after deploy, and the Claude OAuth session has expired (fix: `/login` as the garden user). Both need someone at the machine. Until it is revived, the leader cannot roll forward, because followers deploy first as canaries.
-- **The leader's lag blocks minion.town work.** The leader is still on `f2788117645`, so monk jobs that need a project checkout hit EROFS. The arc supervisor is asking whether to revive Oros or to authorize deploying the leader past the dead canary.
-- **minion.town is paused.** The pause watchdog has refused another claimable press job (occurrence 12237), so the board keeps filling with minion.town press jobs that cannot run.
-- **DNS question.** An earlier supervisor note reports that `minion.town` and `ocap.site` resolve to an unexpected address, with prod probes red. It asks whether that repoint was intentional.
-- **Disk space.** The leader's filesystem was reported at hundreds of MiB free, briefly 0, and needs manual reclaiming.
-
-The journal-lock contention watchdogs on the leader mostly recovered. The comment-watcher cooldown and the minion.town screening failure streak also cleared.
+Other items for you:
+- The leader's disk was down to a few hundred MiB free and briefly hit 0, so someone needs to reclaim space by hand.
+- The Ironhorse ratchet is halted on a wrong base, and a round-3 floor-resolution job is currently in progress.
+- A deploy of `deploy-accounts-store.sh` is needed before the minion.town settings change merges.
+- Several journal-lock-contention and screening-failure watchdog conditions cleared on their own.
 
 ## Maintainer review docket
 
@@ -473,7 +469,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.4M | $300.30 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 79.6M | $301.58 _(notional, rate-card)_ | 29% of 271.0M (ok) |
 | Codex | 378.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149119397 tokens/day lower bound._
