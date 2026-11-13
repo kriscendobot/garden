@@ -1,19 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-13T18:11:17Z_
+_As of 2026-11-13T18:12:47Z_
 
 ## Latest
 
-Little real work moved this cycle: the Iron Horse test262 ratchet's round 3 floor-resolution job finished (`ironhorse-test262-ratchet-round3-floor-resolution-20261113`), and a dead-lettered message was re-posted as `deadmail-20261113T180827Z-7056c6`. The ratchet itself is still halted on a wrong base ([tracker #51](https://github.com/kriscendobot/garden/issues/51)) and needs your explicit resume.
+Oros (`oros-studio-garden-ce242c49`) is the main thing to look at. It is still operator-held. Its canary has failed on every recent roll, `garden-secret-broker.service` is down again after deploy, and the Claude OAuth session has expired. Both fixes need someone at the machine. While Oros is held, the leader can't roll forward past it. The EROFS fix (`21585bda2b3`) isn't deployed, so monk jobs that need a project checkout keep dying. That has the minion.town PR work parked, including panels for [kriscendobot/minion.town#237](https://github.com/kriscendobot/minion.town/pull/237), [#252](https://github.com/kriscendobot/minion.town/pull/252) and [#248](https://github.com/kriscendobot/minion.town/pull/248), and the weave and conduct for [#246](https://github.com/kriscendobot/minion.town/pull/246). The arc supervisor is asking you to either revive Oros or authorize deploying the leader past the dead canary.
 
-**Oros is the main blocker.** `oros-studio-garden-ce242c49` stays drained after repeated failed deploy canaries. It needs someone at the machine for two things: re-login of the expired Claude OAuth session, and a look at why `garden-secret-broker.service` fails after each deploy. Because the canary fails, the leader has not advanced past `f2788117645`. That leaves the EROFS fix undeployed and about 120 jobs queued, mostly Oros health checkups, canary probes, and minion.town presses. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+Other items that need your attention:
 
-**minion.town** is paused, and the watchdog has refused its press jobs over 12,000 times. The production DNS repoint of 2026-11-10 is still unexplained. Three questions are waiting on you:
-- Was that DNS change yours?
-- Should the one anonymous guest left on production by the live probe stay or be removed?
-- Do you have any veto on the settings-simplification choices? Run `deploy-accounts-store.sh` before merging that work.
+- **Disk:** the leader's filesystem briefly hit zero free space during a job and is down to a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS:** the apex now resolves to an unrelated address and is serving a static page. The real host at `13.56.17.18` is healthy. The arc supervisor asks whether you made that change, and if you didn't, it may be a zone compromise.
+- **Project pause:** the minion.town pause is still being enforced. The refusal count is past 12,000 on a single coalesced notice.
 
-**Disk and housekeeping:** the leader's filesystem was nearly full earlier, so check free space and reclaim it by hand. Most journal-lock-contention and screening watchdog notices have cleared. Three daily-summary and dependabotany jobs remain parked after exhausting requeues.
+The only board movement since the last bulletin was one dead-lettered message job, which was claimed. Several journal-lock contention and screening watchdog conditions cleared on their own. Their notices need no action.
 
 ## Maintainer review docket
 
@@ -470,7 +469,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.9M | $301.52 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 80.1M | $302.70 _(notional, rate-card)_ | 30% of 271.0M (ok) |
 | Codex | 378.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149037759 tokens/day lower bound._
@@ -479,7 +478,7 @@ _Fleet token-unlock pace: 149037759 tokens/day lower bound._
 worst fetch p95 2.327959s/45s (/home/kris/garden/.garden-state/scheduler/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (121)
+### todo (120)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
@@ -576,7 +575,6 @@ worst fetch p95 2.327959s/45s (/home/kris/garden/.garden-state/scheduler/journal
 - [`claude-on-minion-town-completion-press-20261111-095015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-095015.md) — Completion press: Claude-on-minion.town arc
 - [`canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-49c37698435a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 49c37698435a
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
-- [`deadmail-20261113T180827Z-7056c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261113T180827Z-7056c6.md) — Dead-lettered message — pick up its intent
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`oros-health-checkup-20261110-102016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-102016.md) — ---
@@ -602,8 +600,8 @@ worst fetch p95 2.327959s/45s (/home/kris/garden/.garden-state/scheduler/journal
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-20261113T180827Z-7056c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261113T180827Z-7056c6.md) — Dead-lettered message — pick up its intent
 
 ### tada (17051)
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Cost
