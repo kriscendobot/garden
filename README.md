@@ -1,20 +1,14 @@
 # Garden bulletin
 
-_As of 2026-11-13T10:58:26Z_
+_As of 2026-11-13T11:02:28Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is the main thing to notice. It is still drained and operator-held after another rolling-deploy canary failure. The cause is an expired Claude OAuth session plus a failing `garden-secret-broker.service`, and both need someone at the machine. Its 14-plus unclaimed `oros-health-checkup` and canary-probe jobs are piling up in todo. This also keeps the leader, endolin-garden-ece02cb4, from advancing past f2788117645. The EROFS fix for monk project checkouts therefore stays undeployed, and all minion.town PR work remains parked. The minion.town arc supervisor has asked you to choose between reviving Oros and authorizing a leader deploy past the dead canary.
+Two things need your attention first. **Oros** (`oros-studio-garden-ce242c49`) is still operator-held. It failed its rolling-deploy canary again on `garden-secret-broker.service` and stays drained, and its Claude OAuth session has expired. Because the leader deploys only after its followers pass, the leader is still on `f2788117645` without the EROFS fix. That keeps all minion.town project-checkout work parked, and the arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the minion.town project pause is still being hit: its watchdog notice has passed 7,400 refused jobs. About 114 todo jobs are queued, mostly Oros health-checkups, canary probes and arc presses that can't run.
 
-Other items need your attention:
-- **minion.town DNS:** production went dark on 2026-11-10 after its DNS appeared to be repointed to a different Amazon address. The supervisor needs to know whether the change was intentional. If it wasn't, check Route53 history for a possible zone compromise.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free, so space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Maintainer calls and re-runs:**
-  - Ironhorse ratchet is halted on a wrong base ([kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51)).
-  - Several daily-summary, dependabotany and builder jobs were parked after exhausting retries.
-  - minion.town needs a pre-merge `deploy-accounts-store.sh` run and a veto check on the settings-simplification report.
+There are two urgent operational flags. The leader's disk was down to a few hundred MiB free and briefly hit 0, so space needs reclaiming by hand. A gardener also reported that minion.town DNS was repointed to an unfamiliar address around 13:14Z on 2026-11-10, so production serves a static page. The maintainer needs to confirm whether that was intentional.
 
-Nothing visible was claimed or completed since the last bulletin (the board-transitions input was empty). The journal-lock contention and screening-tick alerts that fired overnight have recovered, though some contention notices remain open.
+Several scheduled and build jobs, including two daily progress summaries, the Phase 8 fetch-plugin build and the Oros bwrap hand-off, were parked after exhausting their retries and need a promote or removal. The Ironhorse ratchet is halted on a wrong base, and the round-3 floor question is open at [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51#issuecomment-6850754867). Several journal-lock-contention and screening-tick notices cleared overnight.
 
 ## Maintainer review docket
 
@@ -463,10 +457,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.6M | $235.47 _(notional, rate-card)_ | 23% of 271.0M (ok) |
-| Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 62.7M | $235.82 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148278612 tokens/day lower bound._
+_Fleet token-unlock pace: 148380421 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 45.000899s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 12 open notice(s); checker healthy
