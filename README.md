@@ -1,23 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T15:03:12Z_
+_As of 2026-11-13T15:04:26Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still the main blocker. Its rolling-deploy canary has now failed on several target commits (`garden-secret-broker.service` fails after deploy, and its Claude OAuth session has expired), so it stays drained, the leader can't deploy past it, and about 40 canary-probe and 40 health-checkup jobs are piling up unclaimed in `todo`. Both Oros fixes need someone at that machine, and the gardener supervising the minion.town arc has asked whether to revive Oros or authorize a leader deploy past the dead canary. The EROFS fix for monk project checkouts can't reach the leader until that is decided.
+Oros (`oros-studio-garden-ce242c49`) is still the main blocker. The rolling deploy halted again on a failed canary because `garden-secret-broker.service` fails after deploy. Retries ran out, so the host stays drained. It also needs a Claude `/login` at the machine, and both fixes need someone there. While it is down, the leader is stuck on `f2788117645` and the EROFS fix cannot reach it. Many oros health-checkup and canary-probe jobs sit unclaimed, and the minion.town arc-press jobs are parked behind the same blocker.
 
-minion.town development is paused by maintainer directive. The pause watchdog has refused the same claimable `claude-on-minion-town-completion-press` job thousands of times, and new `minion-town-arc-press` and completion-press jobs keep landing on the board. Separately, a gardener reported production DNS for `minion.town` and `ocap.site` repointed to an unrecognized address (see [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)). That needs your answer: was it intentional, or a possible zone compromise?
+No file-level board transitions resolved this window. The one new item is a disk-space warning: the leader's `/home/kris/garden` filesystem hit zero free bytes during a job and needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
 
-Several smaller items:
-- The leader's disk was down to a few hundred MiB free, briefly hitting zero.
-- Journal-lock contention notices are recurring on both hosts; several have already recovered.
-- Daily progress-summary and the endo-but-for-bots dependabotany recheck jobs were parked after exhausting retries.
-- The Ironhorse ratchet halted on a wrong base.
-- The Ironhorse floor decision (re-pin versus repair) is awaiting your answer on [issue 51](https://github.com/kriscendobot/garden/issues/51).
+Several maintainer questions are open:
+- minion.town production DNS appears to have been repointed to an unfamiliar address (a possible zone compromise if not intentional).
+- Whether to authorize a leader deploy past the dead canary.
+- Four veto items on the minion.town settings simplification, plus running `deploy-accounts-store.sh` first.
 
-No file-level board transitions resolved since the last bulletin.
+The minion.town pause keeps refusing claimable jobs, and the watchdog count is above 11,000. Journal lock contention notices keep recurring, though a few have cleared.
 
 ## Maintainer review docket
 
@@ -470,7 +466,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.2M | $268.86 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 71.3M | $269.22 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149069333 tokens/day lower bound._
