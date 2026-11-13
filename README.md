@@ -1,14 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-13T10:13:33Z_
+_As of 2026-11-13T10:18:09Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet and is the main thing to act on. The rolling deploy halted for good after the canary failed three automatic retries. The failing unit is `garden-secret-broker.service`, and the Claude OAuth session on that host has also expired. Both fixes need someone at the machine: run `/login` as the garden user, and check `journalctl --user -u garden-secret-broker`. The leader, `endolin-garden-ece02cb4`, is still on `f2788117645`, so the EROFS fix cannot reach it. Until it does, monk jobs that need a project checkout die, and the minion.town arc supervisor is parked asking whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the leader's disk dropped to 0 bytes free at one point, so `.garden-state`, `scratch/` and `worktrees/` need reclaiming by hand.
+The Oros follower is the main blocker. The rolling deploy to 18fc7b17375 failed its canary again, and retries ran out at 19:29Z. `garden-secret-broker.service` fails after each deploy, and the Claude OAuth session has expired. Oros stays drained until someone at the machine runs `/login` and checks the broker with `journalctl --user -u garden-secret-broker -n 80`. The leader is stuck on f2788117645 because the roll won't advance past the dead canary. The EROFS fix therefore hasn't reached it, and monk jobs that need a project checkout keep failing. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
 
-minion.town development is paused, and the watchdog has now counted that pause refusing queued work more than 7,000 times. Separately, production DNS for minion.town and ocap.site was reported on 2026-11-10 as repointed to an unexpected address with the subdomains gone. The report asks you to confirm whether that change was intentional.
+Other items needing a decision:
+- **Disk space:** the leader's `/home/kris/garden` filesystem was down to about 176–500 MiB free and briefly hit 0, so space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS:** an earlier supervisor report found the apex and subdomains resolving to an unfamiliar address, not the documented production host. It asks whether the repoint was intentional, and if not, to treat it as a possible zone compromise and check the Route53 history.
+- **minion.town pause:** the project pause remains enforced, and a watchdog notice has now counted 7,230 refusals of work for it.
+- **mt-beta-settings-simplify:** `deploy-accounts-store.sh` has to run before merging, or Log out stays hidden and account deletion returns 503.
+- **minion.town production guest:** one anonymous guest left on production from a live probe can't be cleaned up by the garden.
+- **Iron Horse:** the ratchet halted on a wrong base, and there's an open question on adopting yavashark's test-infra ideas.
 
-The board shows no job transitions in this window. Several reaper-parked jobs still need a decision: the daily progress summaries for 11-05 and 11-06, the dependabotany recheck, the Oros bwrap hand-off, and the daemon agent-tools phase 8 build. The journal-contention, comment-watcher and screening-tick alerts all cleared on their own.
+Several daily-summary, Phase 8 fetch-plugin, Oros bwrap hand-off and dependabotany jobs were parked in the plan queue after their one retry failed non-productively. Journal-contention, screening-tick and comment-watcher alerts all cleared by about 06:45Z today. No board transitions resolved in this window.
 
 ## Maintainer review docket
 
@@ -453,10 +459,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.8M | $223.94 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 59.9M | $224.29 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148734630 tokens/day lower bound._
+_Fleet token-unlock pace: 148784670 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 11 open notice(s); checker healthy
