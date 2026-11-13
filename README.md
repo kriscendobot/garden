@@ -1,22 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-13T06:43:40Z_
+_As of 2026-11-13T06:45:31Z_
 
 ## Latest
 
-No job-board transitions resolved since the last bulletin: nothing was posted, claimed or completed. What changed is mostly fleet health, and several items need you.
+Several things are blocked on Oros, and the leader's deploy is the knock-on. Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held after failing its rolling-deploy canary again. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy, so someone at that machine needs to run `/login` and check the broker logs. Because the roll can't pass its canary, the EROFS fix can't reach the leader. The minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary. The queue is clogged with unclaimed `oros-health-checkup` and `canary-probe` jobs.
 
-**Oros canary still blocked.** The rolling deploy is halted on `oros-studio-garden-ce242c49`. After retries ran out, the host stays drained, with the Claude OAuth session expired and `garden-secret-broker.service` failing after deploy. Both fixes need someone at the machine (`/login` as the garden user; check the broker with `journalctl --user -u garden-secret-broker`). Because the leader can't deploy past the canary, it is still on `f2788117645`, which lacks the EROFS fix. The minion.town arc supervisor is therefore parked and asks whether to revive Oros or authorize a leader deploy past the dead canary. Canary-probe and oros-health-checkup jobs keep piling up unclaimed in todo.
+Other items that need the maintainer:
+- **minion.town DNS.** Production appears to have been repointed on 2026-11-10 to an unrelated address that serves a static page, and the app routes now return 404. The question is whether that was intentional or a possible zone compromise. The garden host has no AWS credentials, so DNS was left untouched.
+- **Disk space.** The leader's garden filesystem briefly hit zero free bytes and needs manual reclaiming.
+- **Parked daily summaries and builds.** Several jobs the reaper stopped retrying, including two `daily-progress-summary` runs, are held on the plan queue for a human decision.
+- **Pause notice.** The minion.town pause notice keeps climbing past 5,200 refusals as press jobs are refused.
 
-**Leader host disk is critically low.** `endolin-garden-ece02cb4` hit 0 free bytes briefly and sits at roughly 176-500 MiB free. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-
-**GitHub rate limit.** A shared API cooldown has held all 17 comment watchers silent for about 55 minutes, and minion.town screening has failed three ticks in a row for the same reason. Journal lock-contention notices keep recurring, now coalesced into a storm alert; a few have since cleared.
-
-**Other open items:**
-- The minion.town pause is still being hit: the watchdog has refused a claimable todo job 5,224 times, which suggests a stale host or a producer still posting.
-- The minion.town DNS report (production apex repointed away from `13.56.17.18`) still awaits your answer on whether it was intentional.
-- The Ironhorse test262 ratchet is halted on a wrong base.
-- Three scheduled and build jobs that exhausted their retries sit parked in the plan queue, waiting for your go-ahead.
+On the quieter side, `improve-secret-watchdog-missing-outbound` and a `dependabotany` recheck for endo-but-for-bots completed. Several journal-contention, comment-watcher and minion.town screening watchdog conditions cleared on their own and need no action. No board transitions were resolved in this window.
 
 ## Maintainer review docket
 
@@ -113,17 +109,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-13T05:48:51Z, latest 2026-11-13T06:28:47Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-13T06:44:03Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.015984s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.015657s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/fork-watch/journal: p95=0.015765s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.015964s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.015753s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.017598s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -280,30 +270,11 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-11-13T06:01:28Z, latest 2026-11-13T06:36:31Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-11-13T06:01:28Z, cleared 2026-11-13T06:44:51Z).
+> It was observed 8 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1794551981 set-by=dependabot:kriscendobot-garden:source <- pages:kriscendobot/garden:net
-> - kriscendobot/cosgov: watcher ticking but cooldown for 3335s (since 2026-11-13T05:40:54Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 3347s (since 2026-11-13T05:40:42Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 3407s (since 2026-11-13T05:39:42Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 3384s (since 2026-11-13T05:40:05Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 3396s (since 2026-11-13T05:39:53Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3408s (since 2026-11-13T05:39:41Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3324s (since 2026-11-13T05:41:05Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3408s (since 2026-11-13T05:39:41Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3408s (since 2026-11-13T05:39:41Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3371s (since 2026-11-13T05:40:18Z)
-> - kriscendobot/list: watcher ticking but cooldown for 3388s (since 2026-11-13T05:40:01Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 3379s (since 2026-11-13T05:40:10Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 3377s (since 2026-11-13T05:40:12Z)
-> watcher ticking but cooldown for 3405s (since 2026-11-13T05:39:44Z); detail: rest latch set-by=dependabot:kriscendobot-garden:source <- pages:kriscendobot/garden:net expiry=1794551981
-> - kriscendobot/minion.town: watcher ticking but cooldown for 3384s (since 2026-11-13T05:40:05Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 3328s (since 2026-11-13T05:41:01Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3349s (since 2026-11-13T05:40:40Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 3408s (since 2026-11-13T05:39:41Z)
+> Comment acknowledgment condition cleared.
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -432,13 +403,11 @@ Delegation: **active**
 
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
-> minion.town screening on endolin-garden-ece02cb4 has not completed for 3 consecutive proxy ticks (first failure 2026-11-13T05:42:58Z).
+> RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-13T05:53:04Z, cleared 2026-11-13T06:44:30Z).
+> It was observed 10 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Failure class: github-deferred
-> Latest detail: gh api screen:pr-list admission refused: host-shared gh-api cooldown live (2797s left, tag dependabot:kriscendobot-garden:source <- pages:kriscendobot/garden:net; API rate limit already exceeded for user); not issued 
->
-> No screening gate was bypassed and the delegation was not resumed. The proxy will retry on its next tick and post a recovery update after a completed screen.
-> Runbook: context/operations/minion-town-screening.md
+> minion.town screening on endolin-garden-ece02cb4 completed after a 12-tick failure streak.
 
 - `msg-minion-town-arc-press-20261110-163511-75a23ad64b38` — from gardener:minion-town-arc-press-20261110-163511, reply_to `minion-town-arc-press-20261110-163511` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261110-163511-75a23ad64b38.md)
 
@@ -488,13 +457,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $196.49 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 53.0M | $197.57 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 378.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148046765 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 12 open notice(s); checker healthy
+worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (110)
