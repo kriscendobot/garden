@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-13T21:33:26Z_
+_As of 2026-11-13T21:36:51Z_
 
 ## Latest
 
@@ -128,13 +128,13 @@ Delegation: **active**
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:claim/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #14316 (first seen 2026-11-10T19:35:37Z, latest 2026-11-13T20:36:21Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 14316 times; this is ONE
-> coalesced notice that updates in place, not 14316 messages. Latest detail:
+> WATCHDOG notice — occurrence #14321 (first seen 2026-11-10T19:35:37Z, latest 2026-11-13T21:36:21Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 14321 times; this is ONE
+> coalesced notice that updates in place, not 14321 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'minion-town-arc-press-20261113-190511' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'claude-on-minion-town-completion-press-20261111-035010' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
