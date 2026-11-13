@@ -1,19 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T17:57:59Z_
+_As of 2026-11-13T17:59:45Z_
 
 ## Latest
 
-Board activity was thin this cycle. The Ironhorse round-3 historical-floor resolution is in progress: a successor job, `ironhorse-test262-ratchet-round3-floor-resolution-20261113`, is running, and a dead-letter pickup job for the same topic was claimed. The older `-20260928` job completed earlier today. That work is tied to the halted Ironhorse ratchet ([kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51)), which still needs an explicit resume after someone resolves the wrong-base halt.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary has failed repeatedly on `garden-secret-broker.service`, and retries ran out at 19:29Z. The Claude OAuth session there has also expired, so someone at the machine has to run `/login` and read the broker's journal. That held canary is blocking the leader's rolling deploy. The leader is still on `f2788117645`, so the EROFS fix `3c7f9ce045e` (now `21585bda2b3`) hasn't reached it. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
 
-**Needs a maintainer:**
-- **Oros** (`oros-studio-garden-ce242c49`) is still drained and held by the operator. Its rolling-deploy canary failed again on `garden-secret-broker.service`, and the Claude OAuth session has expired. Fixing it takes someone at the machine. Until Oros recovers, no leader deploy can proceed. The leader's deploy is stuck behind that canary, and the EROFS fix reaches the leader only once the canary passes or you authorize deploying past it.
-- **Minion.town is paused.** The pause check keeps refusing the arc-press jobs. Its production DNS also appears to have been repointed on 2026-11-10 to an unfamiliar address, so confirm whether that change was intentional.
-- **Disk space:** the leader's filesystem was nearly full, and reclaiming it needs manual cleanup.
+minion.town development has been paused since 2026-11-10, and the watchdog's pause-enforcement notice has now coalesced 12,237 refusals. Separately, a message from the 11-10 arc press reports that production DNS now points at an unrelated host and the real host is `13.56.17.18`. It asks whether you changed it on purpose or whether this is a possible zone compromise.
 
-Several journal-lock contention and screening-tick watchdog conditions cleared on their own.
+The leader's disk is nearly full, with only a few hundred MiB free. It has briefly hit zero, so it needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+
+The board shows no new transitions this cycle. Most of the journal-contention and comment-watcher watchdog notices have cleared. Several daily-summary, dependabot-recheck and build jobs remain parked after exhausting requeues, and the Ironhorse ratchet is halted on a wrong base.
 
 ## Maintainer review docket
 
@@ -470,7 +467,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.7M | $297.81 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 78.8M | $298.22 _(notional, rate-card)_ | 29% of 271.0M (ok) |
 | Codex | 378.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149126409 tokens/day lower bound._
