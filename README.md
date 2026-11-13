@@ -1,26 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-13T03:53:33Z_
+_As of 2026-11-13T03:54:38Z_
 
 ## Latest
 
-The only board movement was `improve-secret-watchdog-missing-outbound`, which a gardener claimed and is working. Nothing else was posted or completed since the last bulletin.
+Little completed since the last bulletin: the only board transition was `improve-secret-watchdog-missing-outbound` finishing, and a `dependabotany-recheck-endo-but-for-bots` run landed in the 11-13 completions. The scheduled `daily-progress-summary` jobs for 11-05 and 11-06 are still parked after their retries ran out, so those periodicals have not been written.
 
-Things the maintainer should look at, mostly in the inbox:
+Several maintainer items need a decision:
 
-- **minion.town production looks down at the DNS level.** A gardener reports that since about 13:14Z on 2026-11-10 the apex records point at an unrelated Amazon address serving a static page. The real host is healthy at `13.56.17.18`. The gardener asks whether the repoint was intentional. If it was not, it could be a zone compromise, and fixing it needs a credentialed host. The prod probe ([kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)) has been red since 14:52Z.
-- **The garden's rolling deploy is stuck behind Oros.** Oros (`oros-studio-garden-ce242c49`) is drained and failing its canary. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both fixes need someone at that machine. Because the leader deploys only after the canary passes, it is still on `f2788117645`. That leaves the EROFS fix undeployed, so project-checkout jobs keep failing and minion.town PR work is parked. The arc supervisor asks whether to revive Oros or authorize deploying the leader past the dead canary.
-- **The leader host is nearly out of disk.** `endolin-garden-ece02cb4` has about 176–500 MiB free and briefly hit 0. It needs a manual reclaim under `.garden-state`, `scratch/` and `worktrees/`.
-- **The minion.town pause is still being hit.** The pause watchdog has now fired 973 times. It suggests a stale host is still producing minion.town jobs. This matches the 107-job todo queue, which is mostly Oros health checkups, canary probes and minion.town press jobs.
-- **Journal lock contention cleared.** Three of the lock-contention notices closed as recovered. Others remain open, including a journal push-contention notice for the gardener scaler.
+- **Oros is still held.** The roll moved it to 18fc7b17375 and failed the canary again. Someone at the machine has to run `claude` then `/login`, and has to check why `garden-secret-broker.service` fails after each deploy. Its canary probes and health checkups keep piling up in todo.
+- **The leader is stuck on f2788117645.** The minion.town supervisor says the EROFS fix cannot reach the leader while the Oros canary is dead. It asks whether to revive Oros or authorize deploying the leader past the canary.
+- **minion.town production DNS.** The supervisor reports the apex and `ocap.site` now resolve to `34.225.237.208` instead of `13.56.17.18`. It asks whether you made that change, and flags possible zone compromise if you did not. The project is also paused, and the watchdog has refused jobs for it 973 times, so something may still be producing work for it.
+- **Disk space.** The leader's garden filesystem hit about 0 free. Someone needs to reclaim space by hand before the new byte-capacity detector is deployed.
 
-Open questions waiting on you:
-
-- whether to leave or remove the stray guest left on production by the minion.town docs report;
-- the settings-simplification report's `deploy-accounts-store.sh` run and its four veto items;
-- whether to adopt the Iron Horse test-infrastructure ideas from the yavashark ingest.
-
-Several split-eligible jobs, including the daily summaries and the Oros bwrap hand-off, remain parked on the plan queue awaiting a go-ahead.
+Earlier journal-lock-contention notices for the reducer, worktree sweeper and bulletin cleared overnight. Others remain open, and the Ironhorse test262 ratchet is still halted on a wrong base.
 
 ## Maintainer review docket
 
@@ -405,10 +398,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.8M | $170.50 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 45.9M | $170.16 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147411211 tokens/day lower bound._
+_Fleet token-unlock pace: 147316222 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.303494s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
@@ -523,16 +516,16 @@ worst fetch p95 4.303494s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
-- [`improve-secret-watchdog-missing-outbound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-secret-watchdog-missing-outbound.md) — ---
+### doin (0)
+(none)
 
-### tada (17044)
+### tada (17045)
+- [`improve-secret-watchdog-missing-outbound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/improve-secret-watchdog-missing-outbound.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — Cost
 - [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Completion report
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Report: scholar-ingest-meta-harnesses-codefall-ycc-20261029 (continuation → h...
 - [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — Cost
-- [`fu-scholar-ingest-yavashark-ironhorse-20261030-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/fu-scholar-ingest-yavashark-ironhorse-20261030-3.md) — Cost
-- … and 17039 more
+- … and 17040 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
