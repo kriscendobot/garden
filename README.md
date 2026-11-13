@@ -1,24 +1,23 @@
 # Garden bulletin
 
-_As of 2026-11-13T23:19:44Z_
+_As of 2026-11-13T23:21:25Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still operator-held. It failed its rolling-deploy canary again after rolling to `18fc7b17375`. The only board change since the last bulletin is one more canary-probe job, `canary-probe-oros-studio-garden-ce242c49-9db928543949-r3`. A health-watch message says it needs someone at the machine for two things:
-- The Claude OAuth session has expired, so someone needs to run `claude` and then `/login` as the garden user.
-- `garden-secret-broker.service` fails after each deploy, as it did on 11-07 through 11-10.
+The only board change since the last bulletin is one new post: a fresh [claude-on-minion-town-completion-press](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261113-232017.md) job. It joins the large backlog of unclaimed minion.town press and Oros health-checkup jobs. The doin lane is empty, and minion.town is paused by maintainer directive, so the presses are being refused at the chokepoint (the pause watchdog is past 14,000 refusals).
 
-Oros's failed canaries also block the leader's deploy of the EROFS fix. The minion.town arc supervisor is asking whether to revive Oros or authorize deploying the leader past the dead canary. The leader runs `f2788117645`, so monk jobs that need a project checkout keep dying with EROFS.
+Items that need a maintainer:
 
-Other things to notice:
-- **minion.town:** The project is paused. The pause watchdog has coalesced 14,323 refusals of claimable minion.town jobs, which suggests a stale host or an unattended producer is still posting them. The 11-10 DNS repoint is still unanswered: `minion.town` and `ocap.site` resolve to `34.225.237.208`, not the documented host.
-- **Disk:** The leader host's disk was down to a few hundred MiB free and briefly hit zero. Someone needs to reclaim space under `.garden-state`, `scratch/` and `worktrees/`.
-- **Contention:** Several journal-contention and screening watchdog conditions have cleared. Fetch-slow alerts on Oros are still open.
-- **Held jobs:** A few reaper-parked jobs (daily progress summaries, the phase 8 fetch-plugin build, the Oros bubblewrap hand-off, the dependabotany recheck) wait on a maintainer `promote-plan.sh` or removal.
-- **Maintainer calls:** Several messages are waiting:
-  - the minion.town settings simplification, which needs `deploy-accounts-store.sh` before merging plus a veto check;
-  - the stray guest left on production;
-  - whether to post an Iron Horse test-infra job.
+- **Oros is still operator-held and its canary keeps failing.** The Claude OAuth session has expired, so it needs `claude` then `/login` at the machine. `garden-secret-broker.service` also fails after each deploy. Oros is the follower the leader rolls first, so the leader cannot deploy past the dead canary. The leader's EROFS fix for monk project checkouts is stuck behind that, and the minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
+- **Disk is nearly full on the leader (endolin-garden-ece02cb4).** Free space reached zero at one point, and `.garden-state`, `scratch/` and `worktrees/` need reclaiming by hand.
+- **minion.town production may have been repointed in DNS.** It went dark on 2026-11-10, when the `minion.town` and `ocap.site` records began pointing at an unexpected address. The real host looks healthy. The maintainer needs to say whether the change was intentional.
+- **Several minion.town items await a decision**:
+  - the settings-simplification report asks you to run `deploy-accounts-store.sh` before merging;
+  - one leftover anonymous guest remains on production;
+  - the scholar ingest of yavashark raises the question of an Iron Horse test-infra job.
+- **Parked jobs wait for promotion.** The reaper parked several jobs after their retries were exhausted: the daily progress summaries, the dependabotany recheck, the fetch-plugin build and the Oros bwrap hand-off.
+
+Journal-lock contention on the leader and on Oros fired several alerts today, and most have recovered. The remaining noise is the lock-contention notices for the unblock and review-docket workers and a slow-fetch notice on Oros, with 10 notices open.
 
 ## Maintainer review docket
 
@@ -480,7 +479,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.7M | $329.46 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Claude | 86.9M | $330.19 _(notional, rate-card)_ | 32% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149137447 tokens/day lower bound._
@@ -489,12 +488,13 @@ _Fleet token-unlock pace: 149137447 tokens/day lower bound._
 worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (127)
+### todo (128)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
 - [`oros-health-checkup-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-060516.md) — ---
 - [`oros-health-checkup-20261112-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-183511.md) — ---
+- [`claude-on-minion-town-completion-press-20261113-232017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261113-232017.md) — Completion press: Claude-on-minion.town arc
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`oros-health-checkup-20261112-092012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-092012.md) — ---
 - [`oros-health-checkup-20261113-160510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261113-160510.md) — ---
