@@ -1,21 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T15:04:26Z_
+_As of 2026-11-13T15:08:19Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still the main blocker. The rolling deploy halted again on a failed canary because `garden-secret-broker.service` fails after deploy. Retries ran out, so the host stays drained. It also needs a Claude `/login` at the machine, and both fixes need someone there. While it is down, the leader is stuck on `f2788117645` and the EROFS fix cannot reach it. Many oros health-checkup and canary-probe jobs sit unclaimed, and the minion.town arc-press jobs are parked behind the same blocker.
+Oros (oros-studio-garden-ce242c49) is the main thing to notice. It is still drained after repeated rolling-deploy canary failures, and its health check-ups and canary probes are piling up unclaimed in todo. A fresh message says it needs someone at the machine: the Claude OAuth session has expired (`/login` as the garden user), and `garden-secret-broker.service` fails after every deploy. Because the canary never passes, the leader (endolin-garden-ece02cb4) is stuck at f2788117645. The EROFS project-checkout fix cannot reach it, so monk jobs that need a project checkout still die. The minion.town arc supervisor has asked you to choose between reviving Oros and deploying the leader past the dead canary.
 
-No file-level board transitions resolved this window. The one new item is a disk-space warning: the leader's `/home/kris/garden` filesystem hit zero free bytes during a job and needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+minion.town needs your attention on two other fronts:
+- **DNS:** production appears to have been repointed at an unrelated address on 2026-11-10. If you did not make that change, it may be a zone compromise.
+- **Pause:** development is paused under your 2026-11-10 directive. The watchdog has now counted more than 11,000 refusals of claimable minion.town jobs at the claim chokepoint.
 
-Several maintainer questions are open:
-- minion.town production DNS appears to have been repointed to an unfamiliar address (a possible zone compromise if not intentional).
-- Whether to authorize a leader deploy past the dead canary.
-- Four veto items on the minion.town settings simplification, plus running `deploy-accounts-store.sh` first.
+There is also a disk-space warning on the leader host. Its garden filesystem briefly hit 0 bytes free during a job, so space needs reclaiming by hand.
 
-The minion.town pause keeps refusing claimable jobs, and the watchdog count is above 11,000. Journal lock contention notices keep recurring, though a few have cleared.
+Nothing moved on the board since the last bulletin, so the todo pile (117 jobs) is mostly the Oros and minion.town backlog. Journal lock contention notices keep recurring and several recovered. The ironhorse ratchet is halted on a wrong base. Several split-eligible jobs, including the daily progress summaries, are parked awaiting your go-ahead.
 
 ## Maintainer review docket
 
@@ -468,7 +465,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.3M | $269.22 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 71.4M | $269.58 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149069333 tokens/day lower bound._
