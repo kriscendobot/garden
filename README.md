@@ -1,26 +1,25 @@
 # Garden bulletin
 
-_As of 2026-11-13T22:54:56Z_
+_As of 2026-11-13T22:57:24Z_
 
 ## Latest
 
-Almost nothing moved on the board this cycle. A gauntlet record was added for [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359), and an Ironhorse test262 press job (`ironhorse-test262-press-20261113-225326`) was parked as deferred. No jobs were claimed or completed in this window.
+Gauntlet [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) halted and moved to `tada`. That was the only job transition this cycle.
 
-**Needs the maintainer:**
-- **Oros is still down.** `oros-studio-garden-ce242c49` stays drained after the canary failed again. It has two blockers that need someone at the machine: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy.
-- **The leader can't deploy past the dead Oros canary.** The EROFS fix is stuck behind it, so minion.town PR work is parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary. Most of the minion.town press jobs in `todo` are probably waiting on this.
-- **minion.town's DNS may have been repointed.** On 2026-11-10 the apex pointed at an unfamiliar us-east-1 address that serves a static page, not at the documented production host. The supervisor asked whether this was deliberate. Otherwise it may be a zone compromise to check in Route53 history. The project is paused, and the pause notice has now been refused-and-counted more than 14,000 times.
-- **Disk on the leader is nearly full.** `/home/kris/garden` had about 176–500 MiB free and briefly hit zero. It needs hand cleanup under `.garden-state`, `scratch/` and `worktrees/`.
-- **Doomed jobs parked in `plan/`:**
-  - two daily progress summaries
-  - the `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` build
-  - the Oros bwrap hand-off build
-  - the dependabotany recheck for endo-but-for-bots
+The fleet is mostly stuck on three things:
 
-  Each can be promoted by hand or split.
-- **Pending decisions:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices. One stray guest on production is awaiting disposition. The garden is also asking whether to post an Iron Horse test-infra job based on the yavashark ingest.
+- **Oros is still held.** Its rolling-deploy canary failed again at 18fc7b17375, and it needs someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The canary-failure notice has since cleared, but Oros still stands drained. Because the leader deploys only after followers pass as canaries, this blocks the leader's EROFS fix. Until that deploy lands, monk jobs that need a project checkout fail. The arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
+- **The leader's disk is nearly full.** The leader host had roughly 176–500 MiB free and briefly hit zero. It needs a manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **The minion.town project pause is still being tripped.** The watchdog has counted over 14,000 refusals of the same arc-press job. A host running an older garden may be producing them.
 
-Several journal-lock and rolling-deploy watchdog conditions cleared on their own. Open contention notices remain on the leader and on Oros.
+The maintainer inbox has several unresolved items:
+
+- minion.town production DNS was repointed to an unfamiliar address around 13:14Z on 2026-11-10. The arc supervisor asks whether that was intentional or a possible zone compromise.
+- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging and to veto-check four listed choices.
+- A scholar-ingest report asks whether to post an Iron Horse test-infra job.
+- Several scheduled and build jobs, including two daily progress summaries, were parked after their retry was exhausted. They are waiting on promotion or removal.
+
+Journal-contention watchdog notices have mostly recovered. Active ones remain on the leader for the unblock, review-docket and screening clones, and fetch-slow notices remain on Oros.
 
 ## Maintainer review docket
 
@@ -484,7 +483,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.1M | $323.20 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Claude | 85.3M | $323.93 _(notional, rate-card)_ | 31% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149020062 tokens/day lower bound._
@@ -624,13 +623,13 @@ worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/jour
 ### doin (0)
 (none)
 
-### tada (17053)
+### tada (17054)
+- [`endojs-endo-but-for-bots-pr1359-gauntlet-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/endojs-endo-but-for-bots-pr1359-gauntlet-20261113.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet-20261113 — HALTED
 - [`deadmail-20261113T222245Z-39c07c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T222245Z-39c07c.md) — Completion report
 - [`deadmail-20261113T180827Z-7056c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T180827Z-7056c6.md) — Cost
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Cost
 - [`deadmail-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-round3-floor-resolution-20261113.md) — Cost
-- [`deadmail-issue-comment-6859154429`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-issue-comment-6859154429.md) — Cost
-- … and 17048 more
+- … and 17049 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
