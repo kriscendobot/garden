@@ -50,3 +50,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-685915442
 @kriscendobot Preserve the floor. That is the definition of ratchet.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-13T16:51:18Z
