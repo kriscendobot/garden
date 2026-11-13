@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-13T19:19:01Z_
+_As of 2026-11-13T19:22:34Z_
 
 ## Latest
 
@@ -348,6 +348,10 @@ Delegation: **active**
 > (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
 > performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
 > on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-190511` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-190511.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261113-190511' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
