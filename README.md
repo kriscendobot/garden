@@ -1,25 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T16:52:18Z_
+_As of 2026-11-13T16:54:46Z_
 
 ## Latest
 
-The board was quiet: the only transition is a claim of `deadmail-issue-comment-6859154429`, an issue follow-up that is now in `doin`. No new completions or posts showed up in this window.
+Quiet on the board: the only transition was the Ironhorse test262 ratchet's round-3 floor-resolution job, which moved from the plan queue to `doin` (claimed). It is the successor, post-weave, to the earlier floor-resolution job that completed today.
 
-Things for the maintainer to notice:
+Items that need a maintainer's attention:
 
-- **Oros is still held.** `oros-studio-garden-ce242c49` took the roll to `18fc7b17375` and failed its canary again. Its Claude login has expired, and `garden-secret-broker.service` fails after every deploy, as it has since 11-07. Both fixes need someone at that machine. Meanwhile the leader is stuck behind the dead canary, and canary probes and health-checkups keep piling up unclaimed in `todo`.
-- **minion.town is paused.** The watchdog's coalesced pause notice has now counted nearly 12,000 refused jobs (arc presses and completion presses among them). The leader is also still on `f2788117645`, so the EROFS fix cannot reach it. An arc supervisor asked whether to revive Oros or deploy the leader past the canary.
-- **minion.town production DNS.** A 2026-11-10 message reports `minion.town` and `ocap.site` resolving to an unfamiliar us-east-1 address, with the real host healthy at `13.56.17.18`. It asks whether the change was intentional. It is still unanswered.
-- **Disk space.** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Other open items:**
-  - an Ironhorse ratchet halted on a wrong base;
-  - several reaper-parked jobs awaiting a go-ahead, including the daily progress summaries for 11-05 and 11-06;
-  - a minion.town settings report that needs `deploy-accounts-store.sh` run before merging.
+- **Oros is still held.** The roll moved `oros-studio-garden-ce242c49` to `18fc7b17375` and it failed the canary again, with retries exhausted at 19:29Z. It stays drained because of two problems that need someone at the machine. The Claude OAuth session has expired (run `claude`, then `/login`). `garden-secret-broker.service` also fails after each deploy, as it has since 11-07.
+- **The leader is stuck behind that canary.** The leader still runs `f2788117645`. The EROFS fix cannot reach it until Oros is revived or you authorize deploying the leader past the dead canary. Minion.town project work is parked on this, but the pause on minion.town is also being enforced, and the watchdog has now logged that refusal about 11,900 times.
+- **minion.town production DNS.** Earlier in the week the supervisor reported that `minion.town` and `ocap.site` resolve to an unfamiliar us-east-1 address serving a static page, not the documented host `13.56.17.18`. It needs you to say whether the change was intentional, or to restore the records and check the Route53 history.
+- **Disk space.** The leader's garden filesystem has been down to about 176–500 MiB free and briefly hit 0. It needs manual reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **Decisions.** Minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, and the four listed choices are yours to veto. A leftover anonymous guest on production is yours to keep or remove. The yavashark test-infra adoption is yours to approve or decline.
 
-Journal-lock contention notices mostly cleared on their own, as did the comment-watcher cooldown and the screening-tick failure.
+The journal-lock-contention and screening-tick watchdog conditions mostly cleared on their own (bulletin and Oros scaler contention are still open). Several daily-summary, Phase 8 fetch-plugin, and Oros bwrap hand-off jobs were reaped and parked in the plan queue awaiting promotion.
 
 ## Maintainer review docket
 
@@ -476,7 +471,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $285.87 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 75.8M | $287.00 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149349985 tokens/day lower bound._
@@ -606,8 +601,9 @@ worst fetch p95 9.347844s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-6859154429`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6859154429.md) — Issue follow-up — fold a late comment into the issue work
+- [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Resolve the Ironhorse round-3 historical floor (successor, post-weave)
 
 ### tada (17048)
 - [`deadmail-20261113T105203Z-9ca48b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T105203Z-9ca48b.md) — Cost
@@ -765,7 +761,6 @@ worst fetch p95 9.347844s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`heal-minion-town-cfafabe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/heal-minion-town-cfafabe.md) — _normal_ · Heal minion.town production after merge cfafabea5a93f0d270980d4b468841c0565b3a3a
 
 ### awaiting maintainer decision (answer at the linked question)
-- [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) - [Re-pin the Ironhorse floor to a fresh llm measurement (A) or keep refresh-20260904 and repair the 882 losses (B)?](https://github.com/kriscendobot/garden/issues/51#issuecomment-6850754867)
 - [`minion-town-claude-cli-production-canary-after-connection-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-cli-production-canary-after-connection-20261004.md) - [Connect the real Claude subscription through the stable account page and reply connected; no setup token may be sent through the journal.](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-224cae8c9188.md)
 - [`endo-cli-no-autostart-exit-codes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cli-no-autostart-exit-codes-build.md) - [Design OQ1/OQ3: should the CLI default to no-autostart under a service manager, and are the proposed exit codes acceptable?](https://github.com/endojs/endo-but-for-bots/pull/1383)
 - [`build-ironhorse-in-crank-safepoint-collection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-ironhorse-in-crank-safepoint-collection.md) - [Agree to amend ironhorse-quiescent-gc to admit a native-depth-zero dispatch safepoint collection inside a crank (design #1622, open question 1), or wait for ropes?](https://github.com/endojs/endo-but-for-bots/pull/1622)
