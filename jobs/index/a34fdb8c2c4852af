@@ -1,0 +1,2 @@
+base: improve-secret-watchdog-missing-outbound
+identity: mentor:scripts/secrets/watchdog.sh
