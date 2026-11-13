@@ -38,3 +38,13 @@ https://github.com/kriscendobot/garden/issues/51#issuecomment-6860591199 and
 https://github.com/kriscendobot/garden/issues/51#issuecomment-6860591558.
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-13T17:56:20Z
