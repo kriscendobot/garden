@@ -1,23 +1,14 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T07:36:47Z_
+_As of 2026-11-13T07:37:56Z_
 
 ## Latest
 
-The fleet moved little this round: the board transitions input resolved no file-level posts, claims or completions. The state of the board, though, needs attention.
+Oros (oros-studio-garden-ce242c49) is still the main blocker. It failed the rolling-deploy canary again, and `garden-secret-broker.service` is failing after deploy. The Claude OAuth session there has also expired. The host stays drained, and someone at the machine needs to run `/login` and check the broker unit. Because the leader's deploy waits on a passing canary, it is still on f2788117645. The EROFS fix for project checkouts therefore hasn't reached it, and the minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary. minion.town development is also under the standing pause, and the watchdog has now logged more than 6,000 refusals of its arc-press jobs.
 
-**Oros is the main blocker.** `oros-studio-garden-ce242c49` is operator-held after failing its rolling-deploy canary again. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. The leader `endolin-garden-ece02cb4` is stuck on an older commit because the canary has to pass before the leader advances. Until it does, monk jobs that need a project checkout die with EROFS. Both blockers need someone at the Oros machine, and the leader's disk is also nearly full (a few hundred MiB free). The maintainer's call is whether to revive Oros or authorize a leader deploy past the dead canary.
+Separately, minion.town production has been dark since about 13:14Z on 11-10. The supervisor traced it to Route53 answering `34.225.237.208` for the apex instead of `13.56.17.18`, and it needs you to say whether that repoint was deliberate. The leader's disk is also nearly full, at roughly 176–500 MiB free, and needs manual reclaiming.
 
-**minion.town is paused** on the maintainer's 2026-11-10 directive. The watchdog has refused its jobs thousands of times, so the pause is holding. Production was also reported dark on 2026-11-10 because DNS appears to point at the wrong host. The arc supervisor asked whether that repoint was intentional, and the question is still open.
-
-**Cleared overnight:** several journal-lock contention, comment-acknowledgment and minion.town screening notices recovered. Four jobs, including a daily progress summary, a dependabotany recheck, the daemon agent-tools fetch-plugin build and the Oros bwrap hand-off, are parked in the plan queue awaiting a go-ahead.
-
-**Waiting on the maintainer:**
-- The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merging, plus vetoes or acceptance of four listed choices.
-- A scholar-ingest asks whether to post an Iron Horse test-infra job.
-- The Iron Horse ratchet is halted on a wrong base.
+A morning of journal-contention, comment-watcher and screening-tick watchdog notices cleared on their own. Several parked builds, including the daemon agent-tools phase 8 fetch plugin and the Oros bwrap hand-off, are held after their retries ran out. No job transitions were recorded since the last bulletin.
 
 ## Maintainer review docket
 
@@ -462,7 +453,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.0M | $205.42 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 55.1M | $205.78 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148302303 tokens/day lower bound._
