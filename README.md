@@ -1,16 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-13T17:59:45Z_
+_As of 2026-11-13T18:01:14Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary has failed repeatedly on `garden-secret-broker.service`, and retries ran out at 19:29Z. The Claude OAuth session there has also expired, so someone at the machine has to run `/login` and read the broker's journal. That held canary is blocking the leader's rolling deploy. The leader is still on `f2788117645`, so the EROFS fix `3c7f9ce045e` (now `21585bda2b3`) hasn't reached it. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+Little moved in the last interval. The only board transition was one completion: `deadmail-round3-floor-resolution-20261113` moved from doin to tada. Its successor, `ironhorse-test262-ratchet-round3-floor-resolution-20261113` (the Iron Horse round-3 historical floor), is now the one job in progress. The earlier `…-20260928` variant also completed today.
 
-minion.town development has been paused since 2026-11-10, and the watchdog's pause-enforcement notice has now coalesced 12,237 refusals. Separately, a message from the 11-10 arc press reports that production DNS now points at an unrelated host and the real host is `13.56.17.18`. It asks whether you changed it on purpose or whether this is a possible zone compromise.
+**Oros is still held, and it blocks the leader deploy.** The leader is still on `f2788117645`. The canary probes for the Oros roll sit unclaimed, as do about 14 health-checkups. The rolling deploy halted on a failed canary after three retries. The failing signal is `garden-secret-broker.service`, which has failed after every deploy since 11-07. The Claude OAuth session on Oros has also expired. Both fixes need someone at the machine (`/login` as the garden user, then `journalctl --user -u garden-secret-broker -n 80`). One earlier arc-press note lists two choices: revive Oros, or authorize a leader deploy past the dead canary. Until the leader runs the EROFS fix, monk jobs that need a project checkout will keep dying with EROFS.
 
-The leader's disk is nearly full, with only a few hundred MiB free. It has briefly hit zero, so it needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+**minion.town is paused.** The watchdog has now refused a claimable `minion-town-arc-press` job more than 12,000 times, so the arc-press jobs keep piling up in todo. A separate note reports that production DNS for `minion.town` and `ocap.site` was repointed on 11-10. It asks whether that was intentional or a possible zone compromise. It is unanswered, and nothing has touched DNS.
 
-The board shows no new transitions this cycle. Most of the journal-contention and comment-watcher watchdog notices have cleared. Several daily-summary, dependabot-recheck and build jobs remain parked after exhausting requeues, and the Ironhorse ratchet is halted on a wrong base.
+**Two other items need a look.** The leader's filesystem briefly hit 0 free bytes, so reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`. The `daily-progress-summary` jobs for 11-05 and 11-06 are parked after exhausting their retries, awaiting a manual promote or removal.
+
+The journal-contention and comment-watcher notices are mostly recovered.
 
 ## Maintainer review docket
 
@@ -467,10 +469,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.8M | $298.22 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 78.9M | $297.93 _(notional, rate-card)_ | 29% of 271.0M (ok) |
 | Codex | 378.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149126409 tokens/day lower bound._
+_Fleet token-unlock pace: 149043520 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.178739s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 8 open notice(s); checker healthy
@@ -598,17 +600,16 @@ worst fetch p95 2.178739s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (2)
+### doin (1)
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Resolve the Ironhorse round-3 historical floor (successor, post-weave)
-- [`deadmail-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-round3-floor-resolution-20261113.md) — Dead-lettered message — pick up its intent
 
-### tada (17049)
+### tada (17050)
+- [`deadmail-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-round3-floor-resolution-20261113.md) — Cost
 - [`deadmail-issue-comment-6859154429`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-issue-comment-6859154429.md) — Cost
 - [`deadmail-20261113T105203Z-9ca48b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T105203Z-9ca48b.md) — Cost
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) — Cost
 - [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/weave-ironhorse-pr1359-20261113.md) — Cost
-- [`improve-secret-watchdog-missing-outbound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/improve-secret-watchdog-missing-outbound.md) — Cost
-- … and 17044 more
+- … and 17045 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
