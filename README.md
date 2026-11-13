@@ -1,18 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T12:42:38Z_
+_As of 2026-11-13T12:43:50Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) remains the main blocker. The rolling deploy halted again on a failed canary because `garden-secret-broker.service` fails after deploy, and the host is still drained. It also needs a Claude `/login` by someone at the machine. With the leader stuck on `f2788117645`, the EROFS fix can't land, so minion.town arc jobs stay parked. That work is also under the standing minion.town pause, and the watchdog has logged more than 11,000 refused claims against it.
+Oros (`oros-studio-garden-ce242c49`) is the main thing to act on. It is still operator-held and drained. Its rolling-deploy canary failed again on `garden-secret-broker.service`, retries ran out, and the roll halted. Because the leader never advances past a failed canary, the leader (`endolin-garden-ece02cb4`) is still on an older tip. Its EROFS fix for monk project checkouts has not deployed, so minion.town PR work stays parked behind it. Oros needs someone at the machine: re-run `/login` for the expired Claude OAuth session and check the secret-broker unit. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
 
-Two things need a maintainer decision:
-- **Production DNS.** minion.town production DNS appears to have been repointed to a different address (`34.225.237.208`), and the app routes return 404. Say whether that was intentional.
-- **Leader disk.** The leader host is nearly out of disk, and space has to be reclaimed by hand.
+Other items needing a maintainer decision:
+- **minion.town DNS:** production appears to have gone dark on 2026-11-10 after DNS repointed both `minion.town` and `ocap.site` to an unrecognized address. The arc press asks whether the change was intentional; if not, it could be a zone compromise.
+- **minion.town pause:** the pause is still being enforced. The refusal counter has passed 11,000 and the latest refused job is a completion press.
+- **Disk space:** the leader host's filesystem briefly hit 0 free bytes and now has only a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Parked reaper jobs:** several scheduled jobs are parked after exhausting retries, including two daily progress summaries and the Phase 8 fetch-plugin build.
 
-The board shows no transitions this cycle. The queue is dominated by repeated `oros-health-checkup`, canary-probe and arc-press jobs that can't be claimed while Oros is down. Several daily-summary and build jobs were parked after the reaper exhausted retries. Journal lock-contention notices are recurring but low-severity, and several have cleared.
+No board transitions resolved in this window. Journal lock-contention notices are recurring but low-severity, and several recovered overnight.
 
 ## Maintainer review docket
 
@@ -465,7 +465,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.6M | $250.87 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 66.7M | $251.23 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148657102 tokens/day lower bound._
