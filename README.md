@@ -1,24 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T23:08:19Z_
+_As of 2026-11-13T23:13:14Z_
 
 ## Latest
 
-Maintainers have two decisions waiting. The first is **minion.town production**. A gardener found that `minion.town` and `ocap.site` now resolve to an unfamiliar us-east-1 address serving a static page, and every app route answers 404. The documented host at `13.56.17.18` is healthy. Nothing in the journal explains the DNS change. The gardener asks whether the change was yours on purpose, since otherwise it could be a zone compromise. The prod probe is red ([kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)), and only you or a credentialed host can restore the records. All minion.town development is paused, and the watchdog's refusal count on the paused arc-press job keeps rising.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held, and most of what needs a human today traces back to it. The leader roll moved it to `18fc7b17375` and the canary failed again. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Both fixes need someone at the machine. Retries ran out at 19:29Z, and the canary-probe jobs for it are piling up unclaimed in `todo`, along with a stream of `oros-health-checkup` jobs. The minion.town arc supervisor has asked you to choose between reviving Oros and authorizing a leader deploy past the dead canary. Until the leader deploys the EROFS fix, monk jobs that need a project checkout keep failing.
 
-The second is the **Oros follower**, `oros-studio-garden-ce242c49`. It is still operator-held. It failed the canary at `18fc7b17375` and retries ran out at 19:29Z. Two things need someone at the machine: an expired Claude login, and `garden-secret-broker.service` failing after every deploy. The unclaimed `oros-health-checkup` and canary-probe jobs keep piling up in `todo`. Because the follower can't pass its canary, the rolling deploy can't advance the leader. The leader therefore stays on `f2788117645`, which lacks the EROFS fix, and the minion.town PR work stays parked. A watchdog notice that the canary failure had cleared was filed at 22:08Z, but the Oros message above says the host is still held, so treat Oros as still blocked.
+Other items need a decision from you:
+- **minion.town DNS.** Production went dark on 2026-11-10 when the apex and `ocap.site` records changed to an unfamiliar `34.225.237.208`. The supervisor wants to know whether you made that change on purpose. Otherwise it could be a zone compromise, so the Route53 history should be checked.
+- **minion.town pause.** The pause is still being enforced. The watchdog count has passed 14,000 refused `minion-town-arc-press` claims.
+- **Disk space.** `endolin-garden-ece02cb4` briefly hit 0 bytes free on its filesystem during a job. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **`mt-beta-settings-simplify`.** You need to run `deploy-accounts-store.sh` before merging it. The report also lists four choices for you to veto.
+- **Parked jobs.** Several reaper-parked jobs (two daily progress summaries, the `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` job, the `build-oros-secrets-bwrap-handoff-20261106` job and a dependabotany recheck) wait on a go-ahead.
 
-**Disk space** on the leader is nearly gone. `/home/kris/garden` had about 176–500 MiB free and briefly hit zero. The new byte-capacity guard isn't deployed yet, so this needs a manual `du` under `.garden-state`, `scratch/`, and `worktrees/`.
-
-Several more items are open:
-- **Parked daily summaries:** the 11-05 and 11-06 summaries, the phase 8 fetch-plugin build, and the Oros bubblewrap hand-off build are all in `plan/` awaiting a go-ahead. They were requeue-exhausted.
-- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging, and say if you object to any of the four listed choices.
-- **Other minion.town report items:** the live probe left one anonymous guest on production, and the report couldn't be checked against the tower note, which wasn't on that host.
-- **Iron Horse:** whether to post a test-infra job to adopt the cost tiers, sampling, and CPU pinning found in yavashark.
-
-The journal-lock contention notices are mostly clearing. The board shows only `doin` empty, 126 jobs in `todo`, and no transitions since the last bulletin.
+Several journal-lock-contention and screening-tick watchdog conditions recovered on their own. Two contention notices on the leader are still open. The board shows no claims or completions since the last bulletin, only unclaimed `todo` jobs.
 
 ## Maintainer review docket
 
@@ -468,6 +463,10 @@ Delegation: **active**
 
 > Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=23.150899s max=23.150899s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-9db928543949-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-9db928543949-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-9db928543949-r2' has remained unclaimed for 1200s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-13T01:21:58Z, cleared 2026-11-13T18:47:19Z).
@@ -482,7 +481,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.0M | $326.87 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Claude | 86.2M | $327.62 _(notional, rate-card)_ | 32% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149107042 tokens/day lower bound._
