@@ -1,27 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T04:19:39Z_
+_As of 2026-11-13T04:23:36Z_
 
 ## Latest
 
-No file-level board transitions resolved since the last bulletin, so the news is in the inbox and the stuck-fleet picture.
+Little finished since the last bulletin: no board transitions were recorded, and the one visible completion is `improve-secret-watchdog-missing-outbound`. The fleet is stuck on two things, and both need you.
 
-**Oros is still the bottleneck.** The follower `oros-studio-garden-ce242c49` stays operator-held. Its canary failed again after the roll to `18fc7b17375`, and retries ran out at 19:29Z. The health watch names two blockers that need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after every deploy since 11-07. A later notice from the rolling deploy says the canary retry cleared at 04:14Z, but oros still has about 14 unclaimed `oros-health-checkup` jobs and many `canary-probe-*` jobs sitting in todo. The minion.town arc supervisor reports that the leader is still on `f2788117645`. The EROFS fix (`3c7f9ce045e`, now `21585bda2b3`) can't reach it because the leader deploys only after oros passes as canary. It asks whether you want to revive oros or authorize a leader deploy past the dead canary. Until one of those happens, project-checkout jobs on monks keep dying EROFS.
+**Oros is still held.** Its rolling-deploy canary failed again at 18fc7b17375, and every `canary-probe-oros-…` and `oros-health-checkup-…` job is still unclaimed in todo. Per the health-watch message, there are two blockers, both needing someone at the machine. The Claude OAuth session has expired (run `claude`, then `/login`). `garden-secret-broker.service` also keeps failing after deploy. Because the canary never passes, the leader (endolin-garden-ece02cb4) cannot deploy past f2788117645. The EROFS fix in 21585bda2b3 therefore has not reached it. The minion.town arc supervisor has asked you to either revive Oros or authorize a leader deploy past the dead canary.
 
-**minion.town is paused and its DNS looks wrong.** The project pause is being enforced against a refused `minion-town-arc-press-20261112-152013` job, and that notice is now at about 970 occurrences. Separately, an arc supervisor found that `minion.town` and `ocap.site` have pointed at `34.225.237.208` since about 13:14Z on 11-10. That address serves a static "no accounts" page, while the documented host `13.56.17.18` is healthy. Several subdomains no longer resolve. The garden has no AWS credentials and has not touched DNS. The question for you is whether this repoint was intentional. If it wasn't, it could be a zone compromise, and the Route53 change history needs checking.
+**minion.town is paused, and production looks wrong.** The pause watchdog has now refused queued minion.town press jobs 973 times, so the arc-press and completion-press jobs are piling up in todo. Separately, a supervisor reported that minion.town DNS went to `34.225.237.208` on 2026-11-10. That is a static page, not the documented host at `13.56.17.18`. It says no journal record or repo commit explains the change, so it needs you or a credentialed host to confirm whether the repoint was intentional.
 
-**Disk space on the leader is critically low.** `/home/kris/garden` had about 176–500 MiB free and briefly hit 0, causing an ENOSPC write failure. Reclaim space by hand (`du -xsh` under `.garden-state`, `scratch/`, `worktrees/`) before the new byte-capacity guard (`a6b75fe4c08`) is deployed.
-
-**Cleared or quiet.** Several journal-lock-contention conditions on the leader recovered, and `improve-secret-watchdog-missing-outbound` and a dependabotany recheck completed on 11-13. The latest reset-credit watch found no live credits. Spend is at 17% of the Claude quota and 5% of Codex.
-
-**Awaiting your call:**
-- Several held `requeue-exhausted` jobs: the two daily progress summaries, the daemon-agent-tools phase 8 fetch plugin build, the oros secrets bwrap hand-off and the dependabotany recheck.
-- The `minion-town-docs-tower-report-20261016` report: a leftover anonymous guest on production.
-- The `scholar-ingest-yavashark-ironhorse-20261030` report: whether to post an Iron Horse test-infra job.
-- The minion.town settings-simplify report: run `deploy-accounts-store.sh` before merging, and say if you veto any of the four listed choices.
-- The Iron Horse ratchet, halted on a wrong base ([tracker #51](https://github.com/kriscendobot/garden/issues/51)).
+**Also worth noticing:**
+- The leader's filesystem briefly hit 0 bytes free, and about 176–500 MiB is free at the time of the report. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- Several journal-lock-contention conditions cleared on the leader, as did the Oros canary-failure page. The reaper parked more daily-summary, dependabotany and builder jobs in the plan queue after retries ran out.
 
 ## Maintainer review docket
 
@@ -362,6 +353,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-040510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-040510.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261113-040510' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `msg-reset-credit-watch-20261109-170519-6a0254967ba8` — from gardener:reset-credit-watch-20261109-170519, reply_to `reset-credit-watch-20261109-170519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261109-170519-6a0254967ba8.md)
 
 > Reset-credit watch 2026-11-09: no action this week. No live credits are left: the codex 11-06 credit has expired (codex rolled to 0% about 11-04T22:05Z; if that was the credit, it was used in time). Status: claude-endolin1 is at 12% (about 5%/day, roughly 33% by its 11-14T04:00Z reset), no credits. claude-oros is at 26%, resets 11-10T11:00Z, credits unknown. codex-endolin was at 24% on 11-05 (the meter anchor is stale), resets about 11-11T18:05Z, no credits. claude-endolin2 is retired. If you're granted new credits, tell the liaison and I'll plan around them.
@@ -418,7 +413,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.1M | $174.58 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 47.3M | $175.61 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 378.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147487785 tokens/day lower bound._
