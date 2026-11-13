@@ -1,26 +1,23 @@
 # Garden bulletin
 
-_As of 2026-11-13T13:58:07Z_
+_As of 2026-11-13T13:59:33Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so the substance is in the maintainer inbox, and several items need a decision.
+No board transitions resolved since the last bulletin, so the news is in the maintainer inbox, and most of it is blocked infrastructure.
 
-**Oros is still held out of the fleet.** The rolling deploy halted on a failed canary at `oros-studio-garden-ce242c49` after three automatic retries. The failing unit is `garden-secret-broker.service`, and Oros also has an expired Claude OAuth session. Both fixes need someone at that machine (`/login` as the garden user, then `journalctl --user -u garden-secret-broker`). Because the leader deploys only after its canary passes, it is still on `f2788117645`. That keeps the EROFS fix out of the leader, so monk jobs that need a project checkout keep failing. The minion.town arc supervisor is waiting on you to either revive Oros or authorize a leader deploy past the dead canary. The todo board shows the cost: dozens of unclaimed `oros-health-checkup`, `canary-probe` and arc-press jobs.
+**Oros is still operator-held.** The rolling deploy keeps failing its canary on `oros-studio-garden-ce242c49`, and retries ran out at 19:29Z. Two blockers need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service`, which fails after every deploy. Because the canary never passes, the leader `endolin-garden-ece02cb4` can't deploy past `f2788117645`. The EROFS fix has been waiting on that deploy for days. About 14 `oros-health-checkup` jobs and many canary probes are piling up in todo. The arc supervisor has asked you to either revive Oros or authorize a leader deploy past the dead canary.
 
-**minion.town production looks down at the DNS level.** The Route53 answer for `minion.town` and `ocap.site` now points at `34.225.237.208`, which serves a static "no accounts here" page. The documented host is `13.56.17.18`, and it is healthy when queried directly. The subdomains no longer resolve. The garden has no AWS credentials, so nobody has touched DNS. If this repoint wasn't yours, treat it as a possible zone compromise and check the Route53 change history. The pause on minion.town development is still being enforced, with 11,415 refusals of claimable jobs recorded.
+**minion.town is paused, and production DNS looks wrong.** Development is paused by your 2026-11-10 directive. The pause watchdog has refused jobs 11,415 times, and the arc-press jobs keep re-queuing. A separate message reports that `minion.town` and `ocap.site` resolved to `34.225.237.208` as of 2026-11-10 rather than the documented host `13.56.17.18`. Please confirm whether that repoint was intentional, or check Route53 history for a possible compromise.
 
-**Disk space on the leader is critically low.** `endolin-garden-ece02cb4` has hundreds of MiB free and briefly hit 0. Someone needs to reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
+**Disk space on the leader is nearly gone.** `/home/kris/garden` was down to roughly 176–500 MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-**Open questions for you:**
-- The Ironhorse test262 ratchet is halted on a wrong base. The floor-resolution decision asks whether to re-pin to a fresh `llm` measurement or repair the 882 losses ([tracker #51](https://github.com/kriscendobot/garden/issues/51#issuecomment-6850754867)).
-- The minion.town settings simplification needs `deploy-accounts-store.sh` run before it merges, plus a veto check on four choices.
-- One guest account is left on production from the docs probe.
-- The scholar ingest of yavashark asks whether to post an Iron Horse test-infra job.
+**Journal lock contention is recurring.** A 6-clone storm hit the leader at 13:59Z, and several coalesced notices are still open. Others cleared, including the comment-watcher cooldown and the screening-tick failure streak.
 
-Several parked jobs were also reaper-doomed after retries: two daily summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off and a dependabotany recheck. They stay held until promoted.
-
-The journal-lock contention notices are routine and mostly clear. Contention storms, the comment-watcher cooldown and screening failures recovered this morning.
+**Decisions waiting on you:**
+- Parked daily-summary, dependabotany and builder jobs hit the requeue limit and are held in the plan queue.
+- The Ironhorse ratchet is halted on a wrong base, and its round-3 floor choice (re-pin or repair the 882 losses) is open on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51).
+- The minion.town settings simplification needs `deploy-accounts-store.sh` run by hand before merge.
 
 ## Maintainer review docket
 
@@ -117,11 +114,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-13T06:44:03Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-11-13T05:48:51Z, latest 2026-11-13T13:59:06Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.015965s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.016901s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.018543s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.017349s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.015159s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.042821s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -473,13 +476,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.1M | $260.73 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 69.2M | $261.08 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148884318 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.000899s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 12 open notice(s); checker healthy
+worst fetch p95 45.000899s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (117)
