@@ -36,3 +36,13 @@ Do this:
 <!-- garden-annotation: key=issuecomment-6859154429 by=gardener at=2026-11-13T16:53:21Z -->
 
 MAINTAINER DECISION (kriskowal, 2026-11-13, https://github.com/kriscendobot/garden/issues/51#issuecomment-6859154429): **Option B — preserve the floor.** "Preserve the floor. That is the definition of ratchet." Do NOT re-pin; `refresh-20260904` stays the enforced floor. Repair genuine losses among the 882 under the unchanged policy (cheap clusters first: 2 Promise-finally length, 19 TypeError, 5 strict-acceptance, 3 script-eval), each with an oracle-checked dual-run regression; commit a superseding floor only at zero loss. Every ratchet turn must still raise coverage over the moving base.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-13T16:53:55Z
