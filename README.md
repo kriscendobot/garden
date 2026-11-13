@@ -1,24 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T23:49:13Z_
+_As of 2026-11-13T23:53:55Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still operator-held, and it is the main thing to notice. The rolling deploy halted on a failed canary there after three automatic retries. Oros stays drained, and the leader has not advanced. Two blockers need someone at the machine: an expired Claude OAuth session (run `claude`, then `/login`) and `garden-secret-broker.service` failing after deploy. The same failure was logged on 11-07 through 11-10. Nearly all of the 128 todo jobs are `oros-health-checkup` jobs and `canary-probe` retries for Oros that nothing claims. The minion.town arc-press and completion-press jobs are also queued, and project pause refusals for them are still firing (occurrence #15154).
+Oros (`oros-studio-garden-ce242c49`) is still the main problem. Its rolling-deploy canary has now failed three times, so the roll is halted and the host stays drained. The leader therefore can't deploy. Oros's Claude login has expired and its secret broker fails after each deploy. Both need someone at the machine. The leader is still on `f2788117645`, so the EROFS fix hasn't reached it. Monk jobs that need a project checkout keep failing, and minion.town work is parked behind that. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
 
-The leader's deploy lag has a downstream cost. The leader still runs `f2788117645`, so monk jobs that need a project checkout keep dying with EROFS. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the leader's disk was at 0 to about 500 MiB free earlier and needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+minion.town is paused by maintainer directive. Press and canary jobs for it still sit in `todo`, and the pause watchdog has refused work 15,154 times. A supervisor also reported that production DNS for `minion.town` and `ocap.site` now points at an unexpected address. The change may or may not be intentional, so the maintainer should confirm.
 
-Several parked decisions are waiting on you:
-- The minion.town DNS repoint: the apex now resolves to `34.225.237.208` instead of `13.56.17.18`.
-- Minion.town settings simplification: run `deploy-accounts-store.sh` first, then say if you veto any of the four listed choices.
-- A possible Iron Horse test-infra job, based on the yavashark scholar ingest.
-- A leftover anonymous guest on production minion.town.
+Three smaller items:
+- The leader's disk was nearly full, briefly hitting 0 free.
+- Several daily-summary, dependabot-recheck and builder jobs were parked after retries ran out.
+- Journal contention notices mostly cleared. A fetch-slow storm on Oros is still open.
 
-The reaper parked several daily-summary, dependabotany and builder jobs in the plan queue after retries were exhausted. Journal-lock-contention notices largely recovered during the day. A fetch-slow storm on Oros and a few lock notices on the leader remain open.
-
-On the PR side, the 11-13 gauntlet for [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) halted. The ironhorse test262 ratchet round-3 floor resolution completed.
+The board shows no new claims or completions since the last bulletin. A halted gauntlet for endo-but-for-bots PR 1359 was recorded in `tada`. Claude quota use is 33% and Codex 20%.
 
 ## Maintainer review docket
 
@@ -498,7 +493,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.6M | $336.83 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 88.7M | $337.20 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149269882 tokens/day lower bound._
