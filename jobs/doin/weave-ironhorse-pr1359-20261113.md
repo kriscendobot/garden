@@ -25,3 +25,13 @@ Task:
 3. Preserve the 74 delivered gains and the committed baseline evidence under rust/engine/ironhorse-262/baseline/refresh-20260928/. After the rebase, report whether the covered set still contains the union of the historical floor and branch-point covered paths, and list any new regressions the move exposed (do not fix them here; the successor job ironhorse-test262-ratchet-round3-floor-resolution-20260928 repairs regressions).
 4. Do NOT merge. Nothing merges until the ratchet shows an improvement on the base.
 5. Report the new head sha and base ref in your completion report so the liaison can resume the ratchet delegation and promote the floor-resolution successor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-13T10:31:41Z
