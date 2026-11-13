@@ -1,19 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-13T10:44:57Z_
+_As of 2026-11-13T10:48:09Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is the main problem this cycle. It is still operator-held and has failed its rolling-deploy canary again, so the leader has not advanced. The failing signal is `garden-secret-broker.service`, plus an expired Claude OAuth session on the machine, and both need someone at the host. Canary-probe and `oros-health-checkup` jobs keep piling up unclaimed in todo. The minion.town arc supervisor reports that the stuck leader deploy leaves monk jobs needing a project checkout failing with a read-only-filesystem error (EROFS). It asks whether to revive Oros or authorize a leader deploy past the dead canary.
+Little moved on the board since the last bulletin. [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/weave-ironhorse-pr1359-20261113.md) completed, and the round-3 Ironhorse test262 ratchet floor-resolution job was promoted from the plan queue and is now being worked.
 
-Other items need a maintainer decision:
-- **minion.town DNS:** the supervisor found minion.town and ocap.site resolving to an unexpected address since about 13:14Z on 2026-11-10, with the production host healthy when pinned directly. It asks whether the repoint was intentional. The project pause is still being enforced, with a coalesced refusal notice at 7440 occurrences.
-- **Disk space:** the leader's garden filesystem briefly hit zero free space and needs hand reclamation.
-- **Reaper-parked jobs:** two daily progress summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off build, and a dependabotany recheck were parked after exhausting retries, awaiting a promote or removal.
-- **Liaison follow-ups:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge and a veto check. A stray guest is left on production, and the Iron Horse test-infra adoption question is open.
-- **Ironhorse ratchet:** it is halted on a wrong base.
+The main thing to notice is that the fleet is effectively running on the leader host alone. The follower `oros-studio-garden-ce242c49` is still held and drained. Its Claude login has expired, and `garden-secret-broker.service` keeps failing after each deploy. Every rolling-deploy canary against it has failed, and its queue of canary probes and health checkups is piling up unclaimed in `todo`. The leader therefore cannot roll forward past it. The minion.town arc supervisor has asked in the inbox whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the leader's disk was reported nearly full, down to about 176–500 MiB free, and needs manual reclaiming.
 
-Several journal-contention, comment-watcher and screening-tick watchdog notices cleared on their own. The recurring journal-lock contention notices persist at low p95. The only job in progress is the [Ironhorse #1359 weave](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ironhorse-pr1359-20261113.md), and no board transitions were resolved since the last bulletin.
+Several other items also need a maintainer decision:
+- **minion.town production DNS:** apex and `ocap.site` records now point to an unfamiliar address serving a static page. The real host is healthy, and no one has touched DNS.
+- **minion.town pause:** the project pause is still enforced, refusing arc-press jobs on a loop.
+- **Ironhorse ratchet:** it is halted on a wrong-base error.
+- **Parked jobs:** several daily-summary, builder and dependabotany jobs are held in `plan/` after the reaper exhausted its retries.
+
+Journal-lock contention and screening-tick alerts cleared during the window.
 
 ## Maintainer review docket
 
@@ -462,10 +463,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.4M | $231.90 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 61.9M | $232.57 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148865979 tokens/day lower bound._
+_Fleet token-unlock pace: 148278612 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 12 open notice(s); checker healthy
@@ -588,15 +589,15 @@ worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
 ### doin (1)
-- [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ironhorse-pr1359-20261113.md) — Weave Ironhorse ratchet crank PR #1359 onto the live llm base
+- [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) — Complete the round-3 Ironhorse historical-floor ratchet
 
-### tada (17045)
+### tada (17046)
+- [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/weave-ironhorse-pr1359-20261113.md) — Cost
 - [`improve-secret-watchdog-missing-outbound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/improve-secret-watchdog-missing-outbound.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — Cost
 - [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Completion report
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Report: scholar-ingest-meta-harnesses-codefall-ycc-20261029 (continuation → h...
-- [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — Cost
-- … and 17040 more
+- … and 17041 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -748,7 +749,6 @@ worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### awaiting maintainer decision (answer at the linked question)
 - [`minion-town-claude-cli-production-canary-after-connection-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-cli-production-canary-after-connection-20261004.md) - [Connect the real Claude subscription through the stable account page and reply connected; no setup token may be sent through the journal.](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-224cae8c9188.md)
 - [`endo-cli-no-autostart-exit-codes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cli-no-autostart-exit-codes-build.md) - [Design OQ1/OQ3: should the CLI default to no-autostart under a service manager, and are the proposed exit codes acceptable?](https://github.com/endojs/endo-but-for-bots/pull/1383)
-- [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) - [Reconcile the historical floor with current verdict/resource policy, or restore all 901 genuinely under unchanged pins and policy?](https://github.com/kriscendobot/garden/issues/51#issuecomment-5877917421)
 - [`build-ironhorse-in-crank-safepoint-collection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-ironhorse-in-crank-safepoint-collection.md) - [Agree to amend ironhorse-quiescent-gc to admit a native-depth-zero dispatch safepoint collection inside a crank (design #1622, open question 1), or wait for ropes?](https://github.com/endojs/endo-but-for-bots/pull/1622)
 - [`api-key-agents-canary-and-retirement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/api-key-agents-canary-and-retirement.md) - [After phases 1-5 land behind apiKeyGuestAgents: may the bot run the production canary (phase 6) with the minion/claude-api-canary-key, and what are the answers to the parent design's open questions (Agent SDK retention as @endo/claude vs renamed plugin; legacy migration window; bulk delegated-subtree provider attachment; garden inference sourcing; deprecation interval before deleting @endo/agent-mcp-stdio and CLI exports)? These gate migration (phase 7) and retirement steps 5-9.](https://github.com/endojs/endo-but-for-bots/pull/1543#pullrequestreview-5761476590)
 - [`resolve-endo-pr1349-depcheck-ci-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resolve-endo-pr1349-depcheck-ci-20261028.md) - [Should endojs/endo-but-for-bots#1349 accept the known dependency-check failure for ferry purposes, or should endojs/endo-but-for-bots#1582 land into the frozen base first?](https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6479686667)
