@@ -69,3 +69,13 @@ Diagnostic notes:
 - **Real-data results:** pin(refresh-20260904) vs branch-point llm@47f6965d88 => `incompatible` (new `case-timeout=60` run param, new `refused` category, all 4 classifier sources changed); the 906 losses appear only as informational_diff. pin(branch-point report) vs round-3 head `9df05366b3` => `pass`, +74 gained, 0 lost.
 - **Reconciled floor (only if the maintainer authorizes it):** `ironhorse-test262-ratchet-gate.sh pin --from-report <branch-point report.json> --supersedes <old pin> --note "<maintainer decision>"` records every dropped historical path and its new disposition in `pin.json`.
 - The gate does not decide which pin is enforced; the delegation/config must name the pin dir (committing it alongside `baseline/refresh-<date>/` is natural). After the retarget to current `llm` (prior annotation), re-pin/re-check against the retargeted head: a changed classifier source returns `incompatible` and needs a maintainer re-pin.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-13T10:47:24Z
