@@ -1,20 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T03:57:50Z_
+_As of 2026-11-13T04:03:53Z_
 
 ## Latest
 
-Little moved on the board: no job transitions resolved since the last bulletin, though the journal shows a few completions on 2026-11-13 (a secret-watchdog improvement and a dependabotany recheck for endo-but-for-bots). The fleet is largely stalled on two blockers.
+No board transitions resolved since the last bulletin, so the news is in the maintainer inbox, and several items need a decision.
 
-**Oros is still down.** The oros-studio-garden-ce242c49 follower is operator-held. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Canary probes keep failing, so about 14 health-checkup jobs and many canary probes sit unclaimed in `todo`. Because the rolling deploy rolls followers first as canaries, the leader (endolin-garden-ece02cb4) is stuck on f2788117645 and cannot receive the EROFS fix. The minion.town arc supervisor is asking you to choose between reviving Oros and authorizing a leader deploy past the dead canary. Both need someone at the machine or your authorization.
+**Oros is stuck and blocking the leader deploy.** The rolling deploy canaries followers first. [Oros](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261111-205010-04ba7ec6ee39.md) moved to `18fc7b17375`, failed the canary again, and stays drained. It has two blockers that need someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Canary probes for several commits are queued unclaimed in todo, and the leader can't deploy while the canary is dead. The [minion.town arc supervisor](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9.md) is waiting on a choice: revive Oros, or authorize deploying the leader past the dead canary. Until the leader deploys, the project-worktree EROFS fix can't reach it, and monk jobs needing a checkout keep dying.
 
-**minion.town is paused and may be offline.** The project-pause watchdog has refused a claimable minion-town job 973 times, which suggests a stale host is still posting for it. Separately, an arc supervisor reports that production DNS for `minion.town` and `ocap.site` was repointed to `34.225.237.208` around 13:14Z on 2026-11-10. That address serves a static page and 404s every app route. The real host at `13.56.17.18` is healthy, and the prod probe ([kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)) has been red since. The supervisor wants to know whether you made that change on purpose or whether it needs a Route53 history check.
+**minion.town is also paused.** The pause watchdog has now refused queued minion.town arc-press jobs 973 times. Separately, an earlier arc-press message reports production DNS for `minion.town` and `ocap.site` repointed on 2026-11-10 to an unfamiliar address. It asks whether the change was yours, and if not, treats it as a possible zone compromise. The [DNS message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261110-163511-75a23ad64b38.md) is still unanswered.
 
-**Disk is nearly full on the leader.** The `/home/kris/garden` filesystem is down to roughly 176–500 MiB free and briefly hit zero, which caused a write failure. The detector that would page on this is not deployed yet, so the space needs reclaiming by hand.
+**Disk space is critically low on the leader.** The leader's filesystem is down to roughly 176-500 MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/`, and `worktrees/`.
 
-Several journal-lock contention notices cleared overnight (reducer, worktree-sweeper and bulletin). Others remain open, including the unblock lock (7th occurrence) and the gardener-scaler. Two scheduled daily-progress-summary jobs and the daemon-agent-tools phase 8 build are parked after the reaper exhausted their retries. They need splitting or a promote decision.
+**Cleared:** the journal lock-contention conditions for the reducer, worktree sweeper, and bulletin have recovered. The unblock-journal condition is still open, on its 7th occurrence.
+
+**Completed:** `improve-secret-watchdog-missing-outbound` and a dependabotany recheck for endo-but-for-bots finished.
+
+Several split-eligible jobs remain parked by the reaper, including two daily progress summaries, the dependabotany recheck, the Phase 8 fetch-plugin build, and the Oros bwrap hand-off. Each awaits a promote or removal.
 
 ## Maintainer review docket
 
@@ -399,10 +401,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.0M | $170.49 _(notional, rate-card)_ | 17% of 271.0M (ok) |
-| Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 46.3M | $171.51 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Codex | 378.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147316222 tokens/day lower bound._
+_Fleet token-unlock pace: 147411156 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.303494s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
