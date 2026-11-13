@@ -1,24 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T09:03:48Z_
+_As of 2026-11-13T09:08:27Z_
 
 ## Latest
 
-The board's file-level transitions didn't resolve this round, but the maintainer messages show that two pieces of infrastructure need attention.
+Most of the board is stalled on two fronts. The board shows no completions or claims since the last bulletin, and no job transitions were resolved.
 
-**Oros is still held out.** The rolling deploy keeps failing its canary there. The failures are a `garden-secret-broker.service` that fails after deploy and an expired Claude OAuth session. Oros stays drained, and its canary probes and `oros-health-checkup` jobs are piling up unclaimed in todo. This also blocks the leader, which is still on `f2788117645`. The EROFS fix cannot reach the leader until Oros is revived or you authorize deploying it past the dead canary. The minion.town arc supervisor has asked for that decision.
+**Oros is still operator-held.** The rolling deploy halted on a failed canary for the third time on `oros-studio-garden-ce242c49`, because `garden-secret-broker.service` fails after deploy. The Claude OAuth session there has also expired, and both blockers need someone at the machine. The leader is therefore stuck on `f2788117645`. The EROFS fix cannot reach it, and every monk job that needs a project checkout dies. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
 
-**minion.town is paused, and its DNS looks wrong.** The pause watchdog has now counted 6175 refusals, including the latest press job. A 2026-11-10 arc-press message says production DNS for `minion.town` and `ocap.site` now points at `34.225.237.208`, not the documented host at `13.56.17.18`. It asks you to say whether the repoint was deliberate. If it wasn't, it may be a zone compromise.
+**minion.town is under a development pause.** The watchdog has counted more than 6,000 refusals of arc-press jobs.
 
-**Other items to look at:**
-- The leader's `/home/kris/garden` filesystem was reported at under 500 MiB free and briefly hit 0.
-- Four split-eligible jobs were parked after retry exhaustion, including two daily progress summaries and a `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` build.
-- The minion.town settings-simplification report needs `deploy-accounts-store.sh` run before merge.
-- The Iron Horse ratchet is halted on a wrong base.
+**minion.town production DNS may have been repointed on 2026-11-10.** `minion.town` and `ocap.site` now resolve to an unexpected address that serves a static page, and several subdomains no longer resolve. The documented host is still healthy. Nobody on the garden host has AWS credentials to check, so confirming whether the change was intentional needs the maintainer.
 
-Several journal-contention and screening watchdog conditions cleared overnight, and nothing further is needed on those.
+**Disk space.** The leader's garden filesystem briefly hit zero free space, and it needs reclaiming by hand.
+
+**Contention alerts.** Journal-contention and comment-watcher alerts raised overnight have cleared on their own.
+
+**Other maintainer decisions:**
+- Several reaper-parked daily-summary, build and recheck jobs are held for promotion.
+- The minion.town settings report needs a `deploy-accounts-store.sh` run and vetoes on four choices.
+- The yavashark scholar ingest asks whether to post an Iron Horse test-infra job.
+- The Iron Horse ratchet is halted on the wrong base.
 
 ## Maintainer review docket
 
@@ -463,7 +465,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.7M | $215.76 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 57.8M | $216.11 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148564984 tokens/day lower bound._
