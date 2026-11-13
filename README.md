@@ -1,19 +1,26 @@
 # Garden bulletin
 
-_As of 2026-11-13T06:37:19Z_
+_As of 2026-11-13T06:42:18Z_
 
 ## Latest
 
-Nothing completed in this window (no board transitions resolved), so the picture is mostly blockage rather than motion.
+No job transitions were recorded since the last bulletin. The board shows two completions on 2026-11-13: `improve-secret-watchdog-missing-outbound` and the endo-but-for-bots dependabotany recheck.
 
-The main issue is the **Oros host** (`oros-studio-garden-ce242c49`), which is still drained and operator-held. It has failed the rolling-deploy canary repeatedly, with `garden-secret-broker.service` failing after deploy and an expired Claude OAuth session. Because the leader's roll is gated on that canary, the leader (`endolin-garden-ece02cb4`) is still on an older commit. The EROFS fix therefore hasn't reached it, which is why monk jobs needing a project checkout die and the minion.town arc work stays parked. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Fourteen or more `oros-health-checkup` jobs and many canary-probe retries are piling up unclaimed in todo.
+**Oros is the main blocker.** `oros-studio-garden-ce242c49` failed the rolling-deploy canary again after rolling to `18fc7b17375`, with `garden-secret-broker.service` failing after deploy. It is still drained and needs an operator at the machine. Its Claude OAuth session has also expired. With no deploy canary passing, the leader is stuck on `f2788117645`. The EROFS fix cannot reach it, and the minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Canary-probe and health-checkup jobs keep piling up in `todo`.
 
-Other items to notice:
-- **minion.town** is under a maintainer pause, and the watchdog has now refused queued press jobs more than 5,000 times, which suggests a stale host or producer still posting them. Separately, a 2026-11-10 message reports production DNS pointing at an unexpected address, and it is still awaiting an answer on whether that change was intentional.
-- **Disk pressure** on the leader: the filesystem was down to a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
-- **GitHub API rate limit**: a shared cooldown has held 17 comment-watcher sources and the minion.town screener for about an hour.
-- **Journal lock contention**: a storm alert fired across six clones. Several older contention notices have recovered.
-- **Parked jobs**: several scheduled daily-summary, build and dependabot-recheck jobs sit in the plan queue after exhausting their retries, awaiting your go-ahead.
+**Other items that need a maintainer:**
+- **Disk space on the leader host:** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS:** production went dark on 2026-11-10 because DNS for `minion.town` and `ocap.site` now points at an unexpected address. It is unconfirmed whether that repoint was intentional, and it could be a zone compromise. This needs your answer.
+- **minion.town pause:** development on minion.town is paused. The watchdog has refused its arc-press jobs 5,224 times, which suggests a stale host or producer is still posting them.
+- **GitHub API cooldown:** a shared cooldown latch has held 17 comment-watcher sources for nearly an hour, and the minion.town screening ticks are deferred behind it. Watcher acknowledgments are delayed until the primary rate limit resets.
+- **Journal lock contention:** a storm of lock contention hit six clones on the leader. Several older contention conditions cleared.
+
+Other maintainer decisions are in the inbox:
+- Whether to run `deploy-accounts-store.sh` and veto any of four listed choices in the minion.town settings simplification.
+- Whether to post an Iron Horse test-infra job from the yavashark ingest.
+- The leftover anonymous guest on production minion.town.
+- The halted Ironhorse ratchet.
+- Several reaper-parked jobs that need a promote-or-drop call: two daily progress summaries, the dependabotany recheck, the Oros bwrap hand-off, and the daemon agent-tools phase 8 build.
 
 ## Maintainer review docket
 
@@ -466,7 +473,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.024025s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-13T01:21:58Z, cleared 2026-11-13T06:41:55Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
 
 - `ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712` — from ironhorse-test262-ratchet, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712.md)
 
@@ -481,7 +492,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.5M | $195.76 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 52.6M | $196.12 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 378.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148046765 tokens/day lower bound._
