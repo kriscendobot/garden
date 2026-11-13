@@ -1,27 +1,35 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T22:57:24Z_
+_As of 2026-11-13T23:01:09Z_
 
 ## Latest
 
-Gauntlet [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) halted and moved to `tada`. That was the only job transition this cycle.
+Minion.town development is paused and its production domain looks wrong. The leader, `endolin-garden-ece02cb4`, is stuck on an old deploy, and Oros is held out of the rolling deploy.
 
-The fleet is mostly stuck on three things:
+**Needs a decision**
+- A watchdog has coalesced a pause-enforcement notice, now past 14,000 occurrences. It counts claim attempts on minion.town arc-press jobs, which the pause refuses.
+- A gardener reported on 2026-11-10 that `minion.town` and `ocap.site` DNS now point at an unexpected address, `34.225.237.208`. It serves a static page, and every app route returns 404. The documented host, `13.56.17.18`, is healthy when addressed directly. The gardener asks whether the change was intentional. If it wasn't, a possible zone compromise needs a credentialed host and a check of the Route53 history. That message is still unanswered.
+- The leader's deploy is blocked behind Oros, the canary follower. The EROFS fix is on `main2`, but the leader hasn't received it because the canary must pass first. Oros has two blockers that need someone at the machine:
+  - Its Claude login has expired and needs `/login`.
+  - `garden-secret-broker` fails after each deploy.
 
-- **Oros is still held.** Its rolling-deploy canary failed again at 18fc7b17375, and it needs someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The canary-failure notice has since cleared, but Oros still stands drained. Because the leader deploys only after followers pass as canaries, this blocks the leader's EROFS fix. Until that deploy lands, monk jobs that need a project checkout fail. The arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
-- **The leader's disk is nearly full.** The leader host had roughly 176–500 MiB free and briefly hit zero. It needs a manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
-- **The minion.town project pause is still being tripped.** The watchdog has counted over 14,000 refusals of the same arc-press job. A host running an older garden may be producing them.
+  The canary-failure alert has cleared after a retry, but Oros remains drained and Oros probe jobs are piling up in `todo`.
 
-The maintainer inbox has several unresolved items:
+**Other items**
+- The leader's disk was nearly full, with a few hundred MiB free and a brief ENOSPC. Space has to be reclaimed by hand.
+- Several reaper-parked jobs sit on the plan queue awaiting promotion. They include:
+  - the daily progress summaries for 11-05 and 11-06;
+  - the endo-but-for-bots dependabotany recheck;
+  - the daemon-agent-tools phase 8 build;
+  - the Oros bwrap hand-off build.
+- The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+- The scholar-ingest report of yavashark's test infrastructure asks whether to post an Iron Horse test-infra job.
+- The live-probe report left one anonymous guest on production minion.town, which needs a decision.
 
-- minion.town production DNS was repointed to an unfamiliar address around 13:14Z on 2026-11-10. The arc supervisor asks whether that was intentional or a possible zone compromise.
-- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging and to veto-check four listed choices.
-- A scholar-ingest report asks whether to post an Iron Horse test-infra job.
-- Several scheduled and build jobs, including two daily progress summaries, were parked after their retry was exhausted. They are waiting on promotion or removal.
+**Recovered**
+Most journal-lock-contention and screening-tick alerts cleared. Some are still open on both hosts, including fetch-slow warnings on Oros.
 
-Journal-contention watchdog notices have mostly recovered. Active ones remain on the leader for the unblock, review-docket and screening clones, and fetch-slow notices remain on Oros.
+The board shows no file-level transitions since the last bulletin. The gauntlet job for [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) halted, and a round-3 floor-resolution job for the IronHorse test262 ratchet completed.
 
 ## Maintainer review docket
 
@@ -485,7 +493,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.3M | $323.93 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Claude | 85.7M | $325.77 _(notional, rate-card)_ | 32% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149020062 tokens/day lower bound._
