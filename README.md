@@ -1,22 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T16:54:46Z_
+_As of 2026-11-13T16:59:14Z_
 
 ## Latest
 
-Quiet on the board: the only transition was the Ironhorse test262 ratchet's round-3 floor-resolution job, which moved from the plan queue to `doin` (claimed). It is the successor, post-weave, to the earlier floor-resolution job that completed today.
+Little moved on the board in this window: one completion, the dead-mail issue-comment follow-up `deadmail-issue-comment-6859154429`, moved from doin to tada. No new posts or claims. The only job in progress is the Ironhorse round-3 floor-resolution successor, `ironhorse-test262-ratchet-round3-floor-resolution-20261113`. Its predecessor, `ironhorse-test262-ratchet-round3-floor-resolution-20260928`, finished earlier today, as did `weave-ironhorse-pr1359-20261113`.
 
-Items that need a maintainer's attention:
+What a maintainer should notice:
 
-- **Oros is still held.** The roll moved `oros-studio-garden-ce242c49` to `18fc7b17375` and it failed the canary again, with retries exhausted at 19:29Z. It stays drained because of two problems that need someone at the machine. The Claude OAuth session has expired (run `claude`, then `/login`). `garden-secret-broker.service` also fails after each deploy, as it has since 11-07.
-- **The leader is stuck behind that canary.** The leader still runs `f2788117645`. The EROFS fix cannot reach it until Oros is revived or you authorize deploying the leader past the dead canary. Minion.town project work is parked on this, but the pause on minion.town is also being enforced, and the watchdog has now logged that refusal about 11,900 times.
-- **minion.town production DNS.** Earlier in the week the supervisor reported that `minion.town` and `ocap.site` resolve to an unfamiliar us-east-1 address serving a static page, not the documented host `13.56.17.18`. It needs you to say whether the change was intentional, or to restore the records and check the Route53 history.
-- **Disk space.** The leader's garden filesystem has been down to about 176–500 MiB free and briefly hit 0. It needs manual reclamation under `.garden-state`, `scratch/` and `worktrees/`.
-- **Decisions.** Minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, and the four listed choices are yours to veto. A leftover anonymous guest on production is yours to keep or remove. The yavashark test-infra adoption is yours to approve or decline.
-
-The journal-lock-contention and screening-tick watchdog conditions mostly cleared on their own (bulletin and Oros scaler contention are still open). Several daily-summary, Phase 8 fetch-plugin, and Oros bwrap hand-off jobs were reaped and parked in the plan queue awaiting promotion.
+- **Oros is still operator-held.** The roll moved it to `18fc7b17375` and it failed the canary again. Retries ran out at 19:29Z and it stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy.
+- **The leader can't advance past the dead canary.** The leader is still on `f2788117645`, so the EROFS fix hasn't reached it. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
+- **The board is backed up with Oros jobs.** The todo queue holds many unclaimed `oros-health-checkup` jobs and `canary-probe` retries for Oros.
+- **minion.town is paused.** The watchdog has logged the pause as enforced almost 12,000 times, still refusing a minion.town arc-press job.
+- **The minion.town DNS question is unanswered.** Production DNS appears to have been repointed on 2026-11-10 to an unrelated address. The arc supervisor is asking whether that was deliberate, and it is not mine to resolve.
+- **Disk is nearly full on the leader.** `/home/kris/garden` has only hundreds of MiB free, and it briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **The `minion.town` settings-simplification report needs your action.** Run `deploy-accounts-store.sh` before merging. Until you do, Log out stays hidden and account deletion answers 503 without deleting anything.
+- **Several journal-lock-contention and screening watchdog conditions cleared** on the leader.
+- **Daily progress summaries for 11-05 and 11-06, a Phase 8 builder job, and a dependabot recheck are parked** after exhausting requeues.
 
 ## Maintainer review docket
 
@@ -473,13 +473,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.8M | $287.00 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 76.2M | $287.88 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149349985 tokens/day lower bound._
+_Fleet token-unlock pace: 148914820 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.347844s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
+worst fetch p95 3.786219s/45s (/home/kris/garden/.garden-state/comment-watcher/verify); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (119)
@@ -603,17 +603,16 @@ worst fetch p95 9.347844s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (2)
-- [`deadmail-issue-comment-6859154429`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6859154429.md) — Issue follow-up — fold a late comment into the issue work
+### doin (1)
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Resolve the Ironhorse round-3 historical floor (successor, post-weave)
 
-### tada (17048)
+### tada (17049)
+- [`deadmail-issue-comment-6859154429`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-issue-comment-6859154429.md) — Cost
 - [`deadmail-20261113T105203Z-9ca48b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T105203Z-9ca48b.md) — Cost
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) — Cost
 - [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/weave-ironhorse-pr1359-20261113.md) — Cost
 - [`improve-secret-watchdog-missing-outbound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/improve-secret-watchdog-missing-outbound.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — Cost
-- … and 17043 more
+- … and 17044 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
