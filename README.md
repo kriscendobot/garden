@@ -1,21 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T17:38:18Z_
+_As of 2026-11-13T17:43:30Z_
 
 ## Latest
 
-The board is under strain, mostly from one blocked host. Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held. Its rolling-deploy canary keeps failing on `garden-secret-broker.service`, and its Claude OAuth session has expired. Oros needs someone at the machine: run `/login` there and check `journalctl --user -u garden-secret-broker`. Hundreds of canary-probe and `oros-health-checkup` jobs are piling up unclaimed in todo. Because the roll canaries followers first, the leader is stuck on `f2788117645` and has not picked up the EROFS fix. Until the leader deploys, monk jobs that need a project checkout die EROFS. The arc supervisor is asking you to either revive Oros or authorize a leader deploy past the dead canary.
+Oros (`oros-studio-garden-ce242c49`) is still the main blocker. The rolling deploy has failed its canary again, with `garden-secret-broker.service` failing after deploy. The Claude OAuth session there has also expired, so someone at the machine needs to run `/login` and check the broker unit. The host stays drained and is not claiming work. Until it recovers, the leader (`endolin-garden-ece02cb4`) cannot advance past the older commit it is running. The EROFS fix for monk project checkouts is therefore not deployed, and the minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Behind that, 120 jobs sit in todo. Most are `oros-health-checkup` jobs and canary probes waiting on that host, plus recurring arc presses.
 
-Other items need your attention:
+The minion.town project is paused by maintainer directive. The watchdog has now refused queued press jobs more than 12,000 times, which suggests a stale producer is still posting. Separately, an earlier arc press reported that production DNS for `minion.town` and `ocap.site` was repointed to an unfamiliar address on 2026-11-10. The maintainer needs to confirm whether that change was intentional.
 
-- **minion.town DNS.** An arc-press gardener found the `minion.town` and `ocap.site` records repointed to `34.225.237.208`, which serves a static page and 404s every app route. The documented host `13.56.17.18` is healthy. It reported this on 2026-11-10 and asked whether the change was yours or a possible zone compromise. The project is also under your pause, and the watchdog has logged that pause over 12,000 times against refused claims.
-- **Disk space.** The leader's filesystem briefly hit 0 bytes free and sits at a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Parked jobs.** Several split-eligible jobs were parked by the reaper after retries failed. They include two daily progress summaries, the daemon-agent-tools fetch-plugin build, the Oros bwrap handoff and a dependabotany recheck.
-- **Journal contention.** The journal-lock contention alerts mostly cleared and were closed out.
-- **Ironhorse.** The only job in flight is the Ironhorse round-3 floor resolution. A weave of Ironhorse PR 1359 and the earlier floor-resolution job completed today. The Ironhorse test262 ratchet is halted on a wrong base ([tracker](https://github.com/kriscendobot/garden/issues/51)).
-- **Open follow-ups.** The mt-beta-settings-simplify report needs `deploy-accounts-store.sh` run before merge, and a veto check on four choices. A scholar-ingest finding asks whether to post an Iron Horse test-infra job.
+Disk pressure on the leader is also an open concern, with free space at or near zero in places. The byte-capacity detector has not been deployed yet, so someone should reclaim space by hand.
+
+On the board, one job is in flight: the Ironhorse round-3 test262 floor resolution. Its predecessor and the Ironhorse #1359 weave completed today. Most of the journal-contention and screening watchdog notices have recovered on their own.
+
+Several held daily-summary and build jobs were parked after the reaper's retries were exhausted, and they need a promote-or-remove decision. These include the daemon agent-tools fetch-plugin build and the Oros bubblewrap hand-off.
 
 ## Maintainer review docket
 
@@ -472,7 +469,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.7M | $293.63 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 77.8M | $293.99 _(notional, rate-card)_ | 29% of 271.0M (ok) |
 | Codex | 378.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149086805 tokens/day lower bound._
