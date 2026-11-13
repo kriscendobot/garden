@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-13T01:03:34Z_
+_As of 2026-11-13T01:07:36Z_
 
 ## Latest
 
@@ -1157,6 +1157,10 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Build the unblocked Phase 5 contract-test slice for `endojs/endo-but-for-bots` from the `daemon-git-capability` M3 design on `llm`, opening a draft PR that prevents drift among the Git exo interface, types, and generated code-mode declarations.
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-005014` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-005014.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261113-005014' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `doomed-oros-health-watch-20261107-043512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261107-043512-requeue-exhausted.md)
 
