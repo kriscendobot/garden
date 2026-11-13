@@ -1,22 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T11:14:57Z_
+_As of 2026-11-13T11:19:31Z_
 
 ## Latest
 
-Quiet window on the board: the only transition was a dead-letter pickup job, `deadmail-20261113T105203Z-9ca48b`, claimed into doin. Nothing was newly posted or completed.
+Almost nothing moved on the board this cycle. The only transition was the completion of the dead-mail job `deadmail-20261113T105203Z-9ca48b`; no new jobs were posted or claimed.
 
-The urgent item is the Oros Studio host (`oros-studio-garden-ce242c49`). It is still drained and operator-held after failing another rolling-deploy canary at 18fc7b17375, with `garden-secret-broker.service` failing and an expired Claude OAuth session. It needs someone at the machine: `claude` then `/login`, and `journalctl --user -u garden-secret-broker`. The failed canary also keeps the leader from advancing. Per the arc supervisor's message, the leader still lacks the EROFS fix, so minion.town PR work stays parked until you either revive Oros or authorize a leader deploy past the dead canary.
+Two blockers hold the fleet.
 
-Other maintainer decisions pending:
-- **Possible minion.town DNS problem:** a 2026-11-10 message reports that `minion.town` and `ocap.site` now resolve to an unfamiliar Amazon address serving a static page, while the real host is healthy. Confirm whether the change was intentional. If not, treat it as a possible zone compromise.
-- **Disk space:** the leader's filesystem was reported down to about 176–500 MiB free, briefly 0, so space needs reclaiming by hand.
-- **Minion.town beta settings:** run `deploy-accounts-store.sh` before merging the settings simplification, and tell the liaison if you object to any of its four listed choices.
-- **Ironhorse ratchet:** it is halted on a wrong base ([tracker issue #51](https://github.com/kriscendobot/garden/issues/51)), and the floor re-pin question (A or B) is awaiting your answer there.
+- **Oros host.** `oros-studio-garden-ce242c49` is still operator-held. Its canary retries are exhausted, and its health-check and canary-probe jobs keep piling up in todo. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both need someone at the machine. Meanwhile the leader is still waiting on the rolling deploy, because the canary has to pass first.
+- **minion.town.** The project pause is still being enforced, and the watchdog count for refused jobs is above 7,400. Separately, an earlier arc-press note reports that production went dark on 2026-11-10. It says the DNS apex now points at an unrelated address instead of the documented host. It asks whether the repoint was deliberate. If it wasn't, it could be a zone compromise, and it needs someone with AWS credentials.
 
-Several watchdog conditions (journal contention, comment-watcher cooldown, minion.town screening) recovered overnight. Journal lock-contention notices on this host keep recurring at low severity. The minion.town project pause is still being enforced, with the same refused job re-reported thousands of times.
+Smaller items:
+
+- The leader's filesystem was reported nearly full and briefly hit zero free space. It needs manual reclamation.
+- Journal contention notices keep recurring, but several cleared overnight.
+- A set of stale daily-summary and build jobs are parked in the plan queue after exhausting their retries.
+
+The messages awaiting a decision are:
+
+- the minion.town settings deploy-order and veto check;
+- the Ironhorse ratchet halt, which stopped on a wrong base;
+- the yavashark test-infrastructure question.
 
 ## Maintainer review docket
 
@@ -465,10 +470,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.4M | $238.37 _(notional, rate-card)_ | 23% of 271.0M (ok) |
-| Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 63.7M | $239.80 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148380421 tokens/day lower bound._
+_Fleet token-unlock pace: 148442981 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 45.000899s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 12 open notice(s); checker healthy
@@ -591,16 +596,16 @@ worst fetch p95 45.000899s/45s (/home/kris/garden/.garden-state/ratchet-control/
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
-- [`deadmail-20261113T105203Z-9ca48b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261113T105203Z-9ca48b.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (17047)
+### tada (17048)
+- [`deadmail-20261113T105203Z-9ca48b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T105203Z-9ca48b.md) — Cost
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) — Cost
 - [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/weave-ironhorse-pr1359-20261113.md) — Cost
 - [`improve-secret-watchdog-missing-outbound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/improve-secret-watchdog-missing-outbound.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — Cost
-- [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Completion report
-- … and 17042 more
+- … and 17043 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
