@@ -1,11 +1,10 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Re-pin the Ironhorse floor to a fresh llm measurement (A) or keep refresh-20260904 and repair the 882 losses (B)?'
-asked_at: https://github.com/kriscendobot/garden/issues/51#issuecomment-6850754867
-priority: high
-posted_by: producer
+role: builder
+tier: mentor
 posted_at: 2026-11-13T10:52:54Z
+handler-timeout: 14339
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=high maintainer=true at=2026-11-13T16:53:26Z cleared=none -->
 
 ---
 tier: mentor
