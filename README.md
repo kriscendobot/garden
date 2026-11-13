@@ -1,21 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-13T06:17:26Z_
+_As of 2026-11-13T06:21:53Z_
 
 ## Latest
 
-The board is idle for new transitions: no job posts, claims or completions resolved since the last bulletin, and `jobs/doin` is empty. Two jobs did finish on 2026-11-12/13 (`improve-secret-watchdog-missing-outbound` and a `dependabotany-recheck` for endo-but-for-bots), but the input doesn't say what they changed.
+Oros (`oros-studio-garden-ce242c49`) is the main blocker. It failed the rolling-deploy canary again after moving to `18fc7b17375`, stayed drained, and the roll halted after three retries. The failing unit is `garden-secret-broker.service`, and the Claude OAuth session there has also expired. Both fixes need someone at the machine. Because the leader's deploy waits behind this canary, the EROFS fix is stuck on the leader (still at `f2788117645`). That in turn leaves minion.town PR work parked, and the arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
 
-Items that need a maintainer decision:
+Separately, minion.town production went dark on 2026-11-10 because DNS for `minion.town` and `ocap.site` now points at an unrelated address. The Route53 change history needs a credentialed check, and the maintainer needs to say whether the repoint was intended. The project pause is still being enforced. The latest refused job is `minion-town-arc-press-20261112-000509`, and the watchdog has now counted 2512 refusals.
 
-- **Oros is still held out of the fleet.** `oros-studio-garden-ce242c49` failed its canary again on `garden-secret-broker.service` after retries ran out, and it stays drained. Its Claude OAuth session has also expired. Someone has to run `claude` then `/login` at that machine and check the broker with `journalctl --user -u garden-secret-broker`. The failed canary is also blocking the leader deploy. Until it lands, monk jobs that need a project checkout die with a read-only filesystem error (EROFS), and the minion.town arc supervisor has asked whether to revive Oros or authorize deploying the leader past the dead canary.
-- **minion.town is paused, and production looks unreachable.** The project pause is still being enforced; the watchdog counted its 2,512th refusal of a minion.town arc-press job. A separate arc-press message reports that production DNS was repointed on 2026-11-10 to an address that isn't the documented host. The maintainer was asked whether they did it, and whether the A records should be restored.
-- **The leader host's disk is nearly full.** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero. The space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **GitHub API rate limiting is the current drag.** A shared cooldown latch has held 17 comment watchers silent for more than 35 minutes. The minion.town screener has also failed three consecutive ticks on the same latch. It refused to bypass any gate.
+Other items to notice:
+- **Disk:** the leader host's garden filesystem hit 0 bytes free during one job and sits at a few hundred MiB, so space needs reclaiming by hand.
+- **GitHub rate limit:** the shared API cooldown latch has held the comment watchers on 17 sources, and minion.town screening has missed three consecutive ticks.
+- **Parked jobs:** three jobs are held after exhausting their retries, including two daily progress summaries.
+- **Journal lock contention:** several notices cleared on their own.
 
-Journal lock contention is mostly recovering: several notices cleared overnight and others are still open. A new contention storm cleared within about 25 minutes.
-
-Several split-eligible jobs remain parked in `jobs/plan/` awaiting a go-ahead after the reaper exhausted their retries: two daily progress summaries, the daemon agent tools Phase 8 fetch-plugin build, the Oros bwrap hand-off, and the dependabotany recheck.
+The board shows no file-level transitions since the last bulletin.
 
 ## Maintainer review docket
 
@@ -273,30 +272,30 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-11-13T06:01:28Z, latest 2026-11-13T06:16:31Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-11-13T06:01:28Z, latest 2026-11-13T06:21:29Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1794551981 set-by=dependabot:kriscendobot-garden:source <- pages:kriscendobot/garden:net
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2136s (since 2026-11-13T05:40:54Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2148s (since 2026-11-13T05:40:42Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2208s (since 2026-11-13T05:39:42Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2185s (since 2026-11-13T05:40:05Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2197s (since 2026-11-13T05:39:53Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2209s (since 2026-11-13T05:39:41Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2125s (since 2026-11-13T05:41:05Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2209s (since 2026-11-13T05:39:41Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2209s (since 2026-11-13T05:39:41Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2172s (since 2026-11-13T05:40:18Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2189s (since 2026-11-13T05:40:01Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2180s (since 2026-11-13T05:40:10Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2178s (since 2026-11-13T05:40:12Z)
-> watcher ticking but cooldown for 2206s (since 2026-11-13T05:39:44Z); detail: rest latch set-by=dependabot:kriscendobot-garden:source <- pages:kriscendobot/garden:net expiry=1794551981
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2185s (since 2026-11-13T05:40:05Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2129s (since 2026-11-13T05:41:01Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2150s (since 2026-11-13T05:40:40Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2209s (since 2026-11-13T05:39:41Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2435s (since 2026-11-13T05:40:54Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2447s (since 2026-11-13T05:40:42Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2507s (since 2026-11-13T05:39:42Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 2484s (since 2026-11-13T05:40:05Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2496s (since 2026-11-13T05:39:53Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2508s (since 2026-11-13T05:39:41Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2424s (since 2026-11-13T05:41:05Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2508s (since 2026-11-13T05:39:41Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2508s (since 2026-11-13T05:39:41Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2471s (since 2026-11-13T05:40:18Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2488s (since 2026-11-13T05:40:01Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2479s (since 2026-11-13T05:40:10Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2477s (since 2026-11-13T05:40:12Z)
+> watcher ticking but cooldown for 2505s (since 2026-11-13T05:39:44Z); detail: rest latch set-by=dependabot:kriscendobot-garden:source <- pages:kriscendobot/garden:net expiry=1794551981
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2484s (since 2026-11-13T05:40:05Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2428s (since 2026-11-13T05:41:01Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2449s (since 2026-11-13T05:40:40Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 2508s (since 2026-11-13T05:39:41Z)
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -477,7 +476,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.8M | $192.87 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 51.9M | $193.23 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 378.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147999903 tokens/day lower bound._
