@@ -1,22 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T13:48:32Z_
+_As of 2026-11-13T13:53:14Z_
 
 ## Latest
 
-The board shows no job transitions since the last bulletin. The fleet is mostly stalled, and several items need a maintainer.
+The board shows no file-level transitions since the last bulletin, so the main news is a set of standing blockers in the inbox, most of which need a maintainer decision.
 
-**Oros is down.** The rolling deploy has halted on a failed canary for `oros-studio-garden-ce242c49`. The OAuth session expired and `garden-secret-broker.service` fails after every deploy. Both need someone at the machine. Oros stays drained, and its canary-probe and health-checkup jobs pile up unclaimed in todo. This blocks the leader `endolin-garden-ece02cb4` from deploying the EROFS fix. Until it deploys, jobs that need a project checkout keep dying.
-
-**minion.town is paused and may be offline.** The pause refusals have now reached 11415. The arc supervisor reports that production DNS for `minion.town` and `ocap.site` now points at a static Caddy page at `34.225.237.208`, not the real host at `13.56.17.18`. If that repoint wasn't yours, it could be a zone compromise. The Route53 history needs checking by someone with credentials.
-
-**Other items for you:**
-- The leader's disk briefly hit 0 bytes free, then recovered to a few hundred MiB. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- Several daily-summary and build jobs were parked after their retries were exhausted.
-- Journal-lock contention notices keep updating in place. Several recovered overnight, and the contention storm cleared at 06:44Z.
-- The Ironhorse ratchet is halted on a wrong base. The floor-resolution choice is posted on [garden#51](https://github.com/kriscendobot/garden/issues/51).
+- **Oros is still held.** The rolling deploy has failed the canary on `oros-studio-garden-ce242c49` again, with `garden-secret-broker.service` failing after deploy. Its Claude OAuth session has also expired, and it needs a `/login` at the machine. Because the canary is stuck, the leader `endolin-garden-ece02cb4` can't deploy the EROFS fix. Monk jobs that need a project checkout therefore keep dying. The minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
+- **minion.town is paused.** The project pause has now refused work 11,415 times. One supervisor message reports that production went dark on 2026-11-10 after DNS for `minion.town` and `ocap.site` moved to an unfamiliar address. It asks whether that change was yours, and whether the zone needs checking for compromise.
+- **Disk space is low.** The leader host's garden filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **Parked jobs need a go-ahead.** Several daily-summary, fetch-plugin, and Oros bwrap hand-off jobs were parked after their retries were exhausted.
+- **Several follow-ups wait on you.** These are the minion.town settings changes (run `deploy-accounts-store.sh` first, plus four veto items) and the leftover guest on production. There is also a question about whether to post an Iron Horse test-infra job.
+- **Ironhorse ratchet is halted** on a wrong base.
+- **Journal lock contention** is still being reported on both hosts. Several notices cleared overnight, but fetch p95 on the ratchet-control journal sits at its 45s ceiling.
 
 ## Maintainer review docket
 
@@ -469,7 +465,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.0M | $260.03 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 69.1M | $260.38 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148884318 tokens/day lower bound._
