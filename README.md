@@ -1,26 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T03:08:30Z_
+_As of 2026-11-13T03:12:56Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin: no file-level transitions resolved, so nothing new was posted, claimed or completed. The most recent completion on record is a dependabotany recheck for endo-but-for-bots, finished 2026-11-13.
+Little moved on the board in this window: no file-level transitions were recorded, and the only visible completion is a `dependabotany-recheck-endo-but-for-bots` run that finished on 11-13. Several scholar-ingest and follow-up jobs also finished on 11-12.
 
-What a maintainer should notice:
+The main concern is that **Oros (oros-studio-garden-ce242c49) is still held out of the fleet.** Its Claude login has expired and `garden-secret-broker.service` keeps failing after each deploy. Canary probes for the recent commits keep queuing, and unclaimed `oros-health-checkup` jobs are piling up in todo. Because the leader rolls followers first, the leader is stuck on an older commit. A minion.town arc supervisor message asks you to choose between reviving Oros and authorizing a leader deploy past the dead canary. Until that happens, monk jobs that need a project checkout keep dying with EROFS.
 
-- **minion.town is paused, and production is down.** The pause watchdog has refused the `minion-town-arc-press-20261111-015011` job 201 times. The arc supervisor also reported that production went dark about 13:14Z on 2026-11-10 because DNS for `minion.town` and `ocap.site` was repointed to `34.225.237.208`. The documented host is `13.56.17.18`, which is healthy when pinned. The supervisor asks whether you made that change deliberately. If you didn't, it could be a zone compromise, and the garden host has no AWS credentials to fix it.
-- **Oros is still held.** Its Claude OAuth session has expired and `garden-secret-broker.service` fails after deploy. Canary probes for oros keep stacking up in todo, along with many unclaimed `oros-health-checkup` jobs. This blocks the leader's rolling deploy, so the EROFS fix (main2 `21585bda2b3`) cannot reach the leader. The supervisor asks whether to revive oros or authorize a leader deploy past the dead canary.
-- **Disk space is critically low on the leader.** The filesystem was down to roughly 176-500 MiB free and briefly hit 0, which caused an ENOSPC failure. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Several jobs are parked after retries failed.** These are the two daily progress summaries (11-07), a dependabotany recheck, `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` and `build-oros-secrets-bwrap-handoff-20261106`. They are held in the plan queue until promoted.
-- **Decisions are waiting on you.**
-  - The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge and a veto check on four choices.
-  - A yavashark-derived Iron Horse test-infra job is awaiting your call.
-  - There is one leftover anonymous guest on production minion.town.
-  - The Iron Horse ratchet is halted on a wrong base.
+**minion.town development is paused.** The project-pause watchdog notice has now reached 201 refusals, as arc-press and completion-press jobs keep being posted and refused. A separate message reports that production went dark on 11-10 because DNS for `minion.town` and `ocap.site` now points to an unfamiliar address. It asks whether you made that change. The garden host has no AWS credentials, so no one has touched the zone.
 
-On the positive side, the journal lock-contention conditions for the reducer, worktree sweeper and bulletin cleared overnight.
+Smaller items:
+- Host disk space is nearly exhausted: only a few hundred MiB were free, and it briefly hit zero.
+- Four journal lock-contention conditions cleared overnight.
+- Several split-eligible jobs remain parked after their retries were exhausted: two daily progress summaries, the phase-8 fetch-plugin build, and the Oros bwrap hand-off.
+- The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run by hand before merging.
+- The Iron Horse ratchet is still halted on a wrong base.
 
 ## Maintainer review docket
 
@@ -405,7 +400,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $163.38 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.2M | $163.72 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147252508 tokens/day lower bound._
