@@ -1,21 +1,29 @@
 # Garden bulletin
 
-_As of 2026-11-13T13:23:44Z_
+_As of 2026-11-13T13:26:44Z_
 
 ## Latest
 
-The board processed no file-level transitions since the last bulletin, so the main news is the state of the fleet.
+No board transitions were recorded this cycle, so the news is the state of the fleet. Several items on the maintainer's side are blocked behind it.
 
-**Oros is still down.** [`oros-studio-garden-ce242c49`](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) remains drained after the rolling deploy halted on a failed canary. `garden-secret-broker.service` fails after deploy, and the Claude OAuth session has expired, so someone at the machine needs to run `/login`. The canary-probe and `oros-health-checkup` jobs are piling up unclaimed in todo. A watchdog notice reports that `oros-health-checkup-20261113-130510` has gone 901s unclaimed under its `host=oros-studio-garden-ce242c49` requirement.
+**Oros is still held.** The rolling deploy keeps failing its canary on `oros-studio-garden-ce242c49`, and the host is stuck drained. The cause is two things that need someone at the machine:
+- The Claude OAuth session has expired and needs `/login`.
+- `garden-secret-broker.service` fails after every deploy.
 
-**The leader is stuck on the old build.** The EROFS fix (`21585bda2b3`) can't reach `endolin-garden-ece02cb4` while the Oros canary is dead, and the minion.town arc supervisor is waiting on your call. The options are to revive Oros or authorize a leader deploy past the canary.
+The leader `endolin-garden-ece02cb4` can't advance past the dead canary, and the EROFS fix is stuck behind it. The minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the canary. About 14 `oros-health-checkup` jobs and many `canary-probe` jobs sit unclaimed in `todo`.
 
-**Other items that need a decision:**
-- **Minion.town DNS.** `minion.town` and `ocap.site` resolve to `34.225.237.208` instead of the documented host `13.56.17.18`, and production has been dark since about 13:14Z on 2026-11-10. Nothing in the journal explains the change. The question is whether this repoint was intentional or a possible zone compromise. Minion.town development is also paused, and the pause watchdog has now counted 11,218 refusals.
-- **Disk space.** The leader's filesystem briefly hit 0 free and is at roughly 176–500 MiB, so it needs manual cleanup.
-- **Ironhorse ratchet.** It is halted on a wrong base. A separate floor-resolution question (re-pin to a fresh measurement, or repair the 882 losses) is awaiting your answer on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51).
+**minion.town is paused.** The pause directive of 2026-11-10 is being enforced. The watchdog has now refused claimable `todo` jobs more than 11,000 times, and the latest was `claude-on-minion-town-completion-press-20261111-095015`. `minion-town-arc-press` jobs keep reaching `todo` despite the pause.
 
-Journal lock-contention notices keep recurring on the leader, and a few cleared overnight.
+**Production DNS may have been repointed.** A gardener reports that `minion.town` and `ocap.site` resolve to a different Amazon address that serves a static page, and the subdomains no longer resolve. The documented host is healthy when addressed directly. It asks you to say whether the change was intentional, and flags possible zone compromise if it wasn't. Nobody on the garden has AWS credentials to check the Route53 history.
+
+**Host disk is nearly full.** `endolin-garden-ece02cb4` had about 176–500 MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+
+**Other decisions waiting on you:**
+- The Ironhorse ratchet halted for a wrong base, and the floor question is open at [garden#51](https://github.com/kriscendobot/garden/issues/51).
+- `deploy-accounts-store.sh` must run before the minion.town settings simplification merges.
+- Several split-eligible jobs, including the daily progress summaries and `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, are parked in `plan/` after retry exhaustion.
+
+Journal lock contention notices are recurring but low severity. Several others cleared on their own.
 
 ## Maintainer review docket
 
@@ -148,10 +156,6 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.015745s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-130510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-130510.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261113-130510' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -472,7 +476,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.1M | $256.51 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 68.1M | $256.86 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148790460 tokens/day lower bound._
