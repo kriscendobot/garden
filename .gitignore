@@ -42,3 +42,7 @@
 
 # Host-local private working notes (if any) are excluded via each host's
 # .git/info/exclude, so their filenames never enter tracked history.
+
+# Out-of-band document drop (maintainer <-> garden): never tracked.
+# Ingested messages move to drop/archive/.
+/drop/
