@@ -1,11 +1,10 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Reconcile the historical floor with current verdict/resource policy, or restore all 901 genuinely under unchanged pins and policy?'
-asked_at: https://github.com/kriscendobot/garden/issues/51#issuecomment-5877917421
-priority: high
-posted_by: builder
+role: builder
+tier: mentor
 posted_at: 2026-09-28T20:30:23Z
+handler-timeout: 14339
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=high maintainer=true at=2026-11-13T10:46:28Z cleared=none -->
 
 ---
 tier: mentor
