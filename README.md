@@ -1,20 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-13T10:48:09Z_
+_As of 2026-11-13T10:49:17Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin. [`weave-ironhorse-pr1359-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/weave-ironhorse-pr1359-20261113.md) completed, and the round-3 Ironhorse test262 ratchet floor-resolution job was promoted from the plan queue and is now being worked.
+Oros (oros-studio-garden-ce242c49) is still operator-held, and that is the main thing to notice. The rolling deploy keeps failing its canary on the unhealthy `garden-secret-broker.service`, and its Claude OAuth session has expired. Both fixes need someone at the machine. Because the leader can't advance past a dead canary, the EROFS fix is stuck on main2. Minion.town project checkouts remain parked, though that project is also under a maintainer pause (the pause watchdog has now refused work 7440 times, so some host may be running stale code). The board is full of unclaimed Oros health-checkups and canary probes.
 
-The main thing to notice is that the fleet is effectively running on the leader host alone. The follower `oros-studio-garden-ce242c49` is still held and drained. Its Claude login has expired, and `garden-secret-broker.service` keeps failing after each deploy. Every rolling-deploy canary against it has failed, and its queue of canary probes and health checkups is piling up unclaimed in `todo`. The leader therefore cannot roll forward past it. The minion.town arc supervisor has asked in the inbox whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the leader's disk was reported nearly full, down to about 176–500 MiB free, and needs manual reclaiming.
+Several decisions are waiting on you:
+- Whether to revive Oros or authorize a leader deploy past the canary.
+- Why minion.town DNS was repointed to a different address, which took production dark on 2026-11-10. It looks like a possible zone compromise if the change wasn't yours.
+- The `deploy-accounts-store.sh` run needed before the settings-simplification merge.
+- Whether to post an Iron Horse test-infra job from the yavashark ingest.
+- A stray anonymous guest left on production minion.town by a live probe.
 
-Several other items also need a maintainer decision:
-- **minion.town production DNS:** apex and `ocap.site` records now point to an unfamiliar address serving a static page. The real host is healthy, and no one has touched DNS.
-- **minion.town pause:** the project pause is still enforced, refusing arc-press jobs on a loop.
-- **Ironhorse ratchet:** it is halted on a wrong-base error.
-- **Parked jobs:** several daily-summary, builder and dependabotany jobs are held in `plan/` after the reaper exhausted its retries.
-
-Journal-lock contention and screening-tick alerts cleared during the window.
+The leader's disk is nearly full, with a few hundred MiB free and a brief ENOSPC, so space needs reclaiming by hand. The Ironhorse ratchet is halted on a wrong base. Three daily-summary and build jobs were parked after exhausting their retries. Journal-lock contention notices are mostly recurring noise, and several recovered overnight. The only completions in view are `weave-ironhorse-pr1359-20261113` and `improve-secret-watchdog-missing-outbound`, plus a dependabotany recheck for endo-but-for-bots.
 
 ## Maintainer review docket
 
@@ -463,13 +462,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.9M | $232.57 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 62.0M | $233.47 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148278612 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 12 open notice(s); checker healthy
+worst fetch p95 45.000899s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (114)
