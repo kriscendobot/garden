@@ -1,24 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-13T07:03:32Z_
+_As of 2026-11-13T07:06:05Z_
 
 ## Latest
 
-The board is quiet: no job posts, claims or completions resolved since the last bulletin. The real news is that the fleet is wedged on the Oros canary, and one production question is still open.
+Only two jobs were posted since the last bulletin: a minion.town arc press (`minion-town-arc-press-20261113-070510`) and an `oros-health-checkup`. Nothing was claimed or completed, and no pull request moved.
 
-**Rolling deploy halted on Oros.** The canary host `oros-studio-garden-ce242c49` has failed repeatedly, most recently on `garden-secret-broker.service`. It also has an expired Claude OAuth session. Retries are exhausted and it stays drained until someone at that machine runs `/login` and checks the broker with `journalctl --user -u garden-secret-broker`. Because the leader deploys only after its canary passes, it is still on `f2788117645`. The EROFS fix for monk project checkouts therefore hasn't reached it, and minion.town PR work stays parked. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Oros also has about a hundred unclaimed `canary-probe` and `oros-health-checkup` jobs piling up in todo.
+The fleet is stuck in two places:
 
-**Production minion.town DNS.** A message from 2026-11-10 reports the apex and `ocap.site` resolving to an unexpected address, not the documented host. Nobody has answered it. It needs you to confirm whether the change was intentional, or to check for a compromise.
+- **Oros is down.** The rolling deploy halted on a failed canary at `oros-studio-garden-ce242c49` after three retries. Its Claude OAuth session has expired and `garden-secret-broker.service` fails after every deploy. The host stays drained until someone at the machine runs `/login` and checks the broker logs. It has been down since at least 11-07, and its health-checkup and canary-probe jobs keep piling up unclaimed in the todo list.
+- **The leader can't deploy.** Because the canary is dead, the leader (`endolin-garden-ece02cb4`) is still on `f2788117645`. The EROFS fix therefore hasn't reached it, and monk jobs that need a project checkout keep failing. You need to either revive Oros or authorize a leader deploy past the canary.
 
-**Disk space.** The leader's `/home/kris/garden` filesystem was down to a few hundred MiB free and briefly hit zero. It needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+Other items needing your attention:
 
-**Other items needing a decision:**
-- The minion.town pause is still being enforced. The watchdog count has passed 5,200 refusals, the latest on the arc-press job `minion-town-arc-press-20261112-152013`.
-- The beta-settings report wants `deploy-accounts-store.sh` run before merging, plus a veto check on four choices.
-- A stray anonymous guest is left on production minion.town.
-- The scholar ingest of yavashark asks whether to post an Iron Horse test-infra job.
-
-Several parked daily-summary, dependabotany and builder jobs sit in the plan queue after exhausting their requeues. The journal-contention, comment-watcher and screening-tick alerts all recovered on their own overnight. The Iron Horse ratchet is still halted on a wrong base.
+- **minion.town:**
+  - Development is paused, and the watchdog has counted more than 5,000 refused jobs.
+  - A supervisor reports production went dark on 11-10 because DNS for `minion.town` and `ocap.site` now points at `34.225.237.208` instead of the documented `13.56.17.18`. It asks whether you made that change or whether it's a possible zone compromise.
+- **Disk space:** the leader's garden filesystem briefly hit 0 bytes free and was down to a few hundred MiB. It needs manual reclaiming.
+- **Parked jobs:** several scheduled and build jobs, including two daily progress summaries and the Oros bwrap hand-off, are parked after exhausting their retries and wait for you to promote or remove them.
+- **Cleared on their own:** the journal lock contention, comment-watcher cooldown and minion.town screening-tick alerts all closed themselves.
 
 ## Maintainer review docket
 
@@ -463,7 +463,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.7M | $200.43 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 53.8M | $200.78 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148185338 tokens/day lower bound._
@@ -472,7 +472,7 @@ _Fleet token-unlock pace: 148185338 tokens/day lower bound._
 worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (110)
+### todo (112)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
@@ -518,6 +518,7 @@ worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`oros-health-checkup-20261110-193511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-193511.md) — ---
 - [`oros-health-checkup-20261112-122012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-122012.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`minion-town-arc-press-20261113-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261113-070510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ad75cf189997-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ad75cf189997
 - [`minion-town-arc-press-20261111-080510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-080510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261111-205010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-205010.md) — Supervise the minion.town arc: carry its pull requests through review
@@ -551,6 +552,7 @@ worst fetch p95 10.137346s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-030512.md) — ---
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`oros-health-checkup-20261113-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261113-070510.md) — ---
 - [`oros-health-checkup-20261111-142014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261111-142014.md) — ---
 - [`oros-health-checkup-20261108-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-022010.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-74a2b296b40d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 74a2b296b40d
