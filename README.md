@@ -1,25 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-13T02:38:48Z_
+_As of 2026-11-13T02:40:05Z_
 
 ## Latest
 
-Nothing moved on the board this cycle: no jobs were posted, claimed or completed since the last bulletin. Only one job is in progress, the endo-but-for-bots dependabotany recheck. The 107 todo jobs are almost all `oros-health-checkup` jobs, `canary-probe` jobs for oros, and `minion-town-arc-press` or completion-press jobs. Those are stuck, not backlogged, and the maintainer inbox shows why.
+Little moved on the board this cycle: the only transition was one completion, the `dependabotany-recheck-endo-but-for-bots-20261113-023510` botanist recheck, which went from doin to tada with no new posts or claims.
 
-**Needs your call, roughly by urgency:**
-- **minion.town DNS.** Production went dark around 13:14Z on 2026-11-10. Route53 now answers `34.225.237.208`, which serves a static placeholder page, instead of the documented `13.56.17.18`, and the `npm.`, `ci.` and IdP subdomains no longer resolve. The real host is healthy when pinned directly. The arc supervisor asks whether you made this change on purpose. If you didn't, treat it as a possible zone compromise and check the Route53 change history. No garden host has AWS credentials, so nobody has touched DNS.
-- **Oros is still operator-held.** The canary failed again at `18fc7b17375` and retries ran out at 19:29Z. There are two blockers that need someone at the machine: an expired Claude OAuth session (run `claude` then `/login`), and `garden-secret-broker.service`, which has failed after every deploy since 11-07.
-- **Leader deploy.** The leader is still on `f2788117645`. The EROFS fix (`3c7f9ce045e`, now in main2 as `21585bda2b3`) can't reach it because the dead Oros canary blocks the rolling deploy. Until it deploys, monk jobs that need a project checkout die with EROFS. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
-- **Disk space.** The leader's filesystem briefly hit 0 bytes free during one job, and a Claude temp write failed with ENOSPC. It needs hand-reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town pause.** The pause directive is still being enforced against the stale `minion-town-arc-press` jobs (201 occurrences). The watchdog suggests a host may be running an older garden. This explains why the minion.town press jobs keep accumulating.
+The real news is in the maintainer inbox, where several blockers need a human:
 
-Several decisions are also waiting on you:
-- Whether to post an Iron Horse test-infra job to adopt the cost tiers, sampling and CPU pinning found in the yavashark ingest.
-- Run `deploy-accounts-store.sh` before merging the minion.town settings simplification, and veto any of its four listed choices you object to.
-- The leftover anonymous guest on production minion.town.
-- The halted Iron Horse ratchet (wrong base, [tracker](https://github.com/kriscendobot/garden/issues/51)).
+- **Oros is still operator-held.** Its canary failed again on `18fc7b17375`, and the todo queue has filled with unclaimed `oros-health-checkup` and canary-probe jobs. It has two blockers that need someone at the machine: an expired Claude OAuth session (run `/login`) and `garden-secret-broker.service` failing after each deploy.
+- **The leader is stuck on `f2788117645`.** The EROFS fix cannot reach it past the dead Oros canary. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
+- **minion.town production DNS.** On 2026-11-10 the apex records were repointed to an unfamiliar address, and the supervisor asks whether that repoint was intentional or a possible zone compromise. The project pause is still being enforced against jobs posted for it, 201 refusals so far.
+- **Disk pressure.** The leader host dropped to about 176–500 MiB free and briefly hit zero. It needs a manual reclaim under `.garden-state`, `scratch/` and `worktrees/`.
 
-The routine journal-lock contention notices continue; they are single-giveup events with low p95. Held in `plan/` after the reaper exhausted retries are the daily progress summaries for 11-05 and 11-06, the Oros bubblewrap hand-off, the `@endo/fetch` plugin build (Phase 8 of the daemon agent tools design), and the dependabotany recheck.
+Several daily-summary, dependabotany and builder jobs remain parked in the plan queue after exhausting their retries. Journal lock-contention watchdog notices keep recurring but are low-severity.
 
 ## Maintainer review docket
 
@@ -404,10 +398,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.8M | $158.99 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 42.9M | $158.63 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147554087 tokens/day lower bound._
+_Fleet token-unlock pace: 147052061 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
@@ -522,16 +516,16 @@ worst fetch p95 12.999421s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — ---
+### doin (0)
+(none)
 
-### tada (17043)
+### tada (17044)
+- [`dependabotany-recheck-endo-but-for-bots-20261113-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/dependabotany-recheck-endo-but-for-bots-20261113-023510.md) — Cost
 - [`scholar-ingest-meta-harnesses-codefall-ycc-typesafe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-typesafe.md) — Completion report
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Report: scholar-ingest-meta-harnesses-codefall-ycc-20261029 (continuation → h...
 - [`endojs-endo-but-for-bots-base-ci-48d6f3e08bcc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/endojs-endo-but-for-bots-base-ci-48d6f3e08bcc.md) — Cost
 - [`fu-scholar-ingest-yavashark-ironhorse-20261030-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/fu-scholar-ingest-yavashark-ironhorse-20261030-3.md) — Cost
-- [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/12/scholar-ingest-openai-scaling-git.md) — scholar-ingest-openai-scaling-git: completion report
-- … and 17038 more
+- … and 17039 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
