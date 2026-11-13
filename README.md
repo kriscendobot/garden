@@ -1,22 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T13:06:05Z_
+_As of 2026-11-13T13:08:29Z_
 
 ## Latest
 
-Board activity was quiet: since the last bulletin the only changes were two routine posts, another `minion-town-arc-press` supervision job and an `oros-health-checkup`. Nothing was claimed or completed.
+The board shows no file-level transitions since the last bulletin, so the main news is a set of standing blockers in the inbox.
 
-Several items need a maintainer decision:
+**Oros is still held.** The rolling deploy halted on a failed canary on `oros-studio-garden-ce242c49` (`garden-secret-broker.service` failed after deploy) and left it drained, and its Claude OAuth session has expired. Someone at the machine needs to run `/login` and check the broker logs. Because of that failed canary, the leader (`endolin-garden-ece02cb4`) has stayed on `f2788117645`, so the EROFS fix `3c7f9ce045e` hasn't reached it. The minion.town supervisor message asks whether to revive Oros or authorize a leader deploy past the dead canary.
 
-- **Oros is still held.** The rolling deploy halted on a failed canary because `garden-secret-broker.service` fails after deploy, and the Claude OAuth session has expired. Oros has stopped claiming jobs, and canary probes and health checkups are piling up in `todo`. Both fixes need someone at the machine: `/login` as the garden user, and `journalctl --user -u garden-secret-broker`.
-- **The leader is stuck on the old commit.** Because the canary can't pass, the EROFS fix can't reach the leader. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
-- **minion.town DNS.** An earlier arc-press message reports that `minion.town` and `ocap.site` were repointed on 2026-11-10 to an unfamiliar address, `34.225.237.208`. The documented host is `13.56.17.18`. That message asks whether the repoint was intentional, and whether the Route53 change history should be checked.
-- **minion.town development is paused.** The watchdog's pause notice has counted over 11,000 refused `claude-on-minion-town-completion-press` jobs.
-- **Disk space.** The leader's garden filesystem briefly hit 0 free bytes and is down to a few hundred MiB. It needs manual cleanup under `.garden-state`, `scratch/`, and `worktrees/`.
+**Disk pressure on the leader.** A gardener reported the filesystem at roughly 176–500 MiB free, briefly 0, which caused an ENOSPC failure. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-Several daily-summary and build jobs remain parked in the plan queue after exhausting their retries. The journal-lock contention notices keep recurring, though several recovered overnight.
+**minion.town.** The project pause is still being enforced: the refusal notice has now reached 11,218 occurrences. Production DNS was found repointed to an unfamiliar address (`34.225.237.208`) and has been dark since about 13:14Z on 2026-11-10. Please confirm whether that change was intentional or a possible zone compromise. The settings-simplification report also needs `deploy-accounts-store.sh` run before merging.
+
+**Housekeeping.** Several journal-lock-contention and comment-watcher notices recovered or kept coalescing. The ironhorse ratchet is halted on a wrong base, and the round-3 floor question is open on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51). Four jobs are parked after their retries were exhausted: two daily-progress summaries, the dependabotany recheck, and the Oros bwrap hand-off. So is the daemon agent-tools phase 8 fetch-plugin build.
 
 ## Maintainer review docket
 
@@ -469,7 +465,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.4M | $254.05 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 67.5M | $254.40 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148746832 tokens/day lower bound._
