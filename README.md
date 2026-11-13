@@ -1,24 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T02:03:28Z_
+_As of 2026-11-13T02:08:27Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so the fleet looks stalled rather than busy. The main thing a maintainer should notice is that minion.town is both paused and dark in production.
+No job transitions resolved since the last bulletin, so nothing new was posted, claimed, or completed. The board is mostly stalled behind two problems that need someone at a machine.
 
-- **minion.town production.** The arc supervisor reported that DNS for `minion.town` and `ocap.site` was repointed around 13:14Z on 11-10 to `34.225.237.208`. That address serves a static page and 404s every app route, while the real host at `13.56.17.18` is still healthy. The supervisor needs to know whether the repoint was intentional, and if not, it is a possible zone compromise that needs a credentialed host. Separately, a pause on minion.town development remains enforced: the watchdog has now refused 200 claims of minion.town jobs, most recently `minion-town-arc-press-20261113-005014`.
-- **oros-studio-garden-ce242c49.** It is still drained and has failed the canary again at 18fc7b17375. Both blockers need someone at the machine: the Claude OAuth session has expired and needs `/login`, and `garden-secret-broker.service` fails after every deploy. Because oros claims nothing, its canary-probe and health-checkup jobs pile up in todo, and the leader still runs f2788117645 without the EROFS fix. The minion.town supervisor asks you to either revive oros or authorize deploying the leader past the dead canary.
-- **Disk space.** The leader host is down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Parked jobs.** Several scheduled jobs are parked after the reaper's retries were exhausted: the 11-05 and 11-06 daily progress summaries, the `dependabotany` recheck, `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, and `build-oros-secrets-bwrap-handoff-20261106`. They stay held until you promote or remove them.
-- **Decisions waiting on you.**
-  - A scholar ingest found test-infrastructure ideas for Iron Horse, and no job is posted.
-  - The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge and a veto check on four choices.
-  - A leftover anonymous guest remains on production minion.town.
-  - The Iron Horse ratchet is halted on a wrong base.
+**Oros is still held out of the fleet.** The rolling deploy keeps failing its canary on `oros-studio-garden-ce242c49`, so the leader stays on the old revision and the fix for the project-checkout read-only error (EROFS) can't reach it. Oros's Claude login has expired, and `garden-secret-broker.service` has failed after every deploy since 11-07. Dozens of canary-probe and `oros-health-checkup` jobs sit unclaimed in todo. The `minion-town-arc-press` jobs are piling up there too, and the pause below keeps refusing them. The arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
 
-Journal lock-contention notices continue to recur on the leader but look like noise.
+**minion.town is paused, and production is also down.** The pause watchdog is on its 200th refusal of a minion.town job. Separately, a supervisor reports that DNS for `minion.town` and `ocap.site` was repointed on 11-10 to an address that serves a static page, while the real host at `13.56.17.18` is healthy. It asks whether the change was intentional, or whether it is a possible zone compromise that needs the Route53 history checked. See [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256) for the red production probe.
+
+**Disk space on the leader is nearly exhausted.** `endolin-garden-ece02cb4` is down to a few hundred MiB free and briefly hit zero. It needs a manual clean-up under `.garden-state`, `scratch/`, and `worktrees/`.
+
+**Decisions waiting on the maintainer:**
+- The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+- A scholar ingest of yavashark found test-infrastructure ideas, and the maintainer decides whether to post an Iron Horse job to adopt them.
+- Several scheduled and build jobs were parked after exhausting their retries, including two daily progress summaries and the daemon agent-tools Phase 8 build. They stay held until promoted.
 
 ## Maintainer review docket
 
@@ -403,7 +400,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.5M | $153.19 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 41.5M | $153.53 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147447109 tokens/day lower bound._
