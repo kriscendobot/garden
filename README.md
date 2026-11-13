@@ -1,29 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T22:49:35Z_
+_As of 2026-11-13T22:54:56Z_
 
 ## Latest
 
-Little real work finished in this window: the only completion was a deadmail job (`deadmail-20261113T222245Z-39c07c`). The one new post was another `oros-health-checkup` canary retry (`canary-probe-oros-studio-garden-ce242c49-9db928543949-r2`). No PRs moved.
+Almost nothing moved on the board this cycle. A gauntlet record was added for [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359), and an Ironhorse test262 press job (`ironhorse-test262-press-20261113-225326`) was parked as deferred. No jobs were claimed or completed in this window.
 
-**Oros is still stuck.** Oros (`oros-studio-garden-ce242c49`) is operator-held and drained. The roll moved it to `18fc7b17375` and the canary failed again, so canary probes and `oros-health-checkup` jobs keep piling up unclaimed in todo. Two blockers need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after deploy. The rolling-deploy canary-failed notice shows as recovered, but the host is still not claiming work.
+**Needs the maintainer:**
+- **Oros is still down.** `oros-studio-garden-ce242c49` stays drained after the canary failed again. It has two blockers that need someone at the machine: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy.
+- **The leader can't deploy past the dead Oros canary.** The EROFS fix is stuck behind it, so minion.town PR work is parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary. Most of the minion.town press jobs in `todo` are probably waiting on this.
+- **minion.town's DNS may have been repointed.** On 2026-11-10 the apex pointed at an unfamiliar us-east-1 address that serves a static page, not at the documented production host. The supervisor asked whether this was deliberate. Otherwise it may be a zone compromise to check in Route53 history. The project is paused, and the pause notice has now been refused-and-counted more than 14,000 times.
+- **Disk on the leader is nearly full.** `/home/kris/garden` had about 176–500 MiB free and briefly hit zero. It needs hand cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **Doomed jobs parked in `plan/`:**
+  - two daily progress summaries
+  - the `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` build
+  - the Oros bwrap hand-off build
+  - the dependabotany recheck for endo-but-for-bots
 
-**Leader deploy is blocked behind Oros.** The minion.town arc supervisor reports the leader still runs `f2788117645`. The fix for the project-worktree EROFS error can't reach the leader, because the rolling deploy rolls Oros first as its canary. You need to either revive Oros or authorize deploying the leader past the dead canary.
+  Each can be promoted by hand or split.
+- **Pending decisions:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices. One stray guest on production is awaiting disposition. The garden is also asking whether to post an Iron Horse test-infra job based on the yavashark ingest.
 
-**Disk space on the leader.** `endolin-garden-ece02cb4` hit 0 bytes free on `/home/kris/garden` during a job, and it was at roughly 176–500 MiB free afterward. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-
-**minion.town DNS.** The apex and `ocap.site` records now point at `34.225.237.208`, not the documented host `13.56.17.18`. The other subdomains no longer resolve. Production has been dark since about 13:14Z on 2026-11-10. Please confirm whether the repoint was deliberate or a possible zone compromise. The prod probe issue is [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256). The project is also paused, and the pause watchdog is at 14,323 refusals of minion.town jobs.
-
-**Open decisions for you:**
-- Whether to run `deploy-accounts-store.sh` before merging the minion.town settings simplification, plus a veto check on four of its choices.
-- Whether to post an Iron Horse test-infra job based on the yavashark scholar ingest.
-- Whether to remove or leave the one anonymous guest left on production minion.town.
-
-**Parked daily-summary jobs.** Several recurring and arc jobs, including two `daily-progress-summary` runs, are parked on the plan queue after exhausting their requeues. The Ironhorse ratchet is halted for a wrong base ([tracker #51](https://github.com/kriscendobot/garden/issues/51)).
-
-Journal-lock contention watchdogs mostly cleared. The one active contention storm is on Oros.
+Several journal-lock and rolling-deploy watchdog conditions cleared on their own. Open contention notices remain on the leader and on Oros.
 
 ## Maintainer review docket
 
@@ -481,20 +478,13 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
 
-- `ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712` — from ironhorse-test262-ratchet, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712.md)
-
-> Ironhorse ratchet halted: wrong base
-> Tracker: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)
-> Inspect ratchets/ironhorse-test262-ratchet/state.json and
-> context/operations/ironhorse-ratchet.md. Explicitly resume only after resolution.
-
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.8M | $321.62 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Claude | 85.1M | $323.20 _(notional, rate-card)_ | 31% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149020062 tokens/day lower bound._
@@ -806,6 +796,7 @@ worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/jour
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/issue-status-pass-go-live.md) — _normal_ · Go live with the issue status pass (remove GARDEN_ISSUE_STATUS_DRY_RUN)
+- [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-press-20261113-225326.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr199-review-4460eb00-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-review-4460eb00-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #199 (primary: kriscendobot-mini...
 - [`endojs-endo-but-for-bots-pr1575-review-938c3acf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1575-review-938c3acf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1575 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1543-review-ed16aaac-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1543-review-ed16aaac-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1543 (primary: endojs-endo-but-...
