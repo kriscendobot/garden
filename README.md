@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-13T19:04:24Z_
+_As of 2026-11-13T19:06:08Z_
 
 ## Latest
 
@@ -493,7 +493,7 @@ _Fleet token-unlock pace: 149186736 tokens/day lower bound._
 worst fetch p95 2.468491s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (120)
+### todo (122)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
@@ -534,6 +534,7 @@ worst fetch p95 2.468491s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261109-220510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-220510.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261107-013512.md) — ---
+- [`minion-town-arc-press-20261113-190511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261113-190511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261110-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261110-225011.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261111-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-050510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-completion-press-20261111-035010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-035010.md) — Completion press: Claude-on-minion.town arc
@@ -575,6 +576,7 @@ worst fetch p95 2.468491s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`claude-on-minion-town-completion-press-20261112-042014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-042014.md) — Completion press: Claude-on-minion.town arc
 - [`minion-town-arc-press-20261111-173515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261111-173515.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-84543b04ac1f-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 84543b04ac1f
+- [`oros-health-checkup-20261113-190511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261113-190511.md) — ---
 - [`claude-on-minion-town-completion-press-20261111-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261111-222010.md) — Completion press: Claude-on-minion.town arc
 - [`canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a6b75fe4c088-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a6b75fe4c088
 - [`oros-health-checkup-20261109-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-030512.md) — ---
