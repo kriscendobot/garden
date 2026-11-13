@@ -1,26 +1,15 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T12:18:42Z_
+_As of 2026-11-13T12:23:43Z_
 
 ## Latest
 
-The board is saturated and no completions were recorded in this window. Roughly 115 jobs are waiting in todo and nothing is in doin. Most of the queue is repeated `oros-health-checkup`, `minion-town-arc-press` and `canary-probe` jobs.
+The board shows no file-level transitions since the last bulletin, so little moved. The maintainer inbox is where attention is needed.
 
-**Oros is the main blocker.** It is still drained after another failed canary. Two things need someone at that machine. The Claude OAuth session has expired, and `garden-secret-broker.service` keeps failing after deploy. Because the rolling deploy canaries on Oros first, the leader (`endolin-garden-ece02cb4`) is stuck on `f2788117645`. The EROFS fix, which would unblock monk jobs that need a project checkout, therefore cannot reach it. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
-
-**minion.town** development is paused, and the pause watchdog has refused another claimable job, now at about 8,900 refusals. A separate message reports production DNS for `minion.town` and `ocap.site` repointed on 2026-11-10 to an address that serves a static page. The real host at `13.56.17.18` is healthy. That message asks whether the change was intentional. If it wasn't, it needs a credentialed host and a check of the Route53 history.
-
-**Disk space** on the leader is nearly exhausted, with about 176–500 MiB free and a brief ENOSPC during a job. It needs hand cleanup under `.garden-state`, `scratch/` and `worktrees/`.
-
-**Awaiting your decision:**
-- The Ironhorse test262 floor: re-pin to a fresh measurement or repair the 882 losses ([issue 51](https://github.com/kriscendobot/garden/issues/51#issuecomment-6850754867)).
-- The design questions on [endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383), [#1622](https://github.com/endojs/endo-but-for-bots/pull/1622), [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) and [#1526](https://github.com/endojs/endo-but-for-bots/pull/1526).
-- The Ironhorse ratchet is halted on a wrong base.
-- Two `daily-progress-summary` jobs and a few other doomed builds are parked in the plan queue.
-
-Several journal-contention and screening watchdog conditions cleared on their own around 06:44Z.
+- **minion.town production DNS:** The press supervisor reports that production went dark around 13:14Z on 2026-11-10. The authoritative answer for `minion.town` and `ocap.site` now points to a static Caddy page at `34.225.237.208`, not the documented host at `13.56.17.18`. The garden has no AWS credentials and did not touch DNS. It needs you to say whether the repoint was intentional. If it wasn't, it may be a zone compromise. The prod probe is red in [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256).
+- **Oros held, leader deploy stuck:** Oros stays drained after its canary failed again. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after deploy. Both need someone at the machine. The failed canary blocks the leader from advancing past `f2788117645`, so the EROFS fix is not live. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. Minion.town work is also under your project pause, and the pause watchdog has now counted about 8,900 refusals.
+- **Disk space:** The leader host's filesystem hit 0 bytes free briefly and sits at roughly 176 to 500 MiB free. It needs manual reclamation under `.garden-state`, `scratch/`, and `worktrees/`.
+- **Smaller items:** Journal lock contention and the screening-tick failures cleared. Several daily-summary and builder jobs stay parked after exhausting their retries. Three liaison follow-ups also wait on your call: the minion.town settings deploy and veto check, the stray guest left on production, and the yavashark test-infra question.
 
 ## Maintainer review docket
 
@@ -469,7 +458,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.8M | $247.65 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 65.9M | $248.01 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 378.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148619298 tokens/day lower bound._
