@@ -1,27 +1,16 @@
 # Garden bulletin
 
-_As of 2026-11-13T07:18:34Z_
+_As of 2026-11-13T07:22:30Z_
 
 ## Latest
 
-The board is mostly idle. Nothing was claimed or completed in this interval, and the only new completions were routine cost and ingest reports. 112 jobs sit in `todo`, nearly all `oros-health-checkup`, `canary-probe` and `minion-town-arc-press` entries that nothing can claim.
+The board is clogged with Oros work. The follower `oros-studio-garden-ce242c49` has stayed drained since its rolling-deploy canary failed again. Its Claude login has expired, and `garden-secret-broker.service` has failed after each deploy since 11-07. With the roll stuck, the leader cannot deploy, so the EROFS fix (`3c7f9ce045e`, now `21585bda2b3`) never reaches it. That leaves dozens of unclaimed `oros-health-checkup` and `canary-probe` jobs in todo. It also leaves the minion.town arc-press jobs and the arc supervisor's decision request unresolved. The supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. Reviving Oros needs someone at the machine to run `claude`, then `/login`, and to check the broker logs.
 
-**Fleet blockage:**
-- **Oros is stuck.** `oros-studio-garden-ce242c49` failed its rolling-deploy canary again, and the retries are used up. It is drained and needs someone at the machine. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy.
-- **The leader is stuck behind Oros.** `endolin-garden-ece02cb4` is still on `f2788117645`. The EROFS fix cannot reach it, so monk jobs that need a project checkout keep dying. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk is nearly full.** The leader's filesystem was down to about 176–500 MiB free and briefly hit zero. It needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+Separately, minion.town is paused by maintainer directive. The watchdog has counted more than 5,000 refusals of its jobs, which suggests a stale host is still producing them. Production also appears to have gone dark on 11-10 because DNS for `minion.town` and `ocap.site` now points at an unexpected address, and no one has yet said whether that change was intentional.
 
-**minion.town:**
-- **Development is paused.** The pause enforcer has now refused jobs 5,224 times, most recently `minion-town-arc-press-20261112-152013`.
-- **Production DNS looks wrong.** The authoritative answer for `minion.town` and `ocap.site` changed on 2026-11-10 to `34.225.237.208`, which serves a static page and 404s every app route. The documented host is `13.56.17.18`. The supervisor wants to know whether this repoint was deliberate. If it wasn't, it could be a zone compromise, and it needs a credentialed host to check.
-- **Settings simplification needs you.** Run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+Disk space on the leader dropped to near zero during one job, so reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-**Other items waiting on you:**
-- **Parked reservoir jobs.** Several split-eligible jobs are held in `plan/`: two daily progress summaries, the dependabotany recheck, the daemon agent-tools phase 8 build, and the Oros bubblewrap hand-off.
-- **Ironhorse ratchet.** It halted on a wrong base ([tracker #51](https://github.com/kriscendobot/garden/issues/51)).
-- **Iron Horse test-infra job.** The yavashark scholar ingest asks whether to post one. No job has been posted.
-
-Several journal-contention, comment-watcher and screening-tick watchdog conditions cleared on their own.
+The journal-contention, comment-watcher and screening-tick alerts all cleared on their own. Three daily-summary and dependabot-recheck jobs sit parked after the reaper gave up retrying them. The board saw no file-level transitions since the last bulletin.
 
 ## Maintainer review docket
 
@@ -390,6 +379,10 @@ Delegation: **active**
 > ---
 > Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-bots dependabotany ledger whose maturity date has arrived or whose recorded blocker has cleared. Recover the ledger with: grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'. Execute the now-due verdict for each PR: MERGE-NOW through ci-wait-merge.sh --dependabot-auto-merge, REJECT closes, EMBARGO re-defers. Current row: #1629 (setup-python 7.1.0) is held on [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-070510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261113-070510.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261113-070510' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-11-07T04:46:32Z, latest 2026-11-13T04:48:52Z).
@@ -466,7 +459,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $202.57 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 54.4M | $202.93 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 378.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148239508 tokens/day lower bound._
