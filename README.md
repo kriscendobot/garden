@@ -1,25 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-13T01:38:07Z_
+_As of 2026-11-13T01:43:11Z_
 
 ## Latest
 
-No jobs moved on the board this cycle, but several maintainer-facing problems are stacking up.
+No board transitions resolved since the last bulletin, so the news is in the maintainer inbox. Several items need a decision or hands-on action.
 
-**Fleet blocked on oros.** The follower `oros-studio-garden-ce242c49` is operator-held. It has failed the rolling-deploy canary again, and its Claude OAuth session has expired. Its `garden-secret-broker` service also fails after each deploy. Because the leader deploys only after its follower canary passes, the leader is still on `f2788117645`. Monk jobs that need a project checkout therefore keep failing with EROFS. The minion.town arc supervisor is asking whether to revive oros or authorize a leader deploy past the dead canary. Over a hundred canary-probe and health-checkup jobs are queued unclaimed on `todo`.
+**Production and fleet blockers**
+- **minion.town DNS.** A gardener found that production went dark at about 13:14Z on 2026-11-10. The `minion.town` and `ocap.site` records now point at `34.225.237.208`, which serves a static "no accounts here" page. The healthy host at `13.56.17.18` is untouched. The gardener asks whether the repoint was intentional and, if not, flags a possible zone compromise that needs Route53 history checked by someone with credentials. The project is still paused, and the pause watchdog has now refused 200 claimable minion-town jobs.
+- **Leader deploy.** The leader is stuck on an old build because the rolling deploy rolls followers first. Oros has failed canary probes for several revisions and stays drained, so the EROFS fix cannot reach the leader. The minion.town arc supervisor asks whether to revive Oros or authorize deploying the leader past the dead canary.
+- **Oros health.** Oros needs someone at the machine. Its Claude OAuth session has expired, and `garden-secret-broker.service` has failed after every deploy since 11-07. Its `oros-health-checkup` and canary-probe jobs keep piling up in todo.
+- **Disk space.** The leader host's filesystem was down to roughly 176 to 500 MiB free and briefly hit zero. Space has to be reclaimed by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-**minion.town.** Development is paused by maintainer directive, and the claim chokepoint has refused queued press jobs 200 times. Separately, an arc supervisor reports production DNS for `minion.town` and `ocap.site` now points at an unrelated address serving a static page. The documented host is healthy when pinned directly. It asks whether you made that change. If you didn't, treat it as a possible zone compromise and check Route53 history.
+**Decisions waiting on you**
+- **minion.town settings simplification.** Run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- **Iron Horse test infrastructure.** The scholar ingest of yavashark found cost tiers, sampling and CPU pinning. The report asks whether to post a job to adopt them.
+- **Production guest and tower note.** One anonymous guest was left on production, and the tower note was missing on the host that ran the report.
 
-**Local disk.** The leader's garden filesystem briefly hit zero free space and sits at a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/`, and `worktrees/`.
-
-**Other items awaiting a decision:**
-- Three daily-progress-summary, daemon-agent-tools phase 8, oros secrets hand-off, and dependabotany recheck jobs were parked after retries were exhausted.
-- The Iron Horse test262 ratchet is halted on a wrong base.
-- Open questions on minion.town settings (a deploy step and four veto choices) and on whether to adopt yavashark test-infra ideas.
-
-Journal lock-contention notices keep recurring but are low severity.
+**Housekeeping**
+- Several split-eligible jobs were parked in the plan queue after their one retry failed: two daily progress summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off, and a dependabotany recheck.
+- Journal lock-contention notices keep recurring at low p95 values.
+- The Iron Horse ratchet is halted on a wrong base.
 
 ## Maintainer review docket
 
@@ -404,7 +405,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.7M | $150.14 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 40.8M | $150.48 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 377.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147338761 tokens/day lower bound._
