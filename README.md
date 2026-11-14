@@ -1,23 +1,28 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T09:23:01Z_
+_As of 2026-11-14T09:28:21Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is the main thing to notice. Its rolling-deploy canary has now failed four times because `garden-secret-broker.service` fails after deploy, and its Claude OAuth session has expired. It remains drained and operator-held, with canary probes piling up in todo. Because the leader waits for a passing canary, it is still on an older commit. That blocks the EROFS fix and leaves the parked minion.town jobs stuck. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. Both blockers need someone at the Oros machine.
+The input shows no file-level job transitions this cycle, so the main news is in the maintainer inbox, and two blockers stand out.
 
-Other items that need a decision or action:
-- **Disk space:** the leader host's filesystem briefly hit 0 bytes free and was at a few hundred MiB free during a job. It needs manual reclaiming under `.garden-state`, `scratch/`, and `worktrees/`.
-- **minion.town DNS:** production went dark on 2026-11-10 because DNS was repointed to an unexpected address. The arc supervisor asks whether you made the change or whether it is a possible zone compromise.
-- **Paused-project refusals:** the minion.town pause is now crashing the foreman (rc=78) and the mentor, so self-heal fires on each tick. Both need to handle the pause refusal as a clean outcome.
-- **Foreman milestone M3:** Phase 2c [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) is blocked until #1542 and [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497) merge.
-- **Parked jobs:** several scheduled daily-summary, build, and dependabot-recheck jobs were parked after the reaper's retries ran out.
+**Oros is stuck and is holding up the fleet.** `oros-studio-garden-ce242c49` has failed the rolling-deploy canary on every try. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Three retries are used up and the host stays drained. Because the leader only deploys after a canary passes, the leader is still on `f2788117645`, which lacks the EROFS fix. The minion.town arc supervisor says every monk job that needs a project checkout dies on this. That includes weave and conduct for [kriscendobot/minion.town#246](https://github.com/kriscendobot/minion.town/pull/246) and the panels for [#237](https://github.com/kriscendobot/minion.town/pull/237), [#252](https://github.com/kriscendobot/minion.town/pull/252) and [#248](https://github.com/kriscendobot/minion.town/pull/248). The supervisor is asking you to either revive Oros or authorize a leader deploy past the dead canary. Reviving Oros needs someone at the machine.
 
-Board activity is mostly Endo PR gauntlet work: [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) is in fix round 4, [endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) is being woven, and [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) is being fixed. [endo-but-for-bots#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) has a fix completed, and the [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) gauntlet halted.
+**minion.town production may be down at the DNS level.** A supervisor reported that DNS for `minion.town` and `ocap.site` was repointed on 2026-11-10 to `34.225.237.208`. That address serves a static placeholder page, and every app route returns 404. The real host at `13.56.17.18` is healthy. The garden has no AWS credentials, so it did not touch DNS. If you didn't make the change, treat it as a possible zone compromise and check the Route53 history. The project is also under the standing minion.town pause.
 
-The journal-lock-contention notices have mostly cleared on their own. The leader monk pool stepped down from 4 to 3 under the budget ramp.
+**The pause is breaking the foreman and mentor.** `foreman.sh` and `mentor.sh` treat the refusal code 78 from `post-job.sh` as fatal. That is the code returned when a job belongs to a paused project. Both exit non-zero and trigger self-heal on every tick. The pause-refusal watchdog notice has now fired over 23,000 times.
+
+**Disk on the leader is nearly full.** `endolin-garden-ece02cb4` had 176–500 MiB free and briefly hit 0, which caused an ENOSPC failure. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+
+**Other items waiting on you:**
+- The minion.town settings-simplification report asks you to run `deploy-accounts-store.sh` before merging.
+- The foreman's milestone M3 note asks you to merge Endo PRs #1542 and [#1497](https://github.com/endojs/endo-but-for-bots/issues/1497) so that #1504 can resume.
+- A scholar ingest raised the question of whether to post an Iron Horse test-infra job.
+- The scheduled daily progress summaries for 2026-11-05 and 2026-11-06 were parked after their retries failed, along with several build jobs.
+
+Most journal-lock-contention notices recovered on their own.
+
+On the board, the only jobs claimed were a `fix` for [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), a `weave` of [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), and round 4 of the fix stage for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). The three Oros canary probes sit unclaimed in todo.
 
 ## Maintainer review docket
 
@@ -587,7 +592,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.8M | $114.84 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 28.9M | $115.18 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 383.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152365465 tokens/day lower bound._
