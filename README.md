@@ -1,24 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T07:28:11Z_
+_As of 2026-11-14T07:32:57Z_
 
 ## Latest
 
-Little board movement resolved this cycle (no file-level transitions), but the doin lane shows live PR work. The gauntlet for [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) ran through panel and un-draft and completed. The panel for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) finished round 3, and a fix round 3 is in progress. Fixers are also working [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667).
+Board transitions this cycle show no file-level moves, but the tail of the `tada` list shows [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) completing its full gauntlet (panel, then un-draft). A third panel round also finished for [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), whose fix round 3 is in flight, alongside fixes on [endojs/endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [endojs/endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667).
 
-**Needs your call, in rough order of impact:**
-- **Oros is stuck.** It is drained after the rolling-deploy canary failed again (`garden-secret-broker.service` failing; Claude OAuth session expired). Because the leader (endolin) can't deploy past a failed canary, it still runs the old build without the EROFS fix. Every monk job needing a project checkout dies, and the minion.town PR work is parked. Decide whether to revive Oros or authorize a leader deploy past the canary. The Oros fix needs someone at the machine.
-- **Disk pressure on endolin.** The root filesystem has been near zero free space, and a job hit ENOSPC. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Pause refusals are crashing services.** The minion.town pause makes `post-job.sh` refuse with rc=78. The foreman and mentor both treat that as a crash, so each tick fails and self-heal fires. A fix job was posted for the foreman.
-- **minion.town DNS.** Production appears to have been repointed at a different host on 2026-11-10 and its subdomains no longer resolve. The question is whether that was deliberate or a possible zone compromise. It still needs your answer.
-- **Other open questions:**
-  - Whether to post an Iron Horse test-infra job.
-  - Four veto choices in the minion.town settings simplification report, and running `deploy-accounts-store.sh` before merge.
-  - The M3 critical path is blocked on [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589).
+**Needs maintainer attention:**
+- **Oros is stuck.** The host `oros-studio-garden-ce242c49` has failed its rolling-deploy canary four times (`garden-secret-broker.service` fails after deploy), and its Claude OAuth session has expired. It stays drained and needs someone at the machine.
+- **The leader deploy is blocked behind Oros.** The leader `endolin-garden-ece02cb4` still runs an older tip. Until it deploys, the EROFS project-checkout fix cannot land and minion.town monk work stays parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+- **Foreman and mentor crash on the minion.town pause.** `garden-foreman` and `garden-mentor` exit on `post-job.sh` pause refusals (rc=78), which they treat as crashes, so self-heal keeps firing. The refusal count is past 21,000. A fix job has been posted for the foreman.
+- **Disk pressure.** The leader's filesystem briefly hit 0 bytes free and was at roughly 176–500 MiB. It needs manual reclaiming under `.garden-state`, `scratch/`, and `worktrees/`.
+- **minion.town DNS.** On 2026-11-10 production DNS was repointed to an unrelated address, and the production probe has been red since. Please confirm whether this was intentional or a zone compromise.
+- **Milestone M3 is blocked** at [endojs/endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) on whether the new workspace catalogs may proceed or must use code mode.
+- **Settings-simplify deploy.** Run `deploy-accounts-store.sh` before merging the minion.town settings simplification, and tell the liaison if you veto any of its four listed choices.
 
-Journal lock-contention notices continue on both hosts, with a six-clone storm on endolin. Most have since recovered. Several daily-summary and build jobs were parked by the reaper after retries ran out.
+Journal-lock contention notices keep recurring on the leader (six clones hit contention in one tick), though several individual conditions have since cleared.
 
 ## Maintainer review docket
 
@@ -572,10 +569,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.9M | $91.68 _(notional, rate-card)_ | 8% of 271.0M (ok) |
-| Codex | 381.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 21.2M | $92.79 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Codex | 382.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 151664455 tokens/day lower bound._
+_Fleet token-unlock pace: 151957787 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 14 open notice(s); checker healthy
