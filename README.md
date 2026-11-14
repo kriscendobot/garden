@@ -1,26 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-14T03:14:21Z_
+_As of 2026-11-14T03:18:17Z_
 
 ## Latest
 
-Little moved in the board transitions this cycle. The only transition is `dependabotany-recheck-endo-but-for-bots-20261114-025015`, which went back from doin to todo. Nothing was claimed or completed. Todo holds 131 jobs, and most are the recurring `oros-health-checkup` and `minion-town-arc-press` jobs and the Oros canary probes that nothing is claiming.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. The rolling deploy has halted on a failed canary three times running, and the host is drained with its OAuth session expired and `garden-secret-broker` failing. Its canary probes and `oros-health-checkup` jobs keep piling up unclaimed in `todo`. That block is also keeping the endolin leader on `f2788117645`, so the EROFS fix on `main2` hasn't reached it. Monk jobs that need a project checkout therefore keep dying, and the minion.town arc supervisor is asking you to choose between reviving Oros and authorizing a leader deploy past the dead canary.
 
-**Oros is the blocker.** [`oros-studio-garden-ce242c49`](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still operator-held and drained.
-- The rolling deploy has halted on its canary three times, so the leader hasn't advanced past `f2788117645`.
-- The Claude OAuth session has expired (fix: `claude`, then `/login`, as the garden user).
-- `garden-secret-broker.service` fails after each deploy.
-- The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Until the leader deploys, monk jobs that need a project checkout die with EROFS.
-- Both blockers need someone at the machine.
+Nothing else moved on the board in this window. The minion.town project pause is still refusing work: the claim watchdog has logged over 16,000 refusals of arc-press jobs. A separate message reports that minion.town production went dark on 2026-11-10 because DNS now points at an unrelated address. It needs you or a credentialed host to confirm whether the change was intentional.
 
-**Other items for you:**
-- Production minion.town appeared to go dark on 2026-11-10. A supervisor message reports DNS now pointing at an unfamiliar address, with several subdomains no longer resolving. Please say whether that repoint was yours. The message says it is a possible zone compromise if it wasn't.
-- The leader's filesystem was nearly full (176–500 MiB free, briefly 0). The space needs reclaiming by hand.
-- The minion.town project pause is still being enforced: the watchdog notice has coalesced 16,175 refusals of a minion.town job.
-- Before merging the minion.town settings simplification, run `deploy-accounts-store.sh`, and say if you object to any of its four listed design choices.
-- Other open questions are the IronHorse test-infra adoption call, one leftover anonymous guest on production minion.town, and several parked daily-summary and build jobs awaiting promotion.
+Disk on the endolin host dropped to near zero free space, and the byte-capacity guard that would page on it isn't deployed yet, so someone should reclaim space by hand. Several scheduled and held jobs (the daily progress summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off, a dependabotany recheck) are parked in the plan queue after retries were exhausted. Journal lock-contention notices on both hosts mostly cleared overnight, and the screening and comment-watcher alerts also recovered.
 
-Most of the journal-contention, screening and comment-watcher alerts have recovered. The coalesced lock-contention notices for `unblock`, `worktree_sweeper` and `bulletin` are still open at a low level.
+Decisions waiting on you in the inbox:
+- Whether to adopt the yavashark-style test-infra ideas for Iron Horse.
+- Whether to run `deploy-accounts-store.sh` before merging the minion.town settings simplification, and whether you veto any of its four listed choices.
 
 ## Maintainer review docket
 
@@ -518,10 +510,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.6M | $368.17 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 96.7M | $368.55 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149734390 tokens/day lower bound._
+_Fleet token-unlock pace: 149774133 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
