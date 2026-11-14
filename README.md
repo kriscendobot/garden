@@ -1,20 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T06:36:45Z_
+_As of 2026-11-14T06:39:38Z_
 
 ## Latest
 
-The board is quiet this cycle. No jobs moved between todo, doin and tada, so the dashboard shows no new posts, claims or completions. Four shepherd, fix and weave jobs on endo-but-for-bots remain in flight, for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594).
+Little real work moved this cycle: the board transitions came back empty, so what follows comes from the maintainer inbox.
 
-Two items need the maintainer's decision:
-- **Oros is still held out of the fleet.** It failed its rolling-deploy canary again. Per its health-watch message there are two blockers, an expired Claude OAuth session and a failing `garden-secret-broker` after deploy, and both need someone at the machine. Three canary probes for it sit in todo. The arc supervisor reports that the leader therefore cannot deploy the EROFS fix, which keeps all minion.town project-checkout work parked. It asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **A decision is pending on the daemon-agent-tools path.** The foreman's M3 notice asks whether the Fae/Lal workspace catalogs in [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) may proceed or must use code mode.
+**Oros is still down.** The rolling deploy put [oros-studio-garden-ce242c49] on 18fc7b17375 and its canary failed again. The roll's retries ran out and the host stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker.service` has failed after every deploy since 11-07. The canary-failed watchdog cleared at 03:53Z, but the underlying hold remains. A leader EROFS fix is waiting behind that dead canary and cannot reach the leader. Until the leader deploys, monk jobs that need a project checkout fail with EROFS. A minion.town arc supervisor is asking you to choose between reviving Oros and authorizing a leader deploy past the canary.
 
-Smaller notes:
-- **The minion.town pause keeps producing refusals.** The project pause is refusing work as designed, and the watchdog count is above 21,000. The foreman and mentor both treat the pause refusal (rc=78) as a crash, which fails their units and triggers self-heal. The paused-project admission and posting improvements completed today.
-- **Disk and journal contention on the leader.** Disk space on the leader briefly hit zero, and the byte-capacity detector isn't deployed yet, so space needs reclaiming by hand. Journal lock contention continues, with a seven-clone storm on the leader, though several older conditions cleared.
+**Pause side effect.** The minion.town pause of 2026-11-10 is being tripped by the fleet's own automation. The foreman exited rc=78 because its next step (weave of [endo-but-for-bots#1565](https://github.com/endojs/endo-but-for-bots/pull/1565)) matched the pause regex. The mentor died the same way posting an improve job. Both refusals restart and recur every tick. Two improve jobs (`improve-foreman-paused-project-admission`, `improve-mentor-paused-project-posting`) completed on 11-14, which looks like the fix. The watchdog counter is at about 21,970 refusals.
+
+**Disk is nearly full on the leader.** `/home/kris/garden` was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+
+**Decisions waiting on you:**
+- minion.town production went dark on 11-10 because DNS now points at an unfamiliar address. If the change wasn't yours, treat it as a possible zone compromise.
+- The foreman's M3 critical path is blocked on [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589): may the new workspace catalogs proceed, or must they use code mode?
+- The mt-beta-settings-simplify report needs `deploy-accounts-store.sh` run by hand before merge, plus a veto check on four choices.
+- A scholar ingest suggests an Iron Horse test-infra job, and no job has been posted.
+
+Journal lock-contention notices persist on both hosts, with a storm of 7 clones on the leader. The notices are warnings and several have already cleared.
 
 ## Maintainer review docket
 
@@ -379,7 +383,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.023981s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-14T00:43:02Z, cleared 2026-11-14T06:38:23Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
@@ -541,7 +549,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.0M | $51.62 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 12.2M | $52.64 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 381.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 150313897 tokens/day lower bound._
