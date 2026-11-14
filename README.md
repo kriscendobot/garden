@@ -1,24 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-14T04:38:19Z_
+_As of 2026-11-14T04:41:51Z_
 
 ## Latest
 
-Board activity was quiet this cycle: no job transitions resolved, though the `tada/` listing shows the most recent completions, `issue-status-pass-go-live`, `improve-dependabotany-idle-rechecks`, and a `dependabotany-recheck-endo-but-for-bots` pass. The gauntlet for endojs/endo-but-for-bots#1359 also halted.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. The roll moved it to `18fc7b17375`, the canary failed again, and retries ran out. It needs someone at the machine for an expired Claude OAuth login and a failing `garden-secret-broker.service`. The leader `endolin-garden-ece02cb4` therefore still runs `f2788117645`, and the EROFS fix can't reach it. Until it does, monk jobs that need a project checkout keep dying, which is why minion.town PR work stays parked. The minion.town arc supervisor is asking you to revive Oros or authorize a leader deploy past the dead canary.
 
-Most items need maintainer attention:
+Other items that need you:
+- **minion.town production DNS:** an arc-press gardener found `minion.town` and `ocap.site` resolving to an unexpected Amazon address, with the app routes returning 404 and the real host healthy when pinned. Nobody has touched DNS. You need to say whether the change was deliberate or a possible zone compromise.
+- **Disk space:** the leader's filesystem is nearly full (about 176 to 500 MiB free, briefly 0), so it needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **Endo M3 chain:** the foreman reports it is blocked on approval of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and merge of its core PR #1560.
+- **Other decisions:** the minion.town settings-simplify report needs `deploy-accounts-store.sh` run before merge plus a veto check, and two scholar-ingest reports are waiting on your call.
 
-- **Oros is still operator-held.** It failed the canary again and stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired (run `/login`), and `garden-secret-broker.service` fails after deploy. A "canary failed" watchdog notice cleared at 03:53Z, but the host is still held.
-- **The Oros hold blocks the leader.** The leader, endolin-garden-ece02cb4, is still on `f2788117645`, because the rolling deploy rolls Oros first as a canary. The EROFS fix therefore can't reach the leader. Every monk job that needs a project checkout dies, so all minion.town PR work is parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **minion.town production DNS.** A gardener reports that production went dark on 2026-11-10 because DNS now points `minion.town` and `ocap.site` at an unfamiliar address, and the subdomains no longer resolve. The gardener asks whether this repoint was intentional, and notes that if it wasn't, it could be a zone compromise. The real host is healthy at `13.56.17.18`. Nobody has touched DNS, so this needs a credentialed decision.
-- **Disk on the leader.** The leader's `/home/kris/garden` filesystem was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/`, and `worktrees/`.
-- **Decisions waiting:**
-  - Approve or merge [endojs/endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/issues/1560), which gates the M3 restacks #1561, #1563, and #1625.
-  - Whether to post an Iron Horse test-infra job to adopt yavashark's cost tiers, sampling, and CPU pinning.
-  - A minion.town settings change needs `deploy-accounts-store.sh` run before it merges, plus a veto check on four choices.
-  - A leftover anonymous guest on production minion.town.
-- **Parked jobs.** Several daily-summary, dependabotany, daemon-agent-tools phase 8, and Oros bwrap hand-off jobs were reaped after retries and parked, awaiting promotion.
-- **Journal lock-contention watchdogs** are mostly clearing. One is at 11 occurrences and another at 10. The `minion-town` project pause is still refusing a todo scholar job (about 19.5k notices).
+On the board, the gardeners finished the `issue-status-pass-go-live` and `improve-dependabotany-idle-rechecks` jobs plus a dependabotany recheck. The [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) gauntlet halted. Three scholar-ingest jobs remain in todo. The journal-contention watchdog cleared several conditions, including the storm and fetch-slow alerts and the Oros rolling-deploy canary page.
 
 ## Maintainer review docket
 
@@ -370,7 +364,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> M3’s top-priority child-agent capability is blocked on approval and landing of [endojs/endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/issues/1560); that unlocks the already-prepared #1561, #1563, and #1625 restacks. Please decide whether to approve/merge #1560.
+> COALESCED message — occurrence #2 (first seen 2026-11-14T04:34:56Z, latest 2026-11-14T04:41:32Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> M3’s top-priority child-agent-factory chain is blocked on approval of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and merge of its ready, clean core PR #1560. Its remaining work is already built and restacked; choose whether to land that reviewed stack before further M3 work proceeds.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -512,7 +510,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.8M | $11.21 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.9M | $11.54 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 379.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 146602765 tokens/day lower bound._
