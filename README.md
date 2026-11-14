@@ -1,20 +1,23 @@
 # Garden bulletin
 
-_As of 2026-11-14T05:43:14Z_
+_As of 2026-11-14T05:44:37Z_
 
 ## Latest
 
-The board is nearly idle, with no job transitions resolved this cycle. The main finding is that **Oros (`oros-studio-garden-ce242c49`) is still held**. The rolling deploy has now failed its canary on three successive commits, retries ran out at 19:29Z, and it remains drained. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both need someone at the machine. Two canary probes for it are sitting unclaimed in todo. Because the leader can't deploy past a dead canary, it still runs `f2788117645`, and the EROFS fix for project checkouts hasn't reached it. The minion.town arc supervisor has asked you to either revive Oros or authorize a leader deploy past the canary.
+The only board movement was a new parked job, `endojs-endo-but-for-bots-pr1501-weave-after-pr1613`, held until [endojs-endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) lands. The board has no new claims or completions.
 
-Other items that need your decision:
-- **Disk space on the leader:** it dropped to roughly 176–500 MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** production went dark on 2026-11-10 because DNS now points at a different Amazon address. The arc supervisor is asking whether you made that change. The prod-probe issue is [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256).
-- **Foreman milestone M3:** draft PR #1594 is blocked on the Node 24 fix in draft PR #1598, whose review chain halted on an unrelated IronHorse-oracle failure. You need to choose between merging #1598 and resuming #1594, or restarting the rename PRs. I can't link either PR because the input doesn't give their repo.
-- **mentor self-heal:** `garden-mentor` is crashing on every tick. It tries to post a job for the paused `minion-town` project, `post-job.sh` refuses it, and `mentor.sh` treats the refusal as fatal. This will recur until the pause is lifted or the handler is fixed. The pause also continues to refuse `scholar-ingest-fudco-gist-20261105`, with 21,331 coalesced notices so far.
-- **mt-beta-settings-simplify:** run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
-- **Parked daily-progress-summary jobs:** the 11-05 and 11-06 jobs were parked by the reaper after their retries also failed. Promote them or let them go.
+Items for the maintainer:
 
-The rest is journal-lock contention noise. Several of those conditions cleared, and the storm notice on the leader is still open.
+- **Oros is still operator-held.** It failed the canary again at the last roll and stays drained. It needs an expired Claude login renewed (`claude`, then `/login`) and a look at why `garden-secret-broker` fails after each deploy. Two canary probes for it sit unclaimed in todo.
+- **The leader is stuck behind the dead canary.** Because of that, the EROFS fix can't reach the leader, and the minion.town PR work needing project checkouts stays parked. The arc supervisor asks whether to revive Oros or authorize deploying the leader past it.
+- **Disk space on the leader host.** It briefly hit zero free bytes, and a job reported ENOSPC. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town production went dark on 2026-11-10.** DNS for `minion.town` and `ocap.site` appears to have been repointed to an unrelated address. The arc supervisor asks whether that was intentional or a possible zone compromise.
+- **The minion.town pause keeps tripping the system.**
+  - The watchdog has counted over 21,000 refusals of claimable minion.town jobs.
+  - The mentor's improve handler crashes on the same refusal each tick, and `self-heal` fired again.
+- **Foreman milestone M3 is blocked.** Draft PR #1594 needs the Node 24 fix in draft PR #1598, whose review chain halted on an IronHorse-oracle failure. The maintainer must choose between merging #1598 and weaving #1594, or retiring the rename PRs.
+- **Journal lock contention continues on both hosts.** A six-clone storm hit the leader this morning. Several older notices have cleared.
+- **Reaper-parked jobs still await promotion or removal.** They include the two daily progress summaries, the dependabotany recheck, the Phase 8 fetch-plugin build and the Oros bwrap hand-off.
 
 ## Maintainer review docket
 
@@ -534,7 +537,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.6M | $33.60 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 7.8M | $34.37 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 380.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148536765 tokens/day lower bound._
@@ -771,6 +774,7 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`conduct-endojs-endo-but-for-bots-pr1573-after-pr1646`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/conduct-endojs-endo-but-for-bots-pr1573-after-pr1646.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1646` · Conduct endojs/endo-but-for-bots PR #1573 after the Node pin lands
 - [`endojs-endo-but-for-bots-pr1501-weave-after-pr1585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1501-weave-after-pr1585.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1585` · ---
 - [`build-minion-town-guest-coupons-phase1-rest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-guest-coupons-phase1-rest.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/199` · Build the rest of guest-coupons phase 1 on kriscendobot/minion.town
+- [`endojs-endo-but-for-bots-pr1501-weave-after-pr1613`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1501-weave-after-pr1613.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1613` · ---
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`minion-town-ui-gutter-mint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-mint.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/142` · Gutter: the + button mints a real clip (minion-town-ui increment)
 - [`weave-endojs-endo-but-for-bots-pr1575-onto-llm-after-pr1573`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1575-onto-llm-after-pr1573.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1573` · Weave endojs/endo-but-for-bots PR #1575 onto llm after its parent #1573 merges
