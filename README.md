@@ -1,26 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T15:07:56Z_
+_As of 2026-11-14T15:13:38Z_
 
 ## Latest
 
-The fleet is stuck mostly on the Oros follower. The rolling deploy keeps failing its canary there: retries ran out again, and the host stays drained with the roll holding it. Oros needs someone at the machine for two fixes. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Because the leader deploys only after its followers pass, the leader still runs the old commit. Until it deploys, the EROFS fix can't land, and the minion.town arc supervisor's parked work stays parked. The supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Several canary-probe jobs for Oros are piling up unclaimed in todo.
+Two things need you first. Oros ([oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49)) is still operator-held after its rolling-deploy canary failed again. It needs a Claude `/login` and a look at why `garden-secret-broker` fails after deploy. Oros stays drained and its canary probes pile up in todo. That also keeps the leader on an older build, which blocks the EROFS fix. The leader host's disk was also at or near zero free space during one job, so space needs reclaiming by hand.
 
-The leader's disk is also nearly full. It briefly hit 0 free and has been sitting at about 176–500 MiB, so space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+The minion.town project pause is generating noise. The foreman (rc=78) and mentor (rc=1) both crash on every tick because they try to post paused-project jobs, and the pause-refusal watchdog count has passed 27,000. Both look like pause refusals handled as crashes. The foreman and mentor notices carry the diagnoses.
 
-minion.town production appears to have gone dark on 2026-11-10 because DNS was repointed. The A records for `minion.town` and `ocap.site` now point to a different Amazon address, and several subdomains no longer resolve. The supervisor needs you to say whether this change was intentional. If it wasn't, treat it as a possible zone compromise and check the Route53 history. The project is paused, and the pause is being refused at its chokepoints. That refusal is now crashing the foreman (rc=78) and the mentor (rc=1), and each crash fires self-heal every tick. The pause watchdog has counted over 27,000 refusals.
+Gauntlet outcomes:
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging. Its CI is green, and it needs a human decision or `--add-rounds`.
+- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 declined.
+- The #1660 gauntlet also halted today.
 
-Two gauntlets need a decision:
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its 6 of 6 review rounds. Its last fix round passed CI, but the subjective review never converged. You can grant more rounds with `--add-rounds`.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage declared failure.
+[endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/issues/1501) is still waiting on you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613).
 
-[endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660)'s gauntlet also halted today. The foreman is asking you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so the queued reweave of #1501 can proceed.
+Other open decisions in the inbox:
+- A minion.town production DNS repoint, reported on 11-10, that nobody has acknowledged.
+- The `deploy-accounts-store.sh` run needed before the settings-simplify merge.
+- Whether to post an Iron Horse test-infra job from the yavashark ingest.
 
-The minion.town settings-simplify report needs you to run `deploy-accounts-store.sh` before merging, and to veto any of its four listed choices. Without the deploy, Log out stays hidden and account deletion answers 503 without deleting anything.
-
-Journal-lock-contention watchdog notices are mostly clearing on their own. The contention storm cleared at 15:00Z, and the remaining notices are low-grade. Several scheduled daily-summary, dependabot-recheck and builder jobs were parked after retries were exhausted. They are held until someone promotes them.
+Several daily-summary and dependabot-recheck jobs were parked after exhausting their retries. Journal-lock contention notices are mostly recovering.
 
 ## Maintainer review docket
 
@@ -366,15 +366,15 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T08:52:20Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T15:12:37Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 98645335b47ab9ed40227560045bc9a8e7a08611 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 98645335b47ab9ed40227560045bc9a8e7a08611). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-rc78
-> `scripts/jobs/foreman.sh` (around line 737) treats any nonzero `post-job.sh` return code as fatal and runs `exit "$post_rc"`. The failing case is rc=78. `post-job.sh` returns 78 when the step belongs to a PAUSED project: "refusing to post 'build-daemon-git-capability-phase-five-contract-tests-build-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md)". The foreman proposes a next milestone step for minion.town, which is deliberately paused (commit a0b0f010fcc, "record the minion.town project pause"). The post is refused, the foreman exits 78, and self-heal fires every tick.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 4a188f54cc7b8512ab1aff57f7e6ccca0ace057c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 4a188f54cc7b8512ab1aff57f7e6ccca0ace057c). Diagnosis: The foreman exited 78 because its post of `design-daemon-git-remotes-server-half-r2` was refused. That job belongs to the paused project `minion-town`. It exits with the post-job return code, so it fails again on every tick.
 >
-> Fix:
-> 1. In `foreman.sh`, handle `post_rc == 78` explicitly, as a clean outcome like `post-tempfail`. Call `decide paused-proj
+> JOB self-heal-fix-garden-foreman-paused-project-rc78
+> Failure: `garden-foreman` exits 78 (EX_CONFIG). Last log lines: `[post] refusing to post 'design-daemon-git-remotes-server-half-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`, then `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`.
+> Cause: in `scripts/jobs/foreman.sh`, around line 737, the generic `post_rc -ne 0` branch runs `exit "$post_rc"` for any non-zero rc. Post-job returns 78 as a deliberate refusal when the project is paused (the mini
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -646,13 +646,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.5M | $216.68 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 57.7M | $217.61 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 388.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153363895 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.555613s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 12 open notice(s); checker healthy
+worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
