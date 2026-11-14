@@ -1,20 +1,22 @@
-The failing `sandbox-drivers` check was a flake, not caused by this PR. After one rerun, CI on PR #1590 is fully green: 26 checks pass and 10 are skipped, with no failures, on head `9f0a7a65c0a2eddeebd1fa7bd1791f5f61bc562f`.
+I got PR #1590's CI back to green by rerunning one failed job, with no code change. GitHub now reports the PR's merge state as CLEAN, which clears the way for #1592.
 
-**What failed:** The original run (run 41195268283, 2026-10-31) runs the sandbox-driver suite four times in a row. Three of those passes were clean. One failed in the bwrap test "timeout and repeated cancellation reap process groups" with `Error: process group 7484 survived bounded cleanup`, which is a timing problem on the runner.
+- **What failed:** In run 43609796328, the `test (24.x, ubuntu-latest)` job failed on one test in `@endo/sandbox`: `bwrap › bwrap timeout and repeated cancellation reap process groups` ("process group 46796 survived bounded cleanup").
+- **Why it isn't this PR's fault:** #1590 only changes `cli`, `daemon`, the designs docs, changesets and `yarn.lock`; it doesn't touch `packages/sandbox`. This is a known timing flake with an open fix in endojs/endo-but-for-bots#1591 ("sweep the bwrap process group when the leader exits"). The one other failing run, on the earlier head `3aa198e2`, is out of date now.
+- **What I did:** Ran `gh run rerun --failed` on that run. Attempt 2 finished with success on the same head, `8d98a2e8`.
+- **Leftover red entries:** `gh pr checks` still lists 4 fails (`cover`, `test`, `test-async-hooks`, `viable-release`). They all come from a duplicate CI run, 43609796147, that GitHub cancelled when the post-weave push started a second run. The status rollup no longer counts any check as failed.
 
-**Why it's not this PR:** The PR changes only `packages/cli`, `packages/daemon`, the designs, the changesets and `yarn.lock`. It does not touch the sandbox drivers or their tests. The bwrap tests have unrelated runner-portability problems that open PR #1566 is meant to fix.
-
-**What I did:** I reran only the failed job (`gh run rerun --failed`), and run attempt 2 completed with success. I pushed no code and left no PR comments, since the job didn't authorize commenting.
-
-**Next:** none. The halted gauntlet for #1590 can resume. If this bwrap test keeps failing on PRs, the place to fix it is PR #1566, not the PRs where it shows up.
+Follow-ups:
+- #1592 can go ahead.
+- Landing #1591 should stop this bwrap flake from turning other PRs red.
+- #1590 is still a draft and is waiting on its normal gauntlet/review.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/shepherd-endojs-endo-but-for-bots-pr1590.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 22 tokens (669262 cached reads)
-- Output: 3295 tokens
-- Cost: $0.6718563999999999
-- Wall-clock: 668s
-- Model(s): claude-opus-5-5 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 54 tokens (1893726 cached reads)
+- Output: 8581 tokens
+- Cost: $1.6648931999999999
+- Wall-clock: 4233s
+- Model(s): claude-opus-5-5 ×2
 
 <!-- garden-usage-end -->
