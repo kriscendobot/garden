@@ -1,33 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T16:12:56Z_
+_As of 2026-11-14T16:19:09Z_
 
 ## Latest
 
-Most of the fleet's recent motion is gauntlet and weave work on endo-but-for-bots, and several items need a maintainer decision.
+The board's recorded transitions show nothing new this cycle. The signals that matter are in the maintainer inbox.
 
-**Gauntlets:**
-- The [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 6 panel/fix rounds without converging (about $22). The PR is left improved for a human call. `--add-rounds 2` would grant more.
-- The [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix stage reported the outcome as failed or declined. Resume with `--add-rounds 2` if you want it to continue.
-- The [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) gauntlet also halted, and its clean stage found CI red.
-- Shepherd work on [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) and a weave of [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) completed today.
-- [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) is stalled on its inherited Oracle CI failures. The foreman asks you to merge [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) or pick the competing fix.
+**Needs your decision**
+- **Gauntlet budgets.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without the review converging. It is left for a human merge decision, or you can grant more rounds. [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504)'s gauntlet halted after its first fix stage reported the gated outcome as failed or declined.
+- **M3 stack.** The daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) stays blocked until the green zizmor fix [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) merges. Several weaves are queued behind it.
+- **Oros is still held.** The `oros-studio-garden-ce242c49` host failed the canary again. Its Claude login has expired, and `garden-secret-broker` fails after each deploy. It needs someone at the machine. Because the leader's rolling deploy waits on that canary, the leader stays on an older commit. A related arc-supervisor message says that until the leader deploys, monk jobs needing a project checkout die with a read-only-filesystem error.
+- **minion.town.**
+  - The project pause is still being enforced. The foreman and mentor services keep exiting because they try to post jobs for it, which triggers self-heal notices.
+  - A message from 11-10 reports production DNS pointing at an unexpected address. It asks whether you made that change.
+- **Disk.** The leader's filesystem dropped to a few hundred MiB free and briefly hit zero. It needs manual reclaiming.
 
-**Fleet health:**
-- **Oros:** Oros (`oros-studio-garden-ce242c49`) is still drained after repeated canary failures. It needs someone at the machine for an expired Claude login and a failing `garden-secret-broker`. Its canary probes are piling up in todo.
-- **Leader deploy:** The leader can't deploy the EROFS fix until the Oros canary passes. A minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk:** The leader's filesystem is nearly full, with 176–500 MiB free and a brief ENOSPC. Space needs reclaiming by hand under `.garden-state`, `scratch/`, and `worktrees/`.
-- **Budget:** Budget pacing trimmed the leader from 4 to 3 monks.
-
-**minion.town:**
-- **Pause:** The pause continues to be enforced, with the watchdog count past 28,000 refusals.
-- **Pause crashes:** Both the foreman (rc=78) and the mentor crash on pause-refused posts every tick, and self-heal pages each time. Both need a code fix or a lift of the pause.
-- **DNS:** An earlier arc-press message reports production DNS repointed to an unexpected address, with a red prod probe. The supervisor asks whether that change was intentional.
-- **Settings:** The settings-simplification report needs `deploy-accounts-store.sh` run before merge, plus your veto check on four choices.
-
-**Journal-lock contention:** Many notices cleared on their own today. The remaining ones are low-severity coalesced counts.
+Journal-lock-contention notices mostly recovered, and Claude budget pacing trimmed the leader to 3 monks.
 
 ## Maintainer review docket
 
@@ -429,11 +417,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #10 (first seen 2026-11-14T04:34:56Z, latest 2026-11-14T09:56:41Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 10 times; this is
-> ONE entry that updates in place, not 10 messages. Latest detail:
+> COALESCED message — occurrence #11 (first seen 2026-11-14T04:34:56Z, latest 2026-11-14T16:17:11Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 11 times; this is
+> ONE entry that updates in place, not 11 messages. Latest detail:
 >
-> Milestone M3’s next stalled critical PR, [endojs/endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/issues/1501), awaits merge of clean PR #1613 to fix its inherited Oracle CI failures. Please merge #1613 (or select the competing fix) so the queued reweave can proceed.
+> M3’s daemon worker-import stack (PRs #1559 → #1590 → #1592) is blocked until the green shared zizmor fix in endojs/endo-but-for-bots PR #1659 merges. Please decide whether to merge #1659 so the stack can be reweaved and CI resumed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -657,10 +645,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $227.68 _(notional, rate-card)_ | 22% of 271.0M (ok) |
-| Codex | 389.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 60.8M | $229.12 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Codex | 389.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153421238 tokens/day lower bound._
+_Fleet token-unlock pace: 153472396 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 12 open notice(s); checker healthy
