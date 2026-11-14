@@ -1,16 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-14T07:19:50Z_
+_As of 2026-11-14T07:21:45Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. The rolling deploy halted on a failed canary there again (4th occurrence), with `garden-secret-broker.service` failing after deploy. An expired Claude OAuth session is a second blocker. Both need someone at the machine. Oros has stopped claiming jobs, so the leader is stuck on `f2788117645`. That leaves the EROFS project-checkout fix undeployed, and monk jobs that need a project checkout are dying. The minion.town supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+Oros (oros-studio-garden-ce242c49) is still held out of the fleet. Its rolling-deploy canary keeps failing because `garden-secret-broker.service` fails after deploy, and the Claude OAuth session there has expired. Both fixes need someone at the machine. Retries are exhausted and the drain stays in place. Three canary-probe jobs for Oros sit unclaimed in todo. The leader (endolin-garden-ece02cb4) is still waiting behind that canary, so the EROFS fix cannot reach it. An arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
 
-Separately, a Route53 change may have taken minion.town production dark on 11-10. Both `minion.town` and `ocap.site` now resolve to an unfamiliar Amazon address serving a static page, and the arc supervisor wants to know whether the change was yours. If it wasn't, treat it as a possible zone compromise. The whole minion.town project is paused, which is why the foreman and mentor keep failing with rc=78 on pause refusals. Their self-heal jobs diagnose this, and the refusal count is past 21,000.
+The minion.town project remains paused (since 2026-11-10). The pause refusal now crashes two units: `garden-foreman` exits rc=78 and `garden-mentor` exits rc=1. Each tick re-proposes a paused-project job and fails, so self-heal fires repeatedly. The pause watchdog notice has counted 21,970 refusals. Separately, an earlier arc-press message reports minion.town production dark since 2026-11-10 because DNS for `minion.town` and `ocap.site` was repointed to an unfamiliar address. It asks whether you made that change on purpose.
 
-Two more things need attention. The leader's disk is nearly full (hundreds of MiB free, briefly 0) and needs manual reclaiming. Review [endojs/endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) is blocking the M3 critical path on a catalog-versus-code-mode decision.
+The leader's filesystem is nearly full (a few hundred MiB free, briefly 0 during a job). It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
 
-On the board, the [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) gauntlet completed through panel and un-draft, and the #1588 panel round 3 finished. Fix round 3 for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and a fixer for [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) are in flight. Journal lock-contention alerts mostly cleared overnight.
+Journal-lock contention notices are mostly recovering. The fetch-slow and storm conditions on the leader and Oros have cleared, though several lock-contention notices remain open.
+
+On the board, the gauntlet for [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) completed through un-draft. Panel 3 finished for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), which is now in fix round 3 with its shepherd. Fixer jobs are active on [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667). One decision is waiting on you: the foreman's M3 critical path is blocked on whether the new Fae/Lal workspace catalogs in [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) may proceed or must use code mode. Several stale daily-summary and builder jobs were parked by the reaper after retries ran out.
 
 ## Maintainer review docket
 
@@ -558,7 +560,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.3M | $87.64 _(notional, rate-card)_ | 7% of 271.0M (ok) |
+| Claude | 20.5M | $88.59 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 381.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151664455 tokens/day lower bound._
@@ -575,10 +577,11 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1588
 - [`shepherd-endojs-endo-but-for-bots-pr1588`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1588.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr667`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr667.md) — ---
 
 ### tada (17070)
 - [`endojs-endo-but-for-bots-pr1659-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1659-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1659-gauntlet — complete
