@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-14T13:52:35Z_
+_As of 2026-11-14T13:54:06Z_
 
 ## Latest
 
-The one board move was the completion of the PR #1588 gauntlet's panel round 6 ([endojs-endo-but-for-bots-pr1588-gauntlet-panel-6](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1588-gauntlet-panel-6.md)). The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round. That round pushed fixes, but CI is still red on a failure the PR inherits. It used 1 of 8 rounds and cost $4.77. To resume, run `scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1504-gauntlet-20261114 panel --iteration 1 --add-rounds 2`.
+Gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1. The fixes were pushed, but CI is still red on a failure the PR inherits. The maintainer can resume it with `--add-rounds 2`, which grants two more panel/fix rounds (8 → 10). Alternatively, merge [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) first. That PR also unblocks [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) and the held dependabot row [#1629](https://github.com/endojs/endo-but-for-bots/pull/1629).
 
-Items that need you:
-- **Oros is still stuck.** The rolling-deploy canary for oros-studio-garden-ce242c49 failed again after 3 automatic retries, so Oros stays drained and the leader has not advanced. Two things need someone at the machine: re-login to the expired Claude OAuth session, and check why `garden-secret-broker` fails after each deploy. The leader still runs f2788117645, and the EROFS fix cannot reach it. That keeps the minion.town PR work parked, for example [minion.town#246](https://github.com/kriscendobot/minion.town/pull/246). The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk space on the leader is nearly gone.** Free space on `/home/kris/garden` fell to a few hundred MiB and briefly hit 0, which caused an ENOSPC failure. It needs reclaiming by hand.
-- **minion.town DNS may have changed unexpectedly.** The apex now resolves to 34.225.237.208, not the documented 13.56.17.18, and the other subdomains no longer resolve. The production probe has been red since 14:52Z on 2026-11-10. The garden has no AWS credentials. Please confirm whether the change was deliberate, and check the Route53 change history if it was not.
-- **The pause on minion.town is tripping automation.** The foreman and the mentor both exit nonzero because `post-job.sh` refuses their minion.town jobs with rc=78, and self-heal fires each tick. The pause watchdog notice is at 26,740 occurrences.
-- **Foreman M3 is waiting on you.** [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) needs merging so [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can be rewoven.
+The only fix job in flight is round 6 of the [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet. Rounds 5 and 6 of that gauntlet's fix and panel stages completed earlier today. A job to open the submitOnce patch as a draft PR is also in progress.
 
-The monk pool on the leader dropped from 4 to 3 as the Claude spend ramped, and the rest of the traffic was routine. Most journal lock contention notices cleared on their own.
+Two hosts need a person:
+- **Oros:** The host is still drained after the rolling deploy failed its canary again. It needs a Claude `/login` and a look at why `garden-secret-broker` fails after deploy. Because the canary failed, the leader is stuck on an older build. That blocks the EROFS fix and keeps the parked minion.town jobs from restarting.
+- **Leader:** Its disk was nearly full, with a few hundred MiB free and a brief 0. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+
+Smaller points:
+- The minion.town pause is causing repeat failures. The foreman and mentor services exit non-zero when `post-job.sh` refuses a paused-project post, which triggers self-heal each tick.
+- Several daily-summary and build jobs are parked after exhausting their retries and await your promote-or-drop decision.
+- minion.town production DNS looked repointed on 11-10 and the question is still open. Please say whether the change was intentional.
+- The journal-lock contention notices are mostly recovering.
 
 ## Maintainer review docket
 
@@ -621,7 +624,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.5M | $199.72 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 52.8M | $200.91 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 388.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153307156 tokens/day lower bound._
@@ -640,7 +643,8 @@ worst fetch p95 2.555613s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1588
 - [`endo-submit-once-pr-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-submit-once-pr-20261114.md) — Open the submitOnce patch as a draft PR against endojs/endo-but-for-bots llm
 
 ### tada (17098)
