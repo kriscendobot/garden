@@ -1,34 +1,25 @@
-PR #1592 is now stacked on #1590's new head `3aa198e206`, with a freshly recreated frozen parent snapshot. I couldn't run the package tests locally; CI will be the first test run on the new base.
+Nothing needed doing on this run. An earlier claimant of this job had already finished the weave about 5 minutes after it was posted, and I checked it against the live PR.
 
-**What I did**
-- **New frozen parent:** created `daemon-worker-import-from-mount-phase-three-3aa198e` at `3aa198e2063f` (#1590's current head) and pushed it to `endojs/endo-but-for-bots`.
-- **Rebase:** moved #1592's two commits from the old parent snapshot (`9f0a7a65c0`) onto the new one with `git rebase --onto 3aa198e206 9f0a7a65c0`. There were no conflicts.
-  - `efdbdc4cd9` became `2041cdac6f` (feat(daemon): snapshot mount imports for caplet lifetime)
-  - `f615fb2669` became `63520477b1` (test(daemon): cover makeFromPackage readable-tree source passthrough)
-  - `git range-diff` shows both patches are identical (`=`). The diff against the new parent is the same 9 files, +201/−38, as before.
-- **Push:** force-pushed the head branch `daemon-worker-import-from-mount-phase-four-snapshot` with a lease on the old SHA. It is now `63520477b1`.
-- **PR base:** moved #1592's base with `gh pr edit 1592 --base daemon-worker-import-from-mount-phase-three-3aa198e`. GitHub now reports it as MERGEABLE.
+- **The weave is done.** PR #1592's head is at `409e69aa`. Its base is the frozen branch `daemon-worker-import-from-mount-phase-three-8d98a2e`, which points at `8d98a2e8`, the current head of PR #1590.
+- **The stack is intact.** Against both the frozen base and #1590's live branch, #1592 is 2 commits ahead and 0 behind, and its merge base is `8d98a2e8`.
+- **The diff contains only Phase 4 files:**
+  - the changeset
+  - two design docs (`designs/README.md`, `designs/daemon-worker-import-from-mount.md`)
+  - in `packages/daemon/src`: `host.js`, `manager.js`, `types.d.ts`, `worker-facet-interface.js` and `worker.js`
+  - the test `make-from-package.test.js`
+- **A completion comment is already on the PR**, posted at 2026-11-14T22:55:46Z. It reports no conflicts and the Phase 4 changes carried over unchanged.
 
-**The stack**
-- #1592 now sits on #1590's new head through the new snapshot.
-- #1590 itself was left alone (head `3aa198e206`, base `daemon-worker-import-from-mount-69cafe1`).
-- No open PR is stacked on #1592.
+**CI is not green yet.** On the current head: 17 passed, 10 skipped, 9 still running and 31 cancelled (including `test`, `build-xsnap`, `check-action-pins` and several ironhorse jobs). I did not look into why so many were cancelled. A run that is still in progress or was superseded may explain it. Getting CI green is a shepherd job, not this one. That is also why I didn't push or comment again.
 
-**Why the tests didn't run**
-- This checkout has no installed packages (no `ava`), and the npm cache is a read-only file system, so `npx` can't fetch anything.
-- The risk looks low. What changed in #1590 between the two snapshots is dependency bumps across `package.json` files and `yarn.lock`, plus a few test files in other packages. It touches no daemon source, and #1592's patches are unchanged.
-
-**Follow-ups**
-- The old snapshot `daemon-worker-import-from-mount-phase-three-9f0a7a6` stays until the PR closes, when the conductor cleans it up.
-- I posted no PR comment because the job didn't authorize one.
+**Follow-up:** the earlier shepherd comment on this PR named a `zizmor` failure in the shared base (a version-comment mismatch in workflow files that the PR didn't touch). If it comes back on this head, it needs the shared fix, not another weave.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/weave-endojs-endo-but-for-bots-pr1592.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 1 host(s)
-- Input: 46 tokens (1376594 cached reads)
-- Output: 9204 tokens
-- Cost: $1.3664868
-- Wall-clock: 299s
-- Model(s): claude-opus-5-5 ×2
+- Engagements: 4 on 1 host(s) (1 unmetered)
+- Input: 54 tokens (1564655 cached reads)
+- Output: 11104 tokens
+- Cost: $1.845619 (1 engagement(s) unpriced)
+- Wall-clock: 710s
+- Model(s): claude-opus-5-5 ×3
 
 <!-- garden-usage-end -->
