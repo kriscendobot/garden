@@ -1,30 +1,23 @@
 # Garden bulletin
 
-_As of 2026-11-14T14:29:45Z_
+_As of 2026-11-14T14:32:39Z_
 
 ## Latest
 
-No job-board transitions were recorded this cycle, so what follows comes from the messages in the maintainer inbox.
+The board turned over, but the file-level transitions did not resolve, so the dashboard shows no per-job moves. One gauntlet halted: the [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) fix stage failed after one round ($4.77 spent, 1 of 8 rounds used). The report declared the outcome failed, so the stage was not retried. Resume with `scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1504-gauntlet-20261114 panel --iteration 1 --add-rounds 2`. Gauntlets for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (fix round 6) and [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) (clean) are in flight.
 
-**Needs a decision now**
-- **Oros is still held.** The rolling deploy to `oros-studio-garden-ce242c49` has failed its canary five times, and retries are exhausted. Two blockers need someone at the machine: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after deploy.
-- **The leader can't deploy.** The leader `endolin-garden-ece02cb4` is stuck behind the dead Oros canary. That keeps it off the EROFS fix, so minion.town jobs that need a project checkout are parked. The question is whether to revive Oros or authorize a leader deploy past the canary.
-- **Disk space on the leader host.** The leader's filesystem was down to roughly 176–500 MiB free and briefly hit zero. Reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** On 2026-11-10 the DNS for minion.town was reported repointed to an unfamiliar address, and the production probe has been red since. Please say whether that change was intentional. If it wasn't, check the Route53 history.
+**Oros is the main blocker.** `oros-studio-garden-ce242c49` is still drained after another failed rolling-deploy canary, and the leader is stuck behind it. Two fixes need someone at the machine: re-login to Claude (`claude`, then `/login`), and check why `garden-secret-broker` fails after deploy. Until the leader deploys, the EROFS fix cannot land, and the minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. Canary probes for Oros keep piling up in todo.
 
-**Pause fallout**
-- The minion.town pause is working, but two services treat its refusal as a crash. The foreman (`garden-foreman`, exit code 78) and the mentor (`garden-mentor`, exit code 1) fail every tick and trigger self-heal. The mentor's own diagnosis says this will recur until the pause is lifted or the handling is fixed.
-- The pause notice for minion.town has now been coalesced 26,740 times.
+**Paused minion.town work keeps tripping automation.** The pause is working: the claim path has refused jobs for it 26,740 times. But `foreman.sh` and `mentor.sh` treat the refusal (rc=78) as a crash, so self-heal fires on every tick. Both need a fix to handle rc=78 as a clean outcome, or the pause needs lifting.
 
-**Gauntlet and PRs**
-- The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix stage failed, with 1 of 8 rounds spent. It can resume with 2 more rounds.
-- [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) is the merge the foreman keeps asking for. It would fix the inherited Oracle CI failures blocking the M3 milestone work on #1501, and the dependabot recheck for #1629 is also held on it.
-- Gauntlet stages for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (fix round 6) and [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) (clean) are running.
+**Needs your decision or hands:**
+- **DNS:** `minion.town` and `ocap.site` resolve to an unexpected address serving a static page, and the subdomains no longer resolve. This is either an intentional change or a possible zone compromise. Check Route53 history.
+- **Disk:** the leader host is nearly out of disk, at about 176–500 MiB free and briefly 0, and needs manual reclaiming.
+- **Deploy order:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge.
+- **Merge:** merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) (or pick the competing fix) to unblock [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+- **Held jobs:** several held daily-summary, dependabotany, and build jobs sit in `jobs/plan/` after requeue exhaustion.
 
-**Smaller items**
-- Several daily-summary and recheck jobs were parked after retries ran out.
-- Open questions for you: an anonymous guest left on minion.town production, whether to adopt yavashark's test-infra tiers for Iron Horse, and three vetoes plus an accounts-store deploy for the minion.town settings simplification.
-- Journal lock contention is mostly clearing on its own. About a dozen recovered notices came in.
+Journal-lock contention notices mostly recovered. A few occurrences remain open on both hosts.
 
 ## Maintainer review docket
 
@@ -632,10 +625,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.1M | $210.84 _(notional, rate-card)_ | 20% of 271.0M (ok) |
-| Codex | 388.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 55.2M | $211.19 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Codex | 388.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153328814 tokens/day lower bound._
+_Fleet token-unlock pace: 153417947 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.555613s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 11 open notice(s); checker healthy
