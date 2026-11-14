@@ -1,43 +1,34 @@
-I didn't push anything to PR #1592. Its base is already current against its parent, and weaving it onto a fresh llm snapshot would have broken the stack.
+PR #1592 is now stacked on #1590's new head `3aa198e206`, with a freshly recreated frozen parent snapshot. I couldn't run the package tests locally; CI will be the first test run on the new base.
 
-**Why I didn't weave onto a new llm snapshot.** #1592 is the top of a three-PR stack, and all three PRs are still open:
+**What I did**
+- **New frozen parent:** created `daemon-worker-import-from-mount-phase-three-3aa198e` at `3aa198e2063f` (#1590's current head) and pushed it to `endojs/endo-but-for-bots`.
+- **Rebase:** moved #1592's two commits from the old parent snapshot (`9f0a7a65c0`) onto the new one with `git rebase --onto 3aa198e206 9f0a7a65c0`. There were no conflicts.
+  - `efdbdc4cd9` became `2041cdac6f` (feat(daemon): snapshot mount imports for caplet lifetime)
+  - `f615fb2669` became `63520477b1` (test(daemon): cover makeFromPackage readable-tree source passthrough)
+  - `git range-diff` shows both patches are identical (`=`). The diff against the new parent is the same 9 files, +201/−38, as before.
+- **Push:** force-pushed the head branch `daemon-worker-import-from-mount-phase-four-snapshot` with a lease on the old SHA. It is now `63520477b1`.
+- **PR base:** moved #1592's base with `gh pr edit 1592 --base daemon-worker-import-from-mount-phase-three-3aa198e`. GitHub now reports it as MERGEABLE.
 
-| PR | Base | Head now |
-|---|---|---|
-| #1559 | `llm-9a14ddf` | `6d40c78` |
-| #1590 | `daemon-worker-import-from-mount-6d40c78` | `9f0a7a6` |
-| #1592 | `daemon-worker-import-from-mount-phase-three-9f0a7a6` | `f615fb2` |
+**The stack**
+- #1592 now sits on #1590's new head through the new snapshot.
+- #1590 itself was left alone (head `3aa198e206`, base `daemon-worker-import-from-mount-69cafe1`).
+- No open PR is stacked on #1592.
 
-- #1592's base, `daemon-worker-import-from-mount-phase-three-9f0a7a6`, is a snapshot of #1590's head, and that head is still `9f0a7a6`. A shepherd job confirmed it today. So the base is up to date.
-- Neither parent is merged into llm. Moving #1592 onto a new llm snapshot would pull all the #1559 and #1590 commits into #1592's diff, which the weaver rules forbid.
+**Why the tests didn't run**
+- This checkout has no installed packages (no `ava`), and the npm cache is a read-only file system, so `npx` can't fetch anything.
+- The risk looks low. What changed in #1590 between the two snapshots is dependency bumps across `package.json` files and `yarn.lock`, plus a few test files in other packages. It touches no daemon source, and #1592's patches are unchanged.
 
-**How far behind llm the stack is.**
-- The stack's root base `llm-9a14ddf` is only 8 commits behind llm, which is now at `48d6f3e`.
-- Those 8 commits are dependency bumps (dependabot updates, an eslint-plugin-unicorn bump, a zizmor-action bump) and two small test fixes.
-- None of the 9 files #1592 changes overlaps them. The only file the whole stack shares with them is `yarn.lock`, which #1590 changes.
-
-**Where #1592 stands.**
-- GitHub reports it MERGEABLE, it is out of draft, and all its checks pass (6 pass, 18 skipped, none failing).
-- Its two commits are unchanged:
-  - `efdbdc4cd9` feat(daemon): snapshot mount imports for caplet lifetime
-  - `f615fb2669` test(daemon): cover makeFromPackage readable-tree source passthrough
-
-I left no comments on the PR, since the job didn't authorize any.
-
-**Follow-up (not posted):** if you want the whole stack on a current llm base, it has to be done from the bottom up as one cascade:
-1. Weave #1559 onto `llm-48d6f3e`.
-2. Re-snapshot #1559's new head and weave #1590 onto it, regenerating `yarn.lock` in a separate commit.
-3. Re-snapshot #1590's head and weave #1592 onto it.
-
-That changes the heads of #1559 and #1590, which is outside this job, so I didn't post it. Given the drift is only dependency bumps, it can also wait until #1559 is ready to land.
+**Follow-ups**
+- The old snapshot `daemon-worker-import-from-mount-phase-three-9f0a7a6` stays until the PR closes, when the conductor cleans it up.
+- I posted no PR comment because the job didn't authorize one.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/weave-endojs-endo-but-for-bots-pr1592.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 26 tokens (799502 cached reads)
-- Output: 5204 tokens
-- Cost: $0.7288283999999999
-- Wall-clock: 188s
-- Model(s): claude-opus-5-5 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 46 tokens (1376594 cached reads)
+- Output: 9204 tokens
+- Cost: $1.3664868
+- Wall-clock: 299s
+- Model(s): claude-opus-5-5 ×2
 
 <!-- garden-usage-end -->
