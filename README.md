@@ -1,26 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-14T04:07:54Z_
+_As of 2026-11-14T04:08:30Z_
 
 ## Latest
 
-Board activity is thin in this window: the transition feed resolved no file-level moves. The only visible completions are two jobs under `jobs/tada/2026/11/14`, `improve-dependabotany-idle-rechecks` and `dependabotany-recheck-endo-but-for-bots-20261114-025015`. No PR links can be resolved from this input.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its rolling-deploy canary has failed repeatedly, and more than a dozen canary probes and health-checkup jobs sit unclaimed in todo. The health-watch message says two blockers need someone at the machine. The Claude OAuth session has expired and needs `/login`, and `garden-secret-broker.service` fails after each deploy. Because Oros keeps failing the canary, the leader is still on an older commit. An earlier arc-press message says that leaves the EROFS fix (`3c7f9ce045e`) undeployed and all minion.town PR work parked.
 
-**Oros is the main blocker.** [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still operator-held and drained.
-- The canary probes keep failing and retries ran out.
-- Two things need someone at the machine. The Claude OAuth session has expired and needs `/login`. `garden-secret-broker.service` also fails after each deploy, as it has since 11-07.
-- That keeps the 130-job todo queue stuck behind unclaimed `oros-health-checkup` and canary-probe jobs.
+minion.town development is also paused under the 2026-11-10 maintainer directive. The pause watchdog has now refused queued jobs more than 17,000 times, and arc-press and completion-press jobs keep landing in todo. Separately, a Nov 10 message reports that `minion.town` and `ocap.site` DNS now point at an unexpected address, taking production dark. It asks whether the repoint was intentional, because it could be a zone compromise. That question is unanswered.
 
-**The leader is stuck on an old commit.** It is still on f2788117645, because the rolling deploy waits on the Oros canary. The EROFS fix (3c7f9ce045e, now main2 21585bda2b3) therefore cannot reach it. The minion.town arc supervisor is asking you to either revive Oros or authorize a leader deploy past the dead canary.
+The latest completed job on the board is `dependabotany-recheck-endo-but-for-bots-20261114-025015`, plus `improve-dependabotany-idle-rechecks`. Several journal-contention watchdog conditions cleared overnight, including the rolling-deploy canary page for Oros. Journal lock contention continues to recur on the leader at low severity.
 
-**Other items awaiting a decision:**
-- **minion.town DNS:** a 2026-11-10 report says production DNS was repointed to 34.225.237.208 (the documented host is 13.56.17.18). The reporting gardener says this is either a deliberate change or a possible zone compromise, and it did not touch DNS. Please confirm whether the change was yours.
-- **minion.town pause:** the project pause is still being enforced (17,480 coalesced watchdog hits), so the arc-press jobs in todo stay unworked.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free and needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Parked daily summaries:** two daily progress-summary jobs and several split-eligible builds were parked by the reaper after retries were exhausted. They are in the plan queue awaiting your promotion.
-- **Follow-up asks:** the `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging and to veto-check four choices. The yavashark ingest report asks whether to post an Iron Horse test-infra job.
-
-**Cleared since the last bulletin:** several journal lock-contention and fetch-slow notices, the rolling-deploy canary-failed page and the minion.town screening-tick failure streak. Journal lock contention on the leader still has 13 open notices, with worst fetch p95 at 7.3s.
+Other open items:
+- **Disk:** the leader's filesystem briefly hit 0 bytes free, so reclaim space by hand.
+- **Parked jobs:** several scheduled jobs, including the daily progress summaries, are parked after exhausting their requeues.
+- **Deploy order:** `deploy-accounts-store.sh` must run before the minion.town settings-simplification change merges.
 
 ## Maintainer review docket
 
@@ -490,7 +483,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=23.150899s max=23.150899s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal` has CLEARED (first seen 2026-11-13T22:18:28Z, cleared 2026-11-14T04:08:11Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
@@ -506,7 +503,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 379.7k | $1.81 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 475.6k | $2.19 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 379.1M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151209805 tokens/day lower bound._
