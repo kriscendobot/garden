@@ -1,23 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-14T04:19:03Z_
+_As of 2026-11-14T04:22:07Z_
 
 ## Latest
 
-The board is nearly idle: 3 scholar-ingest jobs are in todo and none are in progress. The last completions were an `improve-dependabotany-idle-rechecks` job and a dependabotany recheck for endo-but-for-bots. Gauntlet `endojs-endo-but-for-bots-pr1359-gauntlet-20261113` finished HALTED, and the journal had no other new file-level transitions to report.
+Little moved on the board this cycle: the only transition was `issue-status-pass-go-live`, which went from the plan queue into `doin` and is now being worked. It removes `GARDEN_ISSUE_STATUS_DRY_RUN` so the issue status pass starts posting for real. Earlier completions included `improve-dependabotany-idle-rechecks` and a dependabotany recheck for endo-but-for-bots, and the gauntlet for endo-but-for-bots#1359 halted.
 
-What the maintainer should notice:
+Several things need a maintainer's decision:
+- **minion.town DNS.** On 2026-11-10 `minion.town` and `ocap.site` started resolving to `34.225.237.208`, which serves a static page and answers 404 on every app route. The documented host `13.56.17.18` is healthy. No journal record explains the change, and the garden has no AWS credentials. Please confirm whether the repoint was intentional and check the Route53 change history.
+- **Oros.** It is still drained and operator-held. The Claude OAuth session has expired (run `/login`), and `garden-secret-broker.service` keeps failing after deploy. A stale canary on Oros is also blocking the leader from deploying the EROFS fix, so monk jobs that need a project checkout keep failing and minion.town PR work is parked. The arc supervisor asks whether to revive Oros or authorize deploying the leader past the canary.
+- **Disk space.** `endolin-garden-ece02cb4` has only a few hundred MiB free and briefly hit zero. This needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Minion.town pause.** The pause is still being enforced. The watchdog has refused the same `minion-town-arc-press` job 17,480 times, which points to a stale host still producing paused-project work.
+- **Parked daily summaries.** Two `daily-progress-summary` jobs (for 11-05 and 11-06) are held in the plan queue after exhausting their retries, along with several other doomed builds.
 
-- **Oros is still operator-held.** The roll moved oros-studio-garden-ce242c49 to 18fc7b17375 and its canary failed again, so it stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired (run `claude`, then `/login`), and `garden-secret-broker.service` fails after deploy. The rolling-deploy canary page for Oros cleared at 03:53Z.
-- **The leader deploy is stuck behind Oros.** The leader endolin-garden-ece02cb4 is still on f2788117645, and the EROFS fix cannot reach it because the dead Oros canary blocks the roll. Until it deploys, monk jobs that need a project checkout die with EROFS. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
-- **minion.town production went dark on 2026-11-10 at about 13:14Z.** The apex now resolves to `34.225.237.208` instead of the documented `13.56.17.18`. If the repoint was not deliberate, it may be a zone compromise, and a credentialed host needs to check the Route53 history. Separately, development of minion.town is paused, and the pause watchdog has refused the same arc-press job 17,480 times.
-- **The leader's disk is nearly full.** endolin-garden-ece02cb4 had 176–500 MiB free and briefly hit 0, so it needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Four more items wait on a maintainer call:**
-  - Run `deploy-accounts-store.sh` before merging the minion.town settings simplification.
-  - Decide whether to post an Iron Horse test-infra job to adopt the cost tiers, sampling and CPU pinning found in the yavashark scholar ingest.
-  - Decide whether to leave or hand-remove one anonymous guest left on production minion.town by the live probe.
-  - Decide what to do with the parked jobs the reaper held after retries were exhausted: daily progress summaries, an endo-but-for-bots dependabot recheck, the Phase 8 fetch-plugin build, and the Oros bwrap hand-off.
-- **Journal-lock contention is easing.** Several watchdog notices recovered overnight, including the contention storm at 04:14Z. Three open lock-contention notices and the Oros-side regenerate-sections-index notice remain, all with giveups of 1 and no steals.
+The journal-contention alerts are mostly clearing on their own.
 
 ## Maintainer review docket
 
@@ -507,7 +503,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.1M | $5.07 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 1.6M | $7.81 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 379.1M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151209805 tokens/day lower bound._
@@ -521,8 +517,8 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (1)
+- [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-status-pass-go-live.md) — Go live with the issue status pass (remove GARDEN_ISSUE_STATUS_DRY_RUN)
 
 ### tada (17056)
 - [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/improve-dependabotany-idle-rechecks.md) — Cost
@@ -695,7 +691,6 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/issue-status-pass-go-live.md) — _normal_ · Go live with the issue status pass (remove GARDEN_ISSUE_STATUS_DRY_RUN)
 - [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-press-20261113-225326.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr199-review-4460eb00-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-review-4460eb00-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #199 (primary: kriscendobot-mini...
 - [`endojs-endo-but-for-bots-pr1575-review-938c3acf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1575-review-938c3acf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1575 (primary: endojs-endo-but-...
