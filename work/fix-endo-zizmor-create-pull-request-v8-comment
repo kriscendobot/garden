@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-11-14T06:47:00Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-fix-endo-zizmor-create-pull-request-v8-comment
-pr_number: 1659
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1659
-pr_head: fix/zizmor-create-pull-request-pin-comment
