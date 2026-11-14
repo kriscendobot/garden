@@ -1,21 +1,21 @@
 # Garden bulletin
 
-_As of 2026-11-14T13:33:50Z_
+_As of 2026-11-14T13:37:45Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) remains the main blocker. Its rolling-deploy canary failed again and the roll halted after retries ran out. The host is drained and needs someone at the machine for two reasons: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy. Because the leader deploys only after its followers pass, the leader is still on an older commit. Per the arc supervisor, that means monk jobs needing a project checkout keep hitting EROFS, and the minion.town PR work is parked. The supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. The Oros canary probes are still queued in todo.
+The fleet is still stuck on the leader deploy, and that is blocking the most work. Oros (`oros-studio-garden-ce242c49`) failed its rolling-deploy canary again after retries ran out, and it stays drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both fixes need someone at the machine. Because the canary can't pass, the leader is still on `f2788117645`, so the EROFS fix hasn't reached it. The minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary. The board shows several `canary-probe-oros-…` jobs still waiting in todo.
 
-Other items that need a maintainer:
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free and sits at a few hundred MiB, so space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** the supervisor reports minion.town and ocap.site resolving to an unfamiliar address since about 13:14Z on 2026-11-10, and asks whether you made that change on purpose or whether it is a possible zone compromise. It has not touched DNS.
-- **Paused project:** the minion.town pause is generating self-heal churn. The foreman exits rc=78 and the mentor exits rc=1 when `post-job.sh` refuses a paused-project post, and the pause watchdog notice is at 25,804 occurrences. Both are fixable code paths.
-- **Held decisions:**
-  - The foreman asks you to merge [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), which holds up M3's [#1501](https://github.com/endojs/endo-but-for-bots/issues/1501).
-  - Four jobs, including the daily progress summaries and the Phase 8 fetch-plugin build, were parked after exhausting requeues.
-  - The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging and to veto-check four choices.
+Other items that need a decision from the maintainer:
+- **minion.town DNS:** An earlier arc-press message reports that production DNS was repointed on 2026-11-10. `minion.town` and `ocap.site` now resolve to an address that isn't the documented host, and the subdomains no longer resolve. It asks whether you made that change on purpose, and says it could be a zone compromise if you didn't. The project pause is also being enforced, with the counter now past 26,000.
+- **Foreman and mentor crashes:** Both hit the paused-project refusal (rc=78) and are treated as fatal, so self-heal fires on every tick. This is a code fix in `foreman.sh` and `mentor.sh`, not a service restart.
+- **Disk space:** The leader's disk was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming.
+- **Foreman milestone M3:** The foreman is asking you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so the queued reweave of [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can proceed.
+- **mt-beta-settings-simplify:** Run `deploy-accounts-store.sh` before merging, and say whether you veto any of the four listed choices.
 
-On the board, the Phase 8 fetch-plugin build and a handful of minion.town gauntlet stages sit in the plan queue. Two gauntlet fix rounds are running: [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) round 1 and [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) round 5. Recent completions include the shepherd pass on #1504, which fixed zizmor but left test-xs red because of the base, plus a weave of [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592). Claude spend is at 19% of quota, so the leader monk count dropped from 4 to 3. Journal-lock contention notices are mostly recovered and need no action.
+In the gauntlet, FIX round 1 on [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) and FIX round 5 on [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) are running. Completed today are the shepherd run on #1504 (zizmor fixed, `test-xs` still red because of the base), panel round 5 on #1588, and a weave of [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592).
+
+The journal-contention watchdog noise mostly cleared, including the storm that began 11-13.
 
 ## Maintainer review docket
 
@@ -124,11 +124,11 @@ Delegation: **active**
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #25804 (first seen 2026-11-10T19:35:37Z, latest 2026-11-14T12:37:07Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 25804 times; this is ONE
-> coalesced notice that updates in place, not 25804 messages. Latest detail:
+> WATCHDOG notice — occurrence #26740 (first seen 2026-11-10T19:35:37Z, latest 2026-11-14T13:37:17Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 26740 times; this is ONE
+> coalesced notice that updates in place, not 26740 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -613,7 +613,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.0M | $213.97 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 51.1M | $214.46 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 388.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154144370 tokens/day lower bound._
