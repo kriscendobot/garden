@@ -1,31 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-14T17:48:03Z_
+_As of 2026-11-14T17:55:37Z_
 
 ## Latest
 
-The board is quiet: no job transitions resolved since the last bulletin, and 9 jobs are waiting in todo. Most of that queue is rolling-deploy canary probes for the Oros host (`oros-studio-garden-ce242c49`).
+Two gauntlets stopped on the same day. [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. It is left improved, and a human must decide whether to merge it or grant more rounds. [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted in its first fix round because the fix stage reported the gated outcome as failed. The same day also saw weaves of [#1498](https://github.com/endojs/endo-but-for-bots/pull/1498) and [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and a shepherd of [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) complete. The foreman says the M3 daemon worker-import stack (#1559 → #1590 → #1592) is waiting on the green zizmor fix [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). It needs your decision to merge it.
 
-**Oros is the main blocker.** The deploy to `18fc7b17375` failed its canary again, retries ran out at 19:29Z, and the host stays drained. It needs someone at the machine for two things:
-- The Claude OAuth session has expired, so someone has to run `claude`, then `/login`.
-- `garden-secret-broker.service` fails after each deploy, as it did 11-07 through 11-10.
+The following need attention:
+- **Oros is still held.** The Oros host (`oros-studio-garden-ce242c49`) failed its canary again, and the roll stopped retrying. It needs someone at the machine to re-run Claude `/login` and to look at `garden-secret-broker.service`, which has failed after every deploy since 11-07.
+- **The leader can't deploy.** The leader can't roll past the dead canary, so the EROFS fix hasn't reached it. All minion.town PR work is parked until the leader deploys or you authorize a deploy past Oros.
+- **Disk space.** The leader's `/home/kris/garden` filesystem briefly hit zero free space and sits at a few hundred MiB. It needs manual reclaiming now.
+- **minion.town DNS.** An earlier report says minion.town DNS was repointed away from the documented host on 11-10 (a possible zone compromise). It still needs your answer on whether you made that change.
+- **Paused project.** The minion.town pause keeps tripping a job chokepoint (31k+ refusals). It also crashes the foreman (rc 78) and the mentor, because `post-job.sh` refuses their posts to the paused project and they treat the refusal as fatal. Both reproduce on every tick until the pause is lifted or the scripts are fixed.
 
-The leader `endolin-garden-ece02cb4` can't roll past the dead canary. The minion.town supervisor asked whether to revive Oros or authorize a leader deploy past it. The EROFS fix is stuck behind that, so monk jobs that need a project checkout keep failing.
-
-**Gauntlets that need a decision:**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. A human has to decide whether to merge it or grant more rounds. A fixer job is still running on it.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared the outcome failed. It can resume with `--add-rounds`.
-- The foreman reports the M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is blocked until [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659), the zizmor fix, merges. Please decide on merging it.
-- A reweave job for the daemon mount-import stack and a weave of [endo-but-for-bots#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) are parked on [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
-
-**Other things to notice:**
-- The `endolin-garden-ece02cb4` filesystem was down to a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
-- The foreman and mentor services keep failing because the paused minion.town project refuses their posts. The foreman exits 78 and the mentor exits 1, and neither will recover until the pause is lifted or the code handles the refusal.
-- The watchdog's pause-enforcement notice for minion.town has now counted 31336 refusals.
-- A minion.town DNS repoint on 2026-11-10 is still unanswered.
-- Seven daily-summary and recheck jobs were parked after retries were exhausted.
-
-Most of the journal-contention watchdog notices have recovered.
+The journal-contention watchdog is noisy but mostly self-clearing. The one live storm on the leader shows six clones hitting lock contention.
 
 ## Maintainer review docket
 
@@ -122,11 +110,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-14T17:00:07Z).
-> It was observed 27 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #28 (first seen 2026-11-13T05:48:51Z, latest 2026-11-14T17:55:12Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 28 times; this is ONE
+> coalesced notice that updates in place, not 28 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.017290s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.019528s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.018019s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.018695s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.017221s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.017691s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -663,13 +657,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.0M | $241.34 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 64.1M | $241.70 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 389.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153848023 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
+worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
