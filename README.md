@@ -1,22 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T14:06:02Z_
+_As of 2026-11-14T14:08:08Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is still stuck, and it is now blocking the leader's deploy. The rolling-deploy canary on Oros has failed again after three retries, so the host stays drained. There are two blockers, and both need someone at the machine. The Claude OAuth session has expired and needs `/login`, and `garden-secret-broker.service` fails after each deploy. Oros has claimed nothing for days, so the leader is still on f2788117645 and has not received the EROFS fix. That keeps every minion.town job that needs a project checkout dead or parked, and the arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Canary probes for Oros are piling up unclaimed in todo.
+Oros (oros-studio-garden-ce242c49) is the main thing to notice. It is still held out of the fleet. The rolling deploy halted for the fifth time on a failed canary, and its drain stays in place. The health watch reports two blockers that need someone at the machine. One is an expired Claude OAuth session, which needs `/login`. The other is `garden-secret-broker.service`, which fails after every deploy.
 
-Other items that need a maintainer decision:
+The dead canary is also keeping the leader on an old commit. The EROFS fix for monk project checkouts cannot reach it, so minion.town PR work that needs a checkout stays parked. The minion.town arc supervisor has asked whether to revive Oros or authorize deploying the leader past the canary. Minion.town is also under a development pause. The foreman (`self-heal-garden-foreman`) and the mentor (`self-heal-garden-mentor`) keep crashing on the refused post (`post-job.sh` rc=78) and triggering self-heal, rather than treating the refusal as a clean outcome.
 
-- **Disk space.** The leader's filesystem hit 0 bytes free during a job and is sitting at roughly 176–500 MiB free. Space has to be reclaimed by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** The apex and `ocap.site` were repointed on 11-10 to an address that serves a static page, so every app route 404s. Someone should say whether the change was intentional and check the Route53 history. The project is also under a standing pause, and the watchdog count of refused jobs has passed 26,000.
-- **Pause fallout in the foreman and mentor.** Both now exit non-zero when `post-job.sh` refuses a paused-project job (rc=78), and self-heal fires every tick. A fix to treat that as a clean outcome is diagnosed but not yet landed.
-- **Gauntlet halt.** The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after fix round 1, with CI red on a failure the PR did not introduce. It can be resumed with two more rounds.
-- **Foreman milestone M3.** M3 is waiting on you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) or pick the competing fix, so the queued reweave of [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can proceed.
+Two more items need attention:
+- **Disk:** the leader's filesystem briefly hit 0 bytes free and sits at roughly 176–500 MiB free. It needs hand reclamation under `.garden-state`, `scratch/`, and `worktrees/`.
+- **minion.town DNS:** a 2026-11-10 report says production DNS was repointed to an unfamiliar address. The report asks whether the change was intentional, and nothing in the input resolves it.
 
-The gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) is on fix round 6, and a submitOnce draft PR job is in progress. The journal-contention storms on the leader and on Oros have mostly cleared, though a few lock-contention notices remain open.
+The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed, with a resume command in the inbox. Round 6 of the gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) is running, and an `endo-submit-once-pr-20261114` job is opening a draft PR. The foreman's milestone M3 request still asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can proceed.
+
+Most of the journal-contention watchdog notices cleared on their own, and the storm notice closed at 14:05Z. The monk budget level dropped from 4 to 3 workers on the leader.
 
 ## Maintainer review docket
 
@@ -624,7 +622,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $204.16 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 53.4M | $204.69 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 388.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153448226 tokens/day lower bound._
