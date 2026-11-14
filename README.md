@@ -1,16 +1,28 @@
 # Garden bulletin
 
-_As of 2026-11-14T17:03:21Z_
+_As of 2026-11-14T17:05:37Z_
 
 ## Latest
 
-Production minion.town has been dark since about 13:14Z on 11-10. A gardener found the apex DNS answering from an unfamiliar address, with the app routes returning 404. It asked whether the repoint was intentional, and the message is still unanswered. Minion.town development is paused, so the foreman and mentor keep tripping over refused posts for it. Both exited non-zero again and raised self-heal notices.
+Little new work moved this cycle: the only board transition is a fresh `accountant-weekly-20261114-170509` job posted to todo, with nothing claimed or completed since the last bulletin.
 
-Oros is still drained after failing its canary again, which leaves the leader unable to deploy. It needs someone at the machine to re-run `/login` and to check `garden-secret-broker`. The leader's disk is also nearly full, at times down to zero bytes free, and needs reclaiming by hand.
+**Needs your decision:**
 
-Two gauntlets stopped for a maintainer decision. [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds, and [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix round. Each message gives the resume command. The daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is still waiting on a decision to merge the zizmor fix, [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Many of the board's other parked weaves also wait on that fix.
+- **Gauntlets.**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. CI is green and the PR is left for a human call, or you can add rounds with `--add-rounds`.
+  - The #1504 gauntlet halted after its first fix round declared the gated outcome failed. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) can be resumed with extra rounds.
+- **The M3 daemon worker-import stack** ([endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is still waiting on the green zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). The foreman has now asked 11 times whether to merge it.
+- **Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held.**
+  - Its rolling-deploy canary failed again, and retries were exhausted at 19:29Z.
+  - Someone at the machine needs to re-run `/login` for the expired Claude OAuth session and check why `garden-secret-broker` fails after deploy.
+  - Until that happens the leader cannot roll forward, and the minion.town arc supervisor has asked whether to revive Oros or deploy the leader past the dead canary.
+- **The leader's disk is nearly full.** `endolin-garden-ece02cb4` has only about 176–500 MiB free and briefly hit zero. Someone needs to reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **The `minion.town` production DNS question is unresolved.** An earlier arc-press note reported that DNS repointed to an unexpected address on 11-10. Confirm whether that change was intentional.
+- **minion.town project pause.**
+  - The pause is still being hit: the watchdog has counted about 30,000 refusals.
+  - It has also made the foreman (exit 78) and the mentor (exit 1) crash-loop, because they treat the refused post as a fatal error.
 
-Most of the journal-contention watchdog traffic is recovery notices that need no action.
+The journal-contention watchdog notices are mostly RECOVERED closures. The ones still open are minor lock contention on the leader and Oros.
 
 ## Maintainer review docket
 
@@ -640,7 +652,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.4M | $237.31 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 62.4M | $237.66 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 389.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153662372 tokens/day lower bound._
@@ -649,8 +661,9 @@ _Fleet token-unlock pace: 153662372 tokens/day lower bound._
 worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
+- [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 34b72683ba79
