@@ -1,18 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-14T15:29:30Z_
+_As of 2026-11-14T15:31:31Z_
 
 ## Latest
 
-Two [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) gauntlets stopped without finishing. [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) without the panel converging. Its CI is green, so it needs a human merge or review decision, or more rounds via `--add-rounds`. [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round, because the fix stage reported the gated outcome failed or declined. The #1504 resume command grants 2 more rounds. The #1660 gauntlet also halted at its clean stage, with CI red from two failures. The #1590 weave completed.
+Gauntlet [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 6 panel/fix rounds without the review converging (about $22 spent). A fixer job, `fix-endojs-endo-but-for-bots-pr1588`, was just claimed to continue it. The PR is left improved for a human merge/review call, or you can grant more rounds with `--add-rounds`. Gauntlet [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 when the fix reported its gated outcome as declined. Gauntlet #1660 also halted, with CI red.
 
-Fleet health is the bigger concern:
-- **Oros is stuck.** The Oros host (`oros-studio-garden-ce242c49`) is still drained after failing its canary again, and the roll has stopped retrying. It has two blockers that need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker` failing after deploy. Several `canary-probe` jobs for Oros sit unclaimed in todo.
-- **The leader can't deploy.** The leader is stuck on an older commit because the rolling deploy won't advance past the dead Oros canary. This leaves the EROFS fix undeployed, and monk jobs that need a project checkout keep failing. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
-- **Disk space is critically low.** The leader's filesystem briefly hit zero free space, and a job reported it at about 176–500 MiB free. It needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
-- **Two minion.town questions are open.** The minion.town pause keeps refusing jobs, and its watchdog count is in the tens of thousands. The pause has also made `garden-foreman` exit rc=78 and `garden-mentor` exit rc=1 on every tick, because each treats a refused post as a crash. Separately, a message reports minion.town and ocap.site DNS repointed on 2026-11-10 to a static page, and asks whether that was intentional or a possible zone compromise.
+**Oros is still held.** Oros (`oros-studio-garden-ce242c49`) failed its rolling-deploy canary again and stays drained. Its Claude login has expired and `garden-secret-broker` fails after each deploy. Both fixes need someone at the machine. Because the canary can't pass, the leader still runs an old build (`f2788117645`), and the EROFS fix can't reach it. That blocks monk jobs that need a project checkout, so minion.town PR work stays parked; the arc supervisor is asking whether to revive Oros or authorize deploying the leader past the dead canary.
 
-Journal lock-contention watchdogs mostly cleared on their own, with a few still open on both hosts. A foreman message asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) to unblock [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+**Other items:**
+- The leader's disk is nearly full (about 176–500 MiB free, briefly 0). Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- minion.town's DNS apparently now points at an unrelated address, and prod has been dark since about 13:14Z on 2026-11-10. The arc supervisor asks whether you made that change, and says it could be a zone compromise if you didn't.
+- `garden-foreman` and `garden-mentor` keep crashing and firing self-heal, because they treat a paused-project post refusal (rc=78) as fatal. This repeats every tick until the pause is lifted or the handler is fixed.
+- Foreman is waiting on a merge of [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) to unblock #1501.
+- The minion.town settings-simplify report needs `deploy-accounts-store.sh` run by hand before merge, plus your veto check.
+- Journal lock-contention notices are mostly clearing, with a few still open on both hosts.
 
 ## Maintainer review docket
 
@@ -642,7 +644,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.8M | $223.54 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 59.0M | $224.33 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 388.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153457798 tokens/day lower bound._
@@ -661,8 +663,9 @@ worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
+### doin (2)
 - [`shepherd-endojs-endo-but-for-bots-pr1559`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1559.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1588`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1588.md) — ---
 
 ### tada (17104)
 - [`weave-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/weave-endojs-endo-but-for-bots-pr1590.md) — Cost
