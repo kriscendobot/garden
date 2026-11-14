@@ -4,7 +4,7 @@
   "arc": "ironhorse-test262-ratchet",
   "token_cap": 356960121,
   "window_seconds": 604800,
-  "press_interval_seconds": 3600,
+  "press_interval_seconds": 300,
   "set_by": "producer",
-  "set_at": "2026-11-13T22:53:22Z"
+  "set_at": "2026-11-14T04:10:18Z"
 }
