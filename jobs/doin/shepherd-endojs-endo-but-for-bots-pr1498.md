@@ -14,3 +14,13 @@ Shepherd endojs/endo-but-for-bots PR #1498 (`daemon-locator-terminology`) on `bu
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-14T20:33:07Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-14T20:33:23Z
