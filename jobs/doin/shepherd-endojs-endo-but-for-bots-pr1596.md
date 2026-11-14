@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1596, the M3 `mvs-resolver` draft, to diagnose and repair its failing zizmor CI check.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-14T10:31:10Z
