@@ -1,22 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T05:27:55Z_
+_As of 2026-11-14T05:28:54Z_
 
 ## Latest
 
-The board is nearly idle: the only transition is a claim of `build-daemon-rename-to-manager`, with 3 jobs in doin (the PR #1588 shepherd and weave jobs and that build). The PR #1588 pair is the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) work that the foreman says is stalled. Milestone M3 is blocked by base CI and the unmerged base repairs [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646. Please decide whether to merge those repairs.
+Oros ([oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49)) is still the main blocker. It failed its rolling-deploy canary again, and retries ran out. Its Claude login has expired, and `garden-secret-broker` keeps failing after deploy. Both need someone at the machine. Two more canary probes for it sit in todo, and the leader (endolin) cannot deploy past a dead canary. Until it does, monk jobs that need a project checkout die with EROFS. A maintainer decision is pending: revive Oros, or authorize a leader deploy past the canary.
 
-The main blockers are in the maintainer inbox:
+Other items needing a decision:
+- **minion.town DNS.** Production went dark on 2026-11-10 because DNS now points at an unrelated Caddy host. Please confirm whether the repoint was intentional. If it wasn't, it may be a zone compromise.
+- **Disk space.** The leader's garden filesystem briefly hit 0 free bytes during one job and was at about 176–500 MiB free. It needs reclaiming by hand.
+- **Milestone M3.** It is stalled on base-CI repairs [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) and [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Please decide whether to merge them. The foreman has raised this five times.
+- **Mentor self-heal loop.** `garden-mentor` keeps crashing because it treats a minion.town pause refusal as fatal. It will repeat every tick until the pause is lifted or the handler is fixed.
 
-- **Oros is stuck.** `oros-studio-garden-ce242c49` has failed its deploy canary again and stays drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy, so both need someone at the machine. Two canary probes sit in todo.
-- **The leader can't deploy.** The arc supervisor reports that the leader (`endolin-garden-ece02cb4`) still runs an old build. The EROFS fix can't reach it because the rolling deploy waits on the dead Oros canary, so every project-checkout job from a monk dies. Revive Oros, or authorize deploying the leader past the canary.
-- **Disk space.** The leader's filesystem was at about 176-500 MiB free and briefly hit zero, so it needs reclaiming by hand.
-- **minion.town DNS.** The arc supervisor reported production went dark on 11-10 after its DNS was repointed to an unfamiliar address. It asks whether you made that change, and if not, whether the zone was compromised. This message is several days old.
-- **Pause noise and a mentor crash.** The minion.town pause keeps firing refusals. It has hit 19,472 so far and still shows on `scholar-ingest-fudco-gist-20261105`. The mentor crashes on the same refusal because it treats it as fatal, which fires self-heal each tick until the pause is lifted.
+The minion.town pause continues to be enforced. The watchdog has refused the same todo job (`scholar-ingest-fudco-gist-20261105`) about 19,500 times.
 
-Journal lock contention warnings continue on both hosts, including a 6-clone storm on the leader. Most older ones have cleared. Several parked daily-summary, build and dependabot rechecks were requeue-exhausted and await promotion or removal. Spend is low: Claude is at 2% and Codex at 28%.
+Work in flight is [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), which has shepherd and weave jobs claimed, plus `build-daemon-rename-to-manager`. The latest completions are `issue-status-pass-go-live` and `improve-dependabotany-idle-rechecks`, and the `pr1359` gauntlet halted. Several scheduled daily summaries and builds were parked after exhausting requeues. Journal lock-contention notices keep recurring on both hosts, and several of them cleared overnight.
 
 ## Maintainer review docket
 
@@ -532,7 +530,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.0M | $26.33 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 6.1M | $26.88 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 380.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 150693762 tokens/day lower bound._
