@@ -1,32 +1,23 @@
 # Garden bulletin
 
-_As of 2026-11-14T06:04:22Z_
+_As of 2026-11-14T06:05:24Z_
 
 ## Latest
 
-The board showed no file-level job transitions this cycle, so the signal is in the maintainer inbox.
+Seven days of watchdog notices cleared overnight, but the fleet is still stuck on two open problems.
 
-**Oros is still held, and it blocks the fleet.** [Oros](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) (`oros-studio-garden-ce242c49`) failed its canary again after the roll moved it to `18fc7b17375`, and it stays drained. It needs someone at the machine for two things:
-- The Claude OAuth session has expired, so it needs `claude`, then `/login`, as the garden user.
-- `garden-secret-broker.service` fails after every deploy, as it has since 11-07.
+**Deploy stall.** The Oros follower (`oros-studio-garden-ce242c49`) is still operator-held. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. The rolling-deploy canary for Oros cleared at 03:53Z, but three `canary-probe-oros-…-66ab9cc20185` jobs (r1–r3) are still waiting in todo. The leader therefore can't roll past it. The EROFS fix that is meant to unblock project-checkout jobs hasn't reached the leader either, so a minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
 
-Because the leader rolls followers first as canaries, the dead canary keeps the leader on `f2788117645`. The EROFS fix therefore cannot deploy, and monk jobs that need a project checkout keep dying. The minion.town arc supervisor is asking you to either revive Oros or authorize deploying the leader past the canary. Three canary probe jobs for Oros sit unclaimed in todo.
+**Pause refusals.** The minion.town pause is now tripping the control loops themselves. Both `garden-foreman` (rc=78) and `garden-mentor` (rc=1) fail on `post-job.sh`'s pause refusal and then restart and retry. Two fixes landed in tada today: `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting`. The claim watchdog has counted more than 21,000 refusals of `scholar-ingest-fudco-gist-20261105`, which is still in todo. Whether the foreman and mentor failures stop depends on those fixes being deployed.
 
-**Disk space.** The leader's filesystem briefly hit zero free bytes and sits at a few hundred MiB. The new byte detector will page only once it deploys, so this needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-
-**The minion.town pause is now crashing automation.**
-- The pause refusals (rc=78) are being treated as crashes by the foreman and mentor. Two watchdog notices, `self-heal-garden-foreman` and `self-heal-garden-mentor`, report this.
-- The foreman proposed `weave-endojs-endo-but-for-bots-pr1565`, whose body matched the pause regex. The mentor tried to post `improve-foreman-paused-plan-and-pipeline`.
-- Both loops repeat every tick, and the `project-pause-active-minion-town` notice has now counted 21,331 occurrences.
-- Two jobs that complete this cycle address it: `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting`. Check that both deploy.
+**Completions and in-flight work.** Also completed today: `build-daemon-rename-to-manager`, `issue-status-pass-go-live`, and a shepherd run on [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501). Three jobs are in flight on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588): a weave and two shepherd jobs.
 
 **Decisions waiting on you:**
-- **minion.town DNS:** an earlier message reports the apex and `ocap.site` resolving to a different Amazon address (`34.225.237.208`) than the documented host (`13.56.17.18`). Say whether that repoint was yours.
-- **M3 critical path:** blocked at [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589), where you decide whether the new Fae/Lal workspace catalogs may proceed or must use code mode.
-- **Settings simplification:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
-- **Other items:** a leftover guest on production minion.town, and an Iron Horse test-infra proposal from the yavashark scholar ingest.
-
-**Background noise.** Journal-lock-contention notices recurred on both hosts, with a six-clone storm on the leader. Several others recovered, and no giveup exceeded the steal limit. Three held daily-summary and dependabotany jobs, plus `build-oros-secrets-bwrap-handoff-20261106` and `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, remain parked after exhausting retries.
+- **minion.town DNS.** The apex records apparently point at an unfamiliar `34.225.237.208` instead of the production host. Please confirm whether you made that change.
+- **Disk space.** The leader's filesystem is down to a few hundred MiB free and briefly hit zero.
+- **Foreman milestone M3.** M3 is blocked on [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) (Fae/Lal workspace catalogs versus code mode).
+- **Settings deploy.** `deploy-accounts-store.sh` has to run before the minion.town settings simplification merges.
+- **Stranded jobs.** Several daily-summary, dependabot-recheck and Phase 8 build jobs were parked by the reaper and need promotion or removal.
 
 ## Maintainer review docket
 
@@ -123,17 +114,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-11-13T05:48:51Z, latest 2026-11-14T05:49:41Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-14T06:04:49Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.030763s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.027745s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.042453s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/scheduler/journal: p95=0.027257s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.037361s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.032880s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -552,13 +537,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.7M | $41.14 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 9.8M | $41.59 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 381.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149951819 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 14 open notice(s); checker healthy
+worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (6)
