@@ -1,10 +1,9 @@
 ---
-gate: deferred
-not_before: 2026-11-05T12:00:00Z
-priority: normal
-posted_by: builder
+tier: mentor
+arc: unallocated
 posted_at: 2026-11-04T08:42:19Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-11-14T04:19:19Z cleared=none -->
 
 ---
 tier: mentor
