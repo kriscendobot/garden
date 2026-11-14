@@ -40,6 +40,10 @@
 #     in the SES text-codec tests bypassed the curated blocklist. These names
 #     have direct spelled-out forms: error, constructor, property, success, and
 #     character.
+#   * 2026-11-14 stylist finding on endojs/endo-but-for-bots#1588:
+#     `n`, `makeTemporaryId`, `delayMs`/`ms`, and `responseP`/`requestP` all
+#     bypassed the curated blocklist in one PR. Their direct spelled-out forms
+#     are number, identifier, milliseconds, and promise.
 #   * 2026-10-26 false positive: endojs/endo-but-for-bots
 #     build-daemon-worker-import-from-mount added a JSDoc body line
 #     ` * @param {DaemonCore['formulateFromPackage']} args.formulateFromPackage`
@@ -106,7 +110,7 @@ classify() {
       # from the observed set plus obvious siblings; keep it documented and
       # low-false-positive. Add here (and to the SKILL table) when a new
       # abbreviation trips a review.
-      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument args:arguments subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address db:database err:error ctor:constructor prop:property ok:success c:character", pairs, " ")
+      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument args:arguments subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address db:database err:error ctor:constructor prop:property ok:success c:character n:number id:identifier ms:milliseconds p:promise", pairs, " ")
       for (p in pairs) { split(pairs[p], kv, ":"); BLOCK[kv[1]] = kv[2] }
       # Ambient host-ABI names the pre-change tree declares (space-separated).
       na = split(ENVIRON["SPELL_OUT_AMBIENT"], amb, " ")

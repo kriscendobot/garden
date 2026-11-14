@@ -149,6 +149,35 @@ for abbreviation in err ctor prop ok c; do
     || bad "spell-out probe missed $abbreviation: $style_gap_output"
 done
 
+november_style_gap_output=$(printf '%s\n' \
+  'const n = Number.parseInt(text, 10);' \
+  'const makeTemporaryId = () => crypto.randomUUID();' \
+  'const delayMs = 1000;' \
+  'const responseP = fetch(request);' \
+  | "$SPELL" --scan-stdin fixture.js 2>&1) || true
+while read -r identifier abbreviation replacement; do
+  printf '%s\n' "$november_style_gap_output" \
+    | grep -Fq "\`$identifier\` (\`$abbreviation\` -> spell out, e.g. \`$replacement\`)" \
+    && ok "spell-out probe catches $abbreviation from the November style-gap sweep" \
+    || bad "spell-out probe missed $abbreviation: $november_style_gap_output"
+done <<'EOF'
+n n number
+makeTemporaryId id identifier
+delayMs ms milliseconds
+responseP p promise
+EOF
+
+if printf '%s\n' \
+    'const parsedNumber = Number.parseInt(text, 10);' \
+    'const makeTemporaryIdentifier = () => crypto.randomUUID();' \
+    'const delayMilliseconds = 1000;' \
+    'const responsePromise = fetch(request);' \
+    | "$SPELL" --scan-stdin fixture.js | grep -qx pass; then
+  ok 'newly covered abbreviations abstain when spelled out'
+else
+  bad 'newly covered spelled-out identifiers fired'
+fi
+
 if printf '%s\n' 'const database = openTestDatabase(config.statePath);' \
     | "$SPELL" --scan-stdin fixture.js | grep -qx pass; then
   ok 'spelled-out database abstains'
