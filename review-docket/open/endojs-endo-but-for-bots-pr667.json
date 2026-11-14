@@ -4,17 +4,17 @@
   "pr": 667,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/667",
   "head_oid": "9b70df7f8e4f7a67168ffebc43d1b8a8e9adb11c",
-  "ask": "decide",
-  "arc": "minion-town-mcp-ocapn",
+  "ask": "re-review",
+  "arc": "unallocated",
   "milestone": "-",
-  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
+  "summary": "Panel reviewed 2bb8c7e6c7ff, but the presented head is 9b70df7f8e4f",
   "unblocks": [],
-  "source": "manual-gauntlet-handoff-endojs-endo-but-for-bots-pr667",
-  "requested_at": "2026-10-30T04:46:57Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr667-2bb8c7e6-9b70df7f",
+  "requested_at": "2026-11-14T08:40:02Z",
   "first_requested_at": "2026-10-30T04:39:00Z",
-  "generation": 3,
+  "generation": 4,
   "ci": {
     "state": "red",
-    "observed_at": "2026-11-14T08:12:29Z"
+    "observed_at": "2026-11-14T08:40:14Z"
   }
 }
