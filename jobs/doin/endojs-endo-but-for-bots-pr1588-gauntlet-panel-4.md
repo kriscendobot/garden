@@ -75,6 +75,7 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=158 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
