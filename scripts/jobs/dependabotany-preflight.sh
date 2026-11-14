@@ -31,31 +31,36 @@
 # removes). This moves that idle/active decision off the dispatched LLM and into
 # plain code: dispatch ONLY when there is a genuine reason to sweep.
 #
-# THE GATE. Skip (exit 2) IFF BOTH hold:
+# THE GATE. Skip (exit 2) when EITHER the project is genuinely idle, meaning
+# BOTH hold:
 #   (A) the watched repo has ZERO open `dependabot[bot]`-authored PRs, AND
 #   (B) the project's dependabotany ledger has NO actionable row (neither an
 #       active embargo whose maturity date has arrived nor a non-terminal
-#       MERGE-NOW row).
-# Otherwise dispatch (exit 0). Any read/enumeration error → fail OPEN (exit 0):
-# the backstop must never be starved by a transient GitHub blip or an unparseable
-# ledger, only quieted when it can PROVE there is nothing to do.
+#       MERGE-NOW row),
+# OR the work-present project's bounded snapshot of active PR heads, base SHAs,
+# and merge-blocker state is byte-identical to the last successful preflight.
+# Otherwise dispatch (exit 0) and atomically advance that snapshot. Any
+# read/enumeration/cache error → fail OPEN (exit 0): the backstop is quiet only
+# when it can prove either idleness or an unchanged classification input.
 #
 # SOUNDNESS. (A) is the load-bearing guarantee. An ACTIVE embargo is by
 # construction an OPEN Dependabot PR waiting for its maturity floor, so it is
 # enumerated by the open-PR source; whenever there is real recheck work, (A) is
-# false and we dispatch — regardless of how the ledger prose parses. (B) is a
-# best-effort, fail-open backstop that adds dispatch triggers the open-PR check
-# cannot see: an embargo or MERGE-NOW row left behind for a PR that was
-# closed/merged externally without the ledger being drained, so the next sweep
-# can reconcile it.
-# Because (B) only ever ADDS an exit-0 (dispatch) path — skipping still requires
-# (A) — no amount of ledger-parse imprecision can cause an unsafe skip of live
-# work.
+# false and the live-state comparison runs regardless of how the ledger prose
+# parses. (B) is a best-effort, fail-open backstop that adds initial dispatch
+# triggers the open-PR check cannot see: an embargo or MERGE-NOW row left behind
+# for a PR that was closed/merged externally without the ledger being drained,
+# so a sweep can reconcile it.
+# Because (B) only ever ADDS an initial exit-0 (dispatch) path, no amount of
+# ledger-parse imprecision can suppress the first classification of live work.
+# Subsequent suppression requires a successful, exact live-state read and a
+# previously persisted snapshot; any unavailable input dispatches immediately.
 #
-# The two external I/O legs are indirected so the test substitutes deterministic
+# The external I/O legs are indirected so the test substitutes deterministic
 # stubs, exactly like dependabot-watcher.sh:
 #   GARDEN_DEPB_PR_SOURCE <owner/name> <bot-login> -> TSV: number author head updated title
 #   GARDEN_DEPB_COMPAT   <repo> <pr> <pkg> <old-ver> <new-ver> -> TSV declaration proof
+#   GARDEN_DEPB_STATE_SOURCE <repo> <pr> -> TSV: pr head_oid base_oid blocker_hash
 #   GARDEN_DEPB_ENGINE_CLOSE <repo> <pr> <pkg> <old> <new> <floor> <declared>
 #                            <required> <path> <project> -> 0 closed+recorded,
 #                            1 proof changed, 75 action temporarily unavailable
@@ -84,12 +89,16 @@ export GARDEN_TAG="dependabotany-preflight"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_DEPB_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_DEPB_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
+: "${GARDEN_DEPB_STATE_SOURCE:=$HERE/handlers/dep-recheck-state-gh.sh}"
 : "${GARDEN_DEPB_ENGINE_CLOSE:=$HERE/handlers/dependabot-engine-close-gh.sh}"
 : "${GARDEN_DEPB_PREFLIGHT_CLONE:=$GARDEN_STATE/dependabotany-preflight/journal}"
 : "${GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS:=110}"
 : "${GARDEN_DEPB_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_DEPB_COMPAT_TIMEOUT_SECS:=45}"
 : "${GARDEN_DEPB_COMPAT_MAX_CHECKS:=8}"
+: "${GARDEN_DEPB_STATE_TIMEOUT_SECS:=15}"
+: "${GARDEN_DEPB_STATE_MAX_PRS:=64}"
+: "${GARDEN_DEPB_STATE_CACHE_DIR:=$GARDEN_STATE/dependabotany-preflight/snapshots}"
 : "${GARDEN_DEPB_KILL_AFTER:=2s}"
 : "${GARDEN_DEPB_SCHEDULE_REMOVE:=$HERE/remove-schedule.sh}"
 : "${GARDEN_DEPB_RETIRE_TIMEOUT_SECS:=30}"
@@ -508,6 +517,7 @@ fi
 dep_lc="$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
 open_dep=0
 declare -A CLOSED_PR=()
+declare -A ACTIVE_PR=()
 
 bot_owned_repo() {
   case "$1" in
@@ -541,6 +551,7 @@ while IFS=$'\t' read -r pr author _head _updated title; do
   [ "$(printf '%s' "$author" | tr '[:upper:]' '[:lower:]')" = "$dep_lc" ] || continue
   case "$pr" in ''|*[!0-9]*) log "WARN: PR source emitted a non-numeric PR number; skipping that row"; continue;; esac
   open_dep=$((open_dep+1))
+  ACTIVE_PR[$pr]=1
   if parse_bump_title "${title:-}"; then
     printf '%s\t%s\t%s\t%s\n' "$pr" "$BUMP_PKG" "$BUMP_OLD" "$BUMP_NEW" >> "$DEPS"
   fi
@@ -632,6 +643,76 @@ if [ "${#CLOSED_PR[@]}" -gt 0 ]; then
     fi
   done
   SNAPSHOT_ROWS=("${kept_rows[@]}")
+  for pr in "${!CLOSED_PR[@]}"; do unset 'ACTIVE_PR[$pr]'; done
+fi
+
+# Repetitive active-row classification is useful only when some observable input
+# changed. Persist one small host-local snapshot per project containing the exact
+# active Dependabot heads, their base commits, and a fingerprint of merge-blocking
+# state. A first/malformed/unreadable snapshot dispatches (fail open) and a
+# successful current read replaces it atomically; an identical read suppresses
+# the otherwise-due botanist sweep. The row and field bounds keep repository
+# metadata from growing this cache or this gate without limit.
+recheck_state_unchanged=0
+if [ "$ledger_due" -eq 1 ] || [ "$open_dep" -gt 0 ]; then
+  state_available=1
+  state_current="$(mktemp)"
+  # Maturity is itself a blocker transition. Without this bit, an unchanged PR
+  # cached before EMBARGO-YYYY-MM-DD would remain suppressed after that date.
+  printf 'ledger_due\t%s\n' "$ledger_due" > "$state_current"
+  case "$GARDEN_DEPB_STATE_MAX_PRS" in
+    ''|*[!0-9]*|0) state_available=0 ;;
+    *) [ "${#ACTIVE_PR[@]}" -le "$GARDEN_DEPB_STATE_MAX_PRS" ] || state_available=0 ;;
+  esac
+  if [ "$state_available" -eq 1 ] && [ "${#ACTIVE_PR[@]}" -gt 0 ]; then
+    mapfile -t state_prs < <(printf '%s\n' "${!ACTIVE_PR[@]}" | sort -n)
+    for pr in "${state_prs[@]}"; do
+      if ! stage_timeout "$GARDEN_DEPB_STATE_TIMEOUT_SECS"; then
+        state_available=0
+        break
+      fi
+      state_line=""; state_rc=0
+      state_line="$(timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" \
+        "${STAGE_TIMEOUT}s" "$GARDEN_DEPB_STATE_SOURCE" "$repo" "$pr")" || state_rc=$?
+      if [ "$state_rc" -ne 0 ] \
+         || ! [[ "$state_line" =~ ^${pr}$'\t'[0-9a-fA-F]{40,64}$'\t'[0-9a-fA-F]{40,64}$'\t'[0-9a-f]{64}$ ]]; then
+        state_available=0
+        break
+      fi
+      printf '%s\n' "${state_line,,}" >> "$state_current"
+    done
+  fi
+
+  if [ "$state_available" -eq 1 ]; then
+    state_key="$(printf '%s\n%s' "$project" "$repo" | sha256sum | cut -d' ' -f1)"
+    state_cache="$GARDEN_DEPB_STATE_CACHE_DIR/$state_key.tsv"
+    state_cached="$(mktemp)"
+    state_max_bytes=$((GARDEN_DEPB_STATE_MAX_PRS * 256))
+    if [ -f "$state_cache" ] \
+       && [ "$(wc -c < "$state_cache" 2>/dev/null || echo "$((state_max_bytes + 1))")" -le "$state_max_bytes" ] \
+       && cp "$state_cache" "$state_cached" 2>/dev/null \
+       && cmp -s "$state_cached" "$state_current"; then
+      recheck_state_unchanged=1
+    fi
+    if mkdir -p "$GARDEN_DEPB_STATE_CACHE_DIR" 2>/dev/null; then
+      state_tmp="$(mktemp "$GARDEN_DEPB_STATE_CACHE_DIR/$state_key.tmp.XXXXXX")" || state_tmp=""
+      if [ -n "$state_tmp" ] && cp "$state_current" "$state_tmp" \
+         && mv -f "$state_tmp" "$state_cache"; then
+        :
+      else
+        [ -z "${state_tmp:-}" ] || rm -f "$state_tmp"
+        recheck_state_unchanged=0
+        log "WARN: active recheck state cache is unwritable — failing open (dispatch)"
+      fi
+    else
+      recheck_state_unchanged=0
+      log "WARN: active recheck state cache is unavailable — failing open (dispatch)"
+    fi
+    rm -f "$state_cached"
+  else
+    log "WARN: active PR state is unavailable or exceeds the ${GARDEN_DEPB_STATE_MAX_PRS}-PR bound — failing open (dispatch)"
+  fi
+  rm -f "$state_current"
 fi
 
 if [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
@@ -673,6 +754,11 @@ fi
 
 # An actionable ledger row still dispatches even when the live PR roster is
 # empty, so the botanist can reconcile a row whose PR was closed externally.
+if [ "$recheck_state_unchanged" -eq 1 ]; then
+  log "preflight gated: active PR heads, base commits, and blocker state are unchanged for '$project'"
+  exit 2
+fi
+
 if [ "$ledger_due" -eq 1 ]; then
   log "preflight: DISPATCH — due dependabotany ledger row for '$project'"
   exit 0

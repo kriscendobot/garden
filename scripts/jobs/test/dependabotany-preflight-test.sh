@@ -6,11 +6,11 @@
 # `dependabotany-recheck-<project>` sweep has work:
 #   exit 0 = work present → dispatch the botanist ledger sweep
 #   exit 2 = no work      → advance the clock only, dispatch nothing
-# It skips (exit 2) ONLY when BOTH hold: (A) the watched repo has zero open
-# `dependabot[bot]` PRs, AND (B) the project's dependabotany ledger has no
-# actionable row (no matured embargo or non-terminal MERGE-NOW). Any
-# read/enumeration error fails OPEN (dispatch), so a transient blip never starves
-# the backstop.
+# It skips (exit 2) when the project is idle (zero open Dependabot PRs and no
+# actionable ledger row), or when the bounded active-PR head/base/blocker snapshot
+# is unchanged since the last successful work-present pass. Any read/enumeration
+# or cache error fails OPEN (dispatch), so a transient blip never starves the
+# backstop.
 #
 # Hermetic: a throwaway bare journal stands in for origin/journal2 (the gate's
 # ensure_clone/sync_clone clone from it); the open-PR source is a deterministic
@@ -63,6 +63,25 @@ printf '#!/bin/bash\necho "gh-api cooldown active" >&2\nexit 75\n' > "$COOLSTUB"
 HANGSTUB="$TR/pr-source-hang.sh"
 printf '#!/bin/bash\nprintf started > "${HANG_MARKER:?}"\nexec sleep 300\n' > "$HANGSTUB"; chmod +x "$HANGSTUB"
 
+# Active-recheck-state source stub. With no fixture it returns stable valid state;
+# fixture rows are: pr<TAB>head<TAB>base<TAB>blocker-fingerprint.
+STATESTUB="$TR/recheck-state-stub.sh"
+cat > "$STATESTUB" <<'EOF'
+#!/bin/bash
+pr="$2"
+if [ -n "${STATE_FIXTURE:-}" ] && [ -f "$STATE_FIXTURE" ]; then
+  awk -F '\t' -v pr="$pr" '$1 == pr { print; found=1; exit } END { exit(found ? 0 : 1) }' "$STATE_FIXTURE"
+else
+  printf '%s\t%s\t%s\t%s\n' "$pr" \
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa \
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb \
+    cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fi
+EOF
+chmod +x "$STATESTUB"
+STATEFAIL="$TR/recheck-state-fail.sh"
+printf '#!/bin/bash\nexit 1\n' > "$STATEFAIL"; chmod +x "$STATEFAIL"
+
 # Declaration-compatibility oracle stub. Fixture rows carry the PR number before
 # the real oracle's six-field result so one fixture can model several open PRs.
 COMPSTUB="$TR/compat-stub.sh"
@@ -90,7 +109,7 @@ prline() { printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$REPO" "$TS" "${3:-}"; }
 # --- seed helpers ------------------------------------------------------------
 # Reset the bare origin to just a schedule file (no ledger entries).
 reset_bare() {
-  rm -rf "$BARE" "$TR/seed"
+  rm -rf "$BARE" "$TR/seed" "$TR/state/dependabotany-preflight/snapshots"
   git init -q --bare "$BARE"
   local SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b "$BRANCH"
   ( cd "$SEED"
@@ -129,9 +148,11 @@ run_pre() {  # run_pre [pr-fixture] [src-stub]  -> fills $OUT/$RC/$CONTEXT
              GARDEN_BOT_LOGIN=kriscendobot \
              GARDEN_DEPB_PR_SOURCE="${2:-$SRCSTUB}" PR_FIXTURE="${1:-}" \
              GARDEN_DEPB_COMPAT="$COMPSTUB" \
+             GARDEN_DEPB_STATE_SOURCE="${STATE_SOURCE:-$STATESTUB}" \
              GARDEN_DEPB_ENGINE_CLOSE="$CLOSESTUB" \
              GARDEN_PREFLIGHT_CONTEXT_FILE="$CONTEXT_FILE" \
              COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
+             STATE_FIXTURE="${STATE_FIXTURE:-}" \
              CLOSE_LOG="${CLOSE_LOG:-}" CLOSE_RC="${CLOSE_RC:-0}" \
              bash "$PRE" "$SCHED" 2>&1)"
   RC=$?
@@ -379,6 +400,55 @@ FIX="$TR/prs-open.tsv"; prline 950 "$DEP" 'Bump ses from 1.10.0 to 1.11.0' > "$F
 run_pre "$FIX"
 [ "$RC" -eq 0 ] && ok "open dependabot PR → exit 0" || bad "exit $RC (want 0); OUT=$OUT"
 grep -qi 'open dependabot\[bot\] PR' <<<"$OUT" && ok "logged the open-PR dispatch" || bad "no open-PR log; OUT=$OUT"
+
+hr; echo "IDLE RECHECK — identical head/base/blockers suppress repeat dispatch"; hr
+run_pre "$FIX"
+[ "$RC" -eq 2 ] && grep -q 'heads, base commits, and blocker state are unchanged' <<<"$OUT" \
+  && ok "unchanged active state → exit 2" || bad "rc=$RC; OUT=$OUT"
+
+STATE_FIXTURE="$TR/recheck-state.tsv"
+H1=1111111111111111111111111111111111111111
+B1=3333333333333333333333333333333333333333
+B2=4444444444444444444444444444444444444444
+S1=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+S2=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+
+printf '950\t%s\t%s\t%s\n' "$H1" "$B1" "$S1" > "$STATE_FIXTURE"
+run_pre "$FIX"
+[ "$RC" -eq 0 ] && ok "head change dispatches immediately" || bad "head change rc=$RC; OUT=$OUT"
+run_pre "$FIX"
+[ "$RC" -eq 2 ] && ok "new head snapshot becomes the stable baseline" || bad "new head repeat rc=$RC; OUT=$OUT"
+
+printf '950\t%s\t%s\t%s\n' "$H1" "$B2" "$S1" > "$STATE_FIXTURE"
+run_pre "$FIX"
+[ "$RC" -eq 0 ] && ok "base SHA change dispatches immediately" || bad "base change rc=$RC; OUT=$OUT"
+
+printf '950\t%s\t%s\t%s\n' "$H1" "$B2" "$S2" > "$STATE_FIXTURE"
+run_pre "$FIX"
+[ "$RC" -eq 0 ] && ok "blocker-state change dispatches immediately" || bad "blocker change rc=$RC; OUT=$OUT"
+run_pre "$FIX"
+[ "$RC" -eq 2 ] && ok "new blocker snapshot becomes the stable baseline" || bad "new blocker repeat rc=$RC; OUT=$OUT"
+
+rm -rf "$TR/state/dependabotany-preflight/snapshots"
+run_pre "$FIX"
+[ "$RC" -eq 0 ] && ok "missing cache fails open to dispatch" || bad "missing cache rc=$RC; OUT=$OUT"
+
+STATE_SOURCE="$STATEFAIL" run_pre "$FIX"
+[ "$RC" -eq 0 ] && grep -q 'active PR state is unavailable' <<<"$OUT" \
+  && ok "unreadable current state fails open to dispatch" || bad "unreadable state rc=$RC; OUT=$OUT"
+run_pre "$FIX"
+[ "$RC" -eq 2 ] && ok "failed state read preserves the last good snapshot" || bad "post-failure rc=$RC; OUT=$OUT"
+STATE_FIXTURE=""
+
+hr; echo "IDLE RECHECK — embargo maturity is a blocker-state transition"; hr
+reset_bare
+add_entry 2026/08/10/000001Z-a "$(embargo_body 950 2026-08-20)"
+TODAY=2026-08-13 run_pre "$FIX"
+[ "$RC" -eq 0 ] && ok "pre-maturity state seeds the cache" || bad "pre-maturity rc=$RC; OUT=$OUT"
+TODAY=2026-08-13 run_pre "$FIX"
+[ "$RC" -eq 2 ] && ok "unchanged pre-maturity state stays quiet" || bad "pre-maturity repeat rc=$RC; OUT=$OUT"
+TODAY=2026-08-21 run_pre "$FIX"
+[ "$RC" -eq 0 ] && ok "maturity transition dispatches with unchanged GitHub state" || bad "maturity transition rc=$RC; OUT=$OUT"
 
 # ============================================================================
 hr; echo "CLOSE: unchanged live Node-engine conflict closes without botanist dispatch"; hr
