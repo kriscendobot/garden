@@ -192,7 +192,10 @@ done
 # The reader now consumes the leaf-first ranked order (plan_deferred_ranked_omega),
 # whose pipeline likewise ends in a writer (`| sort`), so the same '|| true' guard
 # is what keeps `| head -1` from aborting the tick.
-if grep -qE '^\s*top_line="\$\(plan_deferred_ranked_omega "\$DIR" \| head -1\)" \|\| true\s*$' "$JOBS/foreman.sh"; then
+# The pipeline spans several lines (it also filters this tick's paused-project
+# exclusions), so assert it starts the substitution and ends in the guarded head.
+if grep -qE '^\s*top_line="\$\(plan_deferred_ranked_omega "\$DIR"' "$JOBS/foreman.sh" \
+   && grep -qE '^\s*\| head -1\)" \|\| true\s*$' "$JOBS/foreman.sh"; then
   ok "foreman.sh reads the top deferred job with the '|| true' guard"
 else
   bad "foreman.sh:top_line no longer carries the '|| true' guard — the crash can return"

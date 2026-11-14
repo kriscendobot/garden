@@ -395,6 +395,14 @@ promoted=0
 deferred_skips="$(plan_deferred_skipped "$DIR" 2>/dev/null \
   | awk -F'\t' '{printf "%s%s:%s", (NR==1?"":","), $1, $2}' || true)"
 skip_detail="${deferred_skips:+ skipped=$deferred_skips}"
+# Deferred candidates promote-plan.sh refused THIS tick because they belong to a
+# PAUSED project (rc=$GARDEN_PAUSED_RC, designs/project-pause-enforcement.md). A
+# pause refusal is a deliberate policy answer, not a promotion failure: the item is
+# dropped from this tick's candidate list (newline-separated bases) so the next
+# eligible deferred job is admitted instead of the loop stopping on — and every
+# tick re-selecting — the same paused head. Rebuilt every tick, so lifting the
+# pause readmits the item on the very next tick.
+paused_bases=""
 while [ "$promoted" -lt "$slots" ]; do
   # Leaf-first (omega-ranked) admission: plan_deferred_ranked_omega floats the
   # lowest-ranked deferred work (leaf R0) ahead of its higher-ranked parents,
@@ -405,20 +413,34 @@ while [ "$promoted" -lt "$slots" ]; do
   # lines, `head -1` closes the pipe after the first, the writer's next write gets
   # EPIPE and exits 1, and pipefail would abort this whole `set -e` script even
   # though we already captured the line we wanted. Tolerate the writer-side SIGPIPE.
-  top_line="$(plan_deferred_ranked_omega "$DIR" | head -1)" || true
-  [ -n "$top_line" ] || break        # no more deferred plan jobs queued this tick
+  top_line="$(plan_deferred_ranked_omega "$DIR" \
+    | awk -F'\t' -v ex="$paused_bases" '
+        BEGIN { n = split(ex, a, "\n"); for (i = 1; i <= n; i++) if (a[i] != "") skip[a[i]] = 1 }
+        !($2 in skip)' \
+    | head -1)" || true
+  [ -n "$top_line" ] || break        # no more admissible deferred plan jobs this tick
   top_rank="${top_line%%$'\t'*}"     # the derived omega rank (0=leaf, admitted first)
   top_deferred="${top_line#*$'\t'}"  # the job base
-  if "$HERE/promote-plan.sh" --foreman --omega-rank "$top_rank" "$top_deferred" >/dev/null 2>&1; then
+  promote_rc=0
+  "$HERE/promote-plan.sh" --foreman --omega-rank "$top_rank" "$top_deferred" >/dev/null 2>&1 || promote_rc=$?
+  if [ "$promote_rc" -eq 0 ]; then
     promoted=$(( promoted + 1 ))
     printf '%s\n' "$top_deferred" > "$LAST_STEP"
     log "promoted deferred plan job '$top_deferred' (omega rank $top_rank; $promoted/$slots toward active-job target $GARDEN_FOREMAN_ACTIVE_TARGET)"
     sync_clone "$DIR"   # reflect the promotion so the next pick sees it gone from plan/
+  elif [ "$promote_rc" -eq "$GARDEN_PAUSED_RC" ]; then
+    paused_bases+="$top_deferred"$'\n'
+    log "deferred plan job '$top_deferred' belongs to a paused project (rc=$promote_rc); excluding it from this tick's admission"
   else
-    log "failed to promote deferred plan job '$top_deferred'; stopping deferred promotion this tick"
+    log "failed to promote deferred plan job '$top_deferred' (rc=$promote_rc); stopping deferred promotion this tick"
     break
   fi
 done
+if [ -n "$paused_bases" ]; then
+  # Fold the paused refusals into this tick's one decision line (promoted, pumped,
+  # noop, …) so "why didn't the foreman admit X" stays diagnosable.
+  skip_detail+=" paused=$(printf '%s' "$paused_bases" | paste -sd, -)"
+fi
 if [ "$promoted" -gt 0 ]; then
   : > "$NOTED"           # forward progress clears the maintainer-note dedupe
   printf '%s\n' "$NOW" > "$IDLE_SINCE"
@@ -734,6 +756,24 @@ while :; do
           decide post-tempfail "base=$base rc=$post_rc retries=$post_try"
           rm -f "$digest" "$herrf"
           exit "$post_rc"
+        elif [ "$post_rc" -eq "$GARDEN_PAUSED_RC" ]; then
+          # post-job.sh refused the step because it belongs to a PAUSED project
+          # (designs/project-pause-enforcement.md). That is the pause working as
+          # intended, not a broken tick: record it, leave LAST_STEP untouched, and
+          # re-prompt once for a step outside the paused project.
+          log "next milestone step '$base' belongs to a paused project (rc=$post_rc); not posted"
+          decide paused-project "base=$base${rejected_base:+ retry=1}$skip_detail"
+          if [ "$attempt" -eq 0 ]; then
+            rejected_base="$base"; rejected_reason="paused-project"
+            {
+              printf 'rejected_paused_base: %s\n' "$base"
+              printf '  # Your previous proposal belongs to a PAUSED project (journal pauses/). Propose a step OUTSIDE every paused project, or NONE.\n'
+            } >> "$digest"
+            attempt=1
+            log "re-prompting the foreman handler once, excluding paused '$base'"
+            continue
+          fi
+          outcome=invalid
         elif [ "$post_rc" -ne 0 ]; then
           log "ERROR: post-job failed for next milestone step '$base' (rc=$post_rc)"
           rm -f "$digest" "$herrf"
@@ -765,7 +805,10 @@ while :; do
 done
 rm -f "$digest" "$herrf"
 
-if [ -n "$rejected_base" ] && { [ "$outcome" = invalid ] || [ "$outcome" = absent ]; }; then
+if [ -n "$rejected_base" ] && [ "$rejected_reason" != paused-project ] \
+   && { [ "$outcome" = invalid ] || [ "$outcome" = absent ]; }; then
+  # (A paused-project refusal is the maintainer's own pause doing its job; the
+  # decision log records it, and it is not a next-step policy defect to surface.)
   # The bounded re-prompt produced no valid replacement: now the bad proposal is
   # worth a maintainer's eye, so the next-step policy can be corrected. (An
   # anti-flap replacement already surfaced its own note; a second note_once key
