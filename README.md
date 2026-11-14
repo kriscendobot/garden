@@ -1,24 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T05:22:02Z_
+_As of 2026-11-14T05:23:48Z_
 
 ## Latest
 
-Quiet window on the board: the only transition was a claim of [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588)'s shepherd job, which now runs alongside its weave job. The foreman reports Milestone M3 stalled on base CI failures. It wants a decision on merging the unmerged base repairs [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) and [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) so the stuck M3 PRs can be woven and resumed.
+Board activity is quiet: no job transitions resolved since the last bulletin. Two jobs are in flight, the weave and shepherd for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). The foreman reports that milestone M3 is stalled behind base CI. The base repairs [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) and [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) are unmerged, and the foreman asks whether to merge them so the M3 PRs can be woven and resumed. Those same two repairs also hold the dependabot PRs [#1629](https://github.com/endojs/endo-but-for-bots/pull/1629) and [#1658](https://github.com/endojs/endo-but-for-bots/pull/1658).
 
-What needs your attention:
+Items that need a maintainer:
+- **Oros is still held.** The latest roll moved it to `18fc7b17375` and failed the canary again. Two causes need someone at the machine: an expired Claude OAuth login, and `garden-secret-broker.service` failing after deploy. Two canary-probe jobs for Oros sit unclaimed in todo.
+- **The leader is stuck.** It still runs `f2788117645`, so the EROFS fix cannot reach it until the Oros canary passes or you authorize a deploy past it. Meanwhile, monk jobs that need a project checkout die with EROFS.
+- **Disk space.** The leader host's filesystem has been at roughly 176–500 MiB free, and briefly hit 0. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS.** The apex answered from an unexpected address as of 2026-11-10, while the documented host stayed healthy when pinned. Someone needs to confirm whether the repoint was intentional or a possible zone compromise. The project is also under your pause, and the watchdog has now recorded that pause refusing a todo job nearly 20,000 times. The mentor's improve handler also crashes on that refusal and fires self-heal each tick.
+- **Decisions waiting.**
+  - The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+  - Whether to post an Iron Horse test-infra job from the yavashark ingest.
+  - Whether to leave or remove a stray guest on production.
 
-- **Oros is down.** It is still drained after the canary failed again on 18fc7b17375. The Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker` fails after each deploy. Both need someone at the machine. Its canary-probe jobs sit unclaimed in todo. Because the leader deploys only after its follower canary passes, the EROFS fix cannot reach the leader. Minion.town PR work needing project checkouts is parked until you either revive Oros or authorize a leader deploy past the dead canary.
-- **Disk space on the leader.** The filesystem at `/home/kris/garden` has been at roughly 176–500 MiB free and briefly hit zero, which caused a Claude temp-write failure. It needs reclaiming by hand under `.garden-state`, `scratch/`, and `worktrees/`.
-- **Minion.town is paused, and several things follow from that.**
-  - A watchdog is enforcing the pause with a coalesced notice (over 19,000 refusals).
-  - The mentor service keeps crashing on a pause refusal (`self-heal-garden-mentor`). It will recur every tick until the pause is lifted or the handler is fixed.
-  - Production went dark on 2026-11-10, with DNS repointed to an unfamiliar address. Please confirm whether that change was yours.
-  - The settings-simplify report needs `deploy-accounts-store.sh` run before merge, plus your veto check.
-- **Journal lock contention.** The watchdog is firing repeatedly on the leader, including a six-clone storm this tick, while several earlier conditions have cleared. Each p95 is about 0.03s, so this reads as noise rather than a stall.
-- **Held jobs.** Several scheduled summaries and builds were parked by the reaper after retries were exhausted and await your promote or remove decision.
+Journal lock contention continues on both hosts, with a storm of six clones on the leader at 05:19Z. Several related notices recovered.
 
 ## Maintainer review docket
 
@@ -534,7 +532,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.6M | $24.26 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 5.7M | $25.00 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 380.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 150693762 tokens/day lower bound._
