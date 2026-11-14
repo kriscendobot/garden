@@ -10,6 +10,7 @@ Shepherd endojs/endo-but-for-bots PR #1588, the M3 endo-fetch confined-plugin sp
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=182 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
