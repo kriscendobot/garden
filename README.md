@@ -1,25 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-14T09:03:41Z_
+_As of 2026-11-14T09:05:52Z_
 
 ## Latest
 
-The only board movement was a gauntlet panel stage for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (panel round 4), which went from claimed back to the parked plan queue. Elsewhere in the window, gauntlet halts and weaves landed on [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) and [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592).
+Little completed in this window. The only board movement is the round-4 panel for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), which moved from the plan queue into `doin`, with its gauntlet record updated. Fix round 3 for that PR had just completed.
 
-Several maintainer items need a decision:
+**Oros is still held out.**
+- Oros (`oros-studio-garden-ce242c49`) failed the rolling-deploy canary again on `garden-secret-broker.service`, and its Claude OAuth session has expired. It stays drained, and three canary probes sit unclaimed in `todo`.
+- Fixing it needs someone at the machine: `/login` as the garden user, and `journalctl --user -u garden-secret-broker` for the broker.
+- The leader (`endolin-garden-ece02cb4`) cannot deploy past the dead canary. That blocks the EROFS fix and all minion.town PR work behind it. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past it.
 
-- **Oros is still stuck.** `oros-studio-garden-ce242c49` is drained after repeated canary failures, which keeps the rolling deploy from advancing.
-  - It has two blockers that need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker.service` failing after deploy.
-  - The leader is still on an older commit, so the EROFS fix cannot reach it and minion.town PR work stays parked. The arc supervisor asks whether to revive Oros or authorize deploying the leader past the dead canary.
-- **Paused-project refusals crash two services.** `garden-foreman` and `garden-mentor` exit nonzero each tick because `post-job.sh` refuses minion.town steps (rc=78) and both treat that as fatal. Self-heal diagnosed both and proposed handling rc=78 as a clean outcome.
-- **Disk space is nearly out.** The leader's `/home/kris/garden` filesystem hit about 0 bytes free, and it needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS may have changed.** Route53 for `minion.town` and `ocap.site` reportedly now points at an unfamiliar us-east-1 address serving a static page, so production routes return 404 and the prod probe is red. Please confirm whether the repoint was intentional.
-- **Smaller items.**
-  - The foreman asks whether to merge #1542 and #1497 so the #1504 review can continue.
-  - The settings-simplify report needs `deploy-accounts-store.sh` run before merge, plus a veto check.
-  - The daily-progress-summary and other doomed jobs remain parked for promotion.
+**New or needing a decision:**
+- **minion.town DNS.** The arc supervisor reports minion.town and `ocap.site` DNS repointed to an unexpected address on 2026-11-10, and the app is dark. It asks whether the change was intentional. If it wasn't, it is a possible zone compromise.
+- **Disk space.** The leader's garden filesystem briefly hit 0 bytes free and needs manual cleanup.
+- **Pause-refusal crash loops.** The foreman and mentor services exit non-zero and trigger self-heal every tick. Both treat the minion.town pause refusal (`post-job.sh` rc=78) as fatal. The watchdog's diagnosis points at the handlers in `foreman.sh` and `mentor.sh`. The pause counter has passed 23,000 refusals.
+- **Foreman milestone M3.** The foreman is asking you to decide on merging #1542 and #1497 so the #1504 review can continue.
+- **Parked reaper jobs.** Several split-eligible jobs, including the daily progress summaries, are parked after exhausting their retries.
 
-Journal-lock contention notices mostly cleared. Claude monks on the leader were trimmed from 4 to 3 by the budget level.
+Most journal-lock contention notices have recovered on their own.
 
 ## Maintainer review docket
 
@@ -585,7 +584,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.3M | $111.36 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 27.5M | $113.19 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 383.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152031462 tokens/day lower bound._
@@ -602,7 +601,8 @@ worst fetch p95 4.740167s/45s (/home/kris/garden/.garden-state/budget-level/jour
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1588
 - [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1596.md) — ---
 
@@ -635,7 +635,6 @@ worst fetch p95 4.740167s/45s (/home/kris/garden/.garden-state/budget-level/jour
 - [`daily-progress-summary-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20261107-013512.md) — _normal_ · Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-6659790262.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
-- [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1588-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1588
 - [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr228-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr228-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #228
 - [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports-r2.md) — _normal_ · ---
