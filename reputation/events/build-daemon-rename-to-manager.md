@@ -1,23 +1,23 @@
 ---
 base: build-daemon-rename-to-manager
-kind: cleric
-provider: openai
-model: gpt-5.6-sol
-thoughtfulness: medium
-work_class: orchestrator:m
+kind: monk
+provider: anthropic
+model: claude-opus-5-5
+thoughtfulness: high
+work_class: build:s
 target: main2
 accepted: true
-agentic_dollars: censored
+agentic_dollars: 0.730226
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.546324
+estimated_dollars: 0.013455
 attempts: 1
-duration_secs: 106
+duration_secs: 195
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-1
-recorded_at: 2026-10-31T15:08:52Z
+recorded_by: endolin-garden-ece02cb4/monk-1
+recorded_at: 2026-11-14T05:31:01Z
 ---
-reputation event for build-daemon-rename-to-manager: arm openai/gpt-5.6-sol/medium work_class orchestrator:m target main2 accepted true
+reputation event for build-daemon-rename-to-manager: arm anthropic/claude-opus-5-5/high work_class build:s target main2 accepted true
