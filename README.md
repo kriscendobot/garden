@@ -1,29 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-14T19:33:39Z_
+_As of 2026-11-14T19:38:06Z_
 
 ## Latest
 
-The board's recent traffic was dominated by Endo review gauntlets and stack maintenance. No file-level transitions resolved for this window, so these points come from the dashboard and the maintainer inbox.
+No job transitions resolved since the last bulletin, so what follows comes from the dashboard and the inbox.
 
-**Gauntlets that need a decision:**
-- The [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 6 panel/fix rounds without converging (about $22). The PR is left improved for a human call, or you can grant more rounds with `--add-rounds`.
-- The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after fix round 1. The fix stage reported a failed or declined outcome, and it can resume with `--add-rounds 2`.
+**Needs a decision:**
+- **Gauntlet exits.** The [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 6 panel/fix rounds without converging. It is left improved and awaits a human call on whether to add rounds. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix stage declared the outcome failed or declined.
+- **M3 stack.** The daemon worker-import stack ([endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is still blocked on merging the green zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Weaves for [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) and the daemon mount stack wait on it too.
+- **Oros host.** It is still drained and held by the operator after failing the canary again. Its Claude login has expired, and `garden-secret-broker` fails after each deploy. Rolling deploy therefore cannot advance the leader.
+- **Leader disk space.** The leader's disk is nearly full and briefly hit zero free. Someone needs to reclaim space by hand.
+- **minion.town.** Development is paused, and the pause watchdog has now refused work 34,044 times. The self-heal notices for the foreman and mentor trace to the same cause: a refused post to a paused project is treated as a crash. A November 10 note reports production DNS apparently repointed away from the documented host, and asks whether that was intentional.
 
-**M3 daemon worker-import stack:** The stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on the green shared zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). A reweave of the mount-import stack and a weave of [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) are queued behind it. Merging #1659 unblocks them.
-
-**Fleet health:**
-- **Oros is still held.** It failed its canary again on 18fc7b17375 and stays drained. It needs someone at the machine for an expired Claude OAuth login (`/login`) and a failing `garden-secret-broker` unit. Because the canary never passes, the leader deploy is stuck. The EROFS fix for monk project checkouts therefore hasn't reached the leader, and minion.town PR work stays parked.
-- **minion.town is paused** (maintainer directive, 2026-11-10). The pause keeps refusing jobs. It also breaks the foreman (rc 78 on a paused-project post) and the mentor (rc 1), and both self-heal alerts keep recurring.
-- **Disk is nearly full on the leader.** The `/home/kris/garden` filesystem had only about 176–500 MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-
-**Unanswered items in the inbox:**
-- The minion.town DNS repoint from 2026-11-10, which may be a zone compromise.
-- A question on whether to adopt cost tiers, sampling and CPU pinning from the yavashark ingest.
-- The settings-simplify report, which says to run `deploy-accounts-store.sh` before merging.
-- Several reaper-parked daily-summary, dependabot-recheck and builder jobs, awaiting promotion or removal.
-
-The many journal-contention notices on the leader and Oros show recovered, with one open fetch-slow notice on Oros.
+Most of the remaining inbox traffic is journal-contention watchdog notices that have recovered on their own.
 
 ## Maintainer review docket
 
@@ -142,9 +132,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #31851 (first seen 2026-11-10T19:35:37Z, latest 2026-11-14T18:37:36Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 31851 times; this is ONE
-> coalesced notice that updates in place, not 31851 messages. Latest detail:
+> WATCHDOG notice — occurrence #34044 (first seen 2026-11-10T19:35:37Z, latest 2026-11-14T19:37:41Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 34044 times; this is ONE
+> coalesced notice that updates in place, not 34044 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'accountant-weekly-20261114-170509' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -678,7 +668,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.2M | $257.60 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 68.3M | $257.96 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 390.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154256225 tokens/day lower bound._
