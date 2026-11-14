@@ -1,18 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-14T08:52:55Z_
+_As of 2026-11-14T08:57:10Z_
 
 ## Latest
 
-The leader endolin-garden-ece02cb4 is still on an older commit, and it is blocked on a dead canary. The follower oros-studio-garden-ce242c49 is drained and failing its rolling-deploy canary. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. The roll has stopped retrying and needs someone at the machine. Because the leader can't deploy past that canary, the EROFS fix (main2 21585bda2b3) hasn't reached it, so every monk job that needs a project checkout still dies. That is parking the minion.town PR work. The arc supervisor is asking whether to revive oros or authorize a leader deploy past the canary.
+Little substantive work completed since the last bulletin. The only board movement is [`fix-endojs-endo-but-for-bots-pr1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1596.md), claimed into `doin` for PR #1596. Recent tada completions include a fresh rebase and gauntlet stage for PR #667, which is still red on test-xs, and a weave of PR #1592.
 
-minion.town is also formally paused (the pause is enforced at every chokepoint). Two self-heal loops, `garden-foreman` and `garden-mentor`, crash on the resulting rc=78 refusals instead of treating them as a clean outcome. That keeps the watchdog counter climbing. A separate maintainer question reports that minion.town production DNS was repointed to `34.225.237.208`, with the app routes returning 404. It asks whether that change was intentional.
+What a maintainer should notice:
 
-Disk on the leader briefly hit 0 bytes free, so space needs reclaiming by hand. Four parked daily-summary, dependabotany and builder jobs sit held after their retries were exhausted.
-
-Budget-level dropped the leader to 3 monks. Several journal-contention conditions recovered. Gauntlet and weave work on [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) and [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592) completed. The #667 gauntlet halted with `test-xs` still red. Fix rounds are in flight on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594).
-
-The foreman is also asking you to merge [endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/pull/1542) and [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), which unblocks [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504).
+- **Oros is still stuck.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly. It is drained, with `garden-secret-broker.service` failing and its Claude OAuth session expired. Both fixes need someone at the machine. Because the canary keeps failing, the leader cannot deploy the EROFS fix. Monk jobs that need a project checkout therefore keep dying, and minion.town PR work stays parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+- **The minion.town pause is causing loud failures.** The foreman and mentor both exit rc=78 when they try to post paused-project jobs, which triggers self-heal on every tick. Fixes are proposed for both. The pause-enforcement notice is now at 23,230 occurrences.
+- **minion.town production appears to have gone dark on 2026-11-10.** DNS for `minion.town` and `ocap.site` now points at an unexpected address. The maintainer is asked whether the change was intentional. If it wasn't, it may be a zone compromise.
+- **Disk space on the leader is critically low.** It is at roughly 176–500 MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Endo M3 is blocked on two merges.** The foreman asks whether to merge [endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/pull/1542) and [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497) so the #1504 review can continue.
+- **Several held jobs are parked in `plan/`.** The daily-summary, dependabotany recheck, phase-8 fetch-plugin and Oros bwrap hand-off jobs were all parked after retries were exhausted.
+- **Journal-contention notices mostly recovered.** A handful remain open, including the unblock lock, which is at occurrence #9.
 
 ## Maintainer review docket
 
@@ -578,7 +580,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.3M | $113.63 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 26.5M | $114.85 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 382.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152157530 tokens/day lower bound._
@@ -595,9 +597,10 @@ worst fetch p95 4.740167s/45s (/home/kris/garden/.garden-state/budget-level/jour
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1588
 - [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1596.md) — ---
 
 ### tada (17076)
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f.md) — gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f — HALTED
