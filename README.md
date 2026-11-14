@@ -1,26 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T04:27:10Z_
+_As of 2026-11-14T04:28:16Z_
 
 ## Latest
 
-The board is nearly quiet: no file-level transitions resolved this cycle, though recent completions include the dependabotany recheck for endo-but-for-bots, a gauntlet that halted on [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359), and a few dead-mail follow-ups. Three scholar-ingest jobs wait in todo, and the issue status pass go-live is in progress.
+Maintainer attention first: Oros (`oros-studio-garden-ce242c49`) is still operator-held after the roll moved it to `18fc7b17375` and the canary failed again. Two blockers need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker.service` failing after deploy, as it did on 11-07 through 11-10. The dead canary also keeps the leader on `f2788117645`, so the EROFS fix for project checkouts can't reach it. Every monk job that needs a checkout dies, and the minion.town PR work is parked until the leader deploys. Minion.town is also paused by maintainer directive, which has now refused jobs more than 17,000 times, so a stale producer is probably still posting.
 
-**Needs your attention:**
-- **minion.town DNS.** Production went dark around 13:14Z on 2026-11-10. The apex and `ocap.site` now resolve to `34.225.237.208`, not the documented host `13.56.17.18`, and the subdomains no longer resolve. The supervisor found no record of a deliberate change and has not touched DNS. If the repoint wasn't yours, it may be a zone compromise, and restoring the A records needs you or a credentialed host. The project is also under your 2026-11-10 pause, and the pause watchdog has now refused queued minion.town jobs about 17,000 times.
-- **Oros is still held.** The roll moved it to `18fc7b17375` and it failed the canary again. Two blockers need someone at the machine: the expired Claude OAuth session (run `claude`, then `/login`) and `garden-secret-broker.service`, which fails after every deploy.
-- **The leader is stuck on an old commit.** The leader still runs `f2788117645` and can't take the EROFS fix because its canary, Oros, is dead. Until it deploys, monk jobs that need a project checkout die with EROFS. The supervisor asks you to either revive Oros or authorize a leader deploy past the failed canary.
-- **Disk space.** The leader's filesystem was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Decisions waiting in your inbox.**
-  - Run `deploy-accounts-store.sh` before merging the minion.town settings-simplify change.
-  - Say whether you veto any of its four listed choices.
-  - Decide whether to post an Iron Horse test-infra job for the yavashark findings.
-  - Decide whether to remove the leftover production guest.
-  - Several daily-summary, dependabotany and build jobs were parked after retries ran out and need promotion or removal.
+Also open:
+- **DNS:** minion.town production has been dark since about 13:14Z on 2026-11-10 because DNS appears to have been repointed. The apex now resolves to an unrelated address that serves a static page, and the subdomains no longer resolve. Nobody has confirmed whether this was intentional.
+- **Disk:** the leader host's filesystem has been down to hundreds of MiB free and briefly hit zero. It needs reclaiming by hand.
+- **Settings deploy:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+- **Decision:** whether to post an Iron Horse test-infra job to adopt cost tiers, sampling and CPU pinning found by the yavashark scholar ingest.
 
-The journal-lock contention watchdogs mostly recovered overnight; several notices cleared on both hosts, and the journal-contention storm notice cleared at 04:14Z.
+Several split-eligible jobs are parked in the plan queue after exhausting retries: the daily progress summaries for 11-05 and 11-06, a dependabotany recheck, the daemon agent-tools phase 8 build, and the Oros secrets hand-off build. Journal-lock contention notices have mostly recovered; a few recurring ones on the leader, such as bulletin and worktree-sweeper, are still open.
+
+Board activity is light: the todo queue holds three scholar-ingest jobs, and `issue-status-pass-go-live` is in progress. Recent completions include the [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) gauntlet, which halted.
 
 ## Maintainer review docket
 
@@ -510,7 +504,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.9M | $9.32 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.0M | $9.65 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 379.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151209805 tokens/day lower bound._
