@@ -14,3 +14,13 @@ Weave endojs/endo-but-for-bots PR #1559 onto the current `llm` base as the root 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-14T11:03:05Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-14T11:03:24Z
