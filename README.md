@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-14T04:50:35Z_
+_As of 2026-11-14T04:52:29Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still down and is now holding up the whole fleet. It failed its deploy canary again and sits drained, with an expired Claude OAuth session and a failing `garden-secret-broker`. A fresh `canary-probe` job is waiting in todo for it. Because the rolling deploy canaries on Oros first, the leader stays on an older build without the EROFS fix. That blocks monk jobs that need a project checkout, and the minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
+Leader endolin-garden-ece02cb4 is still stuck on f2788117645 (the EROFS monk-sandbox bug), and no board transitions resolved this window. The rolling deploy canaries oros-studio-garden-ce242c49 first, and Oros is still drained and operator-held. Its Claude OAuth session expired and `garden-secret-broker` keeps failing after deploy. The deploy canary watchdog has cleared, but only because the retry loop closed out. Fourteen `oros-health-checkup` jobs sit unclaimed. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. That is the main decision for you, since minion.town PR work needing a checkout stays parked until the leader runs 3c7f9ce or later. Project work on minion.town is paused anyway, and the pause watchdog has now refused `scholar-ingest-fudco-gist-20261105` roughly 19,000 times.
 
-Two things need maintainer eyes beyond that. A DNS question: the supervisor reports that minion.town production went dark on 2026-11-10 because `minion.town` and `ocap.site` now resolve to an unfamiliar address, and asks whether the change was intentional or a possible zone compromise. The other is a disk warning: the leader's `/home/kris/garden` filesystem briefly hit zero free space and needs manual reclaiming.
+- **Disk space:** the leader's `/home/kris/garden` filesystem is down to about 176–500 MiB free and briefly hit zero. It needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS:** production was reported dark since about 13:14Z on 2026-11-10, with DNS repointed to an unexpected address. The gardener asks whether the change was intentional, or a possible zone compromise.
+- **Mentor failures:** `garden-mentor` keeps crashing because it treats a pause refusal on a minion.town job as fatal and re-fires self-heal every tick. It will recur until the pause is lifted or `mentor.sh` is fixed.
+- **Journal lock contention:** it keeps flaring on the leader (10 occurrences on the storm notice, six clones in the latest tick). Most of the individual notices have recovered.
 
-Several other items are waiting on a decision:
-- The foreman reports that the M3 child-agent-factory chain waits on approval of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and merge of its core PR #1560.
-- The minion.town settings-simplification report asks for `deploy-accounts-store.sh` to be run first and for a veto check.
-- A scholar report asks whether to post an Iron Horse test-infra job.
+Open maintainer asks:
+- [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) approval and merge of core PR #1560, which blocks the M3 chain.
+- Whether to post an Iron Horse test-infra job to adopt the yavashark cost tiers.
+- A veto check on the minion.town settings simplification, plus running `deploy-accounts-store.sh` first.
 
-On the board, `issue-status-pass-go-live` and `improve-dependabotany-idle-rechecks` completed. The [endojs-endo-but-for-bots-pr1359](https://github.com/endojs/endo-but-for-bots/pull/1359) gauntlet halted. Four jobs remain in todo, three of them scholar ingests that minion.town's project pause keeps refusing, and about 19.5k pause notices have coalesced into one watchdog entry. Journal lock contention continues on the leader, with a storm of six clones in one tick, though several older conditions cleared.
+Several scheduled `daily-progress-summary` jobs are parked in the plan queue after exhausting retries.
 
 ## Maintainer review docket
 
@@ -436,6 +439,18 @@ Delegation: **active**
 
 > Reset-credit watch 2026-11-09: no action this week. No live credits are left: the codex 11-06 credit has expired (codex rolled to 0% about 11-04T22:05Z; if that was the credit, it was used in time). Status: claude-endolin1 is at 12% (about 5%/day, roughly 33% by its 11-14T04:00Z reset), no credits. claude-oros is at 26%, resets 11-10T11:00Z, credits unknown. codex-endolin was at 24% on 11-05 (the meter anchor is stale), resets about 11-11T18:05Z, no credits. claude-endolin2 is retired. If you're granted new credits, tell the liaison and I'll plan around them.
 
+- `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T20:50:35Z, latest 2026-11-14T04:51:53Z).
+> The SAME condition (`self-heal-garden-mentor`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 240eefebd0b262d7083d812ffe39dc67002c07f6 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 240eefebd0b262d7083d812ffe39dc67002c07f6). Diagnosis: I've found the cause and am writing it up now.
+>
+> **Diagnosis:** `garden-mentor` exited 1 because the mentor's improve handler tried to post `improve-foreman-paused-plan-and-pipeline`. `post-job.sh` refused it with rc=78, because the job belongs to the paused project `minion-town` (journal record `pauses/minion-town.md`, per the recent "minion.town project pause" commit). `mentor.sh` (around line 407) treats any non-transient handler failure as fatal. It leaves the input markers unadvanced, so every tick reproduces the same refusal, dies, and fires self-heal. Nothing is wrong with the digest or the provider. This is a pause refusal handled as a crash.
+>
+> Restarting the service won't clear it, and the refusal will recur every tick until the pause is lifted (`pause-project.sh minion-town off`) o
+
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-12T22:23:42Z, cleared 2026-11-13T04:18:42Z).
@@ -517,7 +532,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.3M | $13.18 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.4M | $14.51 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 379.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148266113 tokens/day lower bound._
