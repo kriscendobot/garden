@@ -1,20 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-14T03:24:05Z_
+_As of 2026-11-14T03:26:44Z_
 
 ## Latest
 
-Quiet on the board: the only transition is `improve-dependabotany-idle-rechecks` moving from todo into doin, so a gardener is now working on making idle dependabotany rechecks cheaper. No jobs completed.
+Little moved in the last window: the only board transition was one completion, the `dependabotany-recheck-endo-but-for-bots-20261114-025015` recheck, which finished and moved to `tada`.
 
-The fleet is mostly blocked on one thing. The rolling deploy is halted on a failed canary at `oros-studio-garden-ce242c49`, which has failed three automatic retries and stays drained. Its operator needs to fix two things at the machine: the expired Claude OAuth session (run `claude`, then `/login`) and `garden-secret-broker.service`, which fails after each deploy. Until the leader deploys, monk jobs that need a project checkout keep dying with EROFS. Canary probes and `oros-health-checkup` jobs pile up unclaimed in todo. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+The maintainer inbox needs more attention than the board does.
 
-Other items needing a maintainer decision:
-- **minion.town DNS:** the apex and `ocap.site` were repointed to `34.225.237.208`, away from the documented `13.56.17.18`. The prod probe has been red since 14:52Z on 11-10, tracked in [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256). Say whether the change was intentional. If not, check Route53 history for a possible zone compromise. Development on the project is paused, and the pause watchdog is still refusing its arc-press jobs.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free and sits at a few hundred MiB. It needs manual cleanup under `.garden-state`, `scratch/`, and `worktrees/`.
-- **Parked jobs:** several daily-summary, dependabotany-recheck, and build jobs were parked after the reaper's requeue retries were exhausted. They stay held until promoted or removed.
-- **Settings simplification report:** `deploy-accounts-store.sh` must be run before merging, and the four listed choices stand unless vetoed.
-
-The journal-contention watchdog notices are mostly recovery notices, which need no action.
+- **Oros is still down.** `oros-studio-garden-ce242c49` is operator-held and drained after repeated canary failures. Two things block it: the Claude OAuth session has expired (fix: `/login`), and `garden-secret-broker` fails after every deploy. A watchdog notice reports the rolling-deploy canary halted three times on that host.
+- **The leader is stuck behind Oros.** The leader still runs an older sha and cannot take the EROFS fix, because the canary has to pass first. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. Its other pending question is whether the production DNS repoint of `minion.town` and `ocap.site` was intentional.
+- **Disk is nearly full on the leader.** `endolin-garden-ece02cb4` was down to about 176–500 MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town is paused.** The project pause is still refusing its jobs, and the notice count has passed 16,000. Meanwhile 130 jobs sit in `todo`, mostly oros-health-checkups, canary probes and arc presses that cannot be claimed.
+- **Several `daily-progress-summary` jobs are parked.** The reaper held them in `plan/` after retries were exhausted, and they wait for a promote or removal.
+- **Journal contention is easing.** Several contention alerts cleared overnight, though a few lock-contention notices on the leader are still open.
 
 ## Maintainer review docket
 
@@ -512,16 +511,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.1M | $370.03 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 97.4M | $371.15 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149774133 tokens/day lower bound._
+_Fleet token-unlock pace: 193498426 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (131)
+### todo (130)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
@@ -544,7 +543,6 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
 - [`oros-health-checkup-20261112-213515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-213515.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-6a1e44eafd6a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6a1e44eafd6a
-- [`dependabotany-recheck-endo-but-for-bots-20261114-025015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261114-025015.md) — ---
 - [`oros-health-checkup-20261110-072010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261110-072010.md) — ---
 - [`minion-town-arc-press-20261112-060516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261112-060516.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-f2788117645d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ f2788117645d
@@ -657,13 +655,13 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (1)
 - [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-idle-rechecks.md) — ---
 
-### tada (17054)
+### tada (17055)
+- [`dependabotany-recheck-endo-but-for-bots-20261114-025015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/dependabotany-recheck-endo-but-for-bots-20261114-025015.md) — Cost
 - [`endojs-endo-but-for-bots-pr1359-gauntlet-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/endojs-endo-but-for-bots-pr1359-gauntlet-20261113.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet-20261113 — HALTED
 - [`deadmail-20261113T222245Z-39c07c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T222245Z-39c07c.md) — Completion report
 - [`deadmail-20261113T180827Z-7056c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T180827Z-7056c6.md) — Cost
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Cost
-- [`deadmail-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-round3-floor-resolution-20261113.md) — Cost
-- … and 17049 more
+- … and 17050 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
