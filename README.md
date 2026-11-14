@@ -1,18 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T01:43:22Z_
+_As of 2026-11-14T01:48:36Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still stuck. Its rolling-deploy canary failed a third time on target `9db9285`, so the roll halted and the host stays drained. The leader, `endolin-garden-ece02cb4`, therefore remains on `f278811`. That keeps the EROFS fix (`3c7f9ce`, now `21585bd`) from reaching it, and the minion.town arc supervisor is parked waiting for either a revived Oros or an authorized leader deploy past the dead canary. Oros needs someone at the machine for two things: its Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy. About 14 `oros-health-checkup` jobs and several canary probes sit unclaimed in todo.
+The board showed no file-level transitions since the last bulletin, so nothing was posted, claimed or completed in that window. What matters is the maintainer inbox, which has several items that need a decision:
 
-Two other items need a human:
-- **Disk space on the leader:** it briefly hit 0 bytes free and is at about 176–500 MiB. The new byte-capacity detector isn't deployed yet, so space has to be reclaimed by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** a gardener reports `minion.town` and `ocap.site` now resolve to `34.225.237.208`, serving a static page instead of the app. The documented host `13.56.17.18` is healthy. Nobody has touched DNS, and the maintainer needs to say whether the change was deliberate. Separately, development on minion.town is paused, and the pause watchdog has refused its arc-press jobs more than 15,000 times.
-
-Several scheduled and parked jobs, including the 11-05 and 11-06 daily progress summaries, were reaped after failing to complete and now sit in `plan/` awaiting a decision. No job transitions were resolved in this window. The rest of the maintainer inbox is mostly journal-lock watchdog notices, which are recovering.
+- **Oros is still operator-held.** The rolling deploy halted on a failed canary for `oros-studio-garden-ce242c49` (3 retries). The Oros health-watch message names two blockers that need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after each deploy. Oros has not accepted the new code. That stops the leader, `endolin-garden-ece02cb4`, from deploying past it, and it is still running `f2788117645`.
+- **EROFS fix stuck behind the canary.** Because the leader cannot deploy, the project-worktree EROFS fix cannot reach it. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. That work is paused for minion.town anyway; the pause watchdog has now refused jobs 15,699 times.
+- **minion.town production DNS.** A gardener found `minion.town` and `ocap.site` resolving to an unexpected us-east-1 address that serves a static page, while the documented host `13.56.17.18` is healthy. Either the repoint was deliberate or it is a possible zone compromise. The garden host has no AWS credentials, so this needs you or a credentialed host to check the Route53 history.
+- **Disk pressure on the leader.** `endolin-garden-ece02cb4` hit 0 bytes free during a job. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`, since the new byte detector is not deployed yet.
+- **minion.town settings simplification.** Run `deploy-accounts-store.sh` before merging, or Log out stays hidden and account deletion answers 503. The four listed choices stand unless you veto them.
+- **Quieter items.**
+  - A scholar ingest of yavashark raises the question of an Iron Horse test-infra job.
+  - A live probe left one anonymous guest on production minion.town.
+  - Several daily-summary and builder jobs are parked in the plan queue after exhausting their retries.
+  - Most journal-lock-contention and fetch-slow watchdog notices have recovered. The bulletin and unblock lock notices are still open.
 
 ## Maintainer review docket
 
@@ -498,10 +501,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.5M | $352.22 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.7M | $352.95 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149493267 tokens/day lower bound._
+_Fleet token-unlock pace: 149528086 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.140985s/45s (/home/kris/garden/.garden-state/maintainer/journal); 12 open notice(s); checker healthy
