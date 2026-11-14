@@ -1,27 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-14T15:28:22Z_
+_As of 2026-11-14T15:29:30Z_
 
 ## Latest
 
-Two gauntlets stopped on the board. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging. Its last fix round pushed with CI green, and the only way forward is a human merge decision or `--add-rounds`. The #1504 gauntlet halted after its first fix round declined to proceed, with 1 of 8 rounds spent. The #1660 gauntlet halted at its clean stage because CI was red. [endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) completed a weave.
+Two [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) gauntlets stopped without finishing. [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) without the panel converging. Its CI is green, so it needs a human merge or review decision, or more rounds via `--add-rounds`. [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round, because the fix stage reported the gated outcome failed or declined. The #1504 resume command grants 2 more rounds. The #1660 gauntlet also halted at its clean stage, with CI red from two failures. The #1590 weave completed.
 
-**Fleet health:**
-- **Oros (`oros-studio-garden-ce242c49`):** It is still drained and operator-held. The rolling deploy has halted five times on its failed canary, and no follower or leader has advanced past it. Fixing it needs someone at the machine: re-run `/login` for the expired Claude OAuth session, and look at the failing `garden-secret-broker` unit.
-- **Leader disk:** The leader's filesystem briefly hit 0 bytes free, and it sat at roughly 176–500 MiB free during one job. The space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Foreman and mentor:** Both keep failing because they try to post jobs for the paused minion.town project, and the post is refused with rc 78. Each tick repeats the failure, so they won't clear until the code treats a pause refusal as non-fatal or the pause is lifted. The pause watchdog has now counted over 27,000 refusals.
-- **Minion.town:** A production DNS change on 11-10 is still unanswered (it may be a zone compromise). Separately, the project's arc work is parked behind the leader deploy.
-- **Budget:** The monk pool dropped from 4 to 3 workers on budget pacing.
-- **Journal contention:** The alerts are mostly cleared. The remaining open notices are low-level lock contention on both hosts.
+Fleet health is the bigger concern:
+- **Oros is stuck.** The Oros host (`oros-studio-garden-ce242c49`) is still drained after failing its canary again, and the roll has stopped retrying. It has two blockers that need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker` failing after deploy. Several `canary-probe` jobs for Oros sit unclaimed in todo.
+- **The leader can't deploy.** The leader is stuck on an older commit because the rolling deploy won't advance past the dead Oros canary. This leaves the EROFS fix undeployed, and monk jobs that need a project checkout keep failing. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
+- **Disk space is critically low.** The leader's filesystem briefly hit zero free space, and a job reported it at about 176–500 MiB free. It needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **Two minion.town questions are open.** The minion.town pause keeps refusing jobs, and its watchdog count is in the tens of thousands. The pause has also made `garden-foreman` exit rc=78 and `garden-mentor` exit rc=1 on every tick, because each treats a refused post as a crash. Separately, a message reports minion.town and ocap.site DNS repointed on 2026-11-10 to a static page, and asks whether that was intentional or a possible zone compromise.
 
-**Decisions waiting on you:**
-- Whether to add review rounds for #1588.
-- Whether to merge or choose a fix for the Oracle CI problem in PR #1613, which blocks [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
-- Whether to revive Oros or deploy the leader past the dead canary.
-- The minion.town DNS question and the settings-simplify deploy step.
-- Whether to post an IronHorse test-infra job based on the yavashark ingest.
-
-Several parked daily-summary and builder jobs were also held after retries ran out, and are waiting for promotion or removal.
+Journal lock-contention watchdogs mostly cleared on their own, with a few still open on both hosts. A foreman message asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) to unblock [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
 
 ## Maintainer review docket
 
@@ -514,6 +505,10 @@ Delegation: **active**
 >
 > Restarting the service won't clear it, and the refusal will recur every tick until the pause is lifted (`pause-project.sh minion-town off`) o
 
+- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/library-link-check/journal: p95=23.839672s max=23.839672s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-12T22:23:42Z, cleared 2026-11-13T04:18:42Z).
@@ -647,7 +642,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.7M | $223.18 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 58.8M | $223.54 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 388.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153457798 tokens/day lower bound._
