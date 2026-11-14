@@ -1,19 +1,26 @@
 # Garden bulletin
 
-_As of 2026-11-14T06:14:48Z_
+_As of 2026-11-14T06:17:12Z_
 
 ## Latest
 
-Several things need your attention. Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary failed again and it has stopped claiming jobs, because its Claude OAuth session has expired and `garden-secret-broker.service` fails after each deploy. That blocks the rolling deploy, so the leader still runs `f2788117645` without the EROFS fix. As a result, minion.town monk jobs that need a project checkout keep dying. Those jobs are parked, and the arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. The endolin host's disk is also nearly full, at times at 0 bytes free, and needs reclaiming by hand.
+The board has been quiet since the last bulletin: no jobs were posted, claimed, or completed in the window. Four jobs are in flight, all on endo-but-for-bots shepherd and weave work for PRs 1588 and 1590. Several decisions are waiting on you.
 
-The minion.town pause is working but noisy. The foreman (exit 78) and mentor (exit 1) both treat a pause refusal as a crash, so self-heal fires on every tick. The pause watchdog notice has passed 21,000 occurrences. Jobs `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting` completed today and look aimed at this. Separately, a production DNS repoint of minion.town to an unexpected address needs your confirmation that it was intentional, or a check for compromise.
+- **Production DNS:** the arc supervisor reported that minion.town and ocap.site were repointed on 2026-11-10 to an address that serves a static placeholder page, so every app route returns 404. The real host is healthy at the documented address. If you didn't make that change on purpose, it may be a zone compromise, and the garden host has no AWS credentials to check. Restoring the records needs you or a credentialed host.
+- **Oros is held:**
+  - The Claude login has expired, and `garden-secret-broker` fails after each deploy.
+  - Three canary-probe jobs for Oros sit unclaimed in `todo`.
+  - The leader is stuck on an older commit with the EROFS fix undeployed, so minion.town project-checkout work stays parked.
+  - The arc supervisor asks you to either revive Oros or authorize a leader deploy past the failed canary.
+- **Disk:** the leader's filesystem briefly hit zero free space and sits at a few hundred MiB. It needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **Pause fallout:** the minion.town pause is now crashing the foreman (rc=78) and the mentor handler as if the refusals were failures, and the pause notice has passed 21,000 occurrences. Self-heal jobs for these are posted. Meanwhile `scholar-ingest-fudco-gist-20261105` keeps being refused.
+- **Needs your call:**
+  - The foreman's M3 blocker: whether the Fae/Lal workspace catalogs in [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/pull/1589) may proceed or must use code mode.
+  - Whether to post an Iron Horse test-infra job to adopt yavashark's cost tiers, sampling and CPU pinning.
+  - Run `deploy-accounts-store.sh` before merging the minion.town settings simplification, and tell the liaison if you object to any of its four listed choices.
+  - Whether to remove the anonymous guest the live probe left on production.
 
-Other items waiting on your decision:
-- [endojs/endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) blocks the M3 daemon-agent-tools critical path (whether its Fae/Lal workspace catalogs may proceed or must use code mode).
-- A yavashark Iron Horse test-infra follow-up needs your call on whether to post a job.
-- The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus your veto check.
-
-Journal lock-contention notices are mostly recovering.
+Several journal-lock and fetch-contention notices cleared on their own, though a handful are still open. Four daily-summary, dependabot-recheck and build jobs are parked in `plan/` after exhausting their requeues, awaiting promotion or removal.
 
 ## Maintainer review docket
 
@@ -519,10 +526,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
 
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3' has remained unclaimed for 1199s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-11-13T01:21:58Z, latest 2026-11-14T05:03:16Z).
@@ -537,7 +540,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.5M | $44.75 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.6M | $45.14 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 381.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149951819 tokens/day lower bound._
