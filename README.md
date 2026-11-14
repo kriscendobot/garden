@@ -1,23 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T03:49:37Z_
+_As of 2026-11-14T03:54:47Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still the main blocker, and the fleet is otherwise quiet. Its rolling-deploy canary has now failed three times on target 9db92854. It stays drained, and the leader (`endolin-garden-ece02cb4`) cannot advance past it. Oros needs someone at the machine for two things: a `/login` to renew the expired Claude OAuth session, and a look at `garden-secret-broker.service`, which has failed after every deploy since 11-07. Until the leader deploys, monk jobs that need a project checkout keep dying with EROFS, and the minion.town arc supervisor has asked you to either revive Oros or authorize a leader deploy past the dead canary.
+The garden is quiet on the work side: no jobs were posted, claimed, or completed since the last bulletin, and the 130-job todo queue is almost entirely recurring `oros-health-checkup`, `minion-town-arc-press`, `claude-on-minion-town-completion-press`, and canary-probe jobs. Most of these are for work that is paused or stuck, so they are not draining.
 
-- **minion.town production DNS.** A gardener found that production minion.town has been dark since about 13:14Z on 11-10, because its DNS now points at an unexpected address. It asks whether you changed this on purpose. If not, it could be a zone compromise, and the Route53 history should be checked.
-- **minion.town pause.** The pause is still being enforced, and the watchdog notice has passed 17,000 refusals.
-- **Disk space.** The leader's disk was briefly at 0 bytes free during a job and needs reclaiming by hand.
-- **Parked jobs.** The reaper parked several jobs after retries were exhausted. They include two daily progress summaries, a dependabotany recheck, the daemon agent-tools Phase 8 fetch-plugin build, and the Oros secrets bwrap hand-off. All wait for a promote or removal.
-- **Maintainer calls.**
-  - Whether to leave or remove the stray guest left on production minion.town.
-  - Whether to adopt the cost tiers, sampling, and CPU pinning found in yavashark's test infrastructure.
-  - Whether to run `deploy-accounts-store.sh` before the minion.town settings simplification merges, and any vetoes on its four listed choices.
+The main problem is the fleet's second host, `oros-studio-garden-ce242c49`. It is still operator-held and drained. Its canary has failed again, the Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both blockers need someone at that machine. The rolling deploy therefore can't advance the leader past `f2788117645`, which is why the EROFS fix hasn't reached the leader. The watchdog notice for the failed canary just recovered, but that looks like a retry reset rather than a fix.
 
-Journal-lock contention notices are mostly clearing on their own. The board shows no job transitions since the last bulletin, and the 130 queued jobs are mostly Oros health checkups and canary probes that nothing is claiming.
+Other items:
+
+- **minion.town:**
+  - Development is paused by maintainer directive, and the pause watchdog has now refused work 17,480 times.
+  - An arc supervisor message reports that production went dark around 13:14Z on 2026-11-10. DNS for `minion.town` and `ocap.site` now points at `34.225.237.208`, not the documented host at `13.56.17.18`. It asks whether you made that change on purpose or whether it is a possible zone compromise. Nothing has been done about it.
+  - A separate message asks you to run `deploy-accounts-store.sh` before merging the settings simplification, and to veto any of its four listed choices.
+- **Disk:** the leader's filesystem was down to about 176–500 MiB free and briefly hit 0, per a message from the byte-capacity-guard job. Space needs reclaiming by hand under `.garden-state`, `scratch/`, and `worktrees/`.
+- **Daily progress summaries:** three `daily-progress-summary` jobs and one dependabotany recheck were parked after their retries ran out, so the daily periodicals for 11-05 and 11-06 have not been written.
+- **Journal contention:** this is mostly noise. Many of the watchdog notices closed as RECOVERED, including the contention storm and slow-fetch conditions. The unblock, bulletin, and worktree-sweeper locks are still reporting recurring give-ups.
+- **Decisions waiting on you:** whether to post an Iron Horse test-infra job based on the yavashark ingest, and the cleanup of the one anonymous guest left on production by the live probe.
 
 ## Maintainer review docket
 
@@ -341,23 +341,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-12T22:56:07Z, latest 2026-11-13T23:29:07Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-12T22:56:07Z, cleared 2026-11-14T03:53:07Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  9db92854394935780801894fd411ed933986d1ef
-> failing signal: probe 'canary-probe-oros-studio-garden-ce242c49-9db928543949-r3' did not reach tada within 600s (claim/spine broken on new code)
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
@@ -515,7 +503,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.8M | $376.36 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 99.1M | $377.48 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 379.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 193829489 tokens/day lower bound._
