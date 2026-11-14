@@ -1,19 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-14T05:13:27Z_
+_As of 2026-11-14T05:18:25Z_
 
 ## Latest
 
-Production minion.town looks to be down because of DNS, not the app. Per the 11-10 message, the apex and subdomain records now point at an unfamiliar address, and the prod probe ([kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)) is red. Separately, minion.town development is paused, and the watchdog has now logged about 19,500 refused claims against that pause. The mentor service also keeps crashing on a pause refusal, which raises a self-heal notice each tick.
+Board motion was thin: the only transition is a claim, of [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md), the weave for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). That PR is the M3 work the foreman says is stalled on base CI. Its remaining in-flight work is blocked until the clean base repairs #1613 and #1646 merge. The foreman has asked five times for a decision on merging them. They are also holding the dependabot rechecks, for example #1629 and #1658.
 
-The most urgent items need a maintainer decision:
-- **Oros stuck.** The `oros-studio-garden-ce242c49` host is still drained and failing its canary. Its Claude login has expired and `garden-secret-broker` fails after each deploy. Because the rolling deploy waits on that canary, the leader is still on an older commit, and the EROFS fix hasn't reached it. Every monk job that needs a project checkout therefore still fails, and the parked minion.town work waits on a choice: revive Oros, or deploy the leader past the dead canary.
-- **Disk space.** The leader's disk briefly hit zero free space, and it now has only a few hundred MiB free. It needs a manual cleanup.
-- **Milestone M3.** M3 is stalled on base-CI repairs #1613 and #1646, which await a merge decision. This also holds up the weave of the dependabot PR #1629.
+Needs your call:
+- **minion.town is dark.** Production DNS appears to have been repointed to a different Amazon address that serves a static page, while the real host at `13.56.17.18` is healthy. The garden has no AWS credentials and has not touched DNS. Please say whether the repoint was intentional or check the Route53 history. The project is also paused, and that pause is why the minion.town screening and arc-press jobs are being refused or parked.
+- **Leader deploy is stuck behind Oros.** The leader still runs f2788117645. The EROFS fix cannot reach it because the rolling deploy canaries on Oros, and Oros stays drained with an expired Claude login and a failing secret broker. Until the leader deploys, every monk job that needs a project checkout dies with EROFS. Either revive Oros or authorize a leader deploy past the canary.
+- **Disk space on the leader.** The leader's filesystem briefly hit zero free bytes and needs hand reclamation.
+- **Mentor is crashing.** `garden-mentor` exits on every tick because it treats the minion.town pause refusal as a crash. It will keep doing so until the pause is lifted or the handler is fixed.
 
-Journal lock-contention and screening-tick alerts were mostly transient and have cleared, and the Oros canary alert cleared as well. A few recurring alerts are still open, including the bulletin, worktree-sweeper and unblock locks.
-
-The board has only four jobs in todo and none in progress. The todo jobs are three scholar-ingest jobs and the Oros canary probe, which can't be claimed because Oros is drained. Several held daily-summary and build jobs still need a human promote-or-drop call.
+Journal-lock-contention notices on both hosts mostly cleared overnight, and several watchdog conditions recovered.
 
 ## Maintainer review docket
 
@@ -142,10 +141,6 @@ Delegation: **active**
 - `liaison-followup-f32528813528` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-f32528813528.md)
 
 > Report scholar-ingest-yavashark-ironhorse-20261030: the scholar ingest of yavashark found cost tiers, sampling, and CPU pinning in its test infrastructure. Should the garden post an Iron Horse test-infra job to adopt them? It is your call, and no job has been posted.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md)
-
-> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1' has remained unclaimed for 1199s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -527,10 +522,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.6M | $19.32 _(notional, rate-card)_ | 2% of 271.0M (ok) |
-| Codex | 380.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 5.0M | $21.22 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Codex | 380.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149712126 tokens/day lower bound._
+_Fleet token-unlock pace: 150693762 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
@@ -542,8 +537,8 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md) — ---
 
 ### tada (17057)
 - [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/issue-status-pass-go-live.md) — Cost
