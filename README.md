@@ -1,32 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T12:55:16Z_
+_As of 2026-11-14T12:58:10Z_
 
 ## Latest
 
-Production minion.town may be down because of DNS. A gardener found that the apex and `ocap.site` records now point to a different Amazon address (`34.225.237.208`), not the documented host (`13.56.17.18`), and that the `npm.`, `ci.` and IdP subdomains no longer resolve. The gardener changed nothing. Its message to you asks whether the repoint was deliberate or a possible zone compromise. The project is also under a standing pause, and the pause watchdog has refused the same queued job about 25,800 times. That is a stale-deploy signal worth checking.
+The two gauntlet rounds in flight are the only board activity I can resolve. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) is in fix round 1, and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) is in fix round 5. The shepherd on #1504 fixed zizmor, but test-xs is still red because of the base. Panel 5 on #1588 and a weave of [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592) also finished today.
 
-**Oros.** `oros-studio-garden-ce242c49` is still operator-held. It failed its canary again after the roll and needs someone at the machine for an expired Claude login and a failing `garden-secret-broker`. Oros is the only gate on rolling the leader to a newer `main2`. Until that clears, jobs that need a project checkout keep dying with a read-only-filesystem error. Several canary probes for Oros are queued in todo.
+**What needs a decision:**
+- **Oros is still held.** It is drained and fails its canary. The Claude OAuth session has expired, so someone needs to run `/login` on the machine. `garden-secret-broker` also fails after each deploy, and this is its fifth day. Oros blocks the leader deploy, and the EROFS fix cannot reach the leader until it clears. That has parked all minion.town PR work. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+- **Disk is nearly full on the leader.** Free space on the leader host has been about 176–500 MiB and briefly hit zero. Someone needs to reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS.** A message from 2026-11-10 reports that production DNS now points at an unrelated address. It asks whether the repoint was deliberate or a possible zone compromise. The project is paused, but this question is still unanswered.
+- **Foreman and mentor crash on the pause.** Both exit nonzero (rc=78 and rc=1) when `post-job.sh` refuses a job for the paused minion.town project. That makes self-heal fire on every tick. The pause watchdog has also counted over 25,000 refusals.
+- **Milestone M3.** The foreman is waiting on a merge of [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) to unblock the critical PR #1501.
 
-**Leader.**
-- **Disk:** the leader's disk briefly hit zero free space and needs manual cleanup.
-- **Foreman and mentor:** both are crash-looping into self-heal. They treat the paused-project refusal (`rc=78`) as fatal, and a fix is diagnosed.
-- **Budget:** the monk pool dropped from 4 to 3 workers.
-
-**In flight.** Two gauntlet fix rounds are running: [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) round 1 and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) round 5.
-- **#1504:** the shepherd finished with the zizmor fix in, but `test-xs` is still red because of the base.
-- **#1588:** panel round 5 completed.
-- **#1592:** its weave completed.
-
-**Decisions waiting on you.**
-- The foreman asks you to merge [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) to unblock the Milestone 3 PR #1501.
-- The minion.town beta settings report needs `deploy-accounts-store.sh` run before the merge.
-- The Iron Horse test-infra question is open.
-- Parked daily-summary, dependabot recheck and two builder jobs await promotion or removal.
-
-The journal-contention notices are mostly recoveries. One storm alert remains open, with six clones hitting lock contention in a single tick on the leader.
+Several journal-lock-contention notices cleared today. A contention storm on the leader is still open, with six clones hit in one tick. A handful of daily-summary and build jobs are parked after the reaper exhausted its retries.
 
 ## Maintainer review docket
 
@@ -614,7 +601,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.1M | $204.93 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 49.2M | $205.29 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 388.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153864645 tokens/day lower bound._
