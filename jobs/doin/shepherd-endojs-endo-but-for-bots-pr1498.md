@@ -10,6 +10,7 @@ Shepherd endojs/endo-but-for-bots PR #1498 (`daemon-locator-terminology`) on `bu
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=4145 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
