@@ -9,3 +9,13 @@ dispatch: automatic
 Shepherd endojs/endo-but-for-bots PR #1498 (`daemon-locator-terminology`) on `build/daemon-locator-terminology`: diagnose and drive its post-weave CI to green, fixing PR-owned failures if needed.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-14T20:13:18Z
