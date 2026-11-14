@@ -10,6 +10,7 @@ Weave endojs/endo-but-for-bots PR #1559 onto the current `llm` base as the root 
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=4679 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
