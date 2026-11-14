@@ -1,20 +1,21 @@
 # Garden bulletin
 
-_As of 2026-11-14T11:29:25Z_
+_As of 2026-11-14T11:30:31Z_
 
 ## Latest
 
-Little finished in this window. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) went into panel round 5 after fix round 4 completed, and that panel job is now claimed and running. Other PRs in flight are [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504), whose gauntlet halted after a clean stage found CI red on two checks, and [#1347](https://github.com/endojs/endo-but-for-bots/pull/1347), which got a shepherd report. Weaves are running for [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559).
+Oros (`oros-studio-garden-ce242c49`) is still held, which is the main thing to notice. Its canary failed again, retries ran out, and it stays drained until someone at the machine fixes two things. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. The leader is therefore stuck on an old commit, and the arc supervisor says every monk job needing a project checkout dies with EROFS until the leader deploys. Several minion.town jobs are parked behind this. The Oros watchdog notice cleared and canary probes are queued again, but no human has fixed either blocker.
 
-Items for the maintainer:
-- **Oros is still held.** Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after deploy. Both need someone at the machine. Canary probes for it keep piling up in todo.
-- **The leader is stuck on an old commit.** The leader can't pick up the EROFS fix until Oros passes its canary, so minion.town PR work stays parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
-- **Paused-project refusals are crashing two services.** The foreman and the mentor both exit on the minion.town pause refusal (rc=78) and trigger self-heal on every tick.
-- **minion.town production went dark on 2026-11-10.** DNS now points at an unfamiliar host. The arc supervisor asks whether the repoint was intentional, and otherwise suspects a zone compromise.
-- **Disk is nearly full on the leader.** It had 176–500 MiB free and briefly hit zero, so space needs reclaiming by hand.
-- **Merge request for the foreman.** The foreman asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), which unblocks [#1501](https://github.com/endojs/endo-but-for-bots/issues/1501).
-- **Several jobs are parked.** The reaper parked the daily progress summaries for Nov 5 and 6, the daemon-agent-tools Phase 8 build, the Oros secrets handoff, and a dependabotany recheck. Each stays held until you promote it.
-- **Journal contention is easing.** The contention storm on the leader cleared.
+Other items need your attention:
+- **Disk:** The leader's filesystem briefly hit 0 free and then sat at a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Pause fallout:** The minion.town pause is working but noisy. The refusal notice is now at about 24,400 occurrences. `garden-foreman` and `garden-mentor` also crash-loop into self-heal because they treat the pause refusal (rc=78) as fatal.
+- **Production DNS:** An earlier report says minion.town and ocap.site began resolving to an unrelated host on 11-10, and it needs your answer.
+- **Merge request:** The foreman repeatedly asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), so the stalled [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) reweave can proceed.
+- **Other questions:** Several liaison follow-ups also wait on you: the minion.town settings veto check and the `deploy-accounts-store.sh` run, a stray guest on prod, and whether to adopt Iron Horse test-infra ideas from the yavashark ingest.
+
+Journal-lock contention mostly cleared. A handful of notices remain open, and monk workers on the leader were trimmed from 4 to 3 by budget pacing.
+
+Active work is thin. `weave-endojs-endo-but-for-bots-pr1590`, the panel round for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and a shepherd on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) are in flight. Earlier today the gauntlet for #1504 halted, the fix round for #1588 finished, and shepherd and weave reports landed for [endo-but-for-bots#1347](https://github.com/endojs/endo-but-for-bots/pull/1347) and [endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559).
 
 ## Maintainer review docket
 
@@ -526,6 +527,10 @@ Delegation: **active**
 >
 > The question: if you made this change on purpose (a rebuild or a new direction), say so and I will re-baseline the arc and the probe. If you didn't, it is a possible zone compromise. Restoring the A records for the apex and the subdomains to `13.56.17.18` needs you or a credentialed host, and the Route53 change history should be checked.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.537246s max=41.722929s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
 
 > FYI from improve-byte-capacity-guard: host endolin-garden-ece02cb4's /home/kris/garden filesystem (/dev/nvme0n1p2, ~3.6 TiB) is at ~176-500 MiB free right now and briefly hit 0 during this job (a Claude tmp write failed with ENOSPC; tests can't use /dev/shm, which is noexec). The new root-repo-guard byte detector (main2 a6b75fe4c08, 5 GiB floor) will page on this once deployed, but the space needs reclaiming by hand now: du -xsh under .garden-state, scratch/, worktrees/.
@@ -572,13 +577,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.0M | $146.91 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 39.1M | $147.75 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 385.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152859729 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.334850s/45s (/home/kris/garden/.garden-state/deadmail/verify); 12 open notice(s); checker healthy
+worst fetch p95 3.334850s/45s (/home/kris/garden/.garden-state/deadmail/verify); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
