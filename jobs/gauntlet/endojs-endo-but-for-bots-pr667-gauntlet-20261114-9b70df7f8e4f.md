@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 667
 build_job: 
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-viability
+current_child: endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-clean
 state: running
 created_by: fixer
 created_at: 2026-11-14T08:39:32Z
