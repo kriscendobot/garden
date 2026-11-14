@@ -10,6 +10,7 @@ Weave endojs/endo-but-for-bots#1592 onto PR #1590’s current frozen head, resto
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=378 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
