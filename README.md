@@ -1,23 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T09:42:53Z_
+_As of 2026-11-14T09:49:35Z_
 
 ## Latest
 
-Two things need attention in the maintainer inbox, and both are blocking. **Oros** (oros-studio-garden-ce242c49) is still drained after failing the rolling-deploy canary again, with retries exhausted. Its Claude OAuth session has expired and `garden-secret-broker.service` fails after deploy. Because Oros is the canary, the leader endolin-garden-ece02cb4 can't advance past f2788117645 and the EROFS fix. That keeps every monk job that needs a project checkout dying, which is why minion.town PR work is parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+Little completed in this window: [endojs/endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) finished its fix pass with all tests passing. Only the base-wide zizmor check is still red. A fix job was claimed for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504), the Phase 2c PR that the foreman reports is waiting on the sandbox fix [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/pull/1542).
 
-**minion.town** production went dark on 2026-11-10 when DNS for `minion.town` and `ocap.site` was repointed to an unrelated address. The garden has no AWS credentials, so it left DNS alone and wants to know whether the repoint was intentional. The project is also under the maintainer-directed development pause, which the watchdog keeps reporting as refused jobs. That pause is now making the foreman and mentor crash. `post-job.sh` returns rc=78 for paused-project posts, and both treat it as fatal. The foreman's self-heal has fired four times, the mentor's twice. Neither fix has landed.
+**Needs a maintainer decision:**
+- **minion.town production:** a gardener reported on 2026-11-10 that DNS for `minion.town` and `ocap.site` now points at an unfamiliar address serving a static page. The documented production host is healthy when addressed directly. Please say whether the repoint was intentional. If it wasn't, treat it as a possible zone compromise. The garden host has no AWS credentials and has not touched DNS.
+- **Leader deploy:** the leader is stuck on `f2788117645`. Oros keeps failing its canary because its Claude login has expired and `garden-secret-broker.service` fails after deploy. It remains drained and needs someone at the machine. Until the leader deploys, the EROFS fix cannot reach it and monk jobs that need a project checkout fail. The minion.town arc supervisor is therefore asking whether to revive Oros or authorize a leader deploy past the dead canary.
+- **Disk space:** the leader's filesystem was down to about 176-500 MiB free and briefly hit zero. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Foreman and mentor crashes:** both exit with rc=78 every tick. They try to post minion.town work, which the pause refuses, and treat the refusal as fatal. Self-heal keeps firing until `foreman.sh` and `mentor.sh` handle rc=78 as a clean outcome.
 
-Other items:
-- **Disk:** the leader's filesystem briefly hit 0 bytes free, so space needs reclaiming by hand.
-- **Parked jobs:** several jobs were parked after their retries ran out, including the 11-05 and 11-06 daily progress summaries and the Phase 8 fetch-plugin build.
-- **Foreman milestone M3:** it is waiting on a merge decision for [endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/pull/1542) and [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497) before [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) can resume.
-- **Budget:** the leader's monk pool dropped from 4 to 3 as spend pacing tightened.
-- **Journal contention:** most notices cleared on their own.
+The foreman also asks whether to merge #1542 and [endojs/endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497) so the #1504 review can continue.
 
-Gauntlet work on endo-but-for-bots continued on [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (panel round 4 done, fix round 4 in progress) and [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) (a fix completed). A gauntlet for [#667](https://github.com/endojs/endo-but-for-bots/pull/667) halted. Fixes and weaves are in flight on [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559).
+The journal-contention alerts are mostly noise: most have cleared, and the rest are single-giveup warnings.
 
 ## Maintainer review docket
 
@@ -587,10 +584,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.5M | $117.59 _(notional, rate-card)_ | 11% of 271.0M (ok) |
-| Codex | 383.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 30.1M | $115.13 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Codex | 384.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 152492671 tokens/day lower bound._
+_Fleet token-unlock pace: 152608585 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.185706s/45s (/home/kris/garden/.garden-state/budget-level/journal); 12 open notice(s); checker healthy
@@ -605,17 +602,17 @@ worst fetch p95 4.185706s/45s (/home/kris/garden/.garden-state/budget-level/jour
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
 ### doin (3)
-- [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1504.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1559`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1559.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1588
 
-### tada (17079)
+### tada (17080)
+- [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/fix-endojs-endo-but-for-bots-pr1594.md) — PR #1594 fix pass: all tests pass, only the base-wide zizmor check is red
 - [`fix-endojs-endo-but-for-bots-pr1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/fix-endojs-endo-but-for-bots-pr1596.md) — Cost
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1588-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1588-gauntlet-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f.md) — gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f — HALTED
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-clean.md) — Cost
-- … and 17074 more
+- … and 17075 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
