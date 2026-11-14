@@ -11,6 +11,7 @@ Fix endojs/endo-but-for-bots PR #1588’s latest panel findings by spelling out 
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=34 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
