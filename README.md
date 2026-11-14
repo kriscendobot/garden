@@ -1,20 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T02:30:00Z_
+_As of 2026-11-14T02:34:07Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still stuck, and that is the main thing to notice. Its rolling-deploy canary has failed repeatedly, most recently at 18fc7b17375, and the host stays drained. The health-watch message names two blockers that need someone at the machine: the Claude OAuth session has expired (run `claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy. Because the leader deploys only after its canary passes, the leader `endolin-garden-ece02cb4` is still on f2788117645. The EROFS fix therefore hasn't reached it, and monk jobs that need a project checkout keep dying. The minion.town arc supervisor is asking whether you want to revive Oros or authorize a leader deploy past the dead canary. Both a canary-failure notice and a pile of unclaimed `oros-health-checkup` and `canary-probe` jobs are sitting in the todo queue.
+Maintainer attention is needed on three fronts. The Oros follow-up is the most urgent: [Oros](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261111-205010-04ba7ec6ee39.md) (`oros-studio-garden-ce242c49`) is still drained after the rolling deploy's canary failed a third time. Someone at the machine has to run `/login` for the expired Claude session and look at why `garden-secret-broker` fails after each deploy. Because the canary is dead, the leader is still on an older commit, so the EROFS fix cannot reach it. The minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the canary.
 
-The board is a backlog: 130 todo jobs, none in progress. Most are `oros-health-checkup`, `canary-probe` and minion.town press jobs. The minion.town press jobs are refused by the standing project pause, which has produced about 15.7k coalesced watchdog hits. Completed work was light. The last completions were gauntlet and ratchet jobs, including a halted gauntlet for [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) and the IronHorse test262 round-3 floor resolution.
+Second, the [minion.town](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261110-163511-75a23ad64b38.md) DNS question is still open. Production started resolving to an unexpected address on 2026-11-10, and a possible zone change needs your confirmation. Separately, the minion.town project pause keeps refusing arc-press jobs, and the pause watchdog notice has now counted over 15,000 occurrences.
 
-Other items for you to look at:
-- **Disk:** the leader's filesystem briefly hit 0 bytes free and sits at roughly 176–500 MiB. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** production was reported dark since about 13:14Z on 11-10, with DNS apparently repointed to an unrelated host. The report asks whether you did that on purpose.
-- **Journal contention:** the watchdog has a storm notice (6 clones in one tick) on the leader. Several single-lock notices recovered.
-- **Parked jobs:** the reaper parked several daily-summary, dependabot recheck and build jobs after their retries failed. They stay held until you promote them.
+Third, the leader's disk (`endolin-garden-ece02cb4`) briefly hit 0 bytes free and needs space reclaimed by hand. Journal lock contention and storm notices also keep recurring on the leader, though several of them cleared on their own.
+
+Board movement was quiet: no file-level transitions resolved for this window. The `todo` queue is dominated by unclaimed Oros canary probes and health checkups, and by minion.town press jobs. The gauntlet for [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) halted.
+
+Three daily-summary and build jobs remain parked after exhausting retries. Other open follow-ups need your call, including the [minion.town](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md) settings simplification, which needs `deploy-accounts-store.sh` run before it merges.
 
 ## Maintainer review docket
 
@@ -506,10 +504,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.1M | $358.50 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 94.4M | $359.61 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149597293 tokens/day lower bound._
+_Fleet token-unlock pace: 149625966 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.140985s/45s (/home/kris/garden/.garden-state/maintainer/journal); 13 open notice(s); checker healthy
