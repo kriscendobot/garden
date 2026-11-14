@@ -28,3 +28,13 @@ must be an arrival from a maintainer (an issue, or a comment whose first line be
 answered in time may appear. If they match, delete the Environment= line (the script
 default is 1, so also flip the script default to 0 or set the env to 0 explicitly) and
 push. If they do not match, fix the rule and restart the day's observation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-14T04:19:26Z
