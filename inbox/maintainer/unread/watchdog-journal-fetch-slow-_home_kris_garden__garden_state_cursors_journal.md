@@ -1,9 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-14T11:30:07Z
+sent_at: 2026-11-14T11:34:48Z
 watchdog_key: journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal
 notice_count: 1
 first_seen: 2026-11-14T11:30:07Z
-last_seen: 2026-11-14T11:30:07Z
+last_seen: 2026-11-14T11:34:48Z
+recovered: true
 ---
-Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.537246s max=41.722929s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-14T11:30:07Z, cleared 2026-11-14T11:34:48Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
