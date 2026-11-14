@@ -8179,19 +8179,68 @@ claim_durable_result() {
   return 1
 }
 
-# report_followups_section <report-file> — the lines under a `## Follow-ups` /
-# `## Follow-up` heading, up to the next `## ` heading or EOF (sub-headings do not
-# terminate it). The single spelling of the canonical follow-up heading scan, used
-# by BOTH the async follow-up sweep (follow-up.sh) and the completion-time gate
-# (assert-followup-posted.sh) so the two can never disagree on what counts as a
-# follow-up section. The heading convention is house style (roles/COMMON.md
-# § House style): a report describing further necessary action uses this literal
-# heading, never a bold-prose variant a scan cannot anchor to.
+# report_followups_section <report-file> — the report's follow-up text: the lines
+# under a `## Follow-ups` / `## Follow-up` heading, up to the next `## ` heading or
+# EOF (sub-headings do not terminate it), PLUS each standalone follow-up LABEL
+# block outside such a section. A label is a line that starts with
+# `Follow-up:` / `Follow-ups:` (also `Followup:`, `Follow up:`, and the bold
+# `**Follow-up:**` / `**Follow-up**:` forms); its block is the text after the
+# colon plus the following non-blank lines (or, when nothing follows the colon,
+# the next paragraph), stopping at a blank line or a heading. Labels inside fenced
+# code blocks are ignored. A block whose first word is a null signal ("None.",
+# "nothing") is dropped, so a null heading section cannot mask a later real label
+# (or vice versa) under followups_actionable's first-word test.
+#
+# The single spelling of the follow-up scan, used by BOTH the async follow-up
+# sweep (follow-up.sh) and the completion-time gate (assert-followup-posted.sh) so
+# the two can never disagree on what counts as a follow-up. The heading convention
+# is house style (roles/COMMON.md § House style); the label form is recognized
+# because workers keep writing it anyway. Grounding: a weaver result at
+# 2026-11-14T10:29:47Z said "Follow-up: reweave #1590, then #1592, in stack
+# order." and settled with neither posted, invisible to the heading-only scan.
 report_followups_section() {
   awk '
-    /^##[[:space:]]+[Ff]ollow-?[Uu]ps?([[:space:]]|$)/ { grab=1; next }
-    grab && /^##[[:space:]]/                            { grab=0 }
-    grab                                               { print }
+    function is_null(t,   w) {
+      w = t
+      sub(/^[[:space:]]*[-*•]?[[:space:]]*/, "", w)
+      sub(/[[:space:]].*$/, "", w)
+      w = tolower(w)
+      return w ~ /^(none|nothing)[.,:;]?$/
+    }
+    function flush() {
+      if (blk != "" && !is_null(first)) printf "%s", blk
+      blk = ""; first = ""; mode = ""
+    }
+    function add(line) {
+      if (first == "" && line ~ /[^[:space:]]/) first = line
+      blk = blk line "\n"
+    }
+    /^[[:space:]]*(```|~~~)/ { fence = !fence }
+    !fence && /^##[[:space:]]+[Ff]ollow-?[Uu]ps?([[:space:]]|$)/ { flush(); mode = "h2"; next }
+    mode == "h2" && !fence && /^##[[:space:]]/ { flush() }
+    mode == "h2" && !fence && /^[[:space:]]*(\*\*|__)?[Ff]ollow[- ]?[Uu]ps?(\*\*|__)?[[:space:]]*:/ {
+      # A label inside the section starts its own block, so a null lead line
+      # ("None.") cannot swallow a real labelled item after it.
+      flush(); mode = "h2"
+      rest = $0
+      sub(/^[[:space:]]*(\*\*|__)?[Ff]ollow[- ]?[Uu]ps?(\*\*|__)?[[:space:]]*:[[:space:]]*(\*\*|__)?[[:space:]]*/, "", rest)
+      if (rest ~ /[^[:space:]]/) add(rest)
+      next
+    }
+    mode == "h2" { add($0); next }
+    mode == "label" && (/^[[:space:]]*$/ || /^#/) {
+      if (/^[[:space:]]*$/ && first == "") next
+      flush()
+    }
+    mode == "label" { add($0); next }
+    !fence && /^[[:space:]]*(\*\*|__)?[Ff]ollow[- ]?[Uu]ps?(\*\*|__)?[[:space:]]*:/ {
+      flush(); mode = "label"
+      rest = $0
+      sub(/^[[:space:]]*(\*\*|__)?[Ff]ollow[- ]?[Uu]ps?(\*\*|__)?[[:space:]]*:[[:space:]]*(\*\*|__)?[[:space:]]*/, "", rest)
+      if (rest ~ /[^[:space:]]/) add(rest)
+      next
+    }
+    END { flush() }
   ' "$1"
 }
 
@@ -8372,8 +8421,8 @@ followup_item_is_advisory() {
 # followups_only_surface_decision (negative guard) and assert-followup-posted.sh
 # (auto-escalation eligibility) so both read "prescribed work" the same way.
 # A list item (or the section's first line) opening with an orchestrator verb
-# in imperative position ("- Conduct next.", "Rebase onto llm") counts as
-# prescribed work too; a wrapped continuation line ("  merge decision is ...")
+# in imperative position ("- Conduct next.", "Rebase onto llm", "reweave #1590")
+# counts as prescribed work too; a wrapped continuation line ("  merge decision is ...")
 # does not.
 #
 # A list item that only names an EXTERNAL prerequisite the fleet lacks (run X
@@ -8391,7 +8440,7 @@ followups_prescribe_fleet_work() {
     [ -n "$item" ] || continue
     followup_item_is_advisory "$item" && continue
     printf '%s' "$item" | grep -Eqi \
-'^[[:space:]]*([-*•][[:space:]]*)?(conduct|shepherd|weave|rebase|retcon|refresh|merge|ferry|build|fix|probe|design|investigate|post|dispatch|schedule|run[[:space:]]+the[[:space:]]+gauntlet)([[:space:]]|[.,:;!]|$)' \
+'^[[:space:]]*([-*•][[:space:]]*)?(conduct|shepherd|weave|re-?weave|restack|rebase|retcon|refresh|merge|ferry|build|fix|probe|design|investigate|post|dispatch|schedule|run[[:space:]]+the[[:space:]]+gauntlet)([[:space:]]|[.,:;!]|$)' \
       && return 0
     followup_item_needs_external_access "$item" && continue
     printf '%s' "$item" | tr '[:upper:]' '[:lower:]' | grep -Eq \

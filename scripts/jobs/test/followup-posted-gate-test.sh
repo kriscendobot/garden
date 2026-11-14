@@ -747,19 +747,70 @@ if gate_noesc incomplete-gauntlet-fix "$JOB" "$TR/r6e.md"; then
 fi
 echo '   gate correctly required the completed gauntlet-stage marker (rc 1)'
 
-echo '== (g) NO-OP: a report with NO follow-up section, and a bold-prose header, never gates =='
+echo '== (g) NO-OP: a report with NO follow-up section never gates =='
 printf 'All done. Clean completion.\n' >"$TR/r7.md"
 reset_clone
 "$GATE" no-section "$JOB" "$TR/r7.md" \
   || fail 'gate wrongly blocked a report with no follow-up section at all'
-# A bold-prose "**Follow-up:**" header is (by design) NOT the canonical heading, so
-# the gate does not see it — this documents the gap the house-style rule closes:
-# the fix is the heading convention, not making the gate parse bold prose.
+
+echo '== (g2) BLOCK: a standalone `Follow-up:` label is actionable follow-up input =='
+# Grounding: weave-endojs-endo-but-for-bots-pr1559 reported at
+# 2026-11-14T10:29:47Z "Follow-up: reweave #1590, then #1592, in stack order."
+# and settled with neither reweave posted; the heading-only scan missed it.
+cat >"$TR/r7c.md" <<'EOF'
+Wove PR #1559 onto the current llm snapshot and force-pushed the head.
+
+Follow-up: reweave #1590, then #1592, in stack order. The two base-derived CI failures remain for the base owner/shepherd.
+
+Self-improvement: nothing this time.
+EOF
+reset_clone
+# Use the escalating gate: "reweave" is prescribed fleet work, so it must block
+# rather than be forwarded to the maintainer inbox.
+if "$GATE" plain-label "$JOB" "$TR/r7c.md" 2>/dev/null; then
+  fail 'gate did NOT block an unposted plain `Follow-up:` label'
+fi
+section="$(source "$JOBS/common.sh"; report_followups_section "$TR/r7c.md")"
+printf '%s' "$section" | grep -q 'reweave #1590' \
+  || fail 'plain label text was not extracted'
+printf '%s' "$section" | grep -q 'Self-improvement' \
+  && fail 'label block ran past its paragraph'
+# The bold form is the same label.
 printf 'Done.\n\n**Follow-up:** a conductor job is warranted.\n' >"$TR/r7b.md"
 reset_clone
-"$GATE" bold-prose "$JOB" "$TR/r7b.md" \
-  || fail 'gate unexpectedly reacted to a bold-prose header (it anchors ONLY on the canonical heading)'
-echo '   gate anchors only on the canonical `## Follow-ups` heading (house-style rule closes the bold-prose gap)'
+if gate_noesc bold-prose "$JOB" "$TR/r7b.md" 2>/dev/null; then
+  fail 'gate did NOT block an unposted bold `**Follow-up:**` label'
+fi
+echo '   gate blocked plain and bold follow-up labels with no disposition (rc 1)'
+
+echo '== (g3) PASS: a plain label with a verified posted successor, or a null label =='
+board_put todo reweave-endojs-endo-but-for-bots-pr1590-20261114
+cat >"$TR/r7d.md" <<'EOF'
+Wove PR #1559.
+
+Follow-up: reweave #1590, then #1592, in stack order; posted an orchestration.
+
+<<<GARDEN-JOB-HANDED-OFF: reweave-endojs-endo-but-for-bots-pr1590-20261114>>>
+EOF
+reset_clone
+"$GATE" plain-label-handoff "$JOB" "$TR/r7d.md" \
+  || fail 'gate wrongly blocked a plain label whose handoff successor is posted'
+printf 'Done.\n\nFollow-up: none.\n\n## Follow-ups\nNone.\n' >"$TR/r7e.md"
+reset_clone
+"$GATE" null-label "$JOB" "$TR/r7e.md" \
+  || fail 'gate wrongly blocked a null `Follow-up: none.` label'
+# A label inside a fenced code block, or a mid-sentence mention, is not a label.
+printf 'Done. The follow-up gate passed.\n\n```\nFollow-up: reweave #1\n```\n' >"$TR/r7f.md"
+reset_clone
+"$GATE" fenced-label "$JOB" "$TR/r7f.md" \
+  || fail 'gate wrongly reacted to a fenced or in-prose follow-up mention'
+# A null heading section must not mask a later real label.
+printf 'Done.\n\n## Follow-ups\nNone.\n\nFollow-up: shepherd #9 is warranted.\n' >"$TR/r7g.md"
+reset_clone
+if gate_noesc null-then-label "$JOB" "$TR/r7g.md" 2>/dev/null; then
+  fail 'a null `## Follow-ups` section masked a real later label'
+fi
+echo '   verified handoff passes; null, fenced, and in-prose mentions are no-ops; null sections do not mask labels'
 
 echo '== (h) PASS: a section that only surfaces an already-raised maintainer decision (closed) never gates =='
 # The #1310 shape: a status-report directive whose deliverable landed and whose

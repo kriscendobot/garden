@@ -10,7 +10,10 @@
 # and then conduct are warranted now" and settled WITHOUT posting either. Both
 # used bold-prose headers ("**Follow-up:**"), not the canonical `## Follow-ups`
 # heading, so even the async garden-follow-up sweep (~10m cadence, scans
-# jobs/tada/*.md for that exact heading) silently missed them.
+# jobs/tada/*.md for that exact heading) silently missed them. The shared scan
+# (report_followups_section) now also reads a standalone `Follow-up:` label
+# (plain or bold) as follow-up input: a weaver result at 2026-11-14T10:29:47Z
+# said "Follow-up: reweave #1590, then #1592" and settled with neither posted.
 #
 # The maintainer's standing requirement, stated directly: any follow-up job must
 # be POSTED before a task settles, never merely described. A 10-minutes-later
@@ -161,7 +164,8 @@ if successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
   exit 1
 fi
 
-# 2. Is there a substantive follow-up section at all? Most jobs have none, or a
+# 2. Is there a substantive follow-up section at all? The section is the
+#    `## Follow-ups` heading text plus any standalone `Follow-up:` label blocks. Most jobs have none, or a
 #    trivially-empty "None." — the gate is a no-op for them, provided they did
 #    not declare a handoff above.
 section="$(report_followups_section "$report" 2>/dev/null || true)"
@@ -332,7 +336,7 @@ escalate_followups() {
   local body rc=0
   body="$(mktemp "${TMPDIR:-/tmp}/followup-gate-escalation.XXXXXX")"
   {
-    printf 'Job "%s" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.\n\n' "$base"
+    printf 'Job "%s" completed with follow-ups (a `## Follow-ups` section or a `Follow-up:` label) that name no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.\n\n' "$base"
     printf '## Follow-ups\n%s\n' "$section"
   } > "$body"
   GARDEN_MSG_COALESCE=1 \
