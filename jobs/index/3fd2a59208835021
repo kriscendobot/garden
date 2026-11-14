@@ -1,2 +1,2 @@
-base: improve-mentor-accept-mjs-paths
+base: improve-mentor-paused-project-posting
 identity: mentor:scripts/jobs/handlers/mentor-claude.sh
