@@ -1,22 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T06:52:29Z_
+_As of 2026-11-14T06:54:38Z_
 
 ## Latest
 
-Only one job finished in this window: [`fix-endo-zizmor-create-pull-request-v8-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/fix-endo-zizmor-create-pull-request-v8-comment.md). It looks like the same action-comment drift fix as before, and it completed. A gauntlet record was also added for [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Four jobs are in progress, three of them on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (shepherd, shepherd and weave). The fourth is a fix for [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594).
+The only board movement was the pre-spend viability check on [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). It completed, and the PR's gauntlet record was updated.
 
-Things for a maintainer to notice:
+The maintainer-facing items are mostly the same ones as before:
 
-- **Oros is still down.** The oros-studio-garden-ce242c49 canary keeps failing and the host stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The leader endolin-garden-ece02cb4 therefore cannot roll forward. It is stuck on an older revision that still dies EROFS on project checkouts. The arc supervisor is asking whether to revive Oros or deploy the leader past the dead canary.
-- **The minion.town pause is causing failures.** The foreman and mentor services exit non-zero when `post-job.sh` refuses a paused-project job, and the same refusal repeats every tick. Self-heal has paged both. The pause refusal counter is above 21,000.
-- **Possible DNS problem for minion.town.** A 2026-11-10 message reports the zone now pointing at an unfamiliar address, with the real host healthy at the old one. It asks whether the change was intentional.
-- **Disk is nearly full on the leader.** Free space on `/home/kris/garden` has dipped to roughly 176–500 MiB and briefly hit zero. It needs manual reclaiming.
-- **Several daily-summary and build jobs are parked by the reaper.** They include [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/issues/1497)-related Phase 8 work.
-- **Foreman M3 is waiting on you.** The daemon-agent-tools critical path is blocked at [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589).
-- **Most journal-contention alerts have cleared.** A handful of lock-contention notices remain open.
+- **Minion.town pause:** the pause is still being enforced. The foreman exited rc=78, and the mentor's improve handler exited 1, because `post-job.sh` refused a pause-covered job and each loop counted the refusal as a crash. Both loops tripped self-heal. A foreman fix job was named in the notice, so check that it lands.
+- **Oros:** the host is still drained and held. Its canary keeps failing because the Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both need someone at the machine. Three canary probes for Oros are still waiting in todo.
+- **Leader deploy:** with Oros stuck, the leader is held back from the EROFS fix. Minion.town PR work stays parked until you either revive Oros or authorize a leader deploy past the dead canary.
+- **Disk space:** the leader's filesystem briefly hit zero free space during a job, and the space needs reclaiming by hand.
+- **Minion.town DNS:** the apex was repointed on 2026-11-10 and production is dark. It needs you to say whether the change was intentional, or someone with AWS access to restore the records.
+
+Several journal-contention alerts recovered, and the screening failure streak cleared. Contention notices on the leader and Oros are otherwise still open.
 
 ## Maintainer review docket
 
@@ -552,7 +550,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.4M | $57.63 _(notional, rate-card)_ | 5% of 271.0M (ok) |
+| Claude | 13.8M | $59.04 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 381.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 150116804 tokens/day lower bound._
@@ -575,13 +573,13 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`endojs-endo-but-for-bots-pr1588-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md) — ---
 
-### tada (17062)
+### tada (17063)
+- [`endojs-endo-but-for-bots-pr1659-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1659-gauntlet-viability.md) — Cost
 - [`fix-endo-zizmor-create-pull-request-v8-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/fix-endo-zizmor-create-pull-request-v8-comment.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/shepherd-endojs-endo-but-for-bots-pr1590.md) — Cost
 - [`improve-foreman-paused-project-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/improve-foreman-paused-project-admission.md) — Cost
 - [`improve-mentor-paused-project-posting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/improve-mentor-paused-project-posting.md) — Completion report: improve-mentor-paused-project-posting
-- [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/shepherd-endojs-endo-but-for-bots-pr1501.md) — Cost
-- … and 17057 more
+- … and 17058 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
