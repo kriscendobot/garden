@@ -1,27 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T03:21:40Z_
+_As of 2026-11-14T03:24:05Z_
 
 ## Latest
 
-The one new job posted was [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-dependabotany-idle-rechecks.md). Nothing was claimed or completed, and the board has no jobs in `doin`.
+Quiet on the board: the only transition is `improve-dependabotany-idle-rechecks` moving from todo into doin, so a gardener is now working on making idle dependabotany rechecks cheaper. No jobs completed.
 
-**Oros is still stuck.** `oros-studio-garden-ce242c49` failed the canary again, and the rolling deploy halted after three retries. Two blockers need someone at the machine:
-- The Claude OAuth session has expired and needs a `/login`.
-- `garden-secret-broker.service` fails after every deploy.
+The fleet is mostly blocked on one thing. The rolling deploy is halted on a failed canary at `oros-studio-garden-ce242c49`, which has failed three automatic retries and stays drained. Its operator needs to fix two things at the machine: the expired Claude OAuth session (run `claude`, then `/login`) and `garden-secret-broker.service`, which fails after each deploy. Until the leader deploys, monk jobs that need a project checkout keep dying with EROFS. Canary probes and `oros-health-checkup` jobs pile up unclaimed in todo. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
 
-The leader `endolin-garden-ece02cb4` cannot deploy until a canary passes. That blocks the EROFS fix for monk project checkouts and leaves minion.town PR work parked. The minion.town arc supervisor is asking you to either revive Oros or authorize a leader deploy past the dead canary. Canary-probe and health-checkup jobs keep piling up in `todo` (132 jobs) because Oros claims nothing.
+Other items needing a maintainer decision:
+- **minion.town DNS:** the apex and `ocap.site` were repointed to `34.225.237.208`, away from the documented `13.56.17.18`. The prod probe has been red since 14:52Z on 11-10, tracked in [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256). Say whether the change was intentional. If not, check Route53 history for a possible zone compromise. Development on the project is paused, and the pause watchdog is still refusing its arc-press jobs.
+- **Disk space:** the leader's filesystem briefly hit 0 bytes free and sits at a few hundred MiB. It needs manual cleanup under `.garden-state`, `scratch/`, and `worktrees/`.
+- **Parked jobs:** several daily-summary, dependabotany-recheck, and build jobs were parked after the reaper's requeue retries were exhausted. They stay held until promoted or removed.
+- **Settings simplification report:** `deploy-accounts-store.sh` must be run before merging, and the four listed choices stand unless vetoed.
 
-**minion.town production may be down.** A 2026-11-10 message reports that DNS for `minion.town` and `ocap.site` now points at an unexpected address that serves a static page. The documented production host looks healthy when addressed directly. Nobody has confirmed whether the change was intentional, and nobody has touched DNS. Development on the project is paused. The watchdog has refused its jobs more than 16,000 times, and its latest refusal was a press job for the arc.
-
-**Other items waiting on you:**
-- The `endolin-garden-ece02cb4` disk was reported nearly full on 2026-11-10, and it needs reclaiming by hand.
-- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging. It also lists four choices you can veto.
-- Five daily-summary, build and dependabotany-recheck jobs were reaped and parked in `plan/`, each awaiting promotion or removal.
-
-Several journal-contention notices recovered, and the `comment-watcher` cooldown and minion.town screening-failure conditions had already cleared. A few contention notices are still open, but they are routine.
+The journal-contention watchdog notices are mostly recovery notices, which need no action.
 
 ## Maintainer review docket
 
@@ -519,7 +512,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.9M | $369.29 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 97.1M | $370.03 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149774133 tokens/day lower bound._
@@ -528,7 +521,7 @@ _Fleet token-unlock pace: 149774133 tokens/day lower bound._
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (132)
+### todo (131)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`claude-on-minion-town-completion-press-20261112-225011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261112-225011.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261109-060512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-060512.md) — ---
@@ -560,7 +553,6 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261108-173513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261108-173513.md) — ---
 - [`oros-health-checkup-20261109-155023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261109-155023.md) — ---
 - [`oros-health-checkup-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-200509.md) — ---
-- [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-dependabotany-idle-rechecks.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-9db928543949-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-9db928543949-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 9db928543949
 - [`canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-21585bda2b36-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 21585bda2b36
 - [`claude-on-minion-town-completion-press-20261113-110513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261113-110513.md) — Completion press: Claude-on-minion.town arc
@@ -662,8 +654,8 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-idle-rechecks.md) — ---
 
 ### tada (17054)
 - [`endojs-endo-but-for-bots-pr1359-gauntlet-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/endojs-endo-but-for-bots-pr1359-gauntlet-20261113.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet-20261113 — HALTED
