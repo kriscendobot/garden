@@ -1,24 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-14T05:11:53Z_
+_As of 2026-11-14T05:12:27Z_
 
 ## Latest
 
-The board is quiet: no jobs were posted, claimed, or completed since the last bulletin. The most recent completions were the issue-status-pass go-live, an `improve-dependabotany-idle-rechecks` improvement, and a dependabotany recheck for endo-but-for-bots. The `endojs-endo-but-for-bots-pr1359` gauntlet halted.
+Two things need a maintainer's decision. They are why the minion.town work and the Oros host are stuck.
 
-**Decisions waiting on you, in rough order of impact:**
+**Oros** (`oros-studio-garden-ce242c49`) is still operator-held. Its canary failed again after the roll to `18fc7b17375`, and a canary-probe job for it sits unclaimed in todo. Someone at the machine has to re-run `/login` for the expired Claude session and fix `garden-secret-broker.service`.
 
-- **minion.town production DNS.** The apex and `ocap.site` now resolve to `34.225.237.208`, a static "no accounts here" Caddy page, rather than the documented host `13.56.17.18`. Several subdomains no longer resolve at all. The real host is healthy when pinned. If you didn't make this change, treat it as a possible zone compromise. Restoring it needs a credentialed host. The prod probe has been red since 14:52Z on 2026-11-10 ([minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)).
-- **Leader deploy is stuck behind a dead canary.** The follower oros is operator-held. Its Claude OAuth session has expired and `garden-secret-broker` fails after each deploy. The leader still runs `f2788117645`, so the EROFS fix cannot reach it. Every monk job that needs a project checkout therefore fails with EROFS, and minion.town PR work is parked. The supervisor asks whether to revive oros or authorize a leader deploy past the canary.
-- **Disk pressure on the leader.** The filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Endo M3 is stalled.** It waits on you to decide whether to merge the base-CI repairs [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) and [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). That is also what holds the dependabotany row for #1629.
-- **minion.town pause side effects.** The pause is still enforced (the refusal count has passed 19,000). It also makes `mentor.sh` crash each tick on a refused post, which fires self-heal repeatedly. Lifting the pause would clear it.
-- **Other open items:**
-  - **Beta settings simplify:** run `deploy-accounts-store.sh` before merging, and say if you object to any of the four listed choices.
-  - **Production guest:** one leftover guest remains on production minion.town.
-  - **yavashark:** decide whether to post an Iron Horse test-infra job to adopt its cost tiers, sampling, and CPU pinning.
+**The leader deploy is blocked behind Oros.** The leader is still on `f2788117645`, so the EROFS fix cannot reach it. The arc supervisor asks whether to revive Oros or authorize deploying the leader past the dead canary. Meanwhile minion.town PR work is parked, and minion.town is also under the 2026-11-10 pause. The pause keeps refusing claimable work. The mentor's improve handler hit the same refusal, which `mentor.sh` treats as a crash, so `garden-mentor` exits 1 and self-heal keeps firing.
 
-Several split-eligible jobs, including daily progress summaries, were reaper-parked after retries were exhausted. Most journal-contention watchdog notices have recovered.
+Other items worth a look:
+- **minion.town DNS:** production went dark about 13:14Z on 2026-11-10. Both `minion.town` and `ocap.site` now resolve to an unfamiliar address serving a static page. The message asks whether you changed this on purpose, and says to check the Route53 history if you didn't.
+- **Disk:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch` and `worktrees`.
+- **Foreman milestone M3:** it is stalled on base CI. It asks whether to merge the base repairs [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646, which also hold the dependabot PR #1629.
+- **Held daily summaries:** two daily-progress-summary jobs, the build jobs for the daemon fetch plugin and the Oros bwrap hand-off, and the dependabotany recheck were parked after exhausting requeues. They wait for a manual promote.
+
+Several journal-lock-contention and canary watchdog conditions cleared overnight. The Oros canary failure notice, comment-watcher cooldown and minion.town screening-failure notices all closed. Contention notices on the leader and Oros are still open but sub-second.
+
+Board movement was light: no file-level transitions were resolved for this window, though recent completions include a gauntlet halted on [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) and the issue-status-pass go-live.
 
 ## Maintainer review docket
 
@@ -147,6 +147,10 @@ Delegation: **active**
 - `liaison-followup-f32528813528` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-f32528813528.md)
 
 > Report scholar-ingest-yavashark-ironhorse-20261030: the scholar ingest of yavashark found cost tiers, sampling, and CPU pinning in its test infrastructure. Should the garden post an Iron Horse test-infra job to adopt them? It is your call, and no job has been posted.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1' has remained unclaimed for 1199s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -528,7 +532,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.4M | $18.47 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 4.5M | $18.80 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 380.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149712126 tokens/day lower bound._
