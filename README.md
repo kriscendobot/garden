@@ -1,18 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-14T04:26:38Z_
+_As of 2026-11-14T04:27:10Z_
 
 ## Latest
 
-Mostly housekeeping moved: the board is nearly empty (3 scholar-ingest jobs in todo, one `issue-status-pass-go-live` in doin), and several journal-lock and fetch-slow contention watchdogs cleared on both hosts. The rolling-deploy canary condition for `oros-studio-garden-ce242c49` also cleared. Oros is still operator-held, though. A health-watch note says its Claude OAuth session has expired and `garden-secret-broker.service` keeps failing after deploy. Both need someone at the machine.
+The board is nearly quiet: no file-level transitions resolved this cycle, though recent completions include the dependabotany recheck for endo-but-for-bots, a gauntlet that halted on [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359), and a few dead-mail follow-ups. Three scholar-ingest jobs wait in todo, and the issue status pass go-live is in progress.
 
-Things that need a maintainer decision:
-- **minion.town production DNS.** A gardener reported production dark since about 13:14Z on 11-10, with `minion.town` and `ocap.site` resolving to an unrelated address (`34.225.237.208`) instead of the documented host (`13.56.17.18`). The question is whether the repoint was intentional or a possible zone compromise. The project is also paused, and the pause watchdog has now refused work 17,480 times.
-- **Leader deploy blocked.** The leader still runs an old commit because the dead Oros canary stops the rolling deploy. Until it deploys, monk jobs that need a project checkout die with EROFS, so all minion.town PR work stays parked. The choice is to revive Oros or authorize a leader deploy past it.
-- **Disk space.** The leader's filesystem hit about 0 free during a job. The space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Foreman failure.** `garden-foreman` exited rc=78 because the pause on minion.town refuses a milestone step whose body mentions that project. This is a defect in how the foreman handles a paused-project refusal.
-- **Stalled jobs.** Several split-eligible jobs are parked after exhausting their retries. They include two daily progress summaries, the dependabotany recheck, the phase 8 fetch-plugin build and the Oros secrets bwrap handoff.
-- **minion.town settings simplification.** It needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+**Needs your attention:**
+- **minion.town DNS.** Production went dark around 13:14Z on 2026-11-10. The apex and `ocap.site` now resolve to `34.225.237.208`, not the documented host `13.56.17.18`, and the subdomains no longer resolve. The supervisor found no record of a deliberate change and has not touched DNS. If the repoint wasn't yours, it may be a zone compromise, and restoring the A records needs you or a credentialed host. The project is also under your 2026-11-10 pause, and the pause watchdog has now refused queued minion.town jobs about 17,000 times.
+- **Oros is still held.** The roll moved it to `18fc7b17375` and it failed the canary again. Two blockers need someone at the machine: the expired Claude OAuth session (run `claude`, then `/login`) and `garden-secret-broker.service`, which fails after every deploy.
+- **The leader is stuck on an old commit.** The leader still runs `f2788117645` and can't take the EROFS fix because its canary, Oros, is dead. Until it deploys, monk jobs that need a project checkout die with EROFS. The supervisor asks you to either revive Oros or authorize a leader deploy past the failed canary.
+- **Disk space.** The leader's filesystem was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Decisions waiting in your inbox.**
+  - Run `deploy-accounts-store.sh` before merging the minion.town settings-simplify change.
+  - Say whether you veto any of its four listed choices.
+  - Decide whether to post an Iron Horse test-infra job for the yavashark findings.
+  - Decide whether to remove the leftover production guest.
+  - Several daily-summary, dependabotany and build jobs were parked after retries ran out and need promotion or removal.
+
+The journal-lock contention watchdogs mostly recovered overnight; several notices cleared on both hosts, and the journal-contention storm notice cleared at 04:14Z.
 
 ## Maintainer review docket
 
@@ -334,18 +340,6 @@ Delegation: **active**
 > 5. A rollback if bwrap cannot be made to work on the Mac.
 > Also report whether the deploy gate or canary should check `command -v bwrap` before advancing, and file that as a follow-up recommendation in your completion report rather than implementing it.
 
-- `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
-
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 303fca30c54e1f87b4d38b9bf45a85ace65ca2df (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 303fca30c54e1f87b4d38b9bf45a85ace65ca2df). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-rc78
-> **Failure signature.** `garden-foreman` exits 78 on a tick. The log tail ends with: `[post] refusing to post 'fixer-endojs-endo-but-for-bots-pr1595': it belongs to PAUSED project 'minion-town' (rc=78)`, then `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`.
->
-> **Cause.**
-> - The minion-town pause record (`journal/pauses/minion-town.md`, 2026-11-10) is working as designed.
-> - `project_pause_hit` in `scripts/jobs/common.sh` matches the slug or `minion\.town` against the job base and body.
-> - The foreman's proposed body for the endo fixer step mentions minion-town (`arc: minion-town-git-remote`). So `post-job.sh` refuses it with `GARDEN_PAUSED_RC` (78).
->
-> **Defect.** `scripts/jobs/foreman.sh` (about lines 697-740) treats ever
-
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-12T22:56:07Z, cleared 2026-11-14T03:53:07Z).
@@ -514,7 +508,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.8M | $8.99 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.9M | $9.32 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 379.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 151209805 tokens/day lower bound._
