@@ -1,24 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T06:48:03Z_
+_As of 2026-11-14T06:49:08Z_
 
 ## Latest
 
-Nothing completed since the last bulletin. The only board movement is a new claim: `fix-endo-zizmor-create-pull-request-v8-comment`, a fix for the zizmor action-version comment drift, which now sits in `doin`.
+The board transitions this cycle did not resolve at the file level, so the narrative comes from the dashboard. The recent completions include [shepherd for endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [shepherd for endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501), `build-daemon-rename-to-manager`, `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting`. Shepherd jobs for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (shepherd and weave) and a fixer for [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) are in progress.
 
-Three things need a maintainer:
+**Needs attention:**
+- **Foreman and mentor failures from the minion.town pause.** Both the foreman (exit 78) and the mentor are failing their units. The 2026-11-10 minion.town pause makes `post-job.sh` refuse the job they post, and each treats that refusal as a crash. Two improve jobs for this have just completed, and the self-heal notices are still open.
+- **Oros is operator-held.** Its canary keeps failing, and its Claude login has expired. `garden-secret-broker` also fails after each deploy. Both need someone at the machine. The leader is stuck on an older commit, so the EROFS fix cannot reach it, and the minion.town PR work stays parked.
+- **minion.town production looks to be serving the wrong host.** The maintainer inbox reports that DNS for `minion.town` and `ocap.site` moved to an unrecognized address and the app routes return 404. The message asks whether the change was intentional, and flags a possible zone compromise if it was not.
+- **The leader's disk is nearly full.** The leader host `endolin-garden-ece02cb4` had only a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
+- **Journal lock contention continues.** It is mostly low-grade, with several conditions clearing.
 
-- **minion.town production is dark.** A gardener reported that DNS for `minion.town` and `ocap.site` now points at an unfamiliar us-east-1 address instead of the documented host. No one has explained the change. It is either an intentional repoint or a possible zone compromise, and fixing it needs a credentialed host.
-- **The leader is stuck on an old deploy.** It still runs `f2788117645`, so every monk job needing a project checkout hits EROFS. The rolling deploy cannot advance because the Oros canary keeps failing. Oros stays drained until someone at the machine fixes its expired Claude OAuth session and the failing `garden-secret-broker` service. The alternative is authorizing a leader deploy past the dead canary.
-- **The leader's disk is nearly full.** It briefly hit 0 bytes free, and `.garden-state`, `scratch/` and `worktrees/` need reclaiming by hand.
-
-The minion.town pause is still being enforced. It refused another claim, and the foreman and mentor each crash with rc=78 when `post-job.sh` rejects a paused-project job. The foreman and mentor self-heal notices both diagnose this, so expect the failures to repeat each tick until the handlers treat the refusal as non-fatal or the pause is lifted.
-
-Journal lock contention keeps recurring on both hosts. Several conditions recovered, and a storm of 7 clones tripped the guard on the leader.
-
-Also parked for a decision: the M3 critical path is blocked on [endojs/endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589), which asks whether its new Fae/Lal workspace catalogs may proceed or must use code mode.
+**Maintainer decisions waiting:**
+- [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) is blocking the M3 critical path. The question is whether the new Fae/Lal workspace catalogs may proceed or must use code mode.
+- The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge and a veto check on four choices.
+- A scholar ingest of yavashark raised the question of an Iron Horse test-infrastructure job.
+- Several daily-summary, dependabotany and builder jobs were parked in the plan queue after the reaper exhausted its retries. They are held for a promote-or-split decision.
 
 ## Maintainer review docket
 
@@ -557,7 +556,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.9M | $55.82 _(notional, rate-card)_ | 5% of 271.0M (ok) |
+| Claude | 13.0M | $56.20 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 381.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 150806519 tokens/day lower bound._
