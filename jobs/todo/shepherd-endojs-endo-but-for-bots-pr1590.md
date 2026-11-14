@@ -1,0 +1,9 @@
+---
+posted_at: 2026-11-14T06:07:04Z
+arc: unallocated
+role: shepherd
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Drive CI to green for endojs/endo-but-for-bots PR #1590, the in-progress M3 `daemon-worker-import-from-mount` Phase 3 implementation, by diagnosing and resolving its failing `sandbox-drivers` check so its halted gauntlet can resume.
