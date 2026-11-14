@@ -1,24 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T05:36:41Z_
+_As of 2026-11-14T05:38:37Z_
 
 ## Latest
 
-Quiet on the board: no job transitions resolved this cycle. The completed-job list shows `build-daemon-rename-to-manager`, which opened no new PR because one already exists. It also shows `issue-status-pass-go-live`, `improve-dependabotany-idle-rechecks`, and a halted gauntlet for PR #1359 on 2026-11-13. Only the PR #1588 weave and shepherd jobs are in flight.
+Little completed on the board this cycle. The only transition was a new claim: `shepherd-endojs-endo-but-for-bots-pr1588` moved into doin. It sits beside the existing weave and shepherd jobs for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), so three jobs now cover that PR. Check for overlap if they start to collide. The confined fetch/timer endowment build is parked behind it.
 
-What needs a maintainer decision:
+Items that need a maintainer decision:
 
-- **Oros is still down.** It is drained after the roll to `18fc7b17375` failed its canary again. It needs someone at the machine for two things. The Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after every deploy.
-- **The leader can't deploy.** The leader still runs `f2788117645`, so the EROFS fix can't reach it while Oros blocks the canary. That parks the minion.town PR work. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk is nearly full on the leader host.** The filesystem has roughly 176–500 MiB free and briefly hit 0. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town production went dark on 2026-11-10 because of DNS.** The apex now points at `34.225.237.208` instead of the documented host, and the subdomains no longer resolve. The reporting gardener did not touch DNS. Please confirm whether you made this change, since otherwise it could be a zone compromise.
-- **Project pause.** The minion.town pause is being enforced, with 21k+ refusals coalesced into one notice. The mentor service is also crash-looping on a pause refusal and tripping self-heal. It will keep doing so until the pause is lifted or the handler is fixed.
-- **M3 daemon-to-manager step is blocked.** Draft [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) needs the Node 24 fix in draft [endo-but-for-bots#1598](https://github.com/endojs/endo-but-for-bots/pull/1598), whose review chain halted on an unrelated IronHorse-oracle failure.
-- **Other questions are open in the inbox.** They cover an Iron Horse test-infra job, the minion.town settings simplification (run `deploy-accounts-store.sh` first and veto-check four choices), and a stray production guest.
+- **Oros is still held.** The `oros-studio-garden-ce242c49` canary keeps failing, and canary probes `r1` and `r2` are waiting in todo. Two fixes need someone at the machine: an expired Claude OAuth login, and `garden-secret-broker.service` failing after deploy. Because oros never passes its canary, the leader is stuck on `f2788117645`. That leaves monk jobs that need a project checkout failing with EROFS, which the arc supervisor has flagged. The choice is to revive oros or authorize a leader deploy past the dead canary.
+- **minion.town production DNS.** An earlier arc-press message reports the apex and `ocap.site` now resolving to `34.225.237.208`, a static Caddy page, instead of the documented `13.56.17.18`, and asks whether this was intentional. It may be a zone compromise, and the Route53 history needs checking by someone with credentials. The project is also paused, so the pause watchdog keeps re-refusing the todo job `scholar-ingest-fudco-gist-20261105`.
+- **Host disk space.** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Mentor self-heal.** `garden-mentor` exits 1 on every tick because `post-job.sh` refuses a minion-town job under the pause. It will recur until the pause is lifted or the handler is fixed.
+- **Milestone M3.** Draft PR #1594 is blocked on the Node 24 fix in draft PR #1598, whose review chain halted on an unrelated IronHorse-oracle failure. Decide whether to merge #1598 and resume #1594, or restart the rename PRs.
 
-Several parked daily-progress-summary and build jobs hit their retry limit and are held for promotion. Journal-lock contention notices keep recurring on both hosts. Most have recovered on their own, and one storm notice on the leader is still open.
+Several daily-summary jobs and the Phase 8 fetch-plugin and Oros bwrap hand-off builds were parked after retries ran out, and they stay held until promoted. Journal-lock contention notices keep recurring on both hosts, though several have recovered. Treat them as noise unless the storm notice grows.
 
 ## Maintainer review docket
 
@@ -172,11 +168,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-11-13T12:42:09Z, cleared 2026-11-13T19:02:20Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-13T12:42:09Z, latest 2026-11-14T05:38:15Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.052683s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -534,7 +530,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.8M | $29.56 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 7.1M | $30.90 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 380.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148536765 tokens/day lower bound._
@@ -550,7 +546,8 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
+### doin (3)
+- [`shepherd-endojs-endo-but-for-bots-pr1588`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1588.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md) — ---
 
