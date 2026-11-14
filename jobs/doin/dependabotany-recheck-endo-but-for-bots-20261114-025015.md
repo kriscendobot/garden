@@ -32,3 +32,13 @@ Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-b
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-14T03:23:08Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-14T03:24:39Z
