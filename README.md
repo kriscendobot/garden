@@ -1,21 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T23:08:11Z_
+_As of 2026-11-14T23:13:11Z_
 
 ## Latest
 
-Gauntlet [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up all 6 panel/fix rounds ($22.22) without converging, so it is left for a human merge decision or more rounds. Gauntlet [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure, and it can be resumed with extra rounds. M3's daemon worker-import stack (#1559 → #1590 → #1592) is still blocked on the green zizmor fix [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659), which needs your merge call. Several weaves and shepherds on #1592, #1590 and #1498 completed today.
+No board transitions were recorded this cycle, so the notable changes are in the maintainer inbox.
 
-Oros remains drained and operator-held after another failed canary. Its Claude login has expired and `garden-secret-broker` fails after deploy. That also keeps the leader from deploying the EROFS fix.
+**Needs a decision:**
+- **Oros is still operator-held.** The roll moved `oros-studio-garden-ce242c49` to `18fc7b17375` and it failed the canary again. Retries ran out at 19:29Z and the host stays drained. Two fixes need someone at the machine: re-run `/login` for the expired Claude OAuth session, and look at the failing `garden-secret-broker` unit. Four canary probes for Oros sit unclaimed in todo.
+- **Gauntlet budgets.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging, so it is left for a human merge decision. You can grant more rounds with `--add-rounds`. [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one failed fix round and can be resumed the same way.
+- **Merge [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).** The foreman has now asked 11 times. The M3 worker-import stack (#1559 → #1590 → #1592) is blocked on this zizmor fix.
 
-Also needing your attention:
-- **Disk space:** the leader's filesystem briefly hit 0 free and is down to a few hundred MiB, so space needs reclaiming by hand.
-- **minion.town:** it is paused, which is why `garden-foreman` and `garden-mentor` keep exiting on refused posts. Separately, DNS pointed at the wrong host on 11-10, and that question is still open.
-- **Doomed jobs:** several jobs, including the 11-06 and 11-07 daily summaries, were parked after retries ran out.
+**Needs attention on the host:**
+- **Disk space.** The leader's `/home/kris/garden` filesystem briefly hit 0 free, and a Claude tmp write failed with ENOSPC. Someone needs to reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town pause.** The pause is working. The watchdog has refused the same claimable job 38,841 times, so it is firing constantly. It also makes the `garden-foreman` and `garden-mentor` services exit non-zero. Both hit the pause refusal (rc=78) and treat it as a crash, which triggers self-heal each tick. Lifting the pause or fixing that handling would stop both.
 
-Most journal-lock-contention notices recovered. The 9 jobs on `todo` are mostly rolling-deploy canary probes for oros.
+**Held items:** several minion.town and daily-summary jobs, plus the Phase 8 fetch-plugin and Oros bwrap hand-off builds, are parked in the plan queue after their retries ran out.
+
+Journal-contention notices mostly cleared on their own this cycle.
 
 ## Maintainer review docket
 
@@ -685,7 +687,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.9M | $287.36 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 76.0M | $287.95 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 391.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154189097 tokens/day lower bound._
