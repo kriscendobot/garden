@@ -1,25 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T04:30:07Z_
+_As of 2026-11-14T04:33:36Z_
 
 ## Latest
 
-No job-board transitions were recorded this cycle, so the news is in the maintainer messages, and the main item is the minion.town DNS question. Two decisions are waiting on you.
+The only board movement was [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/issue-status-pass-go-live.md), which moved from doin to tada. Its completion report is filed, and no new jobs were posted.
 
-**Needs your call**
-- **minion.town may be down because of DNS.** An arc supervisor reported that production went dark around 13:14Z on 2026-11-10. The Route53 answer for `minion.town` and `ocap.site` now points at `34.225.237.208`, which serves a static placeholder page, instead of the documented host at `13.56.17.18`. Several subdomains no longer resolve. The real host is healthy when addressed directly. The supervisor touched nothing and asks whether the repoint was deliberate. If it wasn't, it could be a zone compromise, and the Route53 change history needs checking. All minion.town development is currently paused by your 2026-11-10 directive.
-- **The leader is stuck on an old deploy.** It still runs `f2788117645`, so monk jobs that need a project checkout keep failing with the EROFS error. The rolling deploy canaries on the Oros host first, and Oros has stopped claiming jobs. It has failed the canary repeatedly and stays drained. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both need someone at the machine. The supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. The canary-failure watchdog notice has since cleared, but Oros itself is still operator-held.
-- **Disk space on the leader.** The leader's filesystem briefly hit zero free space during a job and was down to a few hundred MiB. The space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`. The new byte-capacity detector isn't deployed yet and will page once it is.
+Several items need your decision:
 
-**Smaller items**
-- The minion.town settings-simplification report asks you to run `deploy-accounts-store.sh` before merging. It also asks you to veto any of four listed choices, or let them stand.
-- The Oros bubblewrap hand-off and the Phase 8 fetch-plugin build for the daemon agent tools are parked after exhausting their retries. Several other jobs are parked the same way, including the daily progress summaries for 11-05 and 11-06 and the dependabot recheck.
-- Two scholar and tower follow-ups are waiting: whether to post an Iron Horse test-infra job, and an anonymous guest left on production minion.town.
+- **minion.town DNS.** Production went dark on 2026-11-10 at about 13:14Z. The apex records for `minion.town` and `ocap.site` now point at `34.225.237.208`, which serves a static "no accounts" page, instead of the documented host `13.56.17.18`. The supervisor found no record of anyone authorizing this change. It wants you to say whether the repoint was deliberate. If it wasn't, it is a possible zone compromise, and the Route53 history should be checked. The prod probe is red in [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256).
+- **Leader deploy blocked by the oros canary.** The leader is still on `f2788117645`, so every monk job that needs a project checkout dies with EROFS. The oros canary has failed repeatedly and oros stays drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The minion.town arc supervisor asks you to choose between reviving oros and authorizing a leader deploy past the dead canary.
+- **Disk space on the leader.** `/home/kris/garden` was down to about 176–500 MiB free and briefly hit 0, and the space needs reclaiming by hand.
+- **minion.town settings simplification.** Run `deploy-accounts-store.sh` before merging. You also have four choices to veto.
+- **Scholar ingest follow-up.** The yavashark ingest asks whether to post an Iron Horse test-infra job. No job has been posted.
 
-**Background noise**
-Journal lock contention on both hosts keeps tripping watchdog notices, including a six-clone storm on the leader at 04:29Z. Many of these notices have since cleared, and the contention is tiny (p95 around 0.03s). The project-pause enforcement notice is at about 17,480 occurrences, still refusing minion.town jobs. Only three scholar-ingest jobs sit in todo, and one go-live job is in doin.
+The journal-lock contention watchdog is still noisy on the leader. A six-clone storm was seen at 04:29Z, though several single-clone conditions recovered. The `project-pause-active-minion-town` notice is now at 17,480 occurrences.
 
 ## Maintainer review docket
 
@@ -515,10 +510,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.1M | $9.97 _(notional, rate-card)_ | 1% of 271.0M (ok) |
-| Codex | 379.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 2.3M | $9.26 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Codex | 379.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 151209805 tokens/day lower bound._
+_Fleet token-unlock pace: 146602765 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 14 open notice(s); checker healthy
@@ -529,16 +524,16 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (1)
-- [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-status-pass-go-live.md) — Go live with the issue status pass (remove GARDEN_ISSUE_STATUS_DRY_RUN)
+### doin (0)
+(none)
 
-### tada (17056)
+### tada (17057)
+- [`issue-status-pass-go-live`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/issue-status-pass-go-live.md) — Cost
 - [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/improve-dependabotany-idle-rechecks.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261114-025015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/dependabotany-recheck-endo-but-for-bots-20261114-025015.md) — Cost
 - [`endojs-endo-but-for-bots-pr1359-gauntlet-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/endojs-endo-but-for-bots-pr1359-gauntlet-20261113.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet-20261113 — HALTED
 - [`deadmail-20261113T222245Z-39c07c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T222245Z-39c07c.md) — Completion report
-- [`deadmail-20261113T180827Z-7056c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T180827Z-7056c6.md) — Cost
-- … and 17051 more
+- … and 17052 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
