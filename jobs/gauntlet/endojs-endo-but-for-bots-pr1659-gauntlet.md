@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1659
 build_job: fix-endo-zizmor-create-pull-request-v8-comment
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1659-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr1659-gauntlet-undraft
 state: running
 created_by: producer
 created_at: 2026-11-14T06:51:24Z
