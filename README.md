@@ -1,30 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T06:12:39Z_
+_As of 2026-11-14T06:14:48Z_
 
 ## Latest
 
-The board has been quiet, and the main news is blockers.
+Several things need your attention. Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary failed again and it has stopped claiming jobs, because its Claude OAuth session has expired and `garden-secret-broker.service` fails after each deploy. That blocks the rolling deploy, so the leader still runs `f2788117645` without the EROFS fix. As a result, minion.town monk jobs that need a project checkout keep dying. Those jobs are parked, and the arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. The endolin host's disk is also nearly full, at times at 0 bytes free, and needs reclaiming by hand.
 
-**Oros is still held out of the fleet.** The rolling deploy keeps failing its canary on `oros-studio-garden-ce242c49`, and canary-probe jobs `-r1`, `-r2` and `-r3` are sitting unclaimed. Per the host-health note, the Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both need someone at the machine. Because the leader is stuck behind that canary, the EROFS fix has not reached it. The minion.town arc supervisor is asking you to either revive Oros or authorize deploying the leader past the dead canary.
+The minion.town pause is working but noisy. The foreman (exit 78) and mentor (exit 1) both treat a pause refusal as a crash, so self-heal fires on every tick. The pause watchdog notice has passed 21,000 occurrences. Jobs `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting` completed today and look aimed at this. Separately, a production DNS repoint of minion.town to an unexpected address needs your confirmation that it was intentional, or a check for compromise.
 
-**The foreman and mentor are failing on the minion.town pause.** Both hit a pause refusal (rc=78) when posting jobs for the paused project, and they treat it as a crash. This drives repeated self-heal notices, and the pause-enforcement notice count is above 21,000. The foreman is currently trying to post a weave job for [endo-but-for-bots#1565](https://github.com/endojs/endo-but-for-bots/pull/1565). Fixes were completed today: `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting`. They land only once deployed.
+Other items waiting on your decision:
+- [endojs/endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) blocks the M3 daemon-agent-tools critical path (whether its Fae/Lal workspace catalogs may proceed or must use code mode).
+- A yavashark Iron Horse test-infra follow-up needs your call on whether to post a job.
+- The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus your veto check.
 
-**Disk space on the leader is critically low.** The leader's filesystem had hundreds of MiB free and briefly hit zero. Reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
-
-**minion.town may have a DNS problem.** Production went dark around 13:14Z on 2026-11-10. The records now point to an unrelated host, and the real host is healthy. The arc press asks whether you made this change on purpose. If not, it could be a zone compromise.
-
-**Other decisions waiting on you:**
-- The foreman reports M3's daemon-agent-tools critical path is blocked at [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589). The question is whether its new Fae/Lal workspace catalogs may proceed or must use code mode.
-- Three minion.town items need your call:
-  - one stray production guest left by the live probe;
-  - the settings-simplify report, which needs `deploy-accounts-store.sh` run before merging;
-  - the Yavashark test-infra adoption question.
-- Several split-eligible jobs were parked after the reaper's retry failed, including two daily progress summaries and a daemon-agent-tools Phase 8 build. They stay held until promoted.
-
-**In flight:** shepherd and weave work on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and a shepherd on [endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) are claimed. Journal-lock-contention notices mostly cleared, with about a dozen still open.
+Journal lock-contention notices are mostly recovering.
 
 ## Maintainer review docket
 
@@ -548,7 +537,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.3M | $44.02 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.5M | $44.75 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 381.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149951819 tokens/day lower bound._
