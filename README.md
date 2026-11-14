@@ -1,25 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T10:15:38Z_
+_As of 2026-11-14T10:18:33Z_
 
 ## Latest
 
-Nothing posted, claimed or completed at the file level this cycle, so the board looks quiet. The real activity is in the maintainer inbox, and a few items there need a decision.
+The board is moving, but the fleet is stuck on two points that need you.
 
-**Oros is stuck.** [Oros](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261111-205010-04ba7ec6ee39.md) (`oros-studio-garden-ce242c49`) has failed its rolling-deploy canary repeatedly and stays drained. Two blockers need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker.service` failing after each deploy. The [rolling-deploy halt notice](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md) has now fired 4 times. Because the leader deploys only after its canaries pass, the leader is still on an older commit. The [minion.town arc supervisor](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9.md) asks whether to revive Oros or authorize a leader deploy past the dead canary. That stale leader keeps project-checkout jobs failing with EROFS.
+**Oros is down.** [oros-studio-garden-ce242c49] has failed its rolling-deploy canary repeatedly and is still drained. One blocker is an expired Claude OAuth session, which needs `claude`, then `/login`, at the machine. The other is `garden-secret-broker.service`, which fails after each deploy. Because the canary fails, the leader stays on the old sha and can't take the EROFS fix. The minion.town arc supervisor has asked whether you want to revive Oros or authorize a leader deploy past the dead canary. Three canary probes for Oros are also sitting unclaimed in todo.
 
-**Paused minion.town leaks into automation.** The [project-pause notice](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md) has coalesced over 24,000 refusals. Separately, the foreman and mentor self-heal notices ([foreman](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md), [mentor](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)) diagnose both services as crashing on the pause's exit code 78 and re-firing every tick. A fix to handle that code as a clean outcome is proposed but not confirmed landed.
+**minion.town is paused.** The pause enforcement notice has now fired more than 24,000 times, and `scholar-ingest-fudco-gist-20261105` is the refused job it cites. The foreman and mentor both exit nonzero (rc=78, refused by pause) when they try to post minion.town work. That has triggered repeated self-heal notices, and the proposed fix is to treat rc=78 as a clean outcome. A separate message reports that production DNS for minion.town and ocap.site was repointed to an unfamiliar address at about 13:14Z on 11-10, and asks whether you did that.
 
-**Production DNS may have moved.** An [earlier arc-press message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261110-163511-75a23ad64b38.md) reports `minion.town` and `ocap.site` resolving to an unfamiliar address since about 13:14Z on 11-10. It asks whether the repoint was deliberate or a possible zone compromise. It is still unanswered.
+**Disk is nearly full.** The leader's filesystem was at roughly 176–500 MiB free and briefly hit zero, so it needs manual cleanup now.
 
-**Other items awaiting you:**
-- The leader's disk is nearly full ([report](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)). It needs manual reclaiming.
-- The foreman repeatedly asks you to [merge #1613](https://github.com/endojs/endo-but-for-bots/pull/1613), which unblocks [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
-- Several split-eligible jobs are parked after exhausting requeues: two daily progress summaries, the Phase 8 fetch-plugin build and the Oros bwrap hand-off.
+**Other work.**
+- Gauntlet and fix passes finished for [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), [endo-but-for-bots#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), with a fix round 4 in progress on #1588.
+- The gauntlet for [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) halted.
+- Shepherd, fix and weave jobs are in progress on [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667), [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) and [endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559).
+- The foreman keeps asking you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can be rewoven.
 
-**Docket activity.** Recent completions include fix passes on [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596), and panel and fix rounds on [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). The gauntlet for [#667](https://github.com/endojs/endo-but-for-bots/pull/667) halted. In flight are a shepherd on [#667](https://github.com/endojs/endo-but-for-bots/pull/667), a fix on [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504), a weave on [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) and gauntlet fix round 4 on #1588. Most journal-contention notices recovered on their own.
+**Quieter.** The leader's monk pool dropped from 4 to 3 on budget pacing. Most journal-lock-contention notices have cleared, and a few are still open.
 
 ## Maintainer review docket
 
@@ -589,10 +588,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.6M | $124.64 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.0M | $126.03 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 384.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 152328322 tokens/day lower bound._
+_Fleet token-unlock pace: 152596595 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.185706s/45s (/home/kris/garden/.garden-state/budget-level/journal); 12 open notice(s); checker healthy
