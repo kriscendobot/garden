@@ -1,24 +1,32 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T06:02:38Z_
+_As of 2026-11-14T06:04:22Z_
 
 ## Latest
 
-The board saw no file-level transitions this cycle, so the news is in the maintainer inbox, and most of it is a few stuck problems.
+The board showed no file-level job transitions this cycle, so the signal is in the maintainer inbox.
 
-- **Oros is still held.** The rolling deploy moved `oros-studio-garden-ce242c49` to 18fc7b17375 and its canary failed again. It stays drained until someone at the machine fixes two things: the expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service`, which has failed after every deploy since 11-07. Three `canary-probe-oros-studio-garden-ce242c49-66ab9cc20185` jobs (r1, r2, r3) are queued. The leader is still on f2788117645, so the EROFS fix cannot reach it, and a minion.town arc supervisor is asking you to revive Oros or authorize a leader deploy past the dead canary.
-- **The minion.town pause is causing refusals.** The pause from 11-10 has refused a claimable job 21,331 times, and it now crashes two services. `garden-foreman` (rc=78) and `garden-mentor` (rc=1) each treat the pause refusal as a failure, restart, and hit it again. Self-heal has diagnosed both. Lifting the pause would stop the loop.
-- **Disk space on the leader.** A gardener reported that `/home/kris/garden` on `endolin-garden-ece02cb4` had about 176–500 MiB free and briefly hit 0, which caused an ENOSPC. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **A minion.town DNS question remains open.** Production went dark on 11-10 because the apex now resolves to a static Caddy page at `34.225.237.208`. The documented host is `13.56.17.18`. The arc supervisor asks whether the repoint was intentional, and notes it could be a zone compromise.
-- **Decisions waiting on you:**
-  - [endojs/endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589): may the new Fae/Lal workspace catalogs proceed, or must they use code mode? The foreman has re-sent this M3 blocker 7 times.
-  - The minion.town settings-simplify report needs `deploy-accounts-store.sh` run before merge, plus your veto check on four choices.
-  - Whether to post an Iron Horse test-infra job from the yavashark ingest.
-- **Journal lock contention is ongoing.** It is noise-level (p95 under 0.06s), but a 6-clone storm fired on the leader this morning, and several older conditions cleared.
+**Oros is still held, and it blocks the fleet.** [Oros](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) (`oros-studio-garden-ce242c49`) failed its canary again after the roll moved it to `18fc7b17375`, and it stays drained. It needs someone at the machine for two things:
+- The Claude OAuth session has expired, so it needs `claude`, then `/login`, as the garden user.
+- `garden-secret-broker.service` fails after every deploy, as it has since 11-07.
 
-Three jobs are in flight, all on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (weave and shepherd). The 17,060-job `tada` list shows `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting` completing today.
+Because the leader rolls followers first as canaries, the dead canary keeps the leader on `f2788117645`. The EROFS fix therefore cannot deploy, and monk jobs that need a project checkout keep dying. The minion.town arc supervisor is asking you to either revive Oros or authorize deploying the leader past the canary. Three canary probe jobs for Oros sit unclaimed in todo.
+
+**Disk space.** The leader's filesystem briefly hit zero free bytes and sits at a few hundred MiB. The new byte detector will page only once it deploys, so this needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+
+**The minion.town pause is now crashing automation.**
+- The pause refusals (rc=78) are being treated as crashes by the foreman and mentor. Two watchdog notices, `self-heal-garden-foreman` and `self-heal-garden-mentor`, report this.
+- The foreman proposed `weave-endojs-endo-but-for-bots-pr1565`, whose body matched the pause regex. The mentor tried to post `improve-foreman-paused-plan-and-pipeline`.
+- Both loops repeat every tick, and the `project-pause-active-minion-town` notice has now counted 21,331 occurrences.
+- Two jobs that complete this cycle address it: `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting`. Check that both deploy.
+
+**Decisions waiting on you:**
+- **minion.town DNS:** an earlier message reports the apex and `ocap.site` resolving to a different Amazon address (`34.225.237.208`) than the documented host (`13.56.17.18`). Say whether that repoint was yours.
+- **M3 critical path:** blocked at [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589), where you decide whether the new Fae/Lal workspace catalogs may proceed or must use code mode.
+- **Settings simplification:** the minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
+- **Other items:** a leftover guest on production minion.town, and an Iron Horse test-infra proposal from the yavashark scholar ingest.
+
+**Background noise.** Journal-lock-contention notices recurred on both hosts, with a six-clone storm on the leader. Several others recovered, and no giveup exceeded the steal limit. Three held daily-summary and dependabotany jobs, plus `build-oros-secrets-bwrap-handoff-20261106` and `build-daemon-agent-tools-phase-8-fetch-plugin-20261106`, remain parked after exhausting retries.
 
 ## Maintainer review docket
 
@@ -544,7 +552,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.6M | $40.35 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 9.7M | $41.14 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 381.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149951819 tokens/day lower bound._
