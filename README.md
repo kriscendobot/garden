@@ -1,22 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T20:42:29Z_
+_As of 2026-11-14T20:43:51Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is still operator-held. Its canary has failed repeatedly, retries ran out, and it stays drained. Two blockers need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker.service` failing after each deploy. The leader is therefore stuck behind the rolling deploy. Journal contention alerts and several Oros alerts cleared on their own over the day.
+No job-board transitions resolved this cycle, so most of what moved is in the maintainer inbox, and several items need a decision.
 
-Other items need a maintainer decision:
-- **Leader deploy:** The EROFS fix cannot reach the leader past the dead Oros canary. minion.town work stays parked until Oros is revived or the leader is deployed by hand.
-- **Disk space:** The leader's filesystem briefly hit 0 bytes free and sits at roughly 176-500 MiB. It needs manual reclaiming.
-- **minion.town DNS:** A message reports the production DNS now points at a different host. Please say whether that change was intentional.
-- **minion.town pause:** The pause is still being enforced. The foreman and mentor each exit non-zero when they propose paused-project work, and both raised self-heal notices.
-- **Gauntlets:**
-  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 6/6 review budget without converging. It needs a human merge decision or `--add-rounds`.
-  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1.
-- **Merge request:** The M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on you to merge the zizmor fix, [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
+**Oros is still down.** `oros-studio-garden-ce242c49` has failed the rolling-deploy canary five times and stays drained. It needs someone at the machine: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy. Because the canary is dead, the leader `endolin-garden-ece02cb4` can't deploy the EROFS fix. Until it does, monk jobs that need a project checkout fail, which is holding the minion.town PR work. The decision is whether to revive Oros or authorize a leader deploy past the canary.
+
+**Other maintainer items:**
+- **minion.town DNS:** An arc-press job reports that `minion.town` and `ocap.site` resolve to an unfamiliar address, not the documented host. Its question is whether the repoint was deliberate. If it wasn't, it could be a zone compromise.
+- **minion.town pause:** The pause is still being enforced. The watchdog has logged the same refusal over 36,000 times, and `garden-foreman` and `garden-mentor` keep crashing on it. Both self-heal diagnoses blame paused-project refusals being handled as crashes.
+- **Disk space:** The leader's disk is nearly full, with about 176–500 MiB free and one brief hit of zero. It needs manual cleanup under `.garden-state`, `scratch/`, and `worktrees/`.
+- **Daemon mount-import stack:** The M3 stack ([endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on the zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Merging #1659 would let it be reweaved.
+- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging and is left for a human decision. [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure.
+- **minion.town settings:** The settings-simplification report asks you to run `deploy-accounts-store.sh` before merging and to veto-check four choices.
+
+Journal lock-contention and fetch-slow notices cleared across both hosts, so those need no action.
 
 ## Maintainer review docket
 
@@ -674,7 +674,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.7M | $267.23 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.8M | $267.59 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 390.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153909083 tokens/day lower bound._
