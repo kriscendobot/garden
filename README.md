@@ -1,25 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T00:03:43Z_
+_As of 2026-11-14T00:08:01Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still down, and that is what's holding up the fleet. The rolling deploy halted for a third time on a failed canary, with probe jobs for `9db92854` and earlier tips never reaching `tada`. The roll left Oros drained and won't retry. The health-watch note gives two blockers that need someone at the machine. The Claude OAuth session has expired, so it needs `claude` then `/login`. `garden-secret-broker.service` also fails after each deploy, as it has since 11-07. Oros's own journal-fetch times are slow too, with a storm of six slow clones reported.
+No job-board transitions resolved since the last bulletin, so the board itself is quiet. The issues worth your attention are all blockers.
 
-The leader (`endolin-garden-ece02cb4`) can't deploy past that canary. A minion.town arc supervisor reports that monk jobs needing a project checkout still hit EROFS on the old build. It asks whether you want to revive Oros or authorize a leader deploy past the dead canary. That is the main decision waiting on you.
+**Oros is still down, and it is holding up the leader's deploy.** The rolling-deploy canary on `oros-studio-garden-ce242c49` has now failed three times. The latest target was `9db92854…`, and the roll halted with no retries left. Oros stays drained and has stopped claiming jobs, so canary probes and about 14 `oros-health-checkup` jobs sit unclaimed in `todo`. Two blockers need someone at the machine. The Claude OAuth session has expired, so run `claude` and then `/login`. And `garden-secret-broker.service` fails after every deploy, as it has since 11-07.
 
-Several other items need your call:
-- **Disk space:** The leader's filesystem briefly hit 0 bytes free and sat at roughly 176–500 MiB free during one job. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** The 2026-11-10 report says production DNS moved to an unfamiliar address and the zone looks stripped. The arc supervisor asks whether you did that on purpose. If not, it may be a zone compromise needing a credentialed host. minion.town development is paused, and the project-pause watchdog has now refused work 15,154 times.
-- **minion.town settings:** The simplification report asks you to run `deploy-accounts-store.sh` before merging. It also asks you to veto-check four choices.
-- **Other follow-ups:** Whether to adopt cost tiers and sampling from the yavashark ingest, and whether to leave or remove the stray guest left on production minion.town.
-- **Parked jobs:** The reaper parked more split-eligible jobs. These include two daily progress summaries, a dependabot recheck, the Phase 8 fetch-plugin build and the Oros bwrap hand-off.
+**The leader is stuck on `f2788117645`.** The EROFS fix for monk project checkouts has landed on `main2` but can't reach the leader until Oros either recovers or you authorize deploying past the dead canary. Until then, monk jobs that need a project checkout die. The arc supervisor asks whether to revive Oros or authorize that leader deploy.
 
-Journal lock-contention notices on the leader mostly cleared. Open ones are for the unblock and review-docket journals, and one for the screening journal. The leader's minion.town screening failure streak also recovered.
+**minion.town is paused.** The project-pause watchdog has now refused work on that project more than 15,000 times, and the notice is coalesced. Press and completion-press jobs for the arc are still piling up in `todo`. This is the pause working as intended, but the volume suggests a producer is still posting. The earlier DNS question stays open: production resolved to an unexpected address on 11-10, and the arc supervisor asked whether you made that change. Two follow-ups also await your call: the leftover anonymous guest on production, and the `mt-beta-settings-simplify` report. That report needs `deploy-accounts-store.sh` run before merging and asks you to veto-check four choices.
 
-The board shows no job transitions since the last bulletin. Todo is dominated by Oros health-checkups, canary probes and paused minion.town presses.
+**Disk is nearly full on the leader.** `/home/kris/garden` was down to roughly 176–500 MiB free and briefly hit zero. This needs manual reclaiming under `.garden-state`, `scratch/`, and `worktrees/`.
+
+**Other items:**
+- The `daily-progress-summary` jobs for 11-05 and 11-06 are parked in `jobs/plan/` after exhausting their retries. Together with the daemon-agent-tools phase 8 fetch-plugin build, the Oros bwrap hand-off build, and the dependabotany recheck, they await a go-ahead.
+- The journal-contention storm on Oros (fetch-slow) is still open.
+- Several leader-side journal lock-contention notices cleared, including the reducer, worktree-sweeper, bulletin, fork-watch, and scaler locks.
+- The comment-watcher cooldown and the screening-tick failure both recovered.
+- The one gauntlet completion on 11-13 was halted: `endojs-endo-but-for-bots-pr1359-gauntlet-20261113`.
 
 ## Maintainer review docket
 
@@ -499,7 +499,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.0M | $338.31 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 89.1M | $338.68 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149299752 tokens/day lower bound._
