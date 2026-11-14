@@ -1,21 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T10:12:13Z_
+_As of 2026-11-14T10:13:51Z_
 
 ## Latest
 
-Little completed since the last bulletin. The board shows only the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet cycling: fix round 4 was re-claimed after an earlier completion record was moved back out of `tada`, with panel round 4 and fix round 3 finishing earlier today. Today's other completions were fix passes on [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), which passes its tests with only the base-wide zizmor check red, and on [endo-but-for-bots#1596](https://github.com/endojs/endo-but-for-bots/pull/1596). The gauntlet for [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) halted.
+Little completed on the board this cycle. The only transition was a new parked plan, `weave-endojs-endo-but-for-bots-pr667-after-pr1646`, which waits on [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node pin) before weaving [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667). The same #1646 gates the other weave and conduct jobs parked behind it. Four jobs are in progress. The gauntlet for #667 halted this morning, and #1588 is in fix round 4 after panel round 4 finished. The fix passes on [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [endo-but-for-bots#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) completed. #1594 has all tests passing and only the base-wide zizmor check red.
 
-What needs attention:
+What needs a maintainer:
 
-- **Oros is stuck.** `oros-studio-garden-ce242c49` is drained and has failed the rolling-deploy canary 4 times (`garden-secret-broker.service` fails after deploy). Its Claude OAuth session has also expired, which needs a `/login` at the machine. Until the leader deploys, the project-checkout EROFS fix can't reach it. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk space.** The leader's filesystem was down to a few hundred MiB free and briefly hit 0, so it needs manual reclaiming.
-- **minion.town is paused.** The project pause is being hit continuously, with 24,023 refusals logged. The foreman and mentor both exit rc=78 on the paused-project refusal, and self-heal fires each time. This is a handling bug in `foreman.sh` and `mentor.sh`, not a provider fault.
-- **DNS.** A message reports minion.town DNS repointed to `34.225.237.208`, so the production probe has been red since 14:52Z on 11-10. The maintainer needs to say whether that change was intentional.
-- **Foreman M3.** The foreman's M3 milestone message asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/issues/1501) can proceed.
-- **Journal contention.** The storm of journal lock-contention notices continues, with 6 clones affected in the latest tick. Many of the individual conditions have cleared.
+- **Oros is stuck.** The roll moved `oros-studio-garden-ce242c49` to `18fc7b17375` and its canary failed again. Retries ran out and the host stays drained. There are two causes. The Claude OAuth session has expired, so someone needs to run `claude` and then `/login` on the host. `garden-secret-broker.service` also fails after each deploy.
+- **The leader is behind because of Oros.** The EROFS fix cannot reach the leader past the dead canary. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past it. The minion.town work is paused anyway.
+- **Leader disk space is critically low.** `endolin-garden-ece02cb4` has hundreds of MiB free and briefly hit 0, causing ENOSPC. It needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS may have been repointed.** Production went dark around 13:14Z on 11-10 because the apex now resolves to an unrelated address. The supervisor asks whether you did this on purpose. If not, it may be a zone compromise, and the Route53 history should be checked.
+- **Foreman and mentor self-heal loops.** Both exit on rc=78 because `post-job.sh` refuses jobs for the paused minion.town project. This repeats every tick until the scripts treat a pause refusal as a clean outcome or the pause is lifted.
+- **Foreman milestone M3.** It asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so that [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/issues/1501) can be rewoven.
+
+Other items:
+
+- Several scheduled and parked jobs were reaper-doomed and held in `jobs/plan/`. They include the daily progress summaries for 11-05 and 11-06 and the Oros bubblewrap hand-off.
+- The journal contention storm on the leader is still open (occurrence 18), though most individual lock notices have recovered.
 
 ## Maintainer review docket
 
@@ -591,7 +594,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.3M | $122.52 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 31.5M | $123.81 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 384.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152328322 tokens/day lower bound._
@@ -807,6 +810,7 @@ worst fetch p95 4.185706s/45s (/home/kris/garden/.garden-state/budget-level/jour
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`verify-minion-town-recovery-outcome-production-20261107g`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-minion-town-recovery-outcome-production-20261107g.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/254` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
+- [`weave-endojs-endo-but-for-bots-pr667-after-pr1646`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr667-after-pr1646.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1646` · Weave endojs/endo-but-for-bots PR #667 after the Node pin lands
 - [`fu-daemon-git-agent-tool-adapters-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-daemon-git-agent-tool-adapters-docs.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1641` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
