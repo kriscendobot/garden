@@ -14,6 +14,7 @@ Shepherd endojs/endo-but-for-bots PR #1592 after its stack reweave: diagnose and
 <!-- garden-plain-retry-not-before: 2026-11-14T14:43:08Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=647,45 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
