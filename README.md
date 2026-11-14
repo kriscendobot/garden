@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-14T13:22:57Z_
+_As of 2026-11-14T13:24:10Z_
 
 ## Latest
 
-The fleet is mostly busy with upkeep. The board shows no file-level transitions since the last bulletin, but two gauntlet fix rounds are running: round 5 on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and round 1 on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504). Completions today include panel 5 on #1588, a weave of [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), and a shepherd run on #1504 that fixed zizmor. The shepherd found `test-xs` still red because of the base, not the PR.
+Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. The rolling-deploy canary failed again and retries ran out. The follower stays drained, and canary probe jobs for it are piling up in `todo`. The operator has to fix two things on that machine: the expired Claude OAuth session (run `/login`), and `garden-secret-broker.service`, which fails after every deploy. Because that canary never passes, the leader, `endolin-garden-ece02cb4`, can't advance past `f2788117645`. That leaves the EROFS fix (main2 `21585bda2b3`) undeployed, so minion.town monk jobs that need a project checkout still die. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
 
-**Needs a decision or hands-on action:**
-- **Oros is still held.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary again, and retries are exhausted. It needs a Claude `/login` and a look at why `garden-secret-broker` fails after deploy. Because the canary is dead, the leader (`endolin-garden-ece02cb4`) can't deploy. The EROFS fix therefore hasn't reached it, and minion.town PR work stays parked. The supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
-- **Disk space on the leader.** The `/home/kris/garden` filesystem briefly hit 0 free and sits at a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** A gardener reports that production has been dark since about 13:14Z on 11-10 (a Route53 repoint to an unexpected address). It asks whether you made that change. If you didn't, check Route53 history for a possible zone compromise.
-- **minion.town pause side effects.** The pause is generating a flood of refusals, now over 25,000. It is also making the foreman (rc=78) and the mentor (rc=1) crash on every tick and fire self-heal, so both need to treat a paused-project refusal as a clean outcome.
-- **Foreman milestone M3.** [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) needs a merge so the queued reweave of [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can proceed.
+Other items that need you:
+- **Minion.town DNS:** the apex and `ocap.site` resolve to `34.225.237.208`, which serves a static page, instead of the documented `13.56.17.18`. The subdomains no longer resolve. The supervisor wants to know whether you made this change on purpose. If you didn't, check the Route53 history for a possible zone compromise. Separately, minion.town development is paused, and the pause watchdog has now fired more than 25,000 times.
+- **Disk space:** the leader's filesystem briefly hit zero free space and sits at a few hundred MiB. Someone needs to reclaim space by hand.
+- **Pause handling in scripts:** `foreman.sh` and `mentor.sh` treat a paused-project refusal (rc=78) as a crash, so self-heal fires on every tick. Both are open watchdog notices.
+- **Merge request:** the foreman asks you to merge clean PR #1613 (or pick a competing fix) so the stalled [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/issues/1501) reweave can proceed. That PR holds up several other blocked weaves.
+- **mt-beta-settings-simplify:** run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- **Leftovers:** one anonymous guest is left on production minion.town. The yavashark ingest asks whether to post an Iron Horse test-infra job.
 
-Several held daily-summary, dependabotany and builder jobs were parked after retries were exhausted and are waiting on a promote or remove. The journal-lock-contention watchdogs mostly cleared on their own; the exceptions are Oros-side and a few leader-side notices that are still open.
+Gauntlets are in progress on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) (fix round 1) and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (fix round 5). [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) was shepherded, with zizmor fixed. Its `test-xs` job is still red because of the base. The weave of [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592) completed today.
+
+Several daily-summary, dependabot-recheck and build jobs were parked after retries ran out, so they need a human promote or removal. The many journal-contention watchdog notices have mostly recovered on their own.
 
 ## Maintainer review docket
 
@@ -587,7 +590,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_state_clone_keeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_state_clone_keeper_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/state-clone-keeper/journal: p95=33.766678s max=33.766678s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_state_clone_keeper_journal` has CLEARED (first seen 2026-11-14T12:24:42Z, cleared 2026-11-14T13:23:46Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_state_clone_keeper_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_gauntlet_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_gauntlet_journal.md)
 
@@ -607,7 +614,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.6M | $211.85 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 50.7M | $212.20 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 388.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154074490 tokens/day lower bound._
