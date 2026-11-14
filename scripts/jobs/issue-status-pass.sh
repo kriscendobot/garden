@@ -196,7 +196,10 @@ post_comment() { # number body-file
 # post-dates the arrival or this arrival's marker is already present.
 answered() {
   local created author marker bot; bot="$(lc "$GARDEN_BOT_LOGIN")"
-  while IFS=$'\t' read -r created author marker; do
+  # `|| [ -n ... ]`: gh_api_retry prints its payload without a trailing newline, so
+  # the newest comment (usually the bot's reply) is an unterminated last line that
+  # a bare `read` drops. The dry run caught exactly that on #51 (2026-11-13).
+  while IFS=$'\t' read -r created author marker || [ -n "${created:-}" ]; do
     [ "$(lc "$author")" = "$bot" ] || continue
     [ "$marker" = "$1:$3" ] && return 0
     [ "$(iso_epoch "$created")" -gt "$2" ] && return 0
@@ -217,7 +220,7 @@ fi
 slug="$(printf '%s' "$REPO" | tr '/' '-')"
 declare -A DONE=()
 posted=0 would=0
-while IFS=$'\t' read -r kind created id number author _submitter state _cb _ca _url body; do
+while IFS=$'\t' read -r kind created id number author _submitter state _cb _ca _url body || [ -n "${kind:-}" ]; do
   [ -n "${kind:-}" ] && [ -n "${number:-}" ] || continue
   # 3. Trust gate: before ANY body is read.
   is_maintainer "${author:-}" || continue

@@ -85,6 +85,13 @@ run; [ ! -s "$POSTS" ] || fail 'later comment posted before its timeout'
 row issue-comment "$(ago 1250)" 5006 134 dckc open '@kriscendobot x' > "$SRC"
 printf '%s\tkriscendobot\t-\n' "$(ago 100)" > "$COMMENTS/134"
 run; [ ! -s "$POSTS" ] || fail 'a bot reply did not suppress the status'
+# The live comment read (gh_api_retry) ends without a trailing newline, so the
+# newest comment, usually the bot reply, is an unterminated last line (#51, 2026-11-13).
+printf '%s\tdckc\t-\n%s\tkriscendobot\t-' "$(ago 1250)" "$(ago 100)" > "$COMMENTS/134"
+run; [ ! -s "$POSTS" ] || fail 'an unterminated last-line bot reply did not suppress the status'
+row issue "$(ago 1300)" 135 135 dckc open x | tr -d '\n' > "$SRC"
+run; grep -q '^135 ' "$POSTS" || fail 'an unterminated last source row was dropped'
+: > "$POSTS"
 # Deep queue: an early status at 5 minutes; pinned jobs do not count.
 row issue "$(ago 400)" 140 140 dckc open x > "$SRC"
 printf -- '---\nposted_at: %s\n---\n' "$(ago 300)" > "$BOARD/jobs/todo/issue-kriscendobot-garden-140.md"
