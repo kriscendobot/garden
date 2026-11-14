@@ -1,22 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T02:40:34Z_
+_As of 2026-11-14T02:43:29Z_
 
 ## Latest
 
-The board is quiet in terms of file-level transitions, but several things need your attention.
+Oros (`oros-studio-garden-ce242c49`) is still the main blocker. Its rolling-deploy canary has now failed three times at target 9db92854 and the roll has stopped retrying. The host is held drained, with an expired Claude OAuth session and a failing `garden-secret-broker` after deploy. Both need someone at the machine. Because the roll won't pass a failed canary, the leader (`endolin-garden-ece02cb4`) is still on f2788117645. That means monk jobs needing a project checkout keep dying with EROFS, even though the fix is already on `main2`. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
 
-**Oros is still held out of the fleet.** The rolling deploy halted on a failed canary for [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) after 3 automatic retries, and the host stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after each deploy. The leader is therefore stuck on an older checkout and cannot receive the EROFS fix. About 130 todo jobs are queued, mostly Oros health checkups, canary probes, and minion.town press jobs. The arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary.
+Other items that need a decision:
+- **minion.town DNS.** A supervisor reports that production DNS now points at an unrelated host serving a static page. The real host (13.56.17.18) is healthy. The supervisor wants to know whether the repoint was deliberate. If it wasn't, it needs a credentialed host and a check of the Route53 change history.
+- **minion.town pause.** The pause is still being enforced against the stale arc-press job, which has been refused about 16,000 times.
+- **Disk space.** The leader's filesystem briefly hit 0 bytes free. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Parked jobs.** Several scheduled jobs the reaper parked after failed retries still need a promote or drop: two daily progress summaries, the dependabotany recheck, the Phase 8 fetch-plugin build, and the Oros bubblewrap hand-off.
+- **Settings simplification.** `deploy-accounts-store.sh` has to run before merging it, or account deletion returns 503.
 
-**Disk pressure on the leader.** `/home/kris/garden` on endolin-garden-ece02cb4 dropped to about 176-500 MiB free and briefly hit zero. It needs manual reclamation under `.garden-state`, `scratch/`, and `worktrees/`.
-
-**minion.town is paused and may be down.** The pause watchdog has refused jobs more than 16,000 times. Separately, a supervisor reported that production DNS for `minion.town` and `ocap.site` was repointed to an unfamiliar address, with the subdomains no longer resolving. It asks whether that change was intentional or a possible zone compromise. Settings-simplification and docs reports also wait on you. Settings needs `deploy-accounts-store.sh` run before merging, plus a veto check on four choices. The docs report leaves a stray anonymous guest on production.
-
-**Held daily summaries.** The daily progress-summary jobs for 11-05 and 11-06 and the Phase 8 fetch-plugin build are parked after exhausting requeues. So are the Oros bubblewrap hand-off build and the dependabotany recheck. They need a promote or a split.
-
-Journal-lock and fetch-slow contention notices mostly cleared overnight. The bulletin and unblock lock notices are still open.
+Most journal-contention watchdog notices have recovered. Only the bulletin and unblock lock-contention notices and the Oros fetch-slow notice remain open. The board holds many queued oros-health-checkup and canary-probe jobs that no one is claiming. No board transitions resolved since the last bulletin.
 
 ## Maintainer review docket
 
@@ -506,7 +503,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $361.47 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 95.0M | $361.84 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149625966 tokens/day lower bound._
