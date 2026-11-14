@@ -1,2 +1,2 @@
-base: improve-followup-gate-fail-soft-on-success
+base: improve-detect-plain-followup-handoffs
 identity: mentor:scripts/jobs/assert-followup-posted.sh
