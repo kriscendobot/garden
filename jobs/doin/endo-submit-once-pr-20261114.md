@@ -994,3 +994,13 @@ index d9e0327cd..19520dde2 100644
 2.43.0
 
 ```
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-14T13:40:47Z
