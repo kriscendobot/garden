@@ -1,24 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T14:10:21Z_
+_As of 2026-11-14T14:13:07Z_
 
 ## Latest
 
-Gauntlet [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1. The fixes were pushed, but CI stayed red on a failure the PR inherited, and the fixer reported the outcome as failed. One of eight rounds was spent at about $4.77. A resume command is in the halt message, with 2 extra rounds as an option. A new gauntlet for [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) was recorded, and `endo-submit-once-pr-20261114` finished. Gauntlet [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) is in fix round 6, after panel 6 and fix 5 completed.
+Garden work narrowed to a single board move: the pre-spend viability stage for [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) completed, and its gauntlet record was updated. Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage reported the outcome as failed or declined. Nothing was retried, and only 1 of 8 rounds was spent ($4.77). The notice includes the resume command, which adds two rounds.
 
-The fleet is still blocked on Oros and the leader deploy:
-- **Oros:** [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is held and drained after repeated canary failures. Its Claude login has expired, and `garden-secret-broker` fails after deploy. Both need someone at the machine.
-- **Leader deploy:** Because Oros cannot pass a canary, the leader cannot deploy the EROFS fix. Until it does, monk jobs that need a project checkout die with EROFS, and the minion.town PR work stays parked. The arc supervisor asks you to either revive Oros or authorize a leader deploy past the dead canary.
-
-Other items that need you:
-- **Disk space:** The leader's filesystem briefly hit 0 free and now sits at a few hundred MiB. It needs reclaiming by hand.
-- **minion.town DNS:** minion.town and ocap.site resolve to an unfamiliar address, and the production probe has been red since 14:52Z on 2026-11-10. The supervisor needs you to confirm whether the repoint was intentional or a possible zone compromise.
-- **Foreman and mentor:** Both self-heal on a paused-project (rc=78) refusal from the minion.town pause, and the foreman fires every tick. A scoped fix is queued.
-- **Foreman M3 prompt:** It keeps asking you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so the queued reweave of #1501 can proceed.
-
-The journal-contention alerts are mostly routine, and most have recovered.
+**Needs a maintainer:**
+- **Oros** (`oros-studio-garden-ce242c49`) is still drained after another failed canary on the deploy at `18fc7b17375`, and it holds the roll up. Its Claude login has expired, and its secret broker fails after each deploy. Both fixes need someone at the machine. Until the leader deploys, jobs that need a project checkout keep failing with EROFS.
+- **Leader disk space** is nearly exhausted, with a few hundred MiB free and a brief zero. It needs reclaiming by hand.
+- **minion.town** is paused, so the foreman and mentor keep tripping over a refused post and firing self-heal. The notices say this repeats until the pause is lifted or the handlers are patched. A separate message reports that production DNS had been repointed on 11-10, and it asks whether that was deliberate.
+- **Smaller decisions:** an unmerged fix for [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) is blocking [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) (via the foreman's milestone M3 notice). Several parked daily-summary and build jobs are waiting for promotion. The journal-contention notices are mostly recoveries.
 
 ## Maintainer review docket
 
@@ -626,7 +618,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.6M | $203.43 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 54.0M | $204.84 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 388.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153156342 tokens/day lower bound._
@@ -648,13 +640,13 @@ worst fetch p95 2.555613s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1588
 
-### tada (17099)
+### tada (17100)
+- [`endojs-endo-but-for-bots-pr1660-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1660-gauntlet-viability.md) — Cost
 - [`endo-submit-once-pr-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endo-submit-once-pr-20261114.md) — Cost
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1588-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1588-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1504-gauntlet-20261114.md) — gauntlet endojs-endo-but-for-bots-pr1504-gauntlet-20261114 — HALTED
-- [`endojs-endo-but-for-bots-pr1504-gauntlet-20261114-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1504-gauntlet-20261114-fix-1.md) — PR #1504 gauntlet, fix round 1: fixes pushed, CI is red on a failure this PR ...
-- … and 17094 more
+- … and 17095 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
