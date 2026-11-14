@@ -1,21 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-14T11:30:31Z_
+_As of 2026-11-14T11:33:18Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held, which is the main thing to notice. Its canary failed again, retries ran out, and it stays drained until someone at the machine fixes two things. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. The leader is therefore stuck on an old commit, and the arc supervisor says every monk job needing a project checkout dies with EROFS until the leader deploys. Several minion.town jobs are parked behind this. The Oros watchdog notice cleared and canary probes are queued again, but no human has fixed either blocker.
+Leader `endolin-garden-ece02cb4` and the Oros follower (`oros-studio-garden-ce242c49`) both need a human at the machine, and the minion.town questions are still unanswered.
 
-Other items need your attention:
-- **Disk:** The leader's filesystem briefly hit 0 free and then sat at a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Pause fallout:** The minion.town pause is working but noisy. The refusal notice is now at about 24,400 occurrences. `garden-foreman` and `garden-mentor` also crash-loop into self-heal because they treat the pause refusal (rc=78) as fatal.
-- **Production DNS:** An earlier report says minion.town and ocap.site began resolving to an unrelated host on 11-10, and it needs your answer.
-- **Merge request:** The foreman repeatedly asks you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), so the stalled [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) reweave can proceed.
-- **Other questions:** Several liaison follow-ups also wait on you: the minion.town settings veto check and the `deploy-accounts-store.sh` run, a stray guest on prod, and whether to adopt Iron Horse test-infra ideas from the yavashark ingest.
+- **Oros:** It is operator-held after the canary failed again on 18fc7b17375. Its Claude OAuth session has expired, so someone needs to run `/login` there. `garden-secret-broker.service` also keeps failing after deploy. The rolling-deploy canary watchdog cleared at 11:14Z with a retry canary queued, but the todo board still holds several unclaimed Oros canary probes.
+- **Leader deploy:** The leader is still on f2788117645 and waits on that dead canary. The EROFS fix (main2 21585bda2b3) can't reach it, so minion.town work stays parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past it.
+- **Disk:** The leader's filesystem briefly hit 0 bytes free and was at roughly 176–500 MiB free, so space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town:** Production went dark on 2026-11-10 after DNS repointed to an unrelated host, and the supervisor wants to know whether you made that change on purpose. The project is also under a pause, which makes the foreman and mentor crash on the refused post (rc=78) and fire self-heal each tick. Two self-heal diagnoses propose handling that code cleanly.
+- **Review blockers:** The foreman keeps asking for [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) to be merged so the stalled [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) can reweave. The dependabot row [#1629](https://github.com/endojs/endo-but-for-bots/pull/1629) is held behind it.
 
-Journal-lock contention mostly cleared. A handful of notices remain open, and monk workers on the leader were trimmed from 4 to 3 by budget pacing.
+Only one job moved since the last bulletin: the weave of [endojs/endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) completed. Gauntlet panel round 5 for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and the shepherd for [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) are still in flight.
 
-Active work is thin. `weave-endojs-endo-but-for-bots-pr1590`, the panel round for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and a shepherd on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) are in flight. Earlier today the gauntlet for #1504 halted, the fix round for #1588 finished, and shepherd and weave reports landed for [endo-but-for-bots#1347](https://github.com/endojs/endo-but-for-bots/pull/1347) and [endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559).
+Journal-lock contention notices mostly recovered (the contention storm cleared at 11:04Z). Several daily-summary and build jobs were parked after the reaper's retries ran out.
 
 ## Maintainer review docket
 
@@ -577,10 +576,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.1M | $147.75 _(notional, rate-card)_ | 14% of 271.0M (ok) |
-| Codex | 385.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 39.3M | $147.89 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Codex | 385.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 152859729 tokens/day lower bound._
+_Fleet token-unlock pace: 153158670 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.334850s/45s (/home/kris/garden/.garden-state/deadmail/verify); 13 open notice(s); checker healthy
@@ -595,18 +594,17 @@ worst fetch p95 3.334850s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (3)
-- [`weave-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1590.md) — ---
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1588
 - [`shepherd-endojs-endo-but-for-bots-pr1504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1504.md) — ---
 
-### tada (17090)
+### tada (17091)
+- [`weave-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/weave-endojs-endo-but-for-bots-pr1590.md) — Weave report: endojs/endo-but-for-bots #1590
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1588-gauntlet-fix-4.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1347`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/shepherd-endojs-endo-but-for-bots-pr1347.md) — Shepherd report: endojs/endo-but-for-bots#1347 (build/endo-gateway)
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1504-gauntlet-20261114.md) — gauntlet endojs-endo-but-for-bots-pr1504-gauntlet-20261114 — HALTED
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-20261114-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/endojs-endo-but-for-bots-pr1504-gauntlet-20261114-clean.md) — PR #1504 clean stage: CI is red (2 checks), but neither failure comes from th...
-- [`weave-endojs-endo-but-for-bots-pr1559`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/weave-endojs-endo-but-for-bots-pr1559.md) — Cost
-- … and 17085 more
+- … and 17086 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
