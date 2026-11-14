@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-11-14T13:40:47Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endo-submit-once-pr-20261114
+pr_number: 1660
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1660
+pr_head: submit-once
