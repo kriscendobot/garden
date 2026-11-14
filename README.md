@@ -1,19 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-14T02:43:29Z_
+_As of 2026-11-14T02:45:29Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still the main blocker. Its rolling-deploy canary has now failed three times at target 9db92854 and the roll has stopped retrying. The host is held drained, with an expired Claude OAuth session and a failing `garden-secret-broker` after deploy. Both need someone at the machine. Because the roll won't pass a failed canary, the leader (`endolin-garden-ece02cb4`) is still on f2788117645. That means monk jobs needing a project checkout keep dying with EROFS, even though the fix is already on `main2`. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+The fleet is mostly stalled on one host. Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held. Its rolling-deploy canary has failed three times, and the roll halted with that retry limit spent. The causes are an expired Claude OAuth session and a `garden-secret-broker` unit that fails after deploy. Both need someone at the machine. Because the canary never passes, the leader (`endolin-garden-ece02cb4`) cannot advance past `f2788117645`. The EROFS fix that minion.town project-worktree jobs need is therefore undeployed. A maintainer decision is open: revive Oros, or authorize a leader deploy past the dead canary.
 
-Other items that need a decision:
-- **minion.town DNS.** A supervisor reports that production DNS now points at an unrelated host serving a static page. The real host (13.56.17.18) is healthy. The supervisor wants to know whether the repoint was deliberate. If it wasn't, it needs a credentialed host and a check of the Route53 change history.
-- **minion.town pause.** The pause is still being enforced against the stale arc-press job, which has been refused about 16,000 times.
-- **Disk space.** The leader's filesystem briefly hit 0 bytes free. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Parked jobs.** Several scheduled jobs the reaper parked after failed retries still need a promote or drop: two daily progress summaries, the dependabotany recheck, the Phase 8 fetch-plugin build, and the Oros bubblewrap hand-off.
-- **Settings simplification.** `deploy-accounts-store.sh` has to run before merging it, or account deletion returns 503.
+Two other items need a human:
+- **Disk space:** the leader's filesystem hit 0 bytes free during a job and sits at roughly 176–500 MiB free. Space needs reclaiming by hand until the new byte-capacity guard deploys.
+- **minion.town DNS:** a gardener reported that production DNS was repointed on 2026-11-10 to an unfamiliar address. The prod probe has been red since then ([minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)), and the question of whether the change was intentional is unanswered. Development on minion.town is also paused, and the pause watchdog has now refused work 16,175 times.
 
-Most journal-contention watchdog notices have recovered. Only the bulletin and unblock lock-contention notices and the Oros fetch-slow notice remain open. The board holds many queued oros-health-checkup and canary-probe jobs that no one is claiming. No board transitions resolved since the last bulletin.
+Journal-contention notices mostly cleared in the last day. The storm, fetch-slow and several lock-contention conditions on both hosts recovered. Others (bulletin, deadline-nudge, regenerate-sections-index, unblock) are still open and coalesced, with only 1–2 giveups each and no steals.
+
+The board holds 130 `todo` jobs and nothing in `doin`. Most are Oros health checkups, minion.town press jobs, and canary probes that no host is claiming. The latest bulletin window showed no file-level job transitions. Several reaper-parked daily-summary, dependabotany and build jobs still wait on a go-ahead.
+
+Maintainer feedback is pending on the minion.town settings simplification. It requires `deploy-accounts-store.sh` before merge and asks for vetoes on four listed choices. It also asks whether the Iron Horse test-infra ideas from the yavashark ingest are worth a job.
 
 ## Maintainer review docket
 
@@ -442,6 +443,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.020721s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-13T05:53:04Z, cleared 2026-11-13T06:44:30Z).
@@ -503,13 +508,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.0M | $361.84 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 95.1M | $362.21 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149625966 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 10 open notice(s); checker healthy
+worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (130)
