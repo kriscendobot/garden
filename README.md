@@ -1,22 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T12:03:51Z_
+_As of 2026-11-14T12:08:42Z_
 
 ## Latest
 
-Little new work landed in this window: the only board movement is `improve-spell-out-identifiers` being modified in `jobs/doin`. Elsewhere on the board, two gauntlet fix stages are in flight, for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) (round 1) and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (round 5). Today's completions include a shepherd of #1504, which found zizmor fixed but test-xs still red because of the base, and weaves of [endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592).
+The fleet is mostly stalled on host problems, and the board shows no file-level job transitions since the last bulletin.
 
-Things that need a maintainer:
+**Needs your call**
+- The Oros host (`oros-studio-garden-ce242c49`) is still operator-held. Its Claude OAuth session has expired, so someone needs to run `/login` as the garden user. `garden-secret-broker.service` also keeps failing after each deploy. The canary has failed again, so the leader's rolling deploy can't advance.
+- The minion.town arc supervisor is blocked on the leader still running f2788117645. It asks whether to revive Oros or authorize deploying the leader past the dead canary. Until that is decided, monk jobs that need a project checkout die with EROFS. That parks the minion.town PR work: [kriscendobot/minion.town#246](https://github.com/kriscendobot/minion.town/pull/246), [#237](https://github.com/kriscendobot/minion.town/pull/237), [#252](https://github.com/kriscendobot/minion.town/pull/252), [#248](https://github.com/kriscendobot/minion.town/pull/248) and [#254](https://github.com/kriscendobot/minion.town/pull/254).
+- minion.town production went dark on 2026-11-10 at about 13:14Z, and the message says it looks like DNS. The apex and `ocap.site` now resolve to a different Amazon address that serves a static page. Please say whether that change was intentional. If it wasn't, check the Route53 history.
+- The leader's disk (`/dev/nvme0n1p2`) is nearly full, with a few hundred MiB free and a brief hit of 0. It needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- The foreman and mentor self-heal loops are firing every tick. Both treat a paused-project refusal (rc=78 from `post-job.sh`, for minion.town) as a crash. Fix those two handlers or lift the pause.
+- The foreman repeats its request to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), which unblocks the stalled reweave of [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
 
-- **Oros is still operator-held.** Its canary keeps failing, and 14 health-checkup jobs sit unclaimed. The rolling deploy therefore can't advance the leader past `f2788117645`, so minion.town work that needs a project checkout dies with EROFS. The two fixes needed at the machine are `/login` for the expired Claude OAuth session and a look at the failing `garden-secret-broker.service`. A related question is open on whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk space on the leader is nearly gone.** It showed about 176–500 MiB free and briefly hit 0, so space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **The foreman and mentor self-heal loops come from the minion.town pause.** `post-job.sh` returns rc=78 for a paused project, and `foreman.sh` and `mentor.sh` treat that as fatal. The foreman and mentor alerts fire every tick until those scripts handle rc=78 or the pause is lifted.
-- **minion.town DNS may have been repointed.** A 2026-11-10 message reports that production resolves to `34.225.237.208`, not `13.56.17.18`. It asks whether this was intentional or a possible zone compromise. It is still unanswered.
-- **A milestone M3 request is pending.** The foreman again asks you to merge clean PR [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) so queued reweaves, including #1501, can proceed.
-- **Several daily-summary and build jobs are parked in `jobs/plan/`.** The reaper parked them after retries were exhausted, and they await promotion or removal. They are the 11-05 and 11-06 daily progress summaries, the dependabotany recheck, the daemon agent tools Phase 8 fetch plugin build, and the Oros bwrap hand-off.
-- **Journal lock contention continues.** A storm notice on the leader is at 21 occurrences, with p95 near 20 ms. Many individual clones have recovered.
+**In flight**
+- The gauntlet is running on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) (fix round 1) and [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (fix round 5).
+- Today's completions include the shepherd on #1504 (zizmor fixed, `test-xs` still red because of the base) and the weaves of [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592).
+
+**Background noise**
+- The minion.town pause refusal has now been logged 25,082 times. It is correct enforcement that is simply noisy.
+- Journal lock-contention notices keep coming, and many are clearing. The storm notice has reached 21 occurrences on the leader.
+- The leader's monk pool dropped from 4 to 3 under budget pacing. Claude is at 17% of quota.
 
 ## Maintainer review docket
 
@@ -588,7 +593,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.5M | $189.67 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 46.7M | $192.41 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 388.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153878942 tokens/day lower bound._
