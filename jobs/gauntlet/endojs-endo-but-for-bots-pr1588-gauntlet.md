@@ -12,7 +12,7 @@ created_at: 2026-10-31T07:20:45Z
 arc: unallocated
 stage: fix
 iteration: 4
-resumes: 1
+resumes: 2
 stage_retries: 0
 current_child: endojs-endo-but-for-bots-pr1588-gauntlet-fix-4
 state: running
