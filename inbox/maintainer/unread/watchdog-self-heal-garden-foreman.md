@@ -1,17 +1,17 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-11-14T08:52:20Z
+sent_at: 2026-11-14T15:12:37Z
 watchdog_key: self-heal-garden-foreman
-notice_count: 4
+notice_count: 6
 first_seen: 2026-11-14T04:26:12Z
-last_seen: 2026-11-14T08:52:20Z
+last_seen: 2026-11-14T15:12:37Z
 ---
-WATCHDOG notice — occurrence #4 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T08:52:20Z).
-The SAME condition (`self-heal-garden-foreman`) has now been observed 4 times; this is ONE
-coalesced notice that updates in place, not 4 messages. Latest detail:
+WATCHDOG notice — occurrence #6 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T15:12:37Z).
+The SAME condition (`self-heal-garden-foreman`) has now been observed 6 times; this is ONE
+coalesced notice that updates in place, not 6 messages. Latest detail:
 
-self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 98645335b47ab9ed40227560045bc9a8e7a08611 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 98645335b47ab9ed40227560045bc9a8e7a08611). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-rc78
-`scripts/jobs/foreman.sh` (around line 737) treats any nonzero `post-job.sh` return code as fatal and runs `exit "$post_rc"`. The failing case is rc=78. `post-job.sh` returns 78 when the step belongs to a PAUSED project: "refusing to post 'build-daemon-git-capability-phase-five-contract-tests-build-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md)". The foreman proposes a next milestone step for minion.town, which is deliberately paused (commit a0b0f010fcc, "record the minion.town project pause"). The post is refused, the foreman exits 78, and self-heal fires every tick.
+self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 4a188f54cc7b8512ab1aff57f7e6ccca0ace057c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 4a188f54cc7b8512ab1aff57f7e6ccca0ace057c). Diagnosis: The foreman exited 78 because its post of `design-daemon-git-remotes-server-half-r2` was refused. That job belongs to the paused project `minion-town`. It exits with the post-job return code, so it fails again on every tick.
 
-Fix:
-1. In `foreman.sh`, handle `post_rc == 78` explicitly, as a clean outcome like `post-tempfail`. Call `decide paused-proj
+JOB self-heal-fix-garden-foreman-paused-project-rc78
+Failure: `garden-foreman` exits 78 (EX_CONFIG). Last log lines: `[post] refusing to post 'design-daemon-git-remotes-server-half-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`, then `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`.
+Cause: in `scripts/jobs/foreman.sh`, around line 737, the generic `post_rc -ne 0` branch runs `exit "$post_rc"` for any non-zero rc. Post-job returns 78 as a deliberate refusal when the project is paused (the mini
