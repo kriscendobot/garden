@@ -282,5 +282,29 @@ else
   bad "single-line JOB/body/ENDJOB was rejected"
 fi
 
+echo 'SUBTEST 27 -- a paused-project refusal is a routine skip, not a handler failure'
+PAUSE_LOG="$TR/pause.log"
+PAUSE_SEED="$TR/pause-seed"; git clone -q --branch journal2 "$BARE" "$PAUSE_SEED"
+mkdir -p "$PAUSE_SEED/pauses"
+printf -- '---\nmaintainer: test\nmatch: zzzpausedproj\n---\n' > "$PAUSE_SEED/pauses/zzzpausedproj.md"
+git -C "$PAUSE_SEED" add pauses
+git -C "$PAUSE_SEED" -c user.name=test -c user.email=test@localhost commit -q -m pause
+git -C "$PAUSE_SEED" push -q origin journal2
+prc=0
+run_handler openai GARDEN_TEST_PROVIDER_LOG="$PAUSE_LOG" \
+  GARDEN_TEST_OPENAI_OUTPUT='JOB improve-zzzpausedproj-a\nscripts/jobs/zzz-paused.sh\nfix zzzpausedproj\nENDJOB\nJOB improve-after-pause\nscripts/jobs/zzz-after-pause.sh\nstill posted\nENDJOB\n' \
+  >"$TR/pause.out" 2>"$TR/pause.err" || prc=$?
+[ "$prc" -eq 0 ] && ok "paused refusal leaves the handler exit 0" || bad "paused refusal failed the handler (rc=$prc): $(tail -5 "$TR/pause.err")"
+PAUSE_VERIFY="$TR/verify-pause"; git clone -q --branch journal2 "$BARE" "$PAUSE_VERIFY"
+[ ! -e "$PAUSE_VERIFY/jobs/todo/improve-zzzpausedproj-a.md" ] && ok "paused-project job was not posted" || bad "paused-project job was posted"
+[ -f "$PAUSE_VERIFY/jobs/todo/improve-after-pause.md" ] && ok "later JOB block still posted after a paused skip" || bad "later JOB block was dropped"
+[ "$(grep -c "skipped improvement 'improve-zzzpausedproj-a'" "$TR/pause.err")" -eq 1 ] \
+  && ok "paused skip logged once" || bad "paused skip not logged exactly once"
+grep -q 'FATAL' "$TR/pause.err" && bad "paused skip still logged a FATAL" || ok "no FATAL on paused skip"
+rm -rf "$PAUSE_SEED"; git clone -q --branch journal2 "$BARE" "$PAUSE_SEED"
+git -C "$PAUSE_SEED" rm -q -r pauses
+git -C "$PAUSE_SEED" -c user.name=test -c user.email=test@localhost commit -q -m unpause
+git -C "$PAUSE_SEED" push -q origin journal2
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

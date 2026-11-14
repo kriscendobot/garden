@@ -402,13 +402,29 @@ post_mentor_job() {
   fi
 }
 
-base=""; body=""
+# A paused-project refusal from post-job.sh (exit GARDEN_PAUSED_RC) is a routine,
+# deliberate skip — the maintainer paused that project and post-job.sh already
+# delivered the coalesced pause notice — not a mentor failure. Letting it abort
+# the handler under set -e failed the unit, left the remaining JOB blocks
+# unposted, and kept the same failure digest alive so self-heal re-fired on it
+# every tick. Log the skip once per block, carry on, and still exit 0. Any OTHER
+# post failure keeps aborting loudly.
+base=""; body=""; paused_skips=0
 while IFS= read -r line; do
   if [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then base="${BASH_REMATCH[1]}"; body=""
   elif [ "$line" = "ENDJOB" ] && [ -n "$base" ]; then
     if ! already_fixed_pending_deploy "$body"; then
-      post_mentor_job "$base" "$body"
+      post_rc=0; post_mentor_job "$base" "$body" || post_rc=$?
+      if [ "$post_rc" -eq "$GARDEN_PAUSED_RC" ]; then
+        paused_skips=$((paused_skips + 1))
+        log "skipped improvement '$base': it belongs to a PAUSED project (post-job.sh rc=$GARDEN_PAUSED_RC); continuing"
+      elif [ "$post_rc" -ne 0 ]; then
+        log "FATAL: posting improvement '$base' failed (post-job.sh rc=$post_rc)"
+        exit "$post_rc"
+      fi
     fi
     base=""; body=""
   elif [ -n "$base" ]; then body+="$line"$'\n'; fi
 done <<< "$out"
+[ "$paused_skips" -eq 0 ] || log "skipped $paused_skips improvement(s) for paused project(s)"
+exit 0
