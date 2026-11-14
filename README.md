@@ -1,21 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T01:28:30Z_
+_As of 2026-11-14T01:33:38Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still the main blocker. The rolling deploy halted on a failed canary there for the third time, and the host stays drained. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Someone at the machine needs to run `/login` and check the broker's journal. With Oros stuck, the leader cannot deploy past `f2788117645`, so the EROFS fix cannot reach it. That keeps the minion.town PR jobs parked. The pause on minion.town development is also still being refused at the claim chokepoint, at about 15,300 occurrences.
+The big item is the Oros follower, `oros-studio-garden-ce242c49`. It stays drained after failing the rolling-deploy canary a third time. The leader is still on f2788117645, so the EROFS fix (main2 21585bda2b3) cannot roll out. Two blockers need someone at the machine: an expired Claude OAuth session (`claude` then `/login`) and `garden-secret-broker.service` failing after each deploy. The canary-probe and oros-health-checkup jobs are piling up unclaimed in todo.
 
-Four items need a maintainer decision:
+Oros's stall is also holding up minion.town PR work. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. minion.town development is paused under the 2026-11-10 directive, and the watchdog has now refused queued press jobs more than 15,000 times. A separate message reports that minion.town's DNS appears to have been repointed to an unfamiliar address (`34.225.237.208`) with most subdomains gone. It asks whether that was intentional.
 
-- **minion.town DNS:** production went dark on 2026-11-10, when the apex and `ocap.site` records began pointing at `34.225.237.208` instead of `13.56.17.18`. This could be an intended change or a zone compromise, and the garden has no AWS credentials to check. See [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256).
-- **Disk space:** the leader host (`endolin-garden-ece02cb4`) briefly hit 0 bytes free and sits at roughly 176–500 MiB, so space needs reclaiming by hand.
-- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
-- **Scholar ingest:** decide whether to post an Iron Horse test-infra job to adopt the cost tiers, sampling and CPU pinning found in yavashark's test infrastructure.
+Other items need your attention:
+- The leader host is nearly out of disk (hundreds of MiB free, briefly zero). It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- Several daily-progress-summary, dependabotany recheck and builder jobs were parked after retries were exhausted.
+- Journal lock contention notices recurred but mostly cleared.
+- One notice is still open on `unblock_journal`, and the fetch-slow notice on Oros's `self_deploy_journal` is also open.
 
-Several parked daily-summary, dependabotany and builder jobs were also exhausted by the reaper and held on `jobs/plan/` awaiting promotion. Most journal-contention and screening watchdog conditions cleared over the day. No job transitions resolved since the last bulletin.
+No board transitions were resolved for this window.
 
 ## Maintainer review docket
 
@@ -501,10 +500,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.9M | $350.00 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.1M | $350.74 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149469983 tokens/day lower bound._
+_Fleet token-unlock pace: 149493267 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.140985s/45s (/home/kris/garden/.garden-state/maintainer/journal); 12 open notice(s); checker healthy
