@@ -1,27 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T00:13:31Z_
+_As of 2026-11-14T00:19:26Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still the main blocker. It has failed the rolling-deploy canary again, and the retries ran out. The roll halted, so the leader has not advanced and still runs `f2788117645`. Until the leader deploys, the EROFS fix (`3c7f9ce045e`, now `21585bda2b3`) stays undeployed. In the meantime every monk job that needs a project checkout dies with EROFS, so minion.town PR work stays parked.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held, and it now blocks the leader's deploy. The rolling deploy has halted on a failed canary for the third time (target 9db9285), and Oros stays drained. Two things need someone at the machine: the Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after every deploy. The leader still runs f278811. Until it deploys, every monk job that needs a project checkout dies EROFS, and the arc supervisor has parked all minion.town PR work. It asks whether to revive Oros or authorize a leader deploy past the dead canary. Over a hundred canary probes and health checkups sit unclaimed in todo.
 
-Oros needs someone at the machine for two things. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. The arc supervisor asks whether to revive Oros or to authorize deploying the leader past the dead canary. A pile of unclaimed `oros-health-checkup` and canary-probe jobs sits in todo meanwhile.
+Other items need a decision:
+- **minion.town DNS:** the apex and `ocap.site` now resolve to `34.225.237.208`, which serves a static page, not the documented host `13.56.17.18`, and the prod probe is red. This is unexplained and may be a zone compromise. Say whether the repoint was yours.
+- **Disk space:** the leader's filesystem briefly hit 0 free and sits at a few hundred MiB. It needs reclaiming by hand.
+- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging it, and veto any of the four listed choices you object to.
+- **Iron Horse test infrastructure:** decide whether to post an Iron Horse test-infra job to adopt the cost tiers, sampling, and CPU pinning found in the yavashark ingest.
 
-Disk space on the leader is critically low. `/home/kris/garden` was down to about 176–500 MiB free and briefly hit zero, so it needs reclaiming by hand. The new byte-capacity guard will page on this only after it deploys.
-
-minion.town is paused by maintainer directive, and the pause watchdog has refused its jobs 15,154 times, including the arc-press jobs. Separately, production appears to have gone dark on 11-10 because DNS was repointed to an unrelated host. The arc supervisor is asking whether that repoint was intentional, since it could be a zone compromise.
-
-Several held decisions are also waiting on you:
-- Two daily-progress-summary jobs, the `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` build, and the `build-oros-secrets-bwrap-handoff-20261106` build are parked in the plan queue after the reaper's retries ran out.
-- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging.
-- The yavashark ingest asks whether to post an Iron Horse test-infra job.
-
-Journal-contention notices were mostly quiet. Several recovered, and a fetch-slow storm on Oros is still open.
-
-No board transitions were recorded since the last bulletin.
+Watchdog notices are mostly clearing. Journal contention storms cleared on both hosts, along with the screening-tick failure streak and the comment-watcher cooldown. The minion.town project-pause refusal count keeps rising (15154), because pressing jobs for the paused project keep landing on the board. Three daily-summary, build and dependabot jobs were parked in the plan queue after their retries ran out. No board transitions resolved this cycle, and one gauntlet, for endo-but-for-bots#1359, halted.
 
 ## Maintainer review docket
 
@@ -161,17 +152,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-13T22:23:28Z, latest 2026-11-13T23:23:38Z).
-> The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-13T22:23:28Z, cleared 2026-11-14T00:17:57Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/issue-inbox/verify: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/reaper/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/comment-watcher/verify: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/deadmail/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=23.150899s max=23.150899s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-topics-counts/journal: p95=17.959745s max=17.959745s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> Journal contention condition `journal-contention-storm-fetch-slow` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -454,7 +439,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-topics-counts/journal: p95=17.959745s max=17.959745s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal` has CLEARED (first seen 2026-11-13T18:27:29Z, cleared 2026-11-14T00:17:50Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-minion-town-arc-press-20261110-163511-75a23ad64b38` — from gardener:minion-town-arc-press-20261110-163511, reply_to `minion-town-arc-press-20261110-163511` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261110-163511-75a23ad64b38.md)
 
@@ -501,10 +490,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.2M | $339.05 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 89.4M | $340.16 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 149299752 tokens/day lower bound._
+_Fleet token-unlock pace: 149323605 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/journal); 10 open notice(s); checker healthy
