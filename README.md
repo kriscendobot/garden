@@ -1,29 +1,26 @@
 # Garden bulletin
 
-_As of 2026-11-14T03:46:15Z_
+_As of 2026-11-14T03:47:12Z_
 
 ## Latest
 
-Little completed since the last bulletin. The only board move is a claim of `improve-dependabotany-idle-rechecks`, which is now in progress. Four things need a maintainer's attention.
+Only one job moved this cycle: `improve-dependabotany-idle-rechecks` went from doin to tada, so the idle-recheck improvement is complete. A `dependabotany-recheck-endo-but-for-bots-20261114-025015` run also finished earlier today. No new claims or posts appeared.
 
-**Oros is still held and blocks the leader deploy.** `oros-studio-garden-ce242c49` stays drained after the rolling deploy halted on a failed canary for the third time. Two blockers need someone at the machine:
-- Its Claude OAuth session has expired. Fix: `claude`, then `/login`, as the garden user.
-- `garden-secret-broker.service` fails after each deploy.
+**Oros is still the main blocker.**
+- The Oros host (`oros-studio-garden-ce242c49`) has failed its rolling-deploy canary three times and remains drained.
+- Its Claude OAuth session has expired.
+- `garden-secret-broker` fails after each deploy.
+- Both blockers need someone at the machine.
+- Its health checkups and canary probes keep piling up unclaimed in todo.
+- The leader is still on the old commit, so the EROFS fix cannot reach it.
+- The minion.town supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+- Minion.town development is also paused, and the pause watchdog has now refused work 17,480 times.
 
-Because the canary keeps failing, the leader is still on `f2788117645`. The EROFS fix (main2 `21585bda2b3`) cannot reach it, so monk jobs that need a project checkout keep dying. The minion.town arc supervisor has asked whether to revive oros or authorize a leader deploy past the dead canary.
-
-**minion.town stays paused.** The project-pause watchdog has refused its press jobs about 17,480 times. The notice says a stale host may still be posting them. A reported DNS repoint (about 13:14Z on 11-10) sent `minion.town` and `ocap.site` to an unrelated address; that report asks whether you made the change, and whether you want the A records restored if you did not.
-
-**The leader host is nearly out of disk.** An earlier job reported `/home/kris/garden` at roughly 176–500 MiB free and briefly 0. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-
-**Decisions waiting in the inbox:**
-- The `mt-beta-settings-simplify` report: run `deploy-accounts-store.sh` before merging, and veto any of its four choices you object to.
-- Whether to post an Iron Horse test-infra job to adopt the cost tiers, sampling and CPU pinning found in the yavashark ingest.
-- Whether to leave or remove a stray guest account on production minion.town.
-- Four reaper-parked jobs awaiting promotion or removal: two daily progress summaries, a dependabot recheck, and an Oros secrets handoff.
-- The daemon agent-tools phase-8 build, also parked by the reaper.
-
-Journal lock-contention and fetch-slow watchdog notices mostly cleared on their own. A few remain open, but their latencies are small.
+**Other items for the maintainer's attention:**
+- **Disk space:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
+- **minion.town DNS:** an unexplained repoint has taken production dark since 2026-11-10 (message `msg-minion-town-arc-press-20261110-163511-75a23ad64b38`). It is either your change or a possible zone compromise.
+- **Stranded daily summaries:** three daily-summary and recheck jobs are parked in the plan queue after the reaper's retries were exhausted.
+- **Journal lock contention:** several notices cleared overnight, but a few recurring ones remain open on the leader.
 
 ## Maintainer review docket
 
@@ -521,7 +518,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.4M | $375.27 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 98.5M | $375.25 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 379.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 193673372 tokens/day lower bound._
@@ -662,16 +659,16 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c7f9ce045e9-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c7f9ce045e9
 - [`oros-health-checkup-20261112-030515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261112-030515.md) — ---
 
-### doin (1)
-- [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-idle-rechecks.md) — ---
+### doin (0)
+(none)
 
-### tada (17055)
+### tada (17056)
+- [`improve-dependabotany-idle-rechecks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/improve-dependabotany-idle-rechecks.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261114-025015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/dependabotany-recheck-endo-but-for-bots-20261114-025015.md) — Cost
 - [`endojs-endo-but-for-bots-pr1359-gauntlet-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/endojs-endo-but-for-bots-pr1359-gauntlet-20261113.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet-20261113 — HALTED
 - [`deadmail-20261113T222245Z-39c07c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T222245Z-39c07c.md) — Completion report
 - [`deadmail-20261113T180827Z-7056c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/deadmail-20261113T180827Z-7056c6.md) — Cost
-- [`ironhorse-test262-ratchet-round3-floor-resolution-20261113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/13/ironhorse-test262-ratchet-round3-floor-resolution-20261113.md) — Cost
-- … and 17050 more
+- … and 17051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
