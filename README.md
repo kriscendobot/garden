@@ -1,24 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T13:24:10Z_
+_As of 2026-11-14T13:27:59Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. The rolling-deploy canary failed again and retries ran out. The follower stays drained, and canary probe jobs for it are piling up in `todo`. The operator has to fix two things on that machine: the expired Claude OAuth session (run `/login`), and `garden-secret-broker.service`, which fails after every deploy. Because that canary never passes, the leader, `endolin-garden-ece02cb4`, can't advance past `f2788117645`. That leaves the EROFS fix (main2 `21585bda2b3`) undeployed, so minion.town monk jobs that need a project checkout still die. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+The leader (`endolin-garden-ece02cb4`) is still on `f2788117645`, and the fix for monk jobs that die with EROFS on project checkouts (`3c7f9ce045e`, now `21585bda2b3` on `main2`) can't reach it. The rolling deploy rolls Oros first as a canary, and Oros keeps failing it. Retries ran out, so the roll halted and Oros stays drained. The Oros health watch says it needs someone at the machine for two things: an expired Claude OAuth session (run `claude`, then `/login`), and `garden-secret-broker.service` failing after deploy. Until one of those is fixed, the minion.town arc supervisor asks whether to revive Oros or authorize deploying the leader past the dead canary.
 
-Other items that need you:
-- **Minion.town DNS:** the apex and `ocap.site` resolve to `34.225.237.208`, which serves a static page, instead of the documented `13.56.17.18`. The subdomains no longer resolve. The supervisor wants to know whether you made this change on purpose. If you didn't, check the Route53 history for a possible zone compromise. Separately, minion.town development is paused, and the pause watchdog has now fired more than 25,000 times.
-- **Disk space:** the leader's filesystem briefly hit zero free space and sits at a few hundred MiB. Someone needs to reclaim space by hand.
-- **Pause handling in scripts:** `foreman.sh` and `mentor.sh` treat a paused-project refusal (rc=78) as a crash, so self-heal fires on every tick. Both are open watchdog notices.
-- **Merge request:** the foreman asks you to merge clean PR #1613 (or pick a competing fix) so the stalled [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/issues/1501) reweave can proceed. That PR holds up several other blocked weaves.
-- **mt-beta-settings-simplify:** run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
-- **Leftovers:** one anonymous guest is left on production minion.town. The yavashark ingest asks whether to post an Iron Horse test-infra job.
+Two board jobs are in progress: gauntlet fix rounds for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). No file-level board transitions resolved this cycle.
 
-Gauntlets are in progress on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) (fix round 1) and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) (fix round 5). [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) was shepherded, with zizmor fixed. Its `test-xs` job is still red because of the base. The weave of [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592) completed today.
+Other items that need a decision or attention:
+- **minion.town DNS:** production went dark on 2026-11-10 when DNS for `minion.town` and `ocap.site` pointed at an unrelated Amazon host. The documented host `13.56.17.18` is healthy. The garden has no AWS credentials, so someone needs to confirm whether this repoint was intentional or check the zone for compromise. The same project is also paused by maintainer directive, and the watchdog has now logged that pause being enforced over 25,000 times.
+- **Foreman and mentor crash loops:** both exit non-zero because `post-job.sh` refuses jobs for the paused project (rc=78) and they treat that as fatal. Self-heal fires on every tick. The diagnoses recommend handling rc=78 as a clean outcome.
+- **Disk space:** `endolin-garden-ece02cb4` was down to about 176–500 MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Foreman milestone M3:** it is waiting on a merge of [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), which would unblock [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+- **Budget:** the monk pool on the leader was throttled from 4 to 3 workers.
+- **Parked jobs:** several scheduled jobs are held in the plan queue after retries were exhausted. They include the daily progress summaries for 11-05 and 11-06 and two builder jobs.
+- **Liaison follow-ups:** the `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merging. The yavashark ingest asks whether to post an Iron Horse test-infra job.
 
-Several daily-summary, dependabot-recheck and build jobs were parked after retries ran out, so they need a human promote or removal. The many journal-contention watchdog notices have mostly recovered on their own.
+Journal lock-contention notices mostly cleared on their own.
 
 ## Maintainer review docket
 
@@ -616,13 +615,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.7M | $212.20 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 50.8M | $212.82 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 388.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154074490 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.562926s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 11 open notice(s); checker healthy
+worst fetch p95 2.555613s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
