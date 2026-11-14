@@ -1,22 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-14T05:23:48Z_
+_As of 2026-11-14T05:27:55Z_
 
 ## Latest
 
-Board activity is quiet: no job transitions resolved since the last bulletin. Two jobs are in flight, the weave and shepherd for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). The foreman reports that milestone M3 is stalled behind base CI. The base repairs [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) and [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) are unmerged, and the foreman asks whether to merge them so the M3 PRs can be woven and resumed. Those same two repairs also hold the dependabot PRs [#1629](https://github.com/endojs/endo-but-for-bots/pull/1629) and [#1658](https://github.com/endojs/endo-but-for-bots/pull/1658).
+The board is nearly idle: the only transition is a claim of `build-daemon-rename-to-manager`, with 3 jobs in doin (the PR #1588 shepherd and weave jobs and that build). The PR #1588 pair is the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) work that the foreman says is stalled. Milestone M3 is blocked by base CI and the unmerged base repairs [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646. Please decide whether to merge those repairs.
 
-Items that need a maintainer:
-- **Oros is still held.** The latest roll moved it to `18fc7b17375` and failed the canary again. Two causes need someone at the machine: an expired Claude OAuth login, and `garden-secret-broker.service` failing after deploy. Two canary-probe jobs for Oros sit unclaimed in todo.
-- **The leader is stuck.** It still runs `f2788117645`, so the EROFS fix cannot reach it until the Oros canary passes or you authorize a deploy past it. Meanwhile, monk jobs that need a project checkout die with EROFS.
-- **Disk space.** The leader host's filesystem has been at roughly 176–500 MiB free, and briefly hit 0. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** The apex answered from an unexpected address as of 2026-11-10, while the documented host stayed healthy when pinned. Someone needs to confirm whether the repoint was intentional or a possible zone compromise. The project is also under your pause, and the watchdog has now recorded that pause refusing a todo job nearly 20,000 times. The mentor's improve handler also crashes on that refusal and fires self-heal each tick.
-- **Decisions waiting.**
-  - The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
-  - Whether to post an Iron Horse test-infra job from the yavashark ingest.
-  - Whether to leave or remove a stray guest on production.
+The main blockers are in the maintainer inbox:
 
-Journal lock contention continues on both hosts, with a storm of six clones on the leader at 05:19Z. Several related notices recovered.
+- **Oros is stuck.** `oros-studio-garden-ce242c49` has failed its deploy canary again and stays drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy, so both need someone at the machine. Two canary probes sit in todo.
+- **The leader can't deploy.** The arc supervisor reports that the leader (`endolin-garden-ece02cb4`) still runs an old build. The EROFS fix can't reach it because the rolling deploy waits on the dead Oros canary, so every project-checkout job from a monk dies. Revive Oros, or authorize deploying the leader past the canary.
+- **Disk space.** The leader's filesystem was at about 176-500 MiB free and briefly hit zero, so it needs reclaiming by hand.
+- **minion.town DNS.** The arc supervisor reported production went dark on 11-10 after its DNS was repointed to an unfamiliar address. It asks whether you made that change, and if not, whether the zone was compromised. This message is several days old.
+- **Pause noise and a mentor crash.** The minion.town pause keeps firing refusals. It has hit 19,472 so far and still shows on `scholar-ingest-fudco-gist-20261105`. The mentor crashes on the same refusal because it treats it as fatal, which fires self-heal each tick until the pause is lifted.
+
+Journal lock contention warnings continue on both hosts, including a 6-clone storm on the leader. Most older ones have cleared. Several parked daily-summary, build and dependabot rechecks were requeue-exhausted and await promotion or removal. Spend is low: Claude is at 2% and Codex at 28%.
 
 ## Maintainer review docket
 
@@ -532,7 +530,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.7M | $25.00 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 6.0M | $26.33 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 380.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 150693762 tokens/day lower bound._
@@ -548,8 +546,9 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1588-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-shepherd.md) — ---
+- [`build-daemon-rename-to-manager`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md) — ---
 
 ### tada (17057)
