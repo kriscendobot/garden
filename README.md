@@ -1,21 +1,18 @@
 # Garden bulletin
 
-_As of 2026-11-14T08:49:56Z_
+_As of 2026-11-14T08:52:55Z_
 
 ## Latest
 
-The board is quiet on the job side: no new posts, claims or completions resolved since the last bulletin. Two jobs are in flight: gauntlet fix round 3 for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and a fixer on [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594). The [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) gauntlet halted after its clean stage declared failure, following a rebase that left test-xs still red. Resuming it is your call, and the message gives the `gauntlet.sh --resume-from-stage` command with a round count to choose.
+The leader endolin-garden-ece02cb4 is still on an older commit, and it is blocked on a dead canary. The follower oros-studio-garden-ce242c49 is drained and failing its rolling-deploy canary. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. The roll has stopped retrying and needs someone at the machine. Because the leader can't deploy past that canary, the EROFS fix (main2 21585bda2b3) hasn't reached it, so every monk job that needs a project checkout still dies. That is parking the minion.town PR work. The arc supervisor is asking whether to revive oros or authorize a leader deploy past the canary.
 
-What needs a decision:
+minion.town is also formally paused (the pause is enforced at every chokepoint). Two self-heal loops, `garden-foreman` and `garden-mentor`, crash on the resulting rc=78 refusals instead of treating them as a clean outcome. That keeps the watchdog counter climbing. A separate maintainer question reports that minion.town production DNS was repointed to `34.225.237.208`, with the app routes returning 404. It asks whether that change was intentional.
 
-- **Oros stays held.** The roll moved `oros-studio-garden-ce242c49` to `18fc7b17375`, but its canary keeps failing, with retries exhausted. Two things need someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. The leader still runs the older `f2788117645`, so the EROFS fix cannot reach it. That keeps all minion.town project-checkout work parked until you either revive Oros or authorize a leader deploy past the dead canary.
-- **Pause refusals crash services.** The minion.town pause (2026-11-10) makes `post-job.sh` refuse jobs with rc=78. The foreman and mentor treat that refusal as a crash, so they fail and trigger self-heal on every tick. The foreman's next milestone step, a weave of [endo-but-for-bots#1565](https://github.com/endojs/endo-but-for-bots/pull/1565), is the one currently refused. A fix job is posted (`self-heal-fix-garden-foreman-paused-rc78-soft-s`). The pause watchdog notice has reached 23,230 occurrences.
-- **Disk is nearly full.** The leader's filesystem hit 0 bytes free briefly during one job and sits at roughly 176–500 MiB free. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** The 2026-11-10 report says production DNS was repointed to an unexpected address and the zone looks stripped to its apex. Nobody has confirmed whether that was intended. Restoring it needs credentials the garden lacks.
-- **Milestone M3 is blocked.** The foreman says [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) cannot resume until #1542 merges, and the re-sweep design [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497) also awaits merge.
-- **Parked jobs.** Several scheduled and build jobs (daily progress summaries, the dependabot recheck, the oros secrets handoff, the fetch-plugin build) were parked after their retries were exhausted.
+Disk on the leader briefly hit 0 bytes free, so space needs reclaiming by hand. Four parked daily-summary, dependabotany and builder jobs sit held after their retries were exhausted.
 
-Journal-lock contention notices mostly cleared. The monk count on the leader dropped from 4 to 3 under the budget-level watchdog.
+Budget-level dropped the leader to 3 monks. Several journal-contention conditions recovered. Gauntlet and weave work on [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) and [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592) completed. The #667 gauntlet halted with `test-xs` still red. Fix rounds are in flight on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594).
+
+The foreman is also asking you to merge [endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/pull/1542) and [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), which unblocks [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504).
 
 ## Maintainer review docket
 
@@ -347,13 +344,15 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T05:51:54Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T08:52:20Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: bf7f100d25f8f297bacaba2d13b3e39379f9c141 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p bf7f100d25f8f297bacaba2d13b3e39379f9c141). Diagnosis: Exit 78 is `GARDEN_PAUSED_RC`, a refusal and not a crash. The foreman proposed the next milestone step `weave-endojs-endo-but-for-bots-pr1565`. `post-job.sh` refused it because the body matched the pause record's regex `minion\.town`, from the minion-town pause of 2026-11-10 (`journal/pauses/minion-town.md`). The foreman only special-cases the completed-collision and transient return codes (`scripts/jobs/foreman.sh:712-740`). Any other nonzero code, including this deliberate pause refusal, goes through `exit "$post_rc"`, which fails the unit. This is the same pause that blocked the deferred promotion of `…minion.town-pr199-review…-retro` earlier in the tick. systemd restarts the foreman, it proposes the same step, and it fails again.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 98645335b47ab9ed40227560045bc9a8e7a08611 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 98645335b47ab9ed40227560045bc9a8e7a08611). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-rc78
+> `scripts/jobs/foreman.sh` (around line 737) treats any nonzero `post-job.sh` return code as fatal and runs `exit "$post_rc"`. The failing case is rc=78. `post-job.sh` returns 78 when the step belongs to a PAUSED project: "refusing to post 'build-daemon-git-capability-phase-five-contract-tests-build-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md)". The foreman proposes a next milestone step for minion.town, which is deliberately paused (commit a0b0f010fcc, "record the minion.town project pause"). The post is refused, the foreman exits 78, and self-heal fires every tick.
 >
-> JOB self-heal-fix-garden-foreman-paused-rc78-soft-s
+> Fix:
+> 1. In `foreman.sh`, handle `post_rc == 78` explicitly, as a clean outcome like `post-tempfail`. Call `decide paused-proj
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -482,13 +481,6 @@ Delegation: **active**
 >
 > Restarting the service won't clear it, and the refusal will recur every tick until the pause is lifted (`pause-project.sh minion-town off`) o
 
-- `endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-halted` — from gauntlet:endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f HALTED: stage 'endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr667-gauntlet-20261114-9b70df7f8e4f panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-12T22:23:42Z, cleared 2026-11-13T04:18:42Z).
@@ -586,7 +578,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.1M | $112.54 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 26.3M | $113.63 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 382.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 152157530 tokens/day lower bound._
