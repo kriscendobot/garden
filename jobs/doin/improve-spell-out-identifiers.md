@@ -10,6 +10,7 @@ The blocklist at scripts/jobs/gardening/pre-push-gates/probes/spell-out-identifi
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=85 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
