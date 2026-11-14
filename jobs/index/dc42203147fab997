@@ -1,2 +1,2 @@
-base: improve-dependabotany-preflight-merge-now-snapshot
+base: improve-dependabotany-idle-rechecks
 identity: mentor:scripts/jobs/dependabotany-preflight.sh
