@@ -1,38 +1,27 @@
-## Weave report: endojs/endo-but-for-bots #1590
-
-I rebased #1590 onto the rewritten head of its parent, #1559, and pushed it. The rebase had no conflicts. The daemon integration tests could not run here, so CI is the first full test run.
+I wove PR #1590 onto PR #1559's new head. The rebase was clean, the PR's changes are byte-for-byte the same as before, and GitHub reports it as MERGEABLE.
 
 **What I did**
-- Parent #1559's head `daemon-worker-import-from-mount` was rewritten to `69cafe166f`. #1590's old base, `daemon-worker-import-from-mount-6d40c78`, is no longer in that history.
-- I made a new frozen base, `daemon-worker-import-from-mount-69cafe1`, at `69cafe166f`, and pushed it to the fork.
-- I ran `git rebase --onto 69cafe166f 6d40c78` on head `9f0a7a65c0`. All 4 commits applied cleanly and none were dropped:
-  - `dbdeef3cdd` feat(daemon): makeFromMount
-  - `437ffffee3` feat(cli): run/make --mount
-  - `7a8628be41` chore: Update yarn.lock (unchanged, applied cleanly)
-  - `3aa198e206` test(daemon,cli)
-- The PR's changes didn't move: the added and removed lines against the new base are identical to the old ones, and `git diff --stat` shows the same 15 files (+779/−12).
-- I force-pushed `daemon-worker-import-from-mount-phase-three` with `--force-with-lease` (`9f0a7a65c0` → `3aa198e206`) and moved the PR base to `daemon-worker-import-from-mount-69cafe1`. GitHub reports the PR as MERGEABLE with 15 files.
+- **What moved:** #1559's head (`daemon-worker-import-from-mount`) went from `69cafe1` to `d829880`, picking up two commits. One pins a GitHub Actions version comment in `.github/workflows/update-action-pins*.yml`. The other records a Node 26 baseline result in `packages/hardened262/baseline/sesNode/module/*`. Neither touches #1590's files.
+- **Frozen base:** I created a new pinned snapshot, `daemon-worker-import-from-mount-d829880`, at `d82988084a`.
+- **Rebase:** I rebased #1590's 4 commits from the old snapshot (`daemon-worker-import-from-mount-69cafe1`) onto the new one with `git rebase --onto`. There were no conflicts, and the `chore: Update yarn.lock` commit is still a separate commit.
+- **Check:** the diff against the new base matches the diff against the old base exactly (15 files, +779/−12), so no other commits got pulled in.
+- **Push:** I force-pushed the head with `--force-with-lease` (`3aa198e206` → `8d98a2e8d1`) and changed the PR's base with `gh pr edit 1590 --base daemon-worker-import-from-mount-d829880`.
 
-**The stack**
-- #1592 is based on the frozen snapshot `daemon-worker-import-from-mount-phase-three-9f0a7a6`, so this force-push did not touch it. Re-weaving #1592 onto the new #1590 head `3aa198e206` is the next step for it.
+**Not done**
+- **Tests:** I didn't run the daemon or cli tests locally. The PR's changes are unchanged and the new base commits touch no daemon or cli files, so this needs CI to confirm, not local work.
+- **Old snapshot:** `daemon-worker-import-from-mount-69cafe1` is still on the fork; the conductor deletes old snapshots when the PR closes.
+- **No comment:** I didn't post on the PR, because the job didn't authorize commenting.
 
-**Tests**
-- `packages/daemon/test/package-read-powers.test.js`: 11 of 11 pass.
-- `packages/daemon/test/make-from-package.test.js`: 11 of 11 fail, all with "Daemon failed to spawn". `better-sqlite3` failed to build during the local `yarn install`, and these tests need a running daemon. I didn't run them on the old base to compare.
-- I started `packages/cli/test/run-mount.test.js` but stopped it after it ran past the 10-minute timeout, so it has no result.
-
-**Follow-ups**
-- Weave #1592 onto `daemon-worker-import-from-mount-phase-three@3aa198e206`.
-- Check CI on #1590's new head `3aa198e206`.
-- The old frozen base `daemon-worker-import-from-mount-6d40c78` stays until the PR closes.
+**Follow-up**
+- **Child PR #1592:** its base is the frozen snapshot `daemon-worker-import-from-mount-phase-three-3aa198e`, which no longer matches #1590's head (`8d98a2e8d1`). Before #1592 can advance it needs its own weave onto a new snapshot such as `daemon-worker-import-from-mount-phase-three-8d98a2e`. I didn't post that job.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/weave-endojs-endo-but-for-bots-pr1590.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 20 tokens (570376 cached reads)
-- Output: 4062 tokens
-- Cost: $0.6355791999999999
-- Wall-clock: 692s
-- Model(s): claude-opus-5-5 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 36 tokens (1007972 cached reads)
+- Output: 7201 tokens
+- Cost: $1.1896463999999998
+- Wall-clock: 795s
+- Model(s): claude-opus-5-5 ×2
 
 <!-- garden-usage-end -->
