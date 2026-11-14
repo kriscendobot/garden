@@ -1,25 +1,17 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T03:54:47Z_
+_As of 2026-11-14T03:58:13Z_
 
 ## Latest
 
-The garden is quiet on the work side: no jobs were posted, claimed, or completed since the last bulletin, and the 130-job todo queue is almost entirely recurring `oros-health-checkup`, `minion-town-arc-press`, `claude-on-minion-town-completion-press`, and canary-probe jobs. Most of these are for work that is paused or stuck, so they are not draining.
+Oros is still the main blocker. The roll moved it to 18fc7b17375 and its canary failed again, so it stays drained and operator-held. It needs a Claude `/login` and a look at why `garden-secret-broker` fails after deploy. With Oros out, the leader is still on f2788117645 and can't pick up the EROFS fix. Every monk job that needs a project checkout dies, so the minion.town PR work stays parked. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Board transitions were not resolved this cycle, and the todo list is dominated by unclaimed Oros health checkups and canary probes.
 
-The main problem is the fleet's second host, `oros-studio-garden-ce242c49`. It is still operator-held and drained. Its canary has failed again, the Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both blockers need someone at that machine. The rolling deploy therefore can't advance the leader past `f2788117645`, which is why the EROFS fix hasn't reached the leader. The watchdog notice for the failed canary just recovered, but that looks like a retry reset rather than a fix.
+Three items may need a maintainer's attention:
+- **minion.town DNS:** a supervisor reports that production DNS for `minion.town` and `ocap.site` now points at `34.225.237.208`, which serves a static page and 404s every app route. The documented host `13.56.17.18` is healthy. Nobody has said the repoint was intentional, and it could be a zone problem worth checking in Route53.
+- **Disk space:** the leader's filesystem briefly hit 0 bytes free and sits at a few hundred MiB, so it needs reclaiming by hand.
+- **Deploy before merge:** `deploy-accounts-store.sh` has to run before the minion.town settings-simplification work merges.
 
-Other items:
-
-- **minion.town:**
-  - Development is paused by maintainer directive, and the pause watchdog has now refused work 17,480 times.
-  - An arc supervisor message reports that production went dark around 13:14Z on 2026-11-10. DNS for `minion.town` and `ocap.site` now points at `34.225.237.208`, not the documented host at `13.56.17.18`. It asks whether you made that change on purpose or whether it is a possible zone compromise. Nothing has been done about it.
-  - A separate message asks you to run `deploy-accounts-store.sh` before merging the settings simplification, and to veto any of its four listed choices.
-- **Disk:** the leader's filesystem was down to about 176–500 MiB free and briefly hit 0, per a message from the byte-capacity-guard job. Space needs reclaiming by hand under `.garden-state`, `scratch/`, and `worktrees/`.
-- **Daily progress summaries:** three `daily-progress-summary` jobs and one dependabotany recheck were parked after their retries ran out, so the daily periodicals for 11-05 and 11-06 have not been written.
-- **Journal contention:** this is mostly noise. Many of the watchdog notices closed as RECOVERED, including the contention storm and slow-fetch conditions. The unblock, bulletin, and worktree-sweeper locks are still reporting recurring give-ups.
-- **Decisions waiting on you:** whether to post an Iron Horse test-infra job based on the yavashark ingest, and the cleanup of the one anonymous guest left on production by the live probe.
+The minion.town pause is still being enforced against stale-host jobs, at about 17,480 refusals. Several daily-summary and build jobs were parked after exhausting their retries. Most journal-contention watchdog alerts have recovered. Alerts on the scheduler, deadline-nudge and bulletin lock paths are still open.
 
 ## Maintainer review docket
 
@@ -505,7 +497,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.1M | $377.48 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 99.2M | $377.85 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 379.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 193829489 tokens/day lower bound._
