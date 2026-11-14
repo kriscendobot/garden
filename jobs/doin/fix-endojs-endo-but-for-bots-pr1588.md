@@ -9,6 +9,7 @@ dispatch: automatic
 Fix endojs/endo-but-for-bots PR #1588’s latest panel findings by spelling out the newly introduced abbreviated identifiers, then verify the affected tests. 
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=9729 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
