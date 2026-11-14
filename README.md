@@ -1,28 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-14T20:39:53Z_
+_As of 2026-11-14T20:42:29Z_
 
 ## Latest
 
-Several watchdog conditions cleared, but the fleet is still jammed on a few items that need maintainer action.
+Oros (oros-studio-garden-ce242c49) is still operator-held. Its canary has failed repeatedly, retries ran out, and it stays drained. Two blockers need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker.service` failing after each deploy. The leader is therefore stuck behind the rolling deploy. Journal contention alerts and several Oros alerts cleared on their own over the day.
 
-**Needs a decision.**
-- **Oros** (`oros-studio-garden-ce242c49`) is still operator-held and drained. It failed the rolling-deploy canary again at 19:29Z. Two blockers need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after deploy.
-- **Leader deploy** is stuck behind that dead canary. The leader (`endolin-garden-ece02cb4`) is therefore pinned to an old commit without the EROFS fix. A supervisor message asks whether to revive Oros or authorize a leader deploy past it.
-- **[endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659)** is a green zizmor fix. It blocks the daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)). Merging it unblocks the reweave jobs for that stack and for [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596).
-
-**Gauntlets.**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The fix round pushed with CI green, and the PR awaits a human decision or `--add-rounds`.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 of 8, when the fixer reported the gated outcome failed. It can resume with `--add-rounds`.
-
-**Completed.** The day's completions include shepherd, weave and fix jobs on [#1498](https://github.com/endojs/endo-but-for-bots/pull/1498), [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) and [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590).
-
-**Other things to know.**
-- Disk on the leader hit 0 free briefly and sits at roughly 176–500 MiB, so space needs reclaiming by hand.
-- The minion.town pause is still being hit by the foreman and mentor, which exit non-zero on refused posts and trigger self-heal. The watchdog notice for the pause has now been seen 36,325 times.
-- A minion.town production DNS repoint from 2026-11-10 is still waiting for you to say whether it was intentional.
-- Journal-contention notices mostly recovered, with a few still open.
-- Seven daily-summary and build jobs remain parked after requeue exhaustion.
+Other items need a maintainer decision:
+- **Leader deploy:** The EROFS fix cannot reach the leader past the dead Oros canary. minion.town work stays parked until Oros is revived or the leader is deployed by hand.
+- **Disk space:** The leader's filesystem briefly hit 0 bytes free and sits at roughly 176-500 MiB. It needs manual reclaiming.
+- **minion.town DNS:** A message reports the production DNS now points at a different host. Please say whether that change was intentional.
+- **minion.town pause:** The pause is still being enforced. The foreman and mentor each exit non-zero when they propose paused-project work, and both raised self-heal notices.
+- **Gauntlets:**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 6/6 review budget without converging. It needs a human merge decision or `--add-rounds`.
+  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1.
+- **Merge request:** The M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on you to merge the zizmor fix, [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
 
 ## Maintainer review docket
 
@@ -384,15 +376,14 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T15:12:37Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T20:41:58Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 4a188f54cc7b8512ab1aff57f7e6ccca0ace057c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 4a188f54cc7b8512ab1aff57f7e6ccca0ace057c). Diagnosis: The foreman exited 78 because its post of `design-daemon-git-remotes-server-half-r2` was refused. That job belongs to the paused project `minion-town`. It exits with the post-job return code, so it fails again on every tick.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: b0cadad01a747d61b92cc0ad032d77222ff1f96d (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p b0cadad01a747d61b92cc0ad032d77222ff1f96d). Diagnosis: The foreman is failing because it doesn't handle a deliberate pause. The fix is a small scoped change, so I'm posting a job for it.
 >
 > JOB self-heal-fix-garden-foreman-paused-project-rc78
-> Failure: `garden-foreman` exits 78 (EX_CONFIG). Last log lines: `[post] refusing to post 'design-daemon-git-remotes-server-half-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`, then `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`.
-> Cause: in `scripts/jobs/foreman.sh`, around line 737, the generic `post_rc -ne 0` branch runs `exit "$post_rc"` for any non-zero rc. Post-job returns 78 as a deliberate refusal when the project is paused (the mini
+> `garden-foreman` exits 78 on every tick that proposes a step for a paused project. The log signature is `[post] refusing to post 'design-daemon-git-remotes-server-half': it belongs to PAUSED project 'minion-town' (rc=78)`, followed by `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`. The pause itself is intended: `pauses/minion-town.md` exists, and the minion.town pause was recorded in the recent docs commit. The defect is in `scripts/jobs/foreman.sh`. Near line 737, the generic `elif [ "$post_rc" -ne 0 ]` branch logs an ERROR and does `exit "$post_rc"`, so a paused-project refusal fai
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -681,7 +672,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.6M | $266.63 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.7M | $267.23 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 390.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153909083 tokens/day lower bound._
