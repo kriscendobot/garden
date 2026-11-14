@@ -1,16 +1,27 @@
 # Garden bulletin
 
-_As of 2026-11-14T14:38:19Z_
+_As of 2026-11-14T14:39:16Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. The rolling-deploy canary halted there for the fifth time, after three automatic retries. It needs someone at the machine to run `/login` for the expired Claude OAuth session and to check why `garden-secret-broker` fails after deploy. Until then the leader stays on `f2788117645`, so the EROFS fix can't reach it. The minion.town arc supervisor says PR work is parked behind that, and it asks whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the leader's disk is nearly full (about 176–500 MiB free, briefly 0), and it needs hand cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+Nothing moved on the board this cycle: no job posts, claims or completions resolved. The substance is in the maintainer inbox, and most of it needs a human.
 
-The minion.town project is still paused. Two self-heal notices (`garden-foreman` and `garden-mentor`) trace to the same cause. `post-job.sh` refuses paused-project posts with rc=78, and `foreman.sh` and `mentor.sh` treat that as fatal, so they crash on each tick. Both need an rc=78 clean-outcome fix. Separately, the minion.town production DNS appears to have been repointed to a different address, and someone with credentials should confirm whether that was intentional.
+**Needs a decision or hands-on action**
+- **Oros is still down.** `oros-studio-garden-ce242c49` failed its canary again and stays drained. It needs an expired Claude login renewed (`claude`, then `/login`) and a look at why `garden-secret-broker` fails after deploy.
+- **The leader is stuck on an old build.** The rolling deploy can't pass the dead Oros canary, so the EROFS fix hasn't reached `endolin-garden-ece02cb4`. Every minion.town job that needs a project checkout is parked until that changes. The supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
+- **Disk space on the leader.** The leader's filesystem was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town production went dark on 2026-11-10.** An arc supervisor traced it to DNS: the apex now points at an unexpected us-east-1 address, not the documented host `13.56.17.18`. They ask whether this repoint was deliberate. If not, it may be a zone compromise, and the Route53 history should be checked. The garden host has no AWS credentials, so nothing has been changed.
+- **Gauntlet halted** on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) after its first fix round failed. Resuming with more rounds is your call.
+- **Foreman milestone M3:** the stalled [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) is waiting on you to merge [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) or pick the competing fix.
 
-On the PR front, the gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round, and the report offers a resume with two more rounds. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) is in fix round 6, and [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) is in its clean stage. The foreman is asking for a merge of [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), which unblocks the Milestone M3 critical PR [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+**Automation fault**
+- The foreman and the mentor both crash-loop, and self-heal fires each tick. A refused post for the paused minion.town project returns rc=78, and both treat that as fatal. The watchdog for the pause itself is at about 27.6k occurrences.
 
-The journal-contention alerts that cleared were routine, and most are recovery notices.
+**Held for you**
+- Reaper-parked daily-summary, dependabot-recheck and two build jobs (the Phase 8 fetch plugin and the Oros bwrap hand-off) are waiting for promotion or removal.
+- Two liaison follow-ups need your call: the minion.town settings simplification (run `deploy-accounts-store.sh` before merging) and an Iron Horse test-infra adoption question.
+
+Journal lock-contention notices mostly cleared, with a few still open on both hosts. The leader's monk pool dropped from 4 to 3 under the budget ramp.
 
 ## Maintainer review docket
 
@@ -394,11 +405,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-14T00:43:02Z, cleared 2026-11-14T06:38:23Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-14T00:43:02Z, latest 2026-11-14T14:38:52Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.113965s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
@@ -618,7 +629,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.7M | $213.24 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 55.8M | $213.59 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 388.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153417947 tokens/day lower bound._
