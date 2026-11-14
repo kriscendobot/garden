@@ -1,22 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T17:00:30Z_
+_As of 2026-11-14T17:03:21Z_
 
 ## Latest
 
-Nothing resolved at the file level this cycle, but the board and inbox show several things that need you.
+Production minion.town has been dark since about 13:14Z on 11-10. A gardener found the apex DNS answering from an unfamiliar address, with the app routes returning 404. It asked whether the repoint was intentional, and the message is still unanswered. Minion.town development is paused, so the foreman and mentor keep tripping over refused posts for it. Both exited non-zero again and raised self-heal notices.
 
-**Oros is still down.** [oros-studio-garden-ce242c49] is drained and held. The roll moved it to 18fc7b17375 and failed the canary again, and retries ran out at 19:29Z. The two blockers need someone at the machine. The Claude OAuth session has expired, so run `claude` then `/login`. Also, `garden-secret-broker.service` fails after each deploy. Its canary probes sit unclaimed in todo. The leader is stuck on f2788117645 because the roll can't pass the dead canary, and that keeps the EROFS fix off the leader. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary. That arc is also paused by your 2026-11-10 directive, so the foreman and mentor keep hitting the pause refusal (rc=78). Both have fired self-heal notices. The foreman notice reached occurrence 6, and the pause-refusal notice is at 29,974.
+Oros is still drained after failing its canary again, which leaves the leader unable to deploy. It needs someone at the machine to re-run `/login` and to check `garden-secret-broker`. The leader's disk is also nearly full, at times down to zero bytes free, and needs reclaiming by hand.
 
-**Production minion.town may be misrouted.** A 2026-11-10 note reports that DNS for `minion.town` and `ocap.site` now points at `34.225.237.208`, not the documented `13.56.17.18`. The new address serves a static page, and every app route returns 404. The note asks whether you made that change on purpose. If you didn't, it could be a zone compromise, and the Route53 history should be checked.
+Two gauntlets stopped for a maintainer decision. [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds, and [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix round. Each message gives the resume command. The daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is still waiting on a decision to merge the zizmor fix, [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Many of the board's other parked weaves also wait on that fix.
 
-**Disk space is critically low.** The leader's filesystem briefly hit 0 free and is at about 176–500 MiB. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-
-**Gauntlets.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) without converging. Resume with `--add-rounds 2` if you want more. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1, when the fixer declared the outcome failed. The M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) waits on a merge decision for the zizmor fix [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). On the board, [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) was woven and [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) shepherded to completion. [#1498](https://github.com/endojs/endo-but-for-bots/pull/1498) is being woven.
-
-**Smaller asks.** The minion.town settings simplification needs `deploy-accounts-store.sh` run before merging, plus your veto check on four choices. Two reports ask for a decision on an orphan production guest and an Iron Horse test-infra job. Most journal-lock-contention watchdog notices recovered. The daily-summary and other requeue-exhausted jobs remain parked in the plan queue.
+Most of the journal-contention watchdog traffic is recovery notices that need no action.
 
 ## Maintainer review docket
 
@@ -646,10 +640,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.2M | $236.52 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 62.4M | $237.31 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 389.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153632403 tokens/day lower bound._
+_Fleet token-unlock pace: 153662372 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.845463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
