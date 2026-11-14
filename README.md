@@ -1,20 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-14T05:38:37Z_
+_As of 2026-11-14T05:41:26Z_
 
 ## Latest
 
-Little completed on the board this cycle. The only transition was a new claim: `shepherd-endojs-endo-but-for-bots-pr1588` moved into doin. It sits beside the existing weave and shepherd jobs for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), so three jobs now cover that PR. Check for overlap if they start to collide. The confined fetch/timer endowment build is parked behind it.
+Board movement was light: the only claim was [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1501.md), which moved into doin. No new posts or completions appeared in this window.
 
-Items that need a maintainer decision:
+**Oros is the main blocker.** [`oros-studio-garden-ce242c49`](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still operator-held. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Both fixes need someone at the machine. Two canary probes for it, `-r1` and `-r2`, sit in todo.
 
-- **Oros is still held.** The `oros-studio-garden-ce242c49` canary keeps failing, and canary probes `r1` and `r2` are waiting in todo. Two fixes need someone at the machine: an expired Claude OAuth login, and `garden-secret-broker.service` failing after deploy. Because oros never passes its canary, the leader is stuck on `f2788117645`. That leaves monk jobs that need a project checkout failing with EROFS, which the arc supervisor has flagged. The choice is to revive oros or authorize a leader deploy past the dead canary.
-- **minion.town production DNS.** An earlier arc-press message reports the apex and `ocap.site` now resolving to `34.225.237.208`, a static Caddy page, instead of the documented `13.56.17.18`, and asks whether this was intentional. It may be a zone compromise, and the Route53 history needs checking by someone with credentials. The project is also paused, so the pause watchdog keeps re-refusing the todo job `scholar-ingest-fudco-gist-20261105`.
-- **Host disk space.** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Mentor self-heal.** `garden-mentor` exits 1 on every tick because `post-job.sh` refuses a minion-town job under the pause. It will recur until the pause is lifted or the handler is fixed.
-- **Milestone M3.** Draft PR #1594 is blocked on the Node 24 fix in draft PR #1598, whose review chain halted on an unrelated IronHorse-oracle failure. Decide whether to merge #1598 and resume #1594, or restart the rename PRs.
+The leader is still behind `main2` because the canary can't pass. Until it deploys, monk jobs that need a project checkout die with EROFS, and minion.town work stays parked. The arc supervisor is asking you to either revive Oros or authorize a leader deploy past the dead canary.
 
-Several daily-summary jobs and the Phase 8 fetch-plugin and Oros bwrap hand-off builds were parked after retries ran out, and they stay held until promoted. Journal-lock contention notices keep recurring on both hosts, though several have recovered. Treat them as noise unless the storm notice grows.
+**Other items needing a decision:**
+- **minion.town DNS:** Production went dark around 13:14Z on 11-10. The apex and `ocap.site` now resolve to an unfamiliar us-east-1 address serving a static page. Nothing in the journal explains the change. Confirm whether the repoint was yours, since it may be a zone compromise.
+- **Disk space:** The leader's filesystem briefly hit 0 bytes free, and it has only a few hundred MiB free now. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Milestone M3:** Draft PR [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) is blocked on the Node 24 fix in draft PR [#1598](https://github.com/endojs/endo-but-for-bots/pull/1598), whose review chain halted on an unrelated IronHorse-oracle failure. You need to choose between merging #1598 and resuming #1594, or restarting the rename PRs.
+- **Mentor self-heal:** `garden-mentor` exits 1 on every tick because `post-job.sh` refuses a job for the paused minion-town project, and `mentor.sh` treats that refusal as a crash. It will repeat until the pause is lifted or the handler is fixed.
+- **Parked daily summaries:** Several daily-progress-summary and dependabotany recheck jobs were parked in the plan queue after their retries were exhausted.
+- **Maintainer messages:** The minion.town settings report asks you to run `deploy-accounts-store.sh` before merging. It also lists four choices you can veto.
+
+Journal lock-contention notices continue on both hosts, though most have cleared.
 
 ## Maintainer review docket
 
@@ -530,7 +534,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.1M | $30.90 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 7.4M | $32.20 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 380.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148536765 tokens/day lower bound._
@@ -546,10 +550,11 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (3)
+### doin (4)
 - [`shepherd-endojs-endo-but-for-bots-pr1588`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1588.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md) — ---
+- [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1501.md) — ---
 
 ### tada (17057)
 - [`build-daemon-rename-to-manager`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/build-daemon-rename-to-manager.md) — Report: build-daemon-rename-to-manager. No new PR opened, because one already...
