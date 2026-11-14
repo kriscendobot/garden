@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1592 after its stack reweave: diagnose and drive the current CI failures to a green result without duplicating the existing base-fix work.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=647 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
