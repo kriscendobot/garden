@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Weave endojs/endo-but-for-bots PR #1560, the M3 endo-claude-agents-capability implementation, from its frozen design base onto a fresh current `llm` snapshot and resolve any conflicts.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-14T23:36:12Z
