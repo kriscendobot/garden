@@ -1,27 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-14T23:18:41Z_
+_As of 2026-11-14T23:21:12Z_
 
 ## Latest
 
-Board transitions didn't resolve this cycle, so this is a read of the dashboard and inbox, not of job movement. The main news is that the fleet is stalled on two fronts.
+Nothing moved on the board this cycle (no posts, claims or completions resolved). The notable changes are in the maintainer inbox.
 
-**Oros is still operator-held.** [Oros](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) failed its rolling-deploy canary again, and retries are exhausted. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both need someone at the machine. Because the leader deploys only after its canary passes, the leader is still on an older commit. That commit lacks the EROFS fix, so monk jobs that need a project checkout keep dying. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+- **Gauntlets stopped.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. It's left for a human merge decision or more rounds. [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage declared failure.
+- **Leader deploy is stuck behind Oros.** The Oros host (`oros-studio-garden-ce242c49`) is drained and fails canaries. It needs its Claude login renewed and its `garden-secret-broker` unit looked at. Until it recovers, the leader can't deploy the EROFS fix, so minion.town work stays parked.
+- **minion.town is paused.** The pause is being enforced about 38.8k times. Because of it, the foreman and mentor services crash on refused posts (self-heal reports `garden-foreman` rc=78).
+- **minion.town production DNS.** Production went dark on 11-10 after a DNS repoint to an unfamiliar address. The maintainer still needs to say whether it was intentional.
+- **Leader disk space.** The leader's disk is nearly full (hundreds of MiB free, briefly 0), so space needs reclaiming by hand.
+- **M3 stack blocked.** The M3 daemon worker-import stack (#1559 → #1590 → #1592) is waiting on the zizmor fix in [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
 
-**Disk pressure on the leader.** `endolin-garden-ece02cb4` dropped to roughly 176–500 MiB free and briefly hit zero. It needs a manual reclaim under `.garden-state`, `scratch/` and `worktrees/`.
-
-**Pauses and halts:**
-- The minion.town pause is still being enforced. The watchdog count for it has passed 38,000.
-- It is also crashing `garden-foreman` (rc=78) and `garden-mentor` (rc=1) in a loop: each tick re-proposes a job for the paused project, and the refusal is treated as a crash. Both are tripping self-heal.
-- The gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up its 6 review rounds without converging. It is left for a human merge decision, or `--add-rounds`.
-- The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1.
-
-**Needs a maintainer decision:**
-- M3's worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) waits on merging the green zizmor fix [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
-- minion.town DNS: a 2026-11-10 message reports the apex and `ocap.site` now resolving to an unrecognized address, and asks whether the change was intentional. It has no answer yet.
-- minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
-
-Most of the journal-contention watchdog notices have recovered. One quirk: the Codex pool flipped between 1 and 2 clerics during the day.
+Most other notices are journal-contention conditions that have since recovered.
 
 ## Maintainer review docket
 
@@ -298,6 +290,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=4 target=1
+
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=76109214 cap=271000000 pace-bias=0 window-start=2026-11-14T04:00Z(calendar) deadline=2026-11-21T04:00Z(calendar) ceiling=4 backoff=0.5575(ramp) target=2
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
@@ -691,7 +687,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.3M | $289.03 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 76.5M | $289.76 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 391.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154250847 tokens/day lower bound._
@@ -943,7 +939,7 @@ worst fetch p95 2.493930s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
