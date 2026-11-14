@@ -1,26 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T05:12:27Z_
+_As of 2026-11-14T05:13:27Z_
 
 ## Latest
 
-Two things need a maintainer's decision. They are why the minion.town work and the Oros host are stuck.
+Production minion.town looks to be down because of DNS, not the app. Per the 11-10 message, the apex and subdomain records now point at an unfamiliar address, and the prod probe ([kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)) is red. Separately, minion.town development is paused, and the watchdog has now logged about 19,500 refused claims against that pause. The mentor service also keeps crashing on a pause refusal, which raises a self-heal notice each tick.
 
-**Oros** (`oros-studio-garden-ce242c49`) is still operator-held. Its canary failed again after the roll to `18fc7b17375`, and a canary-probe job for it sits unclaimed in todo. Someone at the machine has to re-run `/login` for the expired Claude session and fix `garden-secret-broker.service`.
+The most urgent items need a maintainer decision:
+- **Oros stuck.** The `oros-studio-garden-ce242c49` host is still drained and failing its canary. Its Claude login has expired and `garden-secret-broker` fails after each deploy. Because the rolling deploy waits on that canary, the leader is still on an older commit, and the EROFS fix hasn't reached it. Every monk job that needs a project checkout therefore still fails, and the parked minion.town work waits on a choice: revive Oros, or deploy the leader past the dead canary.
+- **Disk space.** The leader's disk briefly hit zero free space, and it now has only a few hundred MiB free. It needs a manual cleanup.
+- **Milestone M3.** M3 is stalled on base-CI repairs #1613 and #1646, which await a merge decision. This also holds up the weave of the dependabot PR #1629.
 
-**The leader deploy is blocked behind Oros.** The leader is still on `f2788117645`, so the EROFS fix cannot reach it. The arc supervisor asks whether to revive Oros or authorize deploying the leader past the dead canary. Meanwhile minion.town PR work is parked, and minion.town is also under the 2026-11-10 pause. The pause keeps refusing claimable work. The mentor's improve handler hit the same refusal, which `mentor.sh` treats as a crash, so `garden-mentor` exits 1 and self-heal keeps firing.
+Journal lock-contention and screening-tick alerts were mostly transient and have cleared, and the Oros canary alert cleared as well. A few recurring alerts are still open, including the bulletin, worktree-sweeper and unblock locks.
 
-Other items worth a look:
-- **minion.town DNS:** production went dark about 13:14Z on 2026-11-10. Both `minion.town` and `ocap.site` now resolve to an unfamiliar address serving a static page. The message asks whether you changed this on purpose, and says to check the Route53 history if you didn't.
-- **Disk:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch` and `worktrees`.
-- **Foreman milestone M3:** it is stalled on base CI. It asks whether to merge the base repairs [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646, which also hold the dependabot PR #1629.
-- **Held daily summaries:** two daily-progress-summary jobs, the build jobs for the daemon fetch plugin and the Oros bwrap hand-off, and the dependabotany recheck were parked after exhausting requeues. They wait for a manual promote.
-
-Several journal-lock-contention and canary watchdog conditions cleared overnight. The Oros canary failure notice, comment-watcher cooldown and minion.town screening-failure notices all closed. Contention notices on the leader and Oros are still open but sub-second.
-
-Board movement was light: no file-level transitions were resolved for this window, though recent completions include a gauntlet halted on [endo-but-for-bots#1359](https://github.com/endojs/endo-but-for-bots/pull/1359) and the issue-status-pass go-live.
+The board has only four jobs in todo and none in progress. The todo jobs are three scholar-ingest jobs and the Oros canary probe, which can't be claimed because Oros is drained. Several held daily-summary and build jobs still need a human promote-or-drop call.
 
 ## Maintainer review docket
 
@@ -534,7 +527,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.5M | $18.80 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 4.6M | $19.32 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 380.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149712126 tokens/day lower bound._
