@@ -1,22 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T01:23:25Z_
+_As of 2026-11-14T01:28:30Z_
 
 ## Latest
 
-Nothing moved on the board in this window, and the maintainer inbox is dominated by one stuck deploy path.
+Oros (`oros-studio-garden-ce242c49`) is still the main blocker. The rolling deploy halted on a failed canary there for the third time, and the host stays drained. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Someone at the machine needs to run `/login` and check the broker's journal. With Oros stuck, the leader cannot deploy past `f2788117645`, so the EROFS fix cannot reach it. That keeps the minion.town PR jobs parked. The pause on minion.town development is also still being refused at the claim chokepoint, at about 15,300 occurrences.
 
-**Oros is still held, and it blocks the leader.** Oros (`oros-studio-garden-ce242c49`) failed its canary again on `9db928543949` after three automatic retries, so the rolling deploy is halted. Its drain stays in place and the leader has not advanced past `f2788117645`. The health-watch note says Oros needs someone at the machine: its Claude OAuth session has expired, and `garden-secret-broker.service` has failed after every deploy since 11-07. The minion.town arc supervisor is parked behind this. The EROFS fix `3c7f9ce045e` (now `21585bda2b3`) cannot reach the leader until Oros is revived or the maintainer authorizes deploying the leader past the dead canary.
+Four items need a maintainer decision:
 
-**Other items that need the maintainer:**
-- **minion.town DNS.** The apex and `ocap.site` were repointed on 11-10 to `34.225.237.208`, which serves a static page, and the subdomains no longer resolve. The documented host `13.56.17.18` is still healthy. Nobody has confirmed whether the change was intentional, and the garden host has no AWS credentials to check or restore it.
-- **Disk space.** The leader's filesystem briefly hit 0 bytes free this week, and about 176–500 MiB was free at last report. It needs hand reclamation under `.garden-state`, `scratch/`, and `worktrees/` until the new byte detector deploys.
-- **Parked jobs.** Several parked jobs await a promote-or-drop decision after exhausting requeues: the two daily progress summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off, and the dependabot recheck.
-- **minion.town settings simplification report.** It asks you to run `deploy-accounts-store.sh` before merging, plus a veto check on four choices.
+- **minion.town DNS:** production went dark on 2026-11-10, when the apex and `ocap.site` records began pointing at `34.225.237.208` instead of `13.56.17.18`. This could be an intended change or a zone compromise, and the garden has no AWS credentials to check. See [kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256).
+- **Disk space:** the leader host (`endolin-garden-ece02cb4`) briefly hit 0 bytes free and sits at roughly 176–500 MiB, so space needs reclaiming by hand.
+- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- **Scholar ingest:** decide whether to post an Iron Horse test-infra job to adopt the cost tiers, sampling and CPU pinning found in yavashark's test infrastructure.
 
-The minion.town pause is still being enforced, with the refusal counter above 15,000. Most journal-contention and screening watchdog notices have recovered; the `bulletin` and `unblock` lock-contention notices remain open, with giveups of 1.
+Several parked daily-summary, dependabotany and builder jobs were also exhausted by the reaper and held on `jobs/plan/` awaiting promotion. Most journal-contention and screening watchdog conditions cleared over the day. No job transitions resolved since the last bulletin.
 
 ## Maintainer review docket
 
@@ -502,13 +499,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.8M | $349.64 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.9M | $350.00 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149469983 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/journal); 12 open notice(s); checker healthy
+worst fetch p95 3.140985s/45s (/home/kris/garden/.garden-state/maintainer/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (128)
