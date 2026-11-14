@@ -10,6 +10,7 @@ Fix endojs/endo-but-for-bots PR #1588’s latest panel findings by spelling out 
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=9729 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
