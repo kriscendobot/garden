@@ -1,23 +1,21 @@
 # Garden bulletin
 
-_As of 2026-11-14T06:05:24Z_
+_As of 2026-11-14T06:08:39Z_
 
 ## Latest
 
-Seven days of watchdog notices cleared overnight, but the fleet is still stuck on two open problems.
+Little completed this cycle. The only board activity was a claim: [shepherd-endojs-endo-but-for-bots-pr1590](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1590.md) moved into `doin`, so a shepherd is now working that PR. Three other jobs for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588), a shepherd and a weave, are still in progress.
 
-**Deploy stall.** The Oros follower (`oros-studio-garden-ce242c49`) is still operator-held. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. The rolling-deploy canary for Oros cleared at 03:53Z, but three `canary-probe-oros-…-66ab9cc20185` jobs (r1–r3) are still waiting in todo. The leader therefore can't roll past it. The EROFS fix that is meant to unblock project-checkout jobs hasn't reached the leader either, so a minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+The main things for the maintainer:
 
-**Pause refusals.** The minion.town pause is now tripping the control loops themselves. Both `garden-foreman` (rc=78) and `garden-mentor` (rc=1) fail on `post-job.sh`'s pause refusal and then restart and retry. Two fixes landed in tada today: `improve-foreman-paused-project-admission` and `improve-mentor-paused-project-posting`. The claim watchdog has counted more than 21,000 refusals of `scholar-ingest-fudco-gist-20261105`, which is still in todo. Whether the foreman and mentor failures stop depends on those fixes being deployed.
+- **Oros is still held.** The roll moved it to `18fc7b17375` and the canary failed again, so it stays drained. It needs someone at the machine for two fixes: re-login of the expired Claude OAuth session, and a look at why `garden-secret-broker` fails after deploy. Three canary probes for Oros sit unclaimed in `todo`.
+- **The leader still lacks the EROFS fix.** The leader can't deploy past the dead Oros canary, so monk jobs that need a project checkout keep failing. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary. minion.town PR work is parked behind that, and development is paused by directive anyway.
+- **The pause is tripping automation.** The minion.town pause now causes `garden-foreman` (rc=78) and `garden-mentor` (rc=1) to fail and trigger self-heal, because each treats the pause refusal as a crash. The foreman fails whenever it proposes a milestone step whose body mentions minion.town. Two `improve-*` jobs for the pause behavior completed today.
+- **Foreman blocker on #1589.** [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) needs a decision on whether its Fae/Lal workspace catalogs may proceed or must use code mode, as the panel requires.
+- **minion.town production went dark on 2026-11-10.** The DNS answers for `minion.town` and `ocap.site` changed to an unrecognized address, and the garden has no AWS credentials to investigate. The maintainer is asked whether the repoint was intentional or a possible zone compromise.
+- **Disk space on the leader is nearly exhausted.** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
 
-**Completions and in-flight work.** Also completed today: `build-daemon-rename-to-manager`, `issue-status-pass-go-live`, and a shepherd run on [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501). Three jobs are in flight on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588): a weave and two shepherd jobs.
-
-**Decisions waiting on you:**
-- **minion.town DNS.** The apex records apparently point at an unfamiliar `34.225.237.208` instead of the production host. Please confirm whether you made that change.
-- **Disk space.** The leader's filesystem is down to a few hundred MiB free and briefly hit zero.
-- **Foreman milestone M3.** M3 is blocked on [endo-but-for-bots#1589](https://github.com/endojs/endo-but-for-bots/issues/1589) (Fae/Lal workspace catalogs versus code mode).
-- **Settings deploy.** `deploy-accounts-store.sh` has to run before the minion.town settings simplification merges.
-- **Stranded jobs.** Several daily-summary, dependabot-recheck and Phase 8 build jobs were parked by the reaper and need promotion or removal.
+Journal-contention watchdog notices keep coming. Several cleared overnight, and the contention storm on the leader recovered at 06:04Z.
 
 ## Maintainer review docket
 
@@ -537,7 +535,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.8M | $41.59 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 10.1M | $43.00 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 381.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149951819 tokens/day lower bound._
@@ -554,10 +552,11 @@ worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (3)
+### doin (4)
 - [`shepherd-endojs-endo-but-for-bots-pr1588`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1588.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-weave.md) — ---
+- [`shepherd-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1590.md) — ---
 
 ### tada (17060)
 - [`improve-foreman-paused-project-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/14/improve-foreman-paused-project-admission.md) — Cost
