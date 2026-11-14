@@ -1,19 +1,17 @@
 # Garden bulletin
 
-_As of 2026-11-14T00:39:42Z_
+_As of 2026-11-14T00:41:03Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is still operator-held and is now the main drag on the fleet. Its rolling-deploy canary has failed again, the watchdog is at occurrence 3, and the roll has stopped retrying. Two blockers need someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. The leader (endolin-garden-ece02cb4) is therefore stuck on f2788117645, short of the EROFS fix. Until it deploys, monk jobs that need a project checkout die with EROFS. That is why minion.town PR work stays parked, and the arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. The canary-probe and `oros-health-checkup` jobs keep piling up unclaimed in todo (128 jobs). Nothing is doin.
+The board is stuck on a deploy block. The follower `oros-studio-garden-ce242c49` has failed its rolling-deploy canary three times, most recently at 23:29Z. The canary is left drained, so the leader `endolin-garden-ece02cb4` can't advance past `f2788117645`. Oros needs someone at the machine for two things: its Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker.service` fails after every deploy. Until the leader deploys, the EROFS fix for project-worktree checkouts can't reach it. Every monk job that needs a project checkout therefore dies, and that parks all minion.town PR work. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
 
-**minion.town** is paused by maintainer directive. The pause watchdog has refused its press jobs about 15,300 times, so treat that count as expected noise unless it is a sign that a stale host is still producing work. Separately, a message reports that production DNS for minion.town and ocap.site was repointed on 2026-11-10 to an address that serves a static page, with every app route returning 404. It asks whether that was intentional or a possible zone compromise. It is unanswered and needs a credentialed look at the Route53 history.
+Three other items need a decision:
+- **minion.town DNS:** minion.town and ocap.site have been repointed to an unfamiliar address, `34.225.237.208`, which serves a static page. Production has been dark since about 13:14Z on 11-10. Someone with Route53 access should confirm whether the change was intentional.
+- **Disk space:** the leader's filesystem briefly hit zero free space and sits at a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Pause enforcement:** the minion.town pause is still being enforced, with refusals now past 15,000. A stale host may still be producing that work.
 
-**Other items waiting on you:**
-- Disk space on the leader's garden filesystem dipped to zero free during one job. It needs manual reclamation.
-- Several scheduled daily-progress-summary and dependabotany jobs, plus two builders for the daemon agent-tools fetch plugin and the Oros bwrap hand-off, are parked after retry exhaustion and are waiting for promotion or removal.
-- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging.
-
-Journal-contention notices mostly cleared on their own, though occurrence #9 on the unblock journal lock is still open. No job-board transitions were recorded since the last bulletin.
+The remaining maintainer inbox items are older. Several `doomed-*` jobs sit parked on the plan queue awaiting go-ahead, including two daily summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off and the dependabotany recheck. Several lock-contention and fetch-slow watchdog conditions cleared during the window. The board holds 128 todo jobs, mostly queued Oros health checkups, canary probes and minion.town arc presses. No jobs were claimed and no board transitions resolved since the last bulletin.
 
 ## Maintainer review docket
 
@@ -265,6 +263,10 @@ Delegation: **active**
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.030763s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `doomed-build-daemon-agent-tools-phase-8-fetch-plugin-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-agent-tools-phase-8-fetch-plugin-20261106-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -491,13 +493,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.1M | $342.73 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 90.2M | $343.10 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 378.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 149353169 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/journal); 10 open notice(s); checker healthy
+worst fetch p95 4.158711s/45s (/home/kris/garden/.garden-state/budget-level/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (128)
