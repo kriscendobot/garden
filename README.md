@@ -1,23 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-14T05:31:36Z_
+_As of 2026-11-14T05:33:58Z_
 
 ## Latest
 
-The daemon-to-manager rename job (`build-daemon-rename-to-manager`) completed. It opened no new PR because one already existed, and the foreman's milestone M3 message says the real blocker is upstream. Draft [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) needs the Node 24 Ubuntu fix in draft [endo-but-for-bots#1598](https://github.com/endojs/endo-but-for-bots/pull/1598). The review chain for #1598 halted on an unrelated IronHorse-oracle failure. You need to decide whether to merge #1598 and resume or weave #1594, or retire and restart the rename PRs. The only other job finished was the dependabotany recheck, which just re-evaluated its held row.
+The board is quiet: no file-level transitions resolved since the last bulletin. The notable news is in the maintainer inbox, where a few items need a decision.
 
-Several items need your hands:
-- **Oros is still held.** The roll moved it to 18fc7b17375 and its canary failed again. It has two blockers: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after deploy. The canary probes in the todo queue stay unclaimed while it is out.
-- **The leader can't deploy past the dead canary.** The leader still runs f2788117645, so the EROFS fix cannot reach it. Every monk job needing a project checkout dies EROFS, and all minion.town PR work is parked. The arc supervisor needs you to either revive Oros or authorize a leader deploy past the canary.
-- **minion.town production is dark, apparently from DNS.** Since about 13:14Z on 2026-11-10, both `minion.town` and `ocap.site` resolve to `34.225.237.208`, not the documented `13.56.17.18`. The supervisor asks whether you made the repoint and, if not, whether the zone was compromised. This garden host has no AWS credentials, so the Route53 history needs a credentialed host. The project is paused regardless, and the pause watchdog has fired about 19,000 times.
-- **The leader host's disk is nearly full.** It briefly hit 0 free bytes and hit ENOSPC on a write. Space needs reclaiming by hand under `.garden-state`, `scratch/`, and `worktrees/`.
-- **`garden-mentor` fails every tick on the minion-town pause.** It treats the pause refusal on `improve-foreman-paused-plan-and-pipeline` as a crash. The refusal repeats until the pause is lifted or the handler is fixed.
-- **minion.town settings simplification.** Run `deploy-accounts-store.sh` before merging. Until then Log out stays hidden and account deletion answers 503.
-- **Journal lock contention.** It continues on the leader, with a six-clone storm at 05:19Z and several clearances.
+- **Oros is still down.** Oros (`oros-studio-garden-ce242c49`) is operator-held and stays drained. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Because its canary keeps failing, the leader can't deploy the EROFS fix. That fix is what unblocks the parked minion.town monk jobs. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+- **minion.town production went dark on 2026-11-10.** The supervisor reports the DNS answer for `minion.town` and `ocap.site` changed to an unexpected address, with no record of who changed it. It asks whether you made the change on purpose. Meanwhile, project development stays paused, and the pause watchdog has now refused work 19,472 times.
+- **Disk space on the leader is critically low.** The `/home/kris/garden` filesystem on `endolin-garden-ece02cb4` has been down to about 176–500 MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Milestone M3 is stalled.** Draft [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) needs the Node 24 fix in draft [endo-but-for-bots#1598](https://github.com/endojs/endo-but-for-bots/pull/1598). That PR's review chain halted on an unrelated IronHorse-oracle failure. The foreman asks whether to merge #1598 or restart the rename PRs.
+- **`garden-mentor` keeps crashing on a pause refusal.** It tries to post a job for the paused minion.town project and treats the refusal as fatal. This repeats every tick until the pause is lifted or the handler is fixed.
+- **A deploy-ordering step is waiting on you.** The minion.town settings-simplification report asks you to run `deploy-accounts-store.sh` before merging, and to veto any of four listed choices.
+- **Held daily-summary jobs.** Several daily-progress-summary, build and dependabotany jobs were parked in the plan queue after exhausting retries, so they need a promote or removal.
 
-Beyond that, several held daily-progress-summary, dependabotany recheck, and Phase 8 fetch-plugin build jobs were parked for hand promotion after retries were exhausted.
+Journal lock contention continues at low levels on both hosts, and a number of related watchdog notices cleared.
 
 ## Maintainer review docket
 
@@ -533,10 +530,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.3M | $27.15 _(notional, rate-card)_ | 2% of 271.0M (ok) |
-| Codex | 380.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 6.7M | $29.23 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Codex | 380.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 146929845 tokens/day lower bound._
+_Fleet token-unlock pace: 148536765 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.264620s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 14 open notice(s); checker healthy
