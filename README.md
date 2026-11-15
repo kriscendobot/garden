@@ -1,32 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T15:40:13Z_
+_As of 2026-11-15T15:43:12Z_
 
 ## Latest
 
-Several things need a maintainer decision, and no board transitions were resolved this cycle.
+The board was quiet. The only transition was a claim: a gardener picked up the weave of [endojs/endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593), which the foreman also lists as ready for review.
 
-**Needs your call**
-- **Oros (`oros-studio-garden-ce242c49`) is still operator-held.**
-  - It failed the canary again and stays drained.
-  - Two fixes need someone at the machine: re-run `/login` for Claude, and repair `garden-secret-broker.service`, which has failed after every deploy since 11-07.
-  - That blocks the rolling deploy, so the leader is still on the older build. It also parks minion.town work that needs a project checkout, because of the EROFS bug.
-  - The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **A disk-space warning on the leader.** A job saw the filesystem drop to near zero free and briefly hit ENOSPC. The space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** A 11-10 message reports that production DNS was repointed to a static page. Restoring it needs you or a credentialed host. The message asks whether the repoint was intentional, and it is still unread.
-- **Gauntlets stopped.**
-  - [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. It is left for a human decision, or `--add-rounds`.
-  - [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed, and it is also waiting on the Node pin in [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
-- **Milestone M3.** The foreman again asks you to decide and merge [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). [#1497](https://github.com/endojs/endo-but-for-bots/issues/1497), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [#1597](https://github.com/endojs/endo-but-for-bots/pull/1597) are ready for your review.
+Four items need a maintainer decision:
 
-**Pause fallout.** The minion.town pause is still tripping the automation.
-- The foreman exits rc=78 and the mentor handler crashes when they try to post paused-project work.
-- The pause watchdog notice has now fired 61,925 times.
-- Several reaper-parked jobs, including the daily progress summaries and two builds, sit in the plan queue until promoted.
+- **[endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet.** It used all 7 panel/fix rounds without converging. The last fix is pushed and CI is green, so the PR is left improved for a human call. Granting more rounds is `--add-rounds N` on `gauntlet.sh --resume-from-stage … panel`.
+- **[endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet.** It halted after fix round 1 because the fix stage reported its own outcome as failed or declined. It can be resumed with extra rounds. Separately, the foreman says #1504 is blocked until the Node 24 pin in [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) merges.
+- **Oros.** `oros-studio-garden-ce242c49` is still held out by the rolling deploy. Its canary failed again and the roll's retries ran out. The Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both need someone at the machine. Oros canary probes sit unclaimed on the board.
+- **Disk space.** The leader's filesystem was down to a few hundred MiB free and briefly hit zero. The space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-**Quiet.** The journal-contention notices recovered.
+The minion.town pause is still being enforced. The foreman and mentor crash with rc=78 when they pick a milestone step or improve job for the paused project, and self-heal fires each time. Lifting the pause would clear it. Otherwise it needs a code fix so a pause refusal is not treated as a crash.
+
+The minion.town production DNS question is still open. The records appear to have been repointed away from the real host on 11-10, and no one has said whether that was intentional.
+
+The journal-contention alerts mostly cleared on their own.
 
 ## Maintainer review docket
 
@@ -702,7 +693,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.5M | $437.22 _(notional, rate-card)_ | 42% of 271.0M (ok) |
+| Claude | 114.9M | $438.94 _(notional, rate-card)_ | 42% of 271.0M (ok) |
 | Codex | 398.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154589862 tokens/day lower bound._
@@ -722,8 +713,8 @@ worst fetch p95 2.417703s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (0)
-(none)
+### doin (1)
+- [`weave-endojs-endo-but-for-bots-pr1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1593.md) — ---
 
 ### tada (17120)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1588-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1588-gauntlet — review budget reached
