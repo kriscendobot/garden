@@ -1,25 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T04:13:28Z_
+_As of 2026-11-15T04:19:10Z_
 
 ## Latest
 
-Very little board work moved this cycle. The only transition was a completed shepherd job on [endojs/endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), the middle PR of the M3 daemon worker-import stack (#1559 → #1590 → #1592). Shepherd and weave jobs on #1560 and #1592 also finished around 2026-11-14/15.
+The board was quiet: no job transitions were recorded since the last bulletin, so nothing new was posted, claimed or completed in this window. The most recent completions on 11-14 and 11-15 were shepherd and weave jobs on endo-but-for-bots PRs 1560, 1590 and 1592, plus a dependabotany recheck.
 
-**What a maintainer should notice:**
+**Decisions waiting on the maintainer:**
+- **Oros is still down.** The rolling deploy canary failed on [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49), and its retries ran out. It has two blockers that need someone at the machine: an expired Claude OAuth session and a failing `garden-secret-broker` service. That means the leader has not deployed past `f2788117645`. A minion.town arc supervisor reports that the EROFS fix is therefore stuck behind it, and asks whether to revive oros or authorize a leader deploy past the dead canary.
+- **Disk space on the leader is nearly exhausted.** `endolin-garden-ece02cb4` was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Gauntlets need more rounds or a decision.**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full six-round review budget and is left for a human merge or review call. The message offers `--add-rounds`.
+  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round.
+- **A shared zizmor fix is blocking the M3 stack.** The daemon worker-import stack (#1559 → #1590 → #1592) waits on [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). The foreman has been asking for a decision on merging it.
+- **minion.town production went dark on 11-10.** The apex DNS answer changed to an unrelated address, and the maintainer has been asked whether that was intentional or a possible zone compromise. The project is paused, so the foreman and the mentor keep tripping on pause refusals. Their self-heal diagnoses both point to the same fix: handle the refusal instead of crashing.
 
-- **The M3 stack is still waiting on [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).** This is the shared zizmor fix, and a reweave job is parked behind it. The foreman has asked about it 11 times. Merging #1659 would let the stack reweave and CI resume.
-- **Two gauntlets need a decision.**
-  - [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds, with CI green, and was left for a human merge or review call. Resuming with `--add-rounds N` is possible.
-  - The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure, with 1 of 8 rounds spent.
-- **Oros (`oros-studio-garden-ce242c49`) is still held and drained.** It failed its canary again, and its canary probes sit unclaimed in todo. Two problems need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after deploy. Because the leader's rolling deploy waits on that canary, the leader is stuck on an older commit. That leaves monk jobs needing a project checkout failing with a read-only-filesystem error. The arc supervisor is asking whether to revive Oros or to authorize deploying the leader past the dead canary.
-- **Disk space on the leader host is nearly exhausted.** It was down to roughly 176–500 MiB free and briefly hit zero. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town stays paused.** The pause watchdog has now refused work 46,004 times, which points at a stale host still producing jobs. Separately, a message from 2026-11-10 reports production DNS repointed to an unfamiliar address. It asks whether that change was yours or a possible zone compromise.
-- **Foreman and mentor self-heal notices have the same cause.** Both die when they hit the paused minion.town project, and neither is a real fault. Fixes are diagnosed but not landed.
-- **Journal-lock contention is mostly clearing.** The storm and several host notices recovered. A few recurring lock-contention notices remain open on the leader.
-- **Budget level moved.** Claude monks stepped down to 2, with `claude-endolin1` at 32% of quota. Codex is at 38%, and cleric workers flipped between 1 and 2.
+The journal-contention storm on the leader cleared after about two days, and most of the contention notices are now recovery messages. Several daily-summary and build jobs remain parked after the reaper exhausted their retries.
 
 ## Maintainer review docket
 
@@ -692,10 +688,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.5M | $328.25 _(notional, rate-card)_ | 32% of 271.0M (ok) |
-| Codex | 393.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 86.8M | $329.35 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Codex | 394.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154369157 tokens/day lower bound._
+_Fleet token-unlock pace: 154438971 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 12 open notice(s); checker healthy
