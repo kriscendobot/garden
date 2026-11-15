@@ -1,26 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T20:03:47Z_
+_As of 2026-11-15T20:08:41Z_
 
 ## Latest
 
-Rolling deploys are still stuck on **oros-studio-garden-ce242c49**. It failed its canary again on 18fc7b17375 and is held drained. The Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both fixes need someone at the machine, so the leader can't advance past it, and the canary probes for it are queued in todo.
+Five more botanist jobs for dependabot PRs on endo-but-for-bots were posted or claimed. [#1664](https://github.com/endojs/endo-but-for-bots/pull/1664) and [#1666](https://github.com/endojs/endo-but-for-bots/pull/1666) are in progress, and [#1662](https://github.com/endojs/endo-but-for-bots/pull/1662), [#1663](https://github.com/endojs/endo-but-for-bots/pull/1663) and [#1665](https://github.com/endojs/endo-but-for-bots/pull/1665) are queued. No other job moved in this window.
 
-The other changes are mostly recoveries:
-- Many journal-contention watchdogs cleared.
-- The minion.town screening tick recovered after 11 failures.
-- The codex worker count moved between 1 and 2, and monks went 4→3→2 under the budget ramp.
+For the maintainer:
+- **Gauntlet budget:** [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds ($27.85) without converging. It needs a human merge decision, or `--add-rounds` to grant more. The [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round failed ($4.77 spent). Resume it with `--add-rounds` if you want it to continue.
+- **Node 24 pin:** the foreman reports that [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) blocks M3 and several weaves and shepherds ([#1504](https://github.com/endojs/endo-but-for-bots/pull/1504), [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), [#1573](https://github.com/endojs/endo-but-for-bots/pull/1573), [#667](https://github.com/endojs/endo-but-for-bots/pull/667), [#1658](https://github.com/endojs/endo-but-for-bots/pull/1658)). Merging it unblocks them. The foreman also lists #1497, #1592, #1593 and #1597 as ready for review.
+- **Oros host:** it is still drained. Its canary keeps failing, with an expired Claude OAuth session and a failing `garden-secret-broker`. Both need someone at the machine. The leader is therefore stuck on an older deploy.
+- **Disk:** the leader's filesystem briefly hit zero free space and needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town pause:** the pause is still in force. Its refusal count on the board is above 66,000. The foreman and mentor also exit on those refusals and trigger self-heal repeatedly.
+- **minion.town DNS:** the November 10 DNS repoint question is still unanswered.
 
-Things that need a maintainer's attention:
-- **Gauntlet budget:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round, which declined its gated outcome. Both can resume with `--add-rounds`.
-- **Merge blocker:** several parked jobs wait on [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. The foreman has flagged it as blocking milestone M3, and it holds [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) and [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594).
-- **Pause side effects:** the minion.town pause is firing refusals every tick. The foreman and mentor self-heal notices diagnose a rc=78 policy refusal being handled as a crash. The comment watchers on all armed repos are also stuck in a GitHub primary-quota cooldown and are posting no acknowledgments.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free.
-- **minion.town DNS:** a worker reports the apex records repointed to an unfamiliar address on 2026-11-10. It needs a maintainer answer on whether the change was intentional.
-
-The shepherd for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and the follow-up for [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) completed on the board.
+The journal-contention and comment-watcher alerts, plus the minion.town screening failure streak, all cleared.
 
 ## Maintainer review docket
 
@@ -352,31 +346,11 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-11-13T06:01:28Z, latest 2026-11-15T19:58:49Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-11-13T06:01:28Z, cleared 2026-11-15T20:05:54Z).
+> It was observed 16 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1794772845 set-by=receipt:kriscendobot-vattr97:PR source:primary-quota <- comment:source-timeout-fanout
-> gh-api GraphQL-only marker: expiry=1794772844 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 3484s (since 2026-11-15T19:00:45Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 3483s (since 2026-11-15T19:00:46Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 3483s (since 2026-11-15T19:00:46Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 3473s (since 2026-11-15T19:00:56Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 3439s (since 2026-11-15T19:01:30Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3483s (since 2026-11-15T19:00:46Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3450s (since 2026-11-15T19:01:19Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3470s (since 2026-11-15T19:00:59Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3481s (since 2026-11-15T19:00:48Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3443s (since 2026-11-15T19:01:26Z)
-> - kriscendobot/list: watcher ticking but cooldown for 3484s (since 2026-11-15T19:00:45Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 3483s (since 2026-11-15T19:00:46Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 3483s (since 2026-11-15T19:00:46Z)
-> watcher ticking but cooldown for 3484s (since 2026-11-15T19:00:45Z); detail: rest latch set-by=receipt:kriscendobot-vattr97:PR source:primary-quota <- comment:source-timeout-fanout expiry=1794772845
-> - kriscendobot/minion.town: watcher ticking but cooldown for 3483s (since 2026-11-15T19:00:46Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 3409s (since 2026-11-15T19:02:00Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3453s (since 2026-11-15T19:01:16Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 3485s (since 2026-11-15T19:00:44Z)
+> Comment acknowledgment condition cleared.
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -712,7 +686,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.9M | $477.47 _(notional, rate-card)_ | 46% of 271.0M (ok) |
+| Claude | 125.4M | $479.97 _(notional, rate-card)_ | 46% of 271.0M (ok) |
 | Codex | 403.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154702699 tokens/day lower bound._
@@ -721,9 +695,11 @@ _Fleet token-unlock pace: 154702699 tokens/day lower bound._
 worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (12)
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
+- [`endojs-endo-but-for-bots-pr1663-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1663-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1663
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`endojs-endo-but-for-bots-pr1662-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1662-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1662
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 34b72683ba79
@@ -731,9 +707,12 @@ worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
+- [`endojs-endo-but-for-bots-pr1665-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1665-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1665
 
-### doin (1)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1666-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1666-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1666
 - [`fix-endojs-endo-but-for-bots-pr667-test-xs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr667-test-xs.md) — ---
+- [`endojs-endo-but-for-bots-pr1664-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1664-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1664
 
 ### tada (17124)
 - [`shepherd-endojs-endo-but-for-bots-pr1594-ci-followup-20261115`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/shepherd-endojs-endo-but-for-bots-pr1594-ci-followup-20261115.md) — Cost
