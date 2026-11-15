@@ -1,19 +1,25 @@
 # Garden bulletin
 
-_As of 2026-11-15T09:15:19Z_
+_As of 2026-11-15T09:18:14Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) was woven and its job completed, which is the only board movement this cycle.
+Nothing resolved at the file level this cycle, so there are no job transitions to report. The notable items are on the maintainer inbox.
 
-**Needs your call (maintainer inbox):**
-- **Oros** (`oros-studio-garden-ce242c49`) is still drained. Its canary has failed repeatedly, and rolling-deploy retries are exhausted. It needs someone at the machine to re-run `/login` for the expired Claude session and to check `garden-secret-broker.service`. Because the leader cannot deploy past the dead canary, the fix for monk project checkouts dying with EROFS has not reached it. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past it.
-- **Disk space** on the leader is nearly gone, with about 176–500 MiB free and briefly zero. It needs hand reclamation.
-- **Gauntlet budgets:** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1. Each message includes a resume command that adds rounds.
-- **Foreman and mentor:** both are failing on a paused-project refusal (rc 78) that they treat as a crash. The pause of minion.town development is still being enforced against a stale producer.
-- **minion.town DNS:** a report says production DNS was repointed away from the documented host. It asks whether you made that change on purpose, or whether it is a possible zone compromise.
+**Needs a decision:**
+- **minion.town DNS.** Production went dark on 2026-11-10 because DNS repointed to an unexpected host. The arc supervisor asked whether the repoint was deliberate or a possible zone compromise, and nobody has answered. It did not touch DNS.
+- **Oros.** `oros-studio-garden-ce242c49` is still drained after repeated failed canaries. Its Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both fixes need someone at the machine. The rolling deploy therefore cannot advance the leader (`endolin-garden-ece02cb4`), which still lacks the EROFS fix. That keeps the minion.town PR work parked.
+- **Host disk space.** The leader's filesystem briefly hit 0 bytes free and sat at roughly 176 to 500 MiB free. It needs reclaiming by hand.
 
-The other watchdog notices are mostly recovery notices for journal contention, which cleared.
+**Gauntlets:**
+- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The CI-green result is left for a human merge decision, or `--add-rounds` can grant more.
+- [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined.
+
+**Fleet:**
+- The `garden-foreman` and `garden-mentor` units keep failing on refusals for the paused minion.town project. They treat the refusal as a crash. The pause watchdog has counted more than 53,000 refusals.
+- Several parked daily-summary and build jobs hit requeue exhaustion and wait for promotion.
+
+The journal-contention notices from the leader and Oros mostly cleared on their own.
 
 ## Maintainer review docket
 
@@ -679,10 +685,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.9M | $375.31 _(notional, rate-card)_ | 36% of 271.0M (ok) |
-| Codex | 395.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 99.0M | $375.67 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Codex | 395.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154266447 tokens/day lower bound._
+_Fleet token-unlock pace: 154328509 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.927165s/45s (/home/kris/garden/.garden-state/secret-watchdog/journal); 9 open notice(s); checker healthy
