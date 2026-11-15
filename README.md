@@ -1,34 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T23:18:47Z_
+_As of 2026-11-15T23:23:23Z_
 
 ## Latest
 
-Several hosts and watchdogs need your attention, though no job transitions resolved since the last bulletin.
+Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet, and that is the main thing to act on. The rolling deploy halted on a failed canary a sixth time (target `c4766a84510b`), and the host stays drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The fix needs someone at the machine. While Oros is down, the leader can't take the EROFS fix. That keeps the minion.town PR jobs parked, though minion.town development is also under the maintainer's 2026-11-10 pause (the watchdog has refused jobs for that paused project about 69,300 times). The arc supervisor is asking whether to revive Oros or deploy the leader past the dead canary.
 
-**Oros is still operator-held.** The rolling deploy halted again on a failed canary for `oros-studio-garden-ce242c49` (6th occurrence, latest 22:35Z). The probe didn't reach tada within 600s, and Oros stays drained. The health watch says the Claude OAuth session has expired, so someone needs to run `claude` then `/login` as the garden user. It also says `garden-secret-broker.service` fails after each deploy. With Oros dead, the leader can't deploy past the canary, so the EROFS fix is still stuck. That fix is the reason minion.town jobs needing a project checkout keep dying. The arc supervisor asks whether you want to revive Oros or authorize a leader deploy past the canary.
+On the Endo side, [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging and needs a human merge or review decision, or more rounds. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 declined. Merging the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) would unblock M3, and many weave and conduct jobs are queued behind it. Several dependabot PRs also wait on [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
 
-**Disk space on the leader is a risk.** `/home/kris/garden` was down to roughly 176–500 MiB free and briefly hit zero, which caused an ENOSPC. The new byte-capacity guard will page on this once it deploys. Until then, someone has to reclaim space by hand under `.garden-state`, `scratch/`, and `worktrees/`.
+Other items that need attention:
+- The foreman and mentor self-heal notices both trace to a paused-project refusal (rc=78) that those scripts treat as fatal.
+- The leader's filesystem was nearly full, briefly hitting 0 free, and needs manual reclaiming.
+- Production minion.town was reported dark on 2026-11-10 because DNS appeared to be repointed. The maintainer hasn't yet said whether that was deliberate.
 
-**minion.town production may have been repointed.** The apex and `ocap.site` DNS now resolve to a different Amazon address that serves a static page, while the real host is healthy when pinned. Nothing in the journal explains the change, and the garden has no AWS credentials. Please say whether you made the change on purpose. If you didn't, check the Route53 history. The project is also paused, and the pause watchdog is coalescing refused jobs, with its count in the tens of thousands.
-
-**Gauntlets and PR decisions:**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging, so it's left for a human merge decision. You can add rounds with `--add-rounds`.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1, because the fixer declared the outcome failed.
-- Milestone M3 waits on you to decide and merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. Several parked weaves and shepherds also wait on it. [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [endo-but-for-bots#1597](https://github.com/endojs/endo-but-for-bots/pull/1597) are ready for your review.
-
-**Foreman and mentor self-heal loops.** Both come from the minion.town pause, which makes `post-job.sh` refuse with rc=78. The foreman and mentor treat that refusal as fatal, so they crash on every tick and trigger self-heal. A scoped fix is needed.
-
-**Items that need your call:**
-- The `mt-beta-settings-simplify` report: run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
-- Whether to post an Iron Horse test-infra job to adopt cost tiers, sampling, and CPU pinning.
-- The leftover anonymous guest on production minion.town.
-- Four split-eligible jobs the reaper parked after failed retries: two daily progress summaries, a dependabotany recheck, and the Phase 8 fetch-plugin build.
-- The Oros bwrap hand-off build, which the reaper also parked.
-
-Most journal-contention watchdog notices cleared on their own, and the minion.town screening tick has recovered.
+Most of the journal-contention and comment-watcher watchdog alerts cleared on their own. Two further settings-simplify and tower-report questions are in the inbox. No job transitions were resolved since the last bulletin.
 
 ## Maintainer review docket
 
@@ -700,7 +685,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.8M | $513.09 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 134.9M | $513.47 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154762689 tokens/day lower bound._
