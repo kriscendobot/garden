@@ -1,22 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T09:34:30Z_
+_As of 2026-11-15T09:39:06Z_
 
 ## Latest
 
-Little moved this cycle. The only board transition was an update to the in-progress shepherd job for [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501), which is still claimed. Earlier today, a weave of #1501 and a weave of [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) both completed. So did a fetch-plugin build for the daemon agent tools (Phase 8) and the viability check and gauntlet for [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661). The #1661 gauntlet closed as not viable.
+The board was quiet in this window: no job posts, claims or completions resolved. The notable change is the end of several journal-contention alerts, which cleared on both hosts, including the 30-observation storm on `endolin-garden-ece02cb4`.
 
-**Needs a maintainer decision:**
-- **Gauntlets:** The gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. Its last fix round pushed with CI green, and it needs a human merge decision or `--add-rounds`. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage reported failure, with 7 rounds left.
-- **Foreman:** The foreman exits rc=78 each time it proposes a job for the paused minion.town project, such as the weave of [endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/pull/1542). The mentor hits the same refusal. A self-heal fix job is diagnosing it. Related: the pause refusal for the `accountant-weekly-20261114-170509` job has now been counted more than 53,000 times. Lifting the pause (`pause-project.sh minion-town off`) would clear it.
-- **Oros host:** The roll has failed its canary on Oros three times, and it stays drained. Fixing it needs someone at the machine. The Claude OAuth session has expired (`claude`, then `/login`), and `garden-secret-broker` fails after each deploy. While Oros is down, the leader can't deploy the EROFS fix, so the minion.town PR work stays parked.
-- **minion.town DNS:** minion.town DNS appears to have been repointed on 2026-11-10 to a static page at a different address. A supervisor asks whether that was deliberate or a possible zone compromise. It is awaiting your answer.
-- **M3 stack:** M3's stack is waiting on your approval of [#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560. It also asks whether Phase 8 should keep #1593's tool naming or adopt #1661's.
-- **Disk space:** The leader host's disk is nearly full, at about 176–500 MiB free, and briefly hit zero. It needs manual cleanup under `.garden-state`, `scratch/`, and `worktrees/`.
+Open items for a maintainer:
 
-The journal-contention watchdog notices were mostly recoveries. Several daily-summary and build jobs are parked in the plan queue after exhausting their retries.
+- **Oros:** `oros-studio-garden-ce242c49` is still operator-held and drained. Its canary keeps failing, and the Claude OAuth session has expired. `garden-secret-broker.service` also fails after deploy. This blocks the leader's rolling deploy, so the EROFS fix cannot reach the leader. The minion.town arc supervisor is waiting on a call between reviving Oros and deploying the leader past the dead canary.
+- **Disk space:** the leader's `/home/kris/garden` filesystem was down to roughly 176–500 MiB free, and briefly hit 0, so space needs reclaiming by hand.
+- **minion.town:** the project is paused, and the pause watchdog has now refused queued work 55,131 times, most recently the `accountant-weekly` job. `garden-foreman` and `garden-mentor` both crash with rc=78 when they try to post for the paused project, and each re-fires self-heal. A separate notice reports minion.town production went dark on 2026-11-10 because DNS was repointed. It asks whether that change was intentional.
+- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging and awaits a decision on more rounds. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix round.
+- **Foreman:** the M3 notice (12 occurrences) says the child-agent stack still needs approval and merge of #1558 and #1560. It also asks whether Phase 8 should keep merge-ready [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593)'s tool naming or switch to [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661)'s approach.
+- **Parked daily summaries:** two daily-progress-summary jobs and the Phase 8 fetch-plugin build are parked after exhausting their requeues.
 
 ## Maintainer review docket
 
@@ -135,9 +132,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #53548 (first seen 2026-11-10T19:35:37Z, latest 2026-11-15T08:38:22Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 53548 times; this is ONE
-> coalesced notice that updates in place, not 53548 messages. Latest detail:
+> WATCHDOG notice — occurrence #55131 (first seen 2026-11-10T19:35:37Z, latest 2026-11-15T09:38:34Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 55131 times; this is ONE
+> coalesced notice that updates in place, not 55131 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'accountant-weekly-20261114-170509' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -682,7 +679,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.7M | $378.59 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 99.9M | $379.33 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 396.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154367196 tokens/day lower bound._
