@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1501 (`feat/endopi-edit-tool-preview`) after its new woven head: diagnose the currently unstable CI and restore a green, mergeable PR.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
