@@ -1,26 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T08:43:15Z_
+_As of 2026-11-15T08:49:00Z_
 
 ## Latest
 
-Little completed on the board since the last bulletin. It reported no file-level transitions. The visible tada entries from 2026-11-15 include the [endojs/endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) gauntlet, which was closed as not viable, a daemon agent tools Phase 8 fetch-plugin build, and shepherd runs for [endojs/endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [endojs/endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/pull/1560). One weave, for [endojs/endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), is in flight.
+The only board movement was the completion of the weave job for [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594). The queue otherwise held steady, with no new posts and no claims.
 
-What needs a maintainer:
+**Needs a decision:**
+- **Oros is still held.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly and remains drained. It needs someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Until it recovers, the leader cannot deploy the EROFS fix, so monk jobs that need a project checkout keep failing. The unclaimed `canary-probe-oros-*` jobs in todo are the same stall.
+- **Gauntlets stopped.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging, so a human must decide whether to merge or grant more rounds. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure.
+- **minion.town.** The project pause keeps refusing claimable work, and the refusal count is now above 53,000. The foreman and mentor services are crash-looping on the same paused-project refusal (rc=78), and self-heal has filed fixes. A separate message reports that production DNS was repointed to an unknown address on 2026-11-10. It asks whether the repoint was deliberate.
+- **Disk.** The leader's filesystem briefly hit zero free space and is still only a few hundred MiB free. It needs reclaiming by hand.
 
-- **Oros is still drained.** The roll to 18fc7b17375 failed its canary again and retries are exhausted. It has two blockers: an expired Claude OAuth session (needs `/login`), and `garden-secret-broker.service` failing after deploy. The leader's deploy is stuck behind this dead canary. The minion.town arc supervisor says the EROFS fix cannot reach the leader until Oros is revived or you authorize deploying the leader past it.
-- **Gauntlets stopped.** The gauntlet for [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging and was left for a human merge or review decision. The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed. Each notice gives a resume command that adds rounds.
-- **Disk space on the leader.** `endolin-garden-ece02cb4` briefly hit 0 bytes free and sits at about 176 to 500 MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Foreman and mentor crash loops.** Both are failing because `post-job.sh` refuses jobs for the paused minion-town project (rc=78) and the callers treat that as fatal. The foreman has failed 11 times. Self-heal has proposed a fix for the foreman, but it is not landed.
-- **minion.town DNS.** An earlier report says production DNS was repointed to an unrelated address and several subdomains stopped resolving. It asks whether you made the change on purpose or whether it is a possible zone compromise. I have no later confirmation.
-- **Other open asks:**
-  - The foreman asks whether Phase 8 should keep the tool naming in the merge-ready [endojs/endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) or switch to the renamed-tool approach in [endojs/endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661).
-  - The minion.town settings simplification needs `deploy-accounts-store.sh` run before it merges.
-  - Three daily-summary and build jobs were parked after retries ran out.
-
-Journal-contention alerts mostly recovered. Most of the noise is closed-loop RECOVERED notices.
+The journal-contention notices that cleared overnight need no action.
 
 ## Maintainer review docket
 
@@ -160,11 +152,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-13T04:44:14Z, latest 2026-11-15T02:45:40Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` has CLEARED (first seen 2026-11-13T04:44:14Z, cleared 2026-11-15T08:45:57Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.014007s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
@@ -512,11 +504,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-11-07T04:46:32Z, latest 2026-11-15T00:45:35Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-11-07T04:46:32Z, cleared 2026-11-15T08:46:08Z).
+> It was observed 13 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014839s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
 
 - `msg-reset-credit-watch-20261109-170519-6a0254967ba8` — from gardener:reset-credit-watch-20261109-170519, reply_to `reset-credit-watch-20261109-170519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261109-170519-6a0254967ba8.md)
 
@@ -635,11 +627,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-06T04:41:40Z, cleared 2026-11-15T04:40:35Z).
-> It was observed 11 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #12 (first seen 2026-11-06T04:41:40Z, latest 2026-11-15T08:46:13Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.015785s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
@@ -688,13 +680,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.5M | $370.92 _(notional, rate-card)_ | 36% of 271.0M (ok) |
-| Codex | 395.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Claude | 97.9M | $371.80 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Codex | 395.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154763946 tokens/day lower bound._
+_Fleet token-unlock pace: 154237185 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 10 open notice(s); checker healthy
+worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
@@ -708,16 +700,16 @@ worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
-- [`weave-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1594.md) — ---
+### doin (0)
+(none)
 
-### tada (17114)
+### tada (17115)
+- [`weave-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/weave-endojs-endo-but-for-bots-pr1594.md) — Cost
 - [`endojs-endo-but-for-bots-pr1661-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1661-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1661-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1661-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1661-gauntlet-viability.md) — Cost
 - [`build-daemon-agent-tools-phase-eight-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/build-daemon-agent-tools-phase-eight-fetch-plugin.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/shepherd-endojs-endo-but-for-bots-pr1590.md) — Cost
-- [`shepherd-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/shepherd-endojs-endo-but-for-bots-pr1560.md) — Completion report
-- … and 17109 more
+- … and 17110 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
