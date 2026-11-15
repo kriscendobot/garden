@@ -14,7 +14,7 @@
   "first_requested_at": "2026-11-14T07:04:07Z",
   "generation": 3,
   "ci": {
-    "state": "red",
-    "observed_at": "2026-11-15T13:23:00Z"
+    "state": "pending",
+    "observed_at": "2026-11-15T14:12:14Z"
   }
 }
