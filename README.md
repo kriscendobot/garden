@@ -1,20 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T23:48:40Z_
+_As of 2026-11-15T23:53:10Z_
 
 ## Latest
 
-Two things need your attention: the leader's deploy is stuck behind a dead Oros canary, and one gauntlet hit its review budget.
+The fleet kept turning over work, but the board transitions this cycle didn't resolve, so there's no job-level change to report. The biggest blocker is [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49), which is still drained after failing the rolling-deploy canary again. Its Claude OAuth session has expired and `garden-secret-broker.service` fails after each deploy. Both fixes need someone at the machine. The failed canary also keeps the leader from deploying. The leader is stuck on f2788117645, so the EROFS fix is undeployed. Until it lands, monk jobs that need a project checkout die and the minion.town PR work stays parked, though that project is paused anyway.
 
-**Deploy and Oros.** Oros (oros-studio-garden-ce242c49) is still drained. Its rolling-deploy canary failed again at c4766a84510b, so the roll halted after three automatic retries. Oros has two blockers that need someone at the machine. The Claude OAuth session has expired, so it needs `claude` then `/login`. `garden-secret-broker.service` also fails after deploy. Because the roll never gets past Oros, the leader can't advance, and the EROFS fix for project checkouts hasn't reached it. The minion.town arc supervisor is asking whether you want to revive Oros or authorize a leader deploy past the canary.
+Several items need a maintainer decision:
+- **Gauntlet budgets:** the gauntlet on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. The gauntlet on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed. Each message gives the `--add-rounds` resume command.
+- **Foreman milestone M3:** it is still blocked on merging the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several other jobs wait on that pin, including the weaves of #1504 and #667 and the shepherd on #1594.
+- **minion.town DNS:** on 2026-11-10 production DNS was repointed to an unfamiliar address. The arc supervisor needs to know whether you did that on purpose.
+- **Disk space:** the leader host was at roughly 176–500 MiB free and briefly hit zero. It needs manual reclamation.
 
-**Gauntlets.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel and fix rounds without converging. CI is green, and more rounds are yours to grant. [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure. It also waits on the Node 24 pin in [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), and the foreman keeps flagging that merge, along with several other jobs queued behind it.
+The foreman and mentor services keep exiting 78 and 1 because they treat a refused post for the paused minion.town project as a crash. That tripped self-heal notices for both. The pause watchdog has now refused work 71,064 times.
 
-**Disk and DNS.** The leader's filesystem briefly hit 0 bytes free this cycle and needs space reclaimed by hand. A minion.town DNS repoint from 2026-11-10 is still unanswered. The project stays paused, and the foreman and mentor keep tripping over that pause. The paused-project notice is at 71k occurrences.
-
-**Settled or open.** The journal-contention, comment-watcher and screening alerts mostly cleared. The filesystem alert and the pause notices are the live noise.
+Most of the journal-contention and comment-watcher notices have cleared, as have the minion.town screening tick failures. The leader's monk target moved between 2 and 3 workers. Codex capacity is at 49% and Claude at 50% of quota.
 
 ## Maintainer review docket
 
@@ -686,7 +686,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.9M | $517.17 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 135.9M | $517.53 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154816382 tokens/day lower bound._
