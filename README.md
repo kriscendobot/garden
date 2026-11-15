@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-15T20:35:05Z_
+_As of 2026-11-15T20:36:31Z_
 
 ## Latest
 
-Little substantive work landed since the last bulletin. The botanist finished the dependabot check on [endojs-endo-but-for-bots#1665](https://github.com/endojs/endo-but-for-bots/pull/1665) and left a progress note. A botanist also claimed [endojs-endo-but-for-bots#1663](https://github.com/endojs/endo-but-for-bots/pull/1663), and it is in progress.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. The rolling deploy has failed its canary repeatedly. Its retries ran out at 19:29Z and it remains drained, so the leader hasn't advanced. Two fixes are needed on the machine: a fresh Claude `/login`, and a look at `garden-secret-broker`, which has failed after every deploy since 11-07. The same stall is why minion.town work stays parked, and the maintainer must choose between reviving Oros and authorizing a leader deploy past it.
 
-A few items need a maintainer decision:
-- **Oros is still held.** It has stayed drained since the roll's retries ran out at 19:29Z. Two things need someone at the machine: the expired Claude OAuth login, and `garden-secret-broker.service`, which keeps failing after deploy. While Oros is held, canary probes pile up in todo and the leader's deploy stays blocked.
-- **Review budget spent on [endojs-endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588).** The gauntlet used all 7 panel/fix rounds without converging. It can be resumed with `--add-rounds`.
-- **Gauntlet halted on [endojs-endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504).** Fix round 1 declared failure. It is also still blocked on the Node 24 pin in [endojs-endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which is gating several other parked jobs.
-- **Disk space on the leader is critically low.** The filesystem has been down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **The minion.town pause is still being enforced.** The refusal count is past 66,000 for `scholar-ingest-fudco-gist-20261105`. Both the foreman and the mentor exit nonzero on the pause refusal and trigger self-heal repeatedly.
+Two gauntlets need a decision:
+- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. The last fix round passed CI, so it's ready for a human call or `--add-rounds`.
+- [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 declined.
 
-On the quieter side, many journal-contention watchdog conditions cleared, as did minion.town screening and comment-acknowledgment alerts.
+The foreman reports M3 blocked until [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) merges. Many parked weaves and shepherds wait on it. [endojs/endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [#1597](https://github.com/endojs/endo-but-for-bots/pull/1597) are ready for review. Dependabot botanist jobs for [#1663](https://github.com/endojs/endo-but-for-bots/pull/1663) and [#1666](https://github.com/endojs/endo-but-for-bots/pull/1666) are in progress. [#1662](https://github.com/endojs/endo-but-for-bots/pull/1662), [#1664](https://github.com/endojs/endo-but-for-bots/pull/1664) and [#1665](https://github.com/endojs/endo-but-for-bots/pull/1665) completed, along with the shepherd runs on [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) and [#1591](https://github.com/endojs/endo-but-for-bots/pull/1591).
+
+Other items to notice:
+- **Disk:** the leader's filesystem briefly hit 0 bytes free and sits at a few hundred MiB. It needs manual reclaiming.
+- **Foreman and mentor:** both crash-loop on the minion.town pause refusal (rc 78), and each fires a self-heal notice.
+- **minion.town DNS:** on 11-10 the apex and `ocap.site` were found repointed to `34.225.237.208`. That's a possible zone compromise, and the maintainer should confirm whether it was intentional.
+- **Cleared:** most journal-contention alerts, the comment-watcher cooldown, and the minion.town screening failure streak.
 
 ## Maintainer review docket
 
@@ -118,11 +121,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-09-09T20:50:15Z, latest 2026-11-15T18:05:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-09T20:50:15Z, latest 2026-11-15T20:35:28Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=0 queue=2 quota=ok fleet-envelope=4 target=2
+> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -685,7 +688,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.4M | $486.65 _(notional, rate-card)_ | 47% of 271.0M (ok) |
+| Claude | 127.5M | $487.47 _(notional, rate-card)_ | 47% of 271.0M (ok) |
 | Codex | 403.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154504926 tokens/day lower bound._
