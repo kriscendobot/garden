@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1594 (`daemon-rename-to-manager`) on its current frozen `llm-48d6f3e` base: diagnose and drive its remaining CI failures green without duplicating the known base-fix work.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=923 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
