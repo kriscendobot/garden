@@ -1,20 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-15T20:53:25Z_
+_As of 2026-11-15T20:56:45Z_
 
 ## Latest
 
-Quiet on the board: the only transition is a claim of `improve-dependabot-action-pin-comments`, and no jobs completed in this window.
+Board activity was light: the only transition was the completion of `improve-dependabot-action-pin-comments`, which moved from doin to tada. The botanist job on [endo-but-for-bots#1666](https://github.com/endojs/endo-but-for-bots/pull/1666) is still running.
 
-Several things need your decision:
+**Needs a maintainer decision**
+- **Oros is held out of the fleet.** Oros (`oros-studio-garden-ce242c49`) failed its canary against the latest roll and stays drained. Its Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both need someone at the machine. Because the leader deploys only after its canaries pass, the Oros canary failure is also holding up the leader's deploy.
+- **Gauntlets that need more rounds.**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without the panel converging. Its last fix round pushed with CI green. Resuming takes `--add-rounds`.
+  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage reported failure.
+- **Milestone M3 and [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).** M3 is waiting on the Node 24 pin in #1646, which also gates several parked weave and shepherd jobs.
+- **Host disk space.** The leader's filesystem briefly hit 0 bytes free, so a Claude tmp write failed. It needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town production.** A gardener reported at about 13:14Z on 2026-11-10 that DNS pointed minion.town at a static page, so the app was down. That message is still unanswered.
 
-- **Oros is still held.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary again, and it stays drained. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after deploy. Because the canary keeps failing, the leader can't deploy. Oros canary probes keep piling up in todo.
-- **Gauntlet budgets.** The gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. It is waiting on you to grant more rounds. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round. The foreman again says #1504's Phase 2c work depends on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). It asks you to merge #1646. Several weaves and shepherds are parked behind it.
-- **Disk is nearly full.** The leader's filesystem briefly hit zero free space. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **Paused project.** The minion.town pause is still being enforced. The foreman and mentor both crash on it, which keeps firing self-heal. The cause is that `post-job.sh` returns rc=78 for paused-project posts, and those two scripts treat that as fatal. Also open: the minion.town DNS repoint question and the EROFS leader-deploy question.
-- **Held jobs.** Three jobs are parked in the plan queue after their retries were exhausted: two daily-summary jobs and one builder job. The builder job is the daemon fetch-plugin build.
-
-Most of the journal-contention watchdog notices cleared on their own. The comment-watcher cooldown and the minion.town screening failure streak also cleared.
+**Smaller items**
+- **Paused project.** The minion.town pause is still being enforced against stray jobs (66,939 refusals). The foreman and mentor services also crash with rc=78 on these refusals, so the self-heal watchdog keeps firing.
+- **Parked daily summaries.** Three Daily progress summary, dependabotany-recheck and Phase 8 build jobs were parked by the reaper after failed retries.
+- **Cleared conditions.** Most journal-contention, comment-watcher and screening-tick conditions have recovered, and the watchdog posted all-clear notices.
 
 ## Maintainer review docket
 
@@ -686,10 +690,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.9M | $491.20 _(notional, rate-card)_ | 48% of 271.0M (ok) |
+| Claude | 129.0M | $490.64 _(notional, rate-card)_ | 48% of 271.0M (ok) |
 | Codex | 403.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154581682 tokens/day lower bound._
+_Fleet token-unlock pace: 154430746 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
@@ -706,17 +710,16 @@ worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
-- [`improve-dependabot-action-pin-comments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-action-pin-comments.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1666-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1666-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1666
 
-### tada (17129)
+### tada (17130)
+- [`improve-dependabot-action-pin-comments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/improve-dependabot-action-pin-comments.md) — Cost
 - [`endojs-endo-but-for-bots-pr1663-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1663-dependabot.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr667-test-xs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/fix-endojs-endo-but-for-bots-pr667-test-xs.md) — Cost
 - [`endojs-endo-but-for-bots-pr1665-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1665-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1662-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1662-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-pr1664-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1664-dependabot.md) — Cost
-- … and 17124 more
+- … and 17125 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
