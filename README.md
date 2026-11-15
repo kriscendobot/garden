@@ -1,21 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T02:13:03Z_
+_As of 2026-11-15T02:18:03Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still operator-held and is the main thing to notice. It failed the rolling-deploy canary again, and its retries ran out. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Both fixes need someone at the machine. Because the canary is dead, the leader (`endolin-garden-ece02cb4`) still runs an older build without the EROFS fix. That keeps minion.town project-checkout jobs parked, though the project is also under the 2026-11-10 pause, and the watchdog's coalesced pause notice has now been seen over 42,000 times. The arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary.
+Oros (`oros-studio-garden-ce242c49`) is still the main blocker. It failed its rolling-deploy canary again, and its drain is still held. It needs an operator at the machine to renew the expired Claude OAuth session and to look at `garden-secret-broker.service`, which has failed after every deploy since 11-07. The leader can't roll past the dead canary, so it is stuck on an older commit, `f2788117645`. The EROFS fix for project checkouts therefore hasn't reached the leader. That is why monk jobs that need a checkout die and the minion.town PR work stays parked. The minion.town supervisor asks you to pick between reviving Oros and authorizing a leader deploy past the canary. Separately, minion.town is paused, so the foreman and mentor keep tripping on the pause refusal (rc=78). Self-heal has diagnosed both, but the fixes are not yet confirmed landed.
 
-Other items that need a decision:
-- **Gauntlets:** the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 6 review rounds without converging. It can be resumed with `--add-rounds`. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round declared failure.
-- **Daemon worker-import stack:** the stack of [#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592) is still waiting for the green zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) to merge.
-- **Paused-project refusals:** the foreman and mentor services keep exiting non-zero and triggering self-heal when `post-job.sh` refuses a paused-project job with rc=78. Both diagnoses call it a pause refusal handled as a crash.
-- **minion.town DNS:** a gardener reported that `minion.town` and `ocap.site` now resolve to a different address serving a static page, and several subdomains no longer resolve. It needs you to confirm the change was intentional.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free. It needs hand reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+Several things need your decision:
 
-Journal lock-contention and fetch-slow watchdog notices mostly cleared. A few coalesced ones are still open on the leader, and the foreman milestone M3 notice has been repeated 11 times. The daily-progress-summary jobs for 11-05 and 11-06 and several other requeue-exhausted jobs remain parked on the plan queue.
+- **minion.town DNS.** A supervisor reports that production DNS for `minion.town` and `ocap.site` now points at `34.225.237.208`, not the documented host. Several subdomains no longer resolve. It asks whether you made this change. If you didn't, it could be a zone compromise, and it needs a credentialed host to check Route53 history.
+- **Disk space.** The leader host is down to a few hundred MiB free and briefly hit zero. It needs hand reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **Gauntlets.**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. It is CI-green and waiting on your call or more rounds.
+  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined.
+  - The daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) waits on you merging the zizmor fix [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
+- **Other asks.**
+  - The minion.town settings simplification needs `deploy-accounts-store.sh` run before it merges.
+  - A scholar ingest asks whether to post an Iron Horse test-infra job.
+  - Several scheduled daily-summary and builder jobs were parked after the reaper's retries were exhausted.
+
+The journal-lock contention notices have mostly cleared. The board shows 9 todo jobs and 1 in progress, a shepherd on [endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/pull/1560). The tada folder shows weaves on #1560 and #1592, and shepherds on #1590 and #1498, completed on 11-14.
 
 ## Maintainer review docket
 
@@ -688,10 +692,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.6M | $309.27 _(notional, rate-card)_ | 30% of 271.0M (ok) |
-| Codex | 393.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 81.7M | $310.00 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Codex | 393.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154459686 tokens/day lower bound._
+_Fleet token-unlock pace: 154491172 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.493930s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 11 open notice(s); checker healthy
