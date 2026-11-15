@@ -1,20 +1,28 @@
 # Garden bulletin
 
-_As of 2026-11-15T10:04:16Z_
+_As of 2026-11-15T10:05:53Z_
 
 ## Latest
 
-Little new work landed this cycle. The one board transition is a claim: [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1501.md) moved from todo to doin, so a gardener is now driving [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) toward green CI. The `weave` job for #1501 completed earlier today.
+Since the last bulletin, the only board movement was [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501): its shepherd job finished and moved from doin to tada. Its weave job also appears among today's completions.
 
-Things a maintainer should notice:
+Other recent completions today:
+- [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594): weave job.
+- [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661): gauntlet and viability-check jobs.
 
-- **Oros is still down.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary again and stays drained. Its Claude login has expired, and `garden-secret-broker.service` fails after each deploy. Both fixes need someone at the machine. Meanwhile the leader is stuck behind the dead canary and can't take the EROFS fix. Until it deploys, monk jobs that need a project checkout keep failing, which holds up the parked minion.town PR work.
-- **The review budget ran out on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588).** The panel used all 6 rounds without converging, and the PR is left for a human decision or more rounds. The gauntlet on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed.
-- **Disk space on the leader is nearly gone.** Free space on the root filesystem has dipped to between 176 and 500 MiB and briefly hit zero, so it needs reclaiming by hand.
-- **minion.town DNS may have been repointed.** A gardener reported that production DNS now points at an unrelated address. Nobody has confirmed whether the change was intentional, and it could be a compromise. The project is also paused, so the pause watchdog keeps refusing minion.town jobs. Its notice count is past 55,000.
-- **The foreman and mentor services crash on paused-project refusals.** Both treat the pause refusal as fatal, and self-heal keeps firing on it.
+The gauntlet job's title reads "not viable". Nothing is in progress and nine jobs wait in todo. Five of those nine are rolling-deploy canary probes aimed at Oros.
 
-Most of the journal-contention notices have cleared.
+Needs a maintainer decision:
+- **Oros stays held.** Oros (`oros-studio-garden-ce242c49`) is still drained after repeated failed canaries. It needs someone at the machine to run `claude`, then `/login`, as the garden user, and to check why `garden-secret-broker` fails after deploy. Until then the rolling deploy cannot reach the leader. The minion.town arc supervisor has asked whether to revive Oros or deploy the leader past the dead canary.
+- **Gauntlets need a call.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging, so it is left for a human merge decision. You can grant more rounds with `--add-rounds`. The #1504 gauntlet halted after its first fix round failed (rounds can be added the same way).
+- **Foreman decision.** The foreman is asking whether Phase 8 should keep merge-ready [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593)'s fail-closed tool naming or switch to [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661)'s renamed-tool approach. M3's child-agent stack also still waits on approval and merge of #1558 and #1560.
+- **Paused project still noisy.** The minion.town pause is still being enforced, with a refusal count above 55,000. Two services fail on those refusals:
+  - The foreman exits rc=78 when it proposes a job for a paused project.
+  - The mentor's improve handler dies the same way.
+- **Disk space.** The leader host's disk was briefly at zero free space and needs hand reclamation (`.garden-state`, `scratch/`, `worktrees/`).
+- **minion.town DNS.** An unresolved 2026-11-10 report says production DNS was repointed away from the documented host. It asks whether that was intentional or a possible zone compromise.
+
+Most of the journal-contention watchdog notices in the inbox are recovery notices that need no action.
 
 ## Maintainer review docket
 
@@ -286,9 +294,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-09T21:05:16Z, latest 2026-11-15T08:35:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-09T21:05:16Z, latest 2026-11-15T10:05:20Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=4 target=1
 
@@ -680,10 +688,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.8M | $383.13 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 100.9M | $383.34 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 396.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154437656 tokens/day lower bound._
+_Fleet token-unlock pace: 154250608 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.051686s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
@@ -700,15 +708,15 @@ worst fetch p95 3.051686s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
-- [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1501.md) — ---
+### doin (0)
+(none)
 
 ### tada (17116)
+- [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/shepherd-endojs-endo-but-for-bots-pr1501.md) — Cost
 - [`weave-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/weave-endojs-endo-but-for-bots-pr1501.md) — Panel-head freshness
 - [`weave-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/weave-endojs-endo-but-for-bots-pr1594.md) — Cost
 - [`endojs-endo-but-for-bots-pr1661-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1661-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1661-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1661-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1661-gauntlet-viability.md) — Cost
-- [`build-daemon-agent-tools-phase-eight-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/build-daemon-agent-tools-phase-eight-fetch-plugin.md) — Cost
 - … and 17111 more
 
 ## Plan queue (parked — not claimable until promoted)
