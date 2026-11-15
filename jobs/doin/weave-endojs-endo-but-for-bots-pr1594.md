@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Weave endojs/endo-but-for-bots PR #1594 (`daemon-rename-to-manager`) onto the current `llm` base so its base-wide zizmor fix is inherited and the rename can return to CI and review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-15T08:36:57Z
