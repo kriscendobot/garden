@@ -1,20 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T16:43:58Z_
+_As of 2026-11-15T16:49:17Z_
 
 ## Latest
 
-The board was quiet this cycle: no job transitions resolved, so most of what a maintainer should notice sits in the inbox.
+The board shows no file-level transitions this cycle, so the news is in the maintainer inbox, and most of it needs a decision.
 
-- **Gauntlets.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel and fix rounds and stopped without converging. It is waiting on you to decide whether to grant more rounds or merge as is. The #1504 gauntlet halted after its first fix round declined, and it can be resumed with extra rounds. Merging [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) would unblock the weaves of #1504, #1573, #667 and #1658, and the foreman keeps re-raising that milestone.
-- **Oros.** Oros is still drained and held by the operator. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Its rolling-deploy canary keeps failing, so the leader cannot advance past `18fc7b17375`. The unclaimed canary probes for Oros are piling up in todo.
-- **minion.town.** A project pause is active. The watchdog has counted more than 62,000 refusals of paused work, and the foreman and mentor crash with rc=78 on each pause refusal instead of skipping it. Production DNS was also repointed away from the documented host on 2026-11-10. That needs you to say whether it was intentional.
-- **Disk space on the leader.** The leader's filesystem briefly hit zero free bytes earlier and needs space reclaimed by hand.
-- **Parked jobs.** Several daily-summary, dependabotany and build jobs were parked after their retries were exhausted. They are waiting on promotion or removal.
+**Oros is still down, and it is blocking the leader's deploy.** [Rolling deploy halted on a failed canary](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md) again for `oros-studio-garden-ce242c49`, and it stays drained. It needs someone at the machine for two things: the Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Because the leader deploys only after its canary passes, the EROFS fix (3c7f9ce) has not reached it. The minion.town arc supervisor [asks you to choose](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9.md) between reviving Oros and authorizing a leader deploy past the dead canary. Four canary-probe jobs for Oros sit unclaimed in `todo`.
 
-Most journal-contention notices recovered on their own.
+**Disk space on the leader.** A gardener reported `/home/kris/garden` at roughly 176–500 MiB free and briefly at zero, with a Claude tmp write failing on ENOSPC. The new byte detector will page on this once deployed, but the space has to be reclaimed by hand under `.garden-state`, `scratch/`, and `worktrees/`.
+
+**Possible DNS problem for minion.town.** A gardener found the production apex and `ocap.site` resolving to `34.225.237.208`, not the documented host at `13.56.17.18`, and the subdomains no longer resolve. The prod probe has been red since 14:52Z and the garden has no AWS credentials. The question is whether the repoint was deliberate or a possible zone compromise. The Route53 history needs checking.
+
+**Pull requests.**
+- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7 panel/fix rounds without converging, and CI is green. It needs a human decision or more rounds, for example `--add-rounds 2`.
+- The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed and was not retried. The PR also waits on the Node 24 pin in [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which the foreman keeps asking you to decide and merge. Several parked weaves wait on #1646 as well, including [#1573](https://github.com/endojs/endo-but-for-bots/pull/1573), [#1658](https://github.com/endojs/endo-but-for-bots/pull/1658), and [#667](https://github.com/endojs/endo-but-for-bots/pull/667).
+
+**Project pause side effects.** With minion.town paused, the foreman crashes with rc=78 and the mentor exits with rc=1, because each treats a pause refusal from `post-job.sh` as fatal. Self-heal found no fix, and the refusals will repeat until the pause is lifted or the code handles them. The pause watchdog has now logged more than 62,000 refusals, and a stale-deploy host may still be producing the work.
+
+**Other items.**
+- Several daily-summary, build, and dependabot recheck jobs were parked in `plan/` after their retries were exhausted.
+- Two liaison follow-ups wait on you: the minion.town settings simplification report, which needs `deploy-accounts-store.sh` run before merging, and a scholar question about adopting yavashark's test-infrastructure ideas for Iron Horse.
+- The journal-contention notices have mostly recovered on their own.
 
 ## Maintainer review docket
 
@@ -685,10 +692,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.4M | $448.01 _(notional, rate-card)_ | 43% of 271.0M (ok) |
-| Codex | 399.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 117.7M | $449.09 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Codex | 400.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154574879 tokens/day lower bound._
+_Fleet token-unlock pace: 154613376 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.554382s/45s (unknown); 9 open notice(s); checker healthy
