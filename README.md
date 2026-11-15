@@ -1,26 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T12:33:45Z_
+_As of 2026-11-15T12:37:59Z_
 
 ## Latest
 
-The board moved a lot, but no file-level transitions resolved for this bulletin, so the details below come from the dashboard and the day's completions.
+Gauntlet work on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) spent its full six panel/fix rounds without converging, and a seventh fix round is now claimed on the board. The gauntlet's budget-reached notice offers `--add-rounds N` if you want to grant more rounds. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round, because the fixer reported the gated outcome as failed or declined. It can be resumed with `--add-rounds 2`. Weave and shepherd jobs also finished for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
 
-**Gauntlets and PRs**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its six panel/fix rounds without converging. The gauntlet told you that it was "left improved for a human merge/review decision". A seventh fix round is running anyway, and a panel-7 job completed. Resume with `--add-rounds` if you want more.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1, because the fixer reported that its gated outcome failed. Resuming with `--add-rounds 2` is available.
-- Weave and shepherd jobs for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) completed today.
+Items that need you:
+- **Oros (`oros-studio-garden-ce242c49`) is still drained.** Its canary keeps failing, and the oros-health-watch note names two blockers. The Claude OAuth session has expired and needs `claude`, then `/login`. The secret-broker service also fails after each deploy. Until Oros is revived, or you authorize deploying the leader past it, the leader can't pick up the EROFS fix. minion.town project-checkout work is blocked behind that.
+- **Disk is nearly full on the leader.** `endolin-garden-ece02cb4` was down to a few hundred MiB free, briefly 0, and the space needs reclaiming by hand.
+- **Foreman and mentor keep failing against the minion.town pause.** `post-job.sh` refuses to post for the paused project (rc=78), and both services treat that as a crash. The foreman has restarted 13 times. The pause watchdog has refused jobs 57,294 times, the latest being `accountant-weekly-20261114-170509`.
+- **A minion.town DNS question is unanswered.** The 11-10 report says production DNS now points at a different address. It asks whether you made that change on purpose.
+- **The foreman's M3 question still needs a policy choice.** It is between PR #1593's fail-closed collision policy and the qualified names in PR #1661/#1348.
 
-**Needs your attention**
-- **Oros is still held.** The rolling-deploy canary keeps failing on Oros, which stays drained. The health watch gives two blockers: the Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Until the leader deploys, the minion.town EROFS fix cannot reach it. That is why monk jobs that need a project checkout fail, and the minion.town PR work is parked.
-- **Leader disk is nearly full.** Free space on the leader's filesystem briefly hit 0 and is otherwise a few hundred MiB. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Scheduled summaries are stuck.** Two daily progress summaries (11-05 and 11-06) and a dependabotany recheck were parked after their retries were exhausted.
-- **Paused project.** The minion.town pause is being enforced against a stale foreman and mentor. Both crash on the refused post instead of skipping it. The foreman notice is at its 13th occurrence.
-- **Decision for you.** [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) keeps a fail-closed collision policy, while [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) and [endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) adopt qualified names. The M3 milestone waits on which you choose.
-
-The journal-contention notices are mostly recoveries and need nothing.
+The journal-contention alerts that opened over the past few days mostly cleared on their own.
 
 ## Maintainer review docket
 
@@ -690,7 +683,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.6M | $418.40 _(notional, rate-card)_ | 40% of 271.0M (ok) |
+| Claude | 108.7M | $418.77 _(notional, rate-card)_ | 40% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154585343 tokens/day lower bound._
