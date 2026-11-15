@@ -1,22 +1,32 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T23:13:19Z_
+_As of 2026-11-15T23:18:47Z_
 
 ## Latest
 
-No board transitions resolved this cycle, so the news is in the maintainer inbox, and most of it is the same few problems.
+Several hosts and watchdogs need your attention, though no job transitions resolved since the last bulletin.
 
-**Oros is still down.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly and sits drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both need someone at the machine. The leader stays on its older commit until the canary passes, which is what an earlier arc-press message says is blocking the EROFS fix from reaching it. Beyond that, 12 todo jobs are mostly canary probes waiting on that host.
+**Oros is still operator-held.** The rolling deploy halted again on a failed canary for `oros-studio-garden-ce242c49` (6th occurrence, latest 22:35Z). The probe didn't reach tada within 600s, and Oros stays drained. The health watch says the Claude OAuth session has expired, so someone needs to run `claude` then `/login` as the garden user. It also says `garden-secret-broker.service` fails after each deploy. With Oros dead, the leader can't deploy past the canary, so the EROFS fix is still stuck. That fix is the reason minion.town jobs needing a project checkout keep dying. The arc supervisor asks whether you want to revive Oros or authorize a leader deploy past the canary.
 
-**Disk space and DNS.** The leader briefly hit 0 bytes free, so space needs reclaiming by hand. Separately, an earlier message reports minion.town DNS apparently repointed to an address that doesn't serve the app. That message asks whether the change was intentional.
+**Disk space on the leader is a risk.** `/home/kris/garden` was down to roughly 176–500 MiB free and briefly hit zero, which caused an ENOSPC. The new byte-capacity guard will page on this once it deploys. Until then, someone has to reclaim space by hand under `.garden-state`, `scratch/`, and `worktrees/`.
 
-**Paused minion.town work.** Pause refusals keep recurring. The watchdog notice has counted tens of thousands of them. `garden-foreman` and `garden-mentor` are both exiting non-zero and triggering self-heal because they treat the pause refusal as a crash. The diagnoses point at `foreman.sh` and `mentor.sh`.
+**minion.town production may have been repointed.** The apex and `ocap.site` DNS now resolve to a different Amazon address that serves a static page, while the real host is healthy when pinned. Nothing in the journal explains the change, and the garden has no AWS credentials. Please say whether you made the change on purpose. If you didn't, check the Route53 history. The project is also paused, and the pause watchdog is coalescing refused jobs, with its count in the tens of thousands.
 
-**Gauntlets.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. It is waiting for you to grant more rounds or decide to merge. The gauntlet on [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its fix round declined. The foreman again asks for a decision on [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin), because several PRs are waiting on it.
+**Gauntlets and PR decisions:**
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging, so it's left for a human merge decision. You can add rounds with `--add-rounds`.
+- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1, because the fixer declared the outcome failed.
+- Milestone M3 waits on you to decide and merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. Several parked weaves and shepherds also wait on it. [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), [endo-but-for-bots#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [endo-but-for-bots#1597](https://github.com/endojs/endo-but-for-bots/pull/1597) are ready for your review.
 
-**Recovered.** Most journal-lock contention conditions and the screening-tick failure streak have cleared.
+**Foreman and mentor self-heal loops.** Both come from the minion.town pause, which makes `post-job.sh` refuse with rc=78. The foreman and mentor treat that refusal as fatal, so they crash on every tick and trigger self-heal. A scoped fix is needed.
+
+**Items that need your call:**
+- The `mt-beta-settings-simplify` report: run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- Whether to post an Iron Horse test-infra job to adopt cost tiers, sampling, and CPU pinning.
+- The leftover anonymous guest on production minion.town.
+- Four split-eligible jobs the reaper parked after failed retries: two daily progress summaries, a dependabotany recheck, and the Phase 8 fetch-plugin build.
+- The Oros bwrap hand-off build, which the reaper also parked.
+
+Most journal-contention watchdog notices cleared on their own, and the minion.town screening tick has recovered.
 
 ## Maintainer review docket
 
@@ -688,10 +698,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.6M | $512.36 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 134.8M | $513.09 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154743095 tokens/day lower bound._
+_Fleet token-unlock pace: 154762689 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
