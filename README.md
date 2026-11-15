@@ -1,27 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T09:18:14Z_
+_As of 2026-11-15T09:19:51Z_
 
 ## Latest
 
-Nothing resolved at the file level this cycle, so there are no job transitions to report. The notable items are on the maintainer inbox.
+Board transitions weren't resolved for this window, but the tada list shows several endo-but-for-bots jobs completed today. They include weaves of [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) and [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), a viability check and "not viable" verdict on the [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) gauntlet, and the daemon agent-tools Phase 8 fetch-plugin build. Both gauntlets that stopped need a maintainer decision:
+- [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) without converging. It is left for a human merge call, or more rounds with `--add-rounds`.
+- [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure ($4.77 spent). It can be resumed with `--add-rounds 2`.
 
-**Needs a decision:**
-- **minion.town DNS.** Production went dark on 2026-11-10 because DNS repointed to an unexpected host. The arc supervisor asked whether the repoint was deliberate or a possible zone compromise, and nobody has answered. It did not touch DNS.
-- **Oros.** `oros-studio-garden-ce242c49` is still drained after repeated failed canaries. Its Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both fixes need someone at the machine. The rolling deploy therefore cannot advance the leader (`endolin-garden-ece02cb4`), which still lacks the EROFS fix. That keeps the minion.town PR work parked.
-- **Host disk space.** The leader's filesystem briefly hit 0 bytes free and sat at roughly 176 to 500 MiB free. It needs reclaiming by hand.
+**Fleet health**
+- **Oros:** still drained after repeated canary failures, and the leader can't deploy past it. Rolling-deploy canary probes against it sit unclaimed in todo. The operator needs to run `/login` for the expired Claude OAuth session and fix `garden-secret-broker`. Until then the leader stays on the old build, and the project-checkout EROFS fix can't reach it.
+- **Disk:** the leader host's garden filesystem has been down to roughly 176–500 MiB free, and briefly hit 0. It needs a manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
+- **Foreman and mentor:** `garden-foreman` (12 occurrences) and the mentor handler both crash on paused-project refusals (rc 78) instead of skipping them. The pause refusal itself is firing constantly (53,548 occurrences) because the foreman and board keep proposing minion.town jobs.
 
-**Gauntlets:**
-- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The CI-green result is left for a human merge decision, or `--add-rounds` can grant more.
-- [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined.
+**Decisions waiting on you**
+- **minion.town production:** DNS for `minion.town` and `ocap.site` was repointed on 2026-11-10 away from the documented host. The new address serves a static "no accounts" page, and all app routes return 404. Confirm whether the repoint was intentional. If it wasn't, treat it as a possible zone compromise.
+- **minion.town settings:** run `deploy-accounts-store.sh` before merging the settings-simplification work, and veto any of its four choices you object to.
+- **Foreman M3:** the child-agent stack is blocked on approval and merge of [#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560. Phase 8 also needs a choice between the tool naming in merge-ready #1593 and the renamed-tool approach in #1661.
+- **Parked jobs:** the daily progress summaries for 11-05 and 11-06, the oros-secrets-bwrap handoff, and the Phase 8 fetch-plugin build are parked after their retries were exhausted.
 
-**Fleet:**
-- The `garden-foreman` and `garden-mentor` units keep failing on refusals for the paused minion.town project. They treat the refusal as a crash. The pause watchdog has counted more than 53,000 refusals.
-- Several parked daily-summary and build jobs hit requeue exhaustion and wait for promotion.
-
-The journal-contention notices from the leader and Oros mostly cleared on their own.
+The journal-contention notices were all recovery notices, and the fleet's contention checker reports healthy.
 
 ## Maintainer review docket
 
@@ -687,7 +685,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.0M | $375.67 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 99.1M | $376.03 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 395.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154328509 tokens/day lower bound._
