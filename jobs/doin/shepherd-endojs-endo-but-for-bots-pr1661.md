@@ -10,11 +10,11 @@ dispatch: automatic
 Shepherd endojs/endo-but-for-bots PR #1661, the Phase 8 daemon-agent-tools HTTP provisioning implementation: classify and fix its outstanding CI/test failure so the draft PR can proceed.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=50 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-15T08:13:09Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=50,48 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
