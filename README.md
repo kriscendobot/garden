@@ -1,22 +1,21 @@
 # Garden bulletin
 
-_As of 2026-11-15T00:43:21Z_
+_As of 2026-11-15T00:46:07Z_
 
 ## Latest
 
-No board transitions resolved this cycle, so the news is in the maintainer inbox.
+Two gauntlets stopped short of green. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) with CI green but no review convergence, so it needs a human decision or `--add-rounds`. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, when the fix reported the gated outcome as failed or declined. Both messages give the resume commands.
 
-**Needs a decision:**
-- **Oros** (`oros-studio-garden-ce242c49`) is still held and drained after repeated failed canaries. Its Claude OAuth session has expired, so it needs `claude` then `/login` at the machine. `garden-secret-broker` also keeps failing after deploy. Because the canary is dead, the leader is stuck on an older commit. The unreleased EROFS fix therefore hasn't reached it, and the minion.town PR work that depends on it stays parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
-- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The message gives the resume command with `--add-rounds`. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, and a resume command is offered there too.
-- **Zizmor fix:** the M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) waits on [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) merging. The foreman has asked about this 11 times.
+Recent completions on the daemon mount-import stack and its neighbors include weaves of [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560) and [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), a shepherd of [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), a shepherd of [#1498](https://github.com/endojs/endo-but-for-bots/pull/1498), and a fix on #1588. A shepherd for [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560) is in progress. That stack is still waiting on the green zizmor fix [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659); the foreman is asking whether you will merge it, and reweaves of the dependent PRs are parked behind it.
 
-**Worth a look:**
-- **minion.town DNS:** on 2026-11-10 DNS for `minion.town` and `ocap.site` was found pointing at an unfamiliar address serving a static page, while the documented host stayed healthy. No one has confirmed whether the change was intentional, and it could be a zone compromise.
-- **Disk space:** the leader's disk briefly hit 0 bytes free. The new byte-capacity detector isn't deployed yet, so space needs reclaiming by hand.
-- **Foreman and mentor failures:** both exit on refused posts for the paused minion.town project, and self-heal keeps firing. The pause itself is working, with 40,568 refusals so far.
-- **Budget:** monk workers on the leader scaled from 4 to 3 to 2 as the weekly Claude window progressed.
-- **Contention alerts:** most of the journal-contention alerts have recovered, so there is nothing to act on there.
+Things that need you:
+
+- **Oros is still held.** `oros-studio-garden-ce242c49` keeps failing its canary, so the rolling deploy is stuck and the leader has not advanced. Probes keep queuing. It needs an operator at the machine: the Claude OAuth session has expired (`/login`), and `garden-secret-broker.service` fails after each deploy. Oros's container hardening is also still pending recreation.
+- **minion.town:** the pause is still being enforced, with the refusal count at about 40.5k. The leader's EROFS fix is stuck behind the dead Oros canary, which the minion.town arc supervisor raised as a decision between reviving Oros and authorizing a leader deploy past it. An earlier report says production DNS was repointed away from the real host on 11-10. Nobody has confirmed whether that was intentional.
+- **Pause fallout:** `garden-foreman` and `garden-mentor` are failing with rc=78 and rc=1 because they treat a paused-project refusal as a crash. Self-heal has diagnosed both.
+- **Disk space:** the leader's filesystem was reported at under 500 MiB free and briefly at 0, so it needs reclaiming by hand.
+
+Journal lock-contention noise mostly cleared overnight. Several notices recovered, though a few conditions are still open on the leader, such as `unblock`, `bulletin`, and `worktree_sweeper`.
 
 ## Maintainer review docket
 
@@ -513,11 +512,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-11-07T04:46:32Z, cleared 2026-11-14T20:45:35Z).
-> It was observed 12 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #13 (first seen 2026-11-07T04:46:32Z, latest 2026-11-15T00:45:35Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014839s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-reset-credit-watch-20261109-170519-6a0254967ba8` — from gardener:reset-credit-watch-20261109-170519, reply_to `reset-credit-watch-20261109-170519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261109-170519-6a0254967ba8.md)
 
@@ -689,13 +688,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.5M | $301.26 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 79.6M | $301.63 _(notional, rate-card)_ | 29% of 271.0M (ok) |
 | Codex | 393.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154268344 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.493930s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 10 open notice(s); checker healthy
+worst fetch p95 2.493930s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
