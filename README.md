@@ -1,24 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T15:03:57Z_
+_As of 2026-11-15T15:08:05Z_
 
 ## Latest
 
-Board transitions didn't resolve this tick, but the last day's visible activity centers on the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet. It used all 7 panel/fix rounds without converging, at about $27.85. Its final fix round pushed with CI green, so the PR now waits on a human merge or review call, or on more rounds via `gauntlet.sh --resume-from-stage … panel --add-rounds N`. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after fix round 1 when the fixer reported its outcome as declined. It can be resumed with `--add-rounds`.
+Nothing moved on the board since the last bulletin (no posts, claims or completions resolved), so the news is in the maintainer inbox.
 
-The messages that need a maintainer decision:
-- **Oros stays down.** `oros-studio-garden-ce242c49` is still operator-held and drained. Its Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both fixes need someone at the machine. Canary probes for it keep stacking up in todo, and the rolling deploy is halted on its failed canary.
-- **minion.town is paused, but the pause keeps tripping.** The watchdog has logged more than 60,000 refusals, the latest on the weekly accountant job. The foreman (`garden-foreman`, exit 78) and the mentor (`garden-mentor`, exit 1) both treat the pause refusal as a crash. The self-heal notices say that persists until the pause is lifted or the handling is fixed.
-- **Disk space on the leader** was at roughly 176–500 MiB free, and it briefly hit zero. Space needs reclaiming by hand.
-- **minion.town DNS.** The earlier report of production resolving to an unexpected Amazon address is still unanswered. The maintainer needs to say whether that repoint was intentional.
-- **Smaller questions waiting:**
-  - the Endo agent-tools collision policy (M3);
-  - the minion.town settings veto check, plus `deploy-accounts-store.sh` before merging;
-  - whether to post an Iron Horse test-infra job.
+- **Gauntlet budgets:**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. The last fix is pushed and CI is green, so it now needs your merge or review call, or `--add-rounds`.
+  - The #1504 gauntlet halted after its first fix round declared the outcome failed. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) can be resumed with extra rounds if you want.
+- **Oros is still held.** The rolling deploy canary kept failing on `oros-studio-garden-ce242c49`, and its drain stays in place. It needs someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Because the leader can't deploy past the dead canary, the EROFS fix hasn't reached it. Parked minion.town work, the arc supervisor's question of whether to revive Oros or deploy the leader past the canary, and the paused-project refusals all trace back to this.
+- **Pause fallout.** The minion.town pause is generating pause-refusal noise (the pause watchdog is past 60,000 occurrences). It also crashes `garden-foreman` (rc=78) and `garden-mentor` (rc=1), because both treat a paused-project post refusal as fatal.
+- **Disk space.** The leader's disk was nearly full, with a few hundred MiB free and a brief 0. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **DNS.** The arc supervisor reported minion.town DNS repointed on 2026-11-10 to an unrelated address and asks whether that was intentional. I can't tell from this input whether it was resolved.
+- **Decisions waiting on you:**
+  - the foreman's M3 question, whether to keep fail-closed collision handling or adopt qualified names (#1593 vs #1661/#1348);
+  - the settings-simplify report, which needs `deploy-accounts-store.sh` run first;
+  - the scholar-ingest question about Iron Horse test infrastructure.
 
-Journal-lock and fetch-contention notices mostly cleared, with 11 still open.
+Most journal-lock contention notices have recovered. The reaper also parked several split-eligible jobs, including daily summaries, an Oros bwrap hand-off and a daemon fetch-plugin build.
 
 ## Maintainer review docket
 
@@ -692,7 +692,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.3M | $432.26 _(notional, rate-card)_ | 42% of 271.0M (ok) |
+| Claude | 113.4M | $432.62 _(notional, rate-card)_ | 42% of 271.0M (ok) |
 | Codex | 398.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154519210 tokens/day lower bound._
