@@ -1,26 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T06:46:26Z_
+_As of 2026-11-15T06:49:14Z_
 
 ## Latest
 
-The board was quiet: no job transitions resolved since the last bulletin, though the tada log shows a few completions on 11/15. Those include the [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) gauntlet, which was refused as not viable because its premise was overtaken, so it may be superseded. They also include the fetch-plugin build (Phase 8 of the daemon agent tools) and shepherd runs on [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560).
+No file-level board transitions resolved this cycle. The completions visible in the tada list are `build-daemon-agent-tools-phase-eight-fetch-plugin`, shepherd jobs for [endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/pull/1560), and a gauntlet for [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) that was judged not viable.
 
-Gauntlets need decisions:
-- **[#1588](https://github.com/endojs/endo-but-for-bots/pull/1588):** it spent all 6 review rounds with CI green but without converging. It is waiting on you to grant more rounds (`--add-rounds`) or to decide on the merge.
-- **[#1504](https://github.com/endojs/endo-but-for-bots/pull/1504):** it halted after its first fix round declined.
-- **[#1659](https://github.com/endojs/endo-but-for-bots/pull/1659):** this zizmor fix still blocks the M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)). The foreman is asking whether to merge it.
+**Needs a maintainer decision:**
+- **Gauntlet on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588):** it used all 6 panel/fix rounds without converging (CI green, $22.22 spent). The PR is left for a human call, or you can grant more rounds with `--add-rounds`.
+- **Gauntlet on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504):** it halted after fix round 1, when the fix stage reported the outcome as declined.
+- **M3 stack:** the daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is still waiting on the green zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). The foreman has now asked 11 times whether to merge it.
 
-Fleet health:
-- **Oros:** it is still drained and held by the failed rolling-deploy canary, which retries exhausted. It needs someone at the machine for an expired Claude OAuth session and a failing `garden-secret-broker`.
-- **Leader deploy:** because the leader deploys only after the Oros canary passes, the EROFS fix cannot reach it. As a result, minion.town PR work stays parked.
-- **minion.town pause:** the pause is still enforcing, and the foreman and mentor self-heal notices are this pause refusal being treated as a crash.
-- **Leader disk:** the leader's disk was near 0 free, so reclaim space by hand.
-- **minion.town DNS:** a 11/10 report says production DNS was repointed to an unknown host. It is still unanswered.
-
-Journal-contention notices were mostly recovery closures, and the reaper parked more doomed jobs (the daily summaries, the fetch-plugin build and the Oros bwrap hand-off) for your promotion.
+**Fleet health:**
+- **Oros host:** it is still drained and held by the operator. Its rolling-deploy canary failed again, which blocks the leader's deploy.
+  - Blockers: an expired Claude OAuth session and a failing `garden-secret-broker`. Both need someone at the machine.
+  - Fallout: nine canary-probe jobs for Oros sit unclaimed in todo.
+  - The earlier arc-press message says the stuck leader deploy leaves the minion.town EROFS fix undeployed.
+- **Disk on the leader:** the host reported only about 176–500 MiB free, and briefly 0, during an improve job. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Paused project:** the minion.town pause is still being enforced. The watchdog count is past 51,000 refusals, the latest being the weekly accountant job. The foreman and mentor self-heal notices come from the same cause (exit code 78 on refused posts), not a real breakage.
+- **minion.town DNS:** an arc-press message from 11-10 reports production DNS repointed to an unrecognized address. The message is still unread, and DNS has not been touched. Please confirm whether the change was yours.
+- **Journal contention:** most notices cleared on their own over the past day, and the rest are routine.
 
 ## Maintainer review docket
 
@@ -289,10 +288,6 @@ Delegation: **active**
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
-
-- `endojs-endo-but-for-bots-pr1661-gauntlet-not-viable` — from gauntlet:endojs-endo-but-for-bots-pr1661-gauntlet-not-viable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1661-gauntlet-not-viable.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1661-gauntlet REFUSED by its pre-spend viability gate: the premise was overtaken. Deciding question: Is #1661 the only live implementation of its core change, which is adding HTTP tools to the agent workspace when an `http` grant is given? Answering yes would mean it is not superseded and its need is still open. Option: close as superseded.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -697,10 +692,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.4M | $350.45 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.8M | $351.90 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 394.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154335723 tokens/day lower bound._
+_Fleet token-unlock pace: 154453596 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 10 open notice(s); checker healthy
