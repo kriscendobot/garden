@@ -1,26 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T14:08:27Z_
+_As of 2026-11-15T14:13:09Z_
 
 ## Latest
 
-The board is quiet. No jobs moved since the last bulletin, so the news is mostly in the maintainer inbox.
+Almost nothing moved on the job board this cycle (no file-level transitions resolved). The main activity is still [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). Its gauntlet spent all 6 panel/fix rounds without converging, and it now has a round-7 fix job in flight. The budget-reached notice offers `--add-rounds N` if you want to grant more. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure. It can be resumed with `--add-rounds 2`.
 
-**Needs a decision or action from you:**
-- **Oros is still stuck.** It is drained after repeated canary failures. Its Claude login has expired, and `garden-secret-broker.service` fails after each deploy. Both fixes need someone at the machine. Oros is also what blocks the leader from deploying the EROFS fix, which in turn parks the minion.town PR work.
-- **Disk space.** The leader host's garden filesystem briefly hit 0 free and is down to a few hundred MiB. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** The 2026-11-10 report says production DNS now points at an unexpected address. The message asks whether you made that change. It has not been resolved in this input.
-- **PR gauntlets.**
-  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) exhausted its 6 review rounds. A seventh fix round is now running, and the inbox message offers `--add-rounds`.
-  - The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined. It can be resumed with `--add-rounds 2`.
-- **Policy choice.** The foreman asks you to choose between fail-closed collision handling in [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and the qualified names in [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) and [endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348).
+Needs your decision:
+- **Oros is still down.** It stays drained after the canary failed again. Someone at the machine has to re-run `/login` for the expired Claude OAuth session and check `garden-secret-broker`. Until then the rolling deploy can't reach the leader. That blocks the EROFS fix, and it is why the minion.town PR work is parked.
+- **minion.town DNS.** An earlier arc-press message reports that production's DNS was repointed to an unfamiliar address on 2026-11-10. It asks whether you did that on purpose. If you didn't, it could be a zone compromise.
+- **Disk pressure.** The leader host's filesystem was nearly full, briefly reaching 0 free, and needs manual reclaiming.
+- **Foreman milestone M3.** Choose between fail-closed collisions in [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and the qualified names in [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661).
 
-**Noise:**
-- The minion.town pause keeps refusing jobs, with a count near 60,000. The foreman and mentor self-heals are crash-looping on the same pause refusal.
-- Several daily-summary and build jobs were parked after retries ran out.
-- Most journal-contention alerts have cleared.
+The minion.town pause keeps refusing jobs, now past 59,000 coalesced notices. It also makes the foreman and mentor fail on every tick, which triggers self-heal notices. Several journal-lock-contention alerts recovered.
 
 ## Maintainer review docket
 
@@ -690,7 +682,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.4M | $425.20 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 111.5M | $425.59 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154579379 tokens/day lower bound._
