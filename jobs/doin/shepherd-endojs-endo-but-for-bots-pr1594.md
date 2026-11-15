@@ -14,6 +14,7 @@ Shepherd endojs/endo-but-for-bots PR #1594 (`daemon-rename-to-manager`) on its c
 <!-- garden-plain-retry-not-before: 2026-11-15T18:13:03Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=923,211 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
