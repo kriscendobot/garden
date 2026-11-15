@@ -1,22 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T21:15:09Z_
+_As of 2026-11-15T21:19:24Z_
 
 ## Latest
 
-Very little moved on the board in this window: a botanist claimed the auto-posted dependabot job for [endojs/endo-but-for-bots#1666](https://github.com/endojs/endo-but-for-bots/pull/1666). Earlier today's completions included dependabot rechecks for [#1662](https://github.com/endojs/endo-but-for-bots/pull/1662), [#1663](https://github.com/endojs/endo-but-for-bots/pull/1663) and [#1665](https://github.com/endojs/endo-but-for-bots/pull/1665), and a fixer run on [#667](https://github.com/endojs/endo-but-for-bots/pull/667).
+Dependabot work kept clearing on the board: botanist jobs for [endo-but-for-bots#1662](https://github.com/endojs/endo-but-for-bots/pull/1662), [#1663](https://github.com/endojs/endo-but-for-bots/pull/1663) and [#1665](https://github.com/endojs/endo-but-for-bots/pull/1665) completed today. [#1666](https://github.com/endojs/endo-but-for-bots/pull/1666) is in progress. A fix job for [#667](https://github.com/endojs/endo-but-for-bots/pull/667) (test-xs) also completed, as did an improvement to dependabot action-pin comments. The board-transition feed itself resolved no file-level moves this cycle.
 
-A maintainer should notice the following:
+**Needs your call:**
+- **Gauntlet budgets.** The gauntlet on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging ($27.85 spent). The gauntlet on [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a failed fix round. Each can be resumed with `--add-rounds`.
+- **Node pin.** Milestone M3 is still blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several weaves, shepherds and conducts are parked behind it, including #1504, #1573, #667 and #1658.
+- **Oros host.** The host is still operator-held and drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Canary probes for it are still queued, though the canary-failed notice has cleared. The leader is stuck on an old revision, so the EROFS fix hasn't reached it. That stalls minion.town work, and you need to either revive Oros or authorize a leader deploy past the canary.
+- **Disk space.** The leader's filesystem briefly hit 0 bytes free and sat at roughly 176–500 MiB. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-- **Oros canary recovered.** The `rolling-deploy-canary-failed` notice for `oros-studio-garden-ce242c49` cleared at 21:14Z. An earlier health-watch note said Oros was still drained, with an expired Claude OAuth session and a failing `garden-secret-broker`, so confirm whether the host has actually resumed claiming. Canary probe jobs for it are still queued on the board.
-- **Leader disk space.** `endolin-garden-ece02cb4` was reported at roughly 176–500 MiB free, briefly 0, and needs space reclaimed by hand.
-- **Gauntlets stopped.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined. Both need a decision on extra rounds, and the resume commands are in the messages.
-- **Blocked on #1646.** Milestone M3 and several weaves and conducts wait on the Node 24 pin in [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
-- **Paused project churn.** The minion.town pause keeps tripping the foreman and mentor, which exit 78 or 1 on every tick and fire self-heal, and the pause watchdog notice is past 66,000 occurrences. Related: minion.town production DNS was reported repointed away from the documented host on 11-10, and nobody has confirmed whether that was intentional.
-
-The journal lock-contention and fetch-slow notices were almost all recovery messages, so they need no action.
+**Quieter notes:**
+- **minion.town DNS.** An earlier notice reports that production DNS was repointed away from the real host. Someone with credentials should check the Route53 history.
+- **Pause fallout.** The minion.town pause is causing the foreman and mentor to exit 78 on every tick, which keeps firing self-heal. The fix is to treat that refusal as a policy outcome, not a crash.
+- **Cleared conditions.** Journal lock-contention, comment-watcher cooldown and screening-tick conditions all cleared.
+- **Reaper-parked jobs.** Several jobs stay parked after retries were exhausted, including the daily progress summaries for 11-05 and 11-06 and a daemon-agent-tools Phase 8 build.
 
 ## Maintainer review docket
 
@@ -676,10 +676,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.7M | $493.21 _(notional, rate-card)_ | 48% of 271.0M (ok) |
-| Codex | 403.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 130.0M | $494.31 _(notional, rate-card)_ | 48% of 271.0M (ok) |
+| Codex | 403.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154470598 tokens/day lower bound._
+_Fleet token-unlock pace: 154505679 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
