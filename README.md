@@ -1,16 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T14:33:37Z_
+_As of 2026-11-15T14:38:28Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held, which is the main thing to know. The rolling deploy has failed its canary repeatedly, so the leader hasn't advanced. Oros needs someone at the machine: its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The held leader deploy has also left the EROFS fix unshipped, which parks the minion.town PR work behind it. That work is already paused by maintainer directive, and the pause watchdog has now logged tens of thousands of refusals. It also leaves the foreman and mentor crash-looping on the pause refusal (rc=78).
+The board is quiet. No file-level transitions resolved, though the dashboard shows [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) still moving. Its gauntlet spent all 6 panel/fix rounds without converging, and fix round 7 is claimed and in progress. The maintainer can grant more rounds with `--add-rounds`, or take the PR as it is. The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed, and can resume with `--add-rounds 2`.
 
-Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its 6-round review budget without converging, and round 7 is currently running. Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, and the maintainer chooses whether to add rounds. Other recent completions include weaves and shepherds on [#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+**Oros is still down.** It stays drained after the rolling-deploy canary failed again. There are two blockers, and both need someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The leader is stuck on an older commit, and the minion.town EROFS fix cannot reach it until Oros is revived or the leader is deployed past the dead canary. That decision is yours.
 
-The leader's disk is nearly full (hundreds of MiB free, briefly 0), and the space needs reclaiming by hand. Separately, the maintainer should check the minion.town DNS question, which may be a zone compromise. The foreman is also waiting on a policy choice between [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661). Most of the journal-contention notices have cleared.
+**minion.town** is paused by maintainer directive, and the watchdog has now refused paused-project work about 59,640 times. The foreman and mentor both crash-loop on the refusal (`post-job.sh` returns rc=78), which is a bug in how they handle it. An earlier notice reports minion.town's DNS pointing at an unfamiliar address. Please confirm whether that repoint was yours.
+
+**Other items for you:**
+- The leader's disk briefly hit 0 bytes free and is now at a few hundred MiB. It needs a manual cleanup.
+- The foreman needs a decision for milestone M3: keep #1593's fail-closed collision policy, or adopt the qualified names in #1661/#1348.
+- Several split-eligible jobs, including the daily progress summaries for Nov 5 and 6, are parked on the plan queue awaiting a go-ahead.
 
 ## Maintainer review docket
 
@@ -680,7 +683,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.3M | $428.57 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 112.3M | $429.00 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154637353 tokens/day lower bound._
