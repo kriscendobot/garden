@@ -1,21 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T12:43:43Z_
+_As of 2026-11-15T12:48:52Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is still drained after failing the rolling-deploy canary again. Retries ran out, and the roll is stuck behind two blockers that need someone at the machine: an expired Claude OAuth session and a failing `garden-secret-broker` unit. The leader is still on an older revision, which is the same bottleneck the minion.town arc supervisor flagged. It asked whether to revive Oros or authorize a leader deploy past the dead canary. Separately, a canary-probe backlog is accumulating in todo.
+Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. The rolling deploy halted on a failed canary after exhausting retries, and the host stays drained. Its stuck state is blocking the leader from deploying. Two things need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy.
 
-The Endo gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its whole review budget (6 of 6 rounds, $22.22) without converging. A seventh fix round is running anyway, and the maintainer message offers `--add-rounds`. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a failed first fix round. The same day also saw a panel round and a weave for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591), and a weave and shepherd for [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+Meanwhile, the leader is also hitting a resource and pause problem. Its filesystem briefly hit 0 bytes free and sat at roughly 176–500 MiB. The foreman and mentor are failing on `post-job.sh` refusals for the paused `minion-town` project. Production `minion.town` is serving the wrong host after a DNS change nobody has claimed, which may be a zone compromise.
 
-Decisions waiting on the maintainer:
-- **Foreman milestone M3:** choose between keeping #1593's fail-closed collision policy and adopting the qualified names in #1661/#1348.
-- **minion.town DNS:** the apex now resolves to an unexpected address. Was the change intentional, or is it a possible zone compromise?
-- **Disk space:** the leader's filesystem briefly hit zero free space and needs reclaiming by hand.
+Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up its 6 panel/fix rounds without converging. It is now in a seventh fix round, and more rounds can be granted with `--add-rounds`. Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage reported failure.
 
-The minion.town pause is working as designed. The watchdog has logged tens of thousands of refusals, and the foreman and mentor loops keep tripping on it. Both still exit non-zero on every tick, which keeps self-heal notices firing. Most journal-contention notices have recovered on their own.
+Several watchdog journal-contention conditions recovered, and the rest is routine budget-level churn. The scheduled daily-summary and dependabot-recheck jobs were parked after retries ran out.
 
 ## Maintainer review docket
 
@@ -685,10 +680,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.1M | $422.57 _(notional, rate-card)_ | 40% of 271.0M (ok) |
+| Claude | 109.3M | $423.29 _(notional, rate-card)_ | 40% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154585343 tokens/day lower bound._
+_Fleet token-unlock pace: 154629225 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.051686s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 11 open notice(s); checker healthy
