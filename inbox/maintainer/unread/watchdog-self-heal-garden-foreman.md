@@ -1,17 +1,18 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-11-15T16:12:55Z
+sent_at: 2026-11-15T17:17:05Z
 watchdog_key: self-heal-garden-foreman
-notice_count: 15
+notice_count: 16
 first_seen: 2026-11-14T04:26:12Z
-last_seen: 2026-11-15T16:12:55Z
+last_seen: 2026-11-15T17:17:05Z
 ---
-WATCHDOG notice — occurrence #15 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T16:12:55Z).
-The SAME condition (`self-heal-garden-foreman`) has now been observed 15 times; this is ONE
-coalesced notice that updates in place, not 15 messages. Latest detail:
+WATCHDOG notice — occurrence #16 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T17:17:05Z).
+The SAME condition (`self-heal-garden-foreman`) has now been observed 16 times; this is ONE
+coalesced notice that updates in place, not 16 messages. Latest detail:
 
-self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 19e267ee07c1213c407eaff53c7cdcf20a911353 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 19e267ee07c1213c407eaff53c7cdcf20a911353). Diagnosis: The foreman exited 78 because `post-job.sh` refused a post, and the foreman treats any refusal as fatal.
+self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: cbdf6f261fbe576f06bbfa50b6d1e1c9f8af92a3 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p cbdf6f261fbe576f06bbfa50b6d1e1c9f8af92a3). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-rc78
+The foreman exits 78 and the unit fails whenever it proposes a milestone step for a paused project.
 
-**Cause.** `post-job.sh` refused to post `shepherd-endojs-endo-but-for-bots-pr1476`. It reported that the base belongs to PAUSED project `minion-town` (record `pauses/minion-town.md`) and returned rc=78 (`EX_CONFIG`). In `scripts/jobs/foreman.sh`, the `elif [ "$post_rc" -ne 0 ]` branch near line 737 logs "ERROR: post-job failed" and runs `exit "$post_rc"`. It only special-cases the completed-collision rc and the tempfail rc 75. So a deliberate pause refusal crashes the unit on every tick and systemd restarts it. The foreman will re-propose the same step each tick until the pause is lifted or the code changes.
+**Failure signature:** `scripts/jobs/foreman.sh` logs `[post] refusing to post 'daemon-git-capability-phase-five-contract-tests-build-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) ... (rc=78)`, then `ERROR: post-job failed for next milestone step ... (rc=78)`. The `elif [ "$post_rc" -ne 0 ]` branch near line 737 then does `exit "$post_rc"`.
 
-The refusal is intended behavior (see the recent docs commit "record the min
+**Cause:** `post-job.sh` deliberately refuses paused-project posts with rc=78. The foreman treats that as a fatal tick error, so the unit fails and restarts every tick. The same tick also logged a failed deferred-plan promotion for `kriscendobot-mini
