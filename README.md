@@ -1,28 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T17:03:36Z_
+_As of 2026-11-15T17:08:34Z_
 
 ## Latest
 
-Several things need your attention, and the biggest are a fleet-health problem on oros and a likely DNS problem on minion.town.
+Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. Rolling-deploy canary probes keep failing, and the three probe sets now queued on the board are for `66ab9cc20185` and `34b72683ba79`. The health-watch message says retries ran out and the host stays drained. Fixing it needs someone at the machine: re-run `/login` for the expired Claude session, and check why `garden-secret-broker` fails after each deploy. Because Oros is a dead canary, the leader hasn't deployed, so the EROFS fix is still stuck behind it. The arc supervisor asks whether to revive Oros or authorize a leader deploy past it.
 
-**Oros is stuck.** Oros (`oros-studio-garden-ce242c49`) is still drained after another failed canary, and the rolling deploy has halted. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The leader can't advance past the dead canary, so the EROFS fix for monk project checkouts hasn't reached it. As a result, minion.town PR work is parked, and the arc supervisor is asking whether to revive oros or authorize a leader deploy past it.
+The `minion.town` project is paused. The pause refusals are crashing the foreman and mentor services. Both exit non-zero on every tick when `post-job.sh` refuses a paused post, and self-heal diagnosed each as a pause refusal handled as a crash. The pause watchdog has now counted over 62,000 refusals. Two other `minion.town` items need your call. Production DNS appears to have been repointed to an unfamiliar address around 13:14Z on 11-10; confirm whether that was deliberate. The leader's disk also ran down to 0 bytes free at one point.
 
-**minion.town DNS.** The arc supervisor reports that `minion.town` and `ocap.site` resolve to a different Amazon address, one that serves a static "no accounts here" page. The real host at `13.56.17.18` is healthy when queried directly. The supervisor can't rule out a zone compromise and left DNS untouched, so it needs you to say whether the change was intentional.
+On the Endo side, the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 7 panel/fix rounds without converging. It needs a human decision or `--add-rounds`. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after a declined fix round. Milestone M3 still waits on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which many weaves and conducts are blocked behind.
 
-**Disk space.** The leader's disk briefly hit zero free space and sat at about 176–500 MiB free, so it needs reclaiming by hand.
-
-**PR gauntlets.**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) spent all 7 panel/fix rounds ($27.85) without converging. Fix round 7 landed with CI green, so it now needs your merge/review call, or more rounds via `--add-rounds`.
-- The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed. M3 is blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which needs a merge decision. [endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [#1597](https://github.com/endojs/endo-but-for-bots/pull/1597) are also ready for review.
-
-**Pause fallout.** The minion.town pause is making the foreman and mentor crash on `post-job.sh` refusals (rc=78), because they treat a deliberate pause refusal as fatal. The pause watchdog has now logged more than 62,000 refusals. Several parked jobs were also reaper-doomed and held for a go-ahead, including two daily progress summaries and the Phase 8 fetch-plugin and oros-secrets-handoff builds.
-
-**Decisions.** Two other follow-ups wait on you: whether to post an Iron Horse test-infra job based on the yavashark ingest, and sign-off on the minion.town settings-simplification report. That report needs `deploy-accounts-store.sh` run before merging.
-
-The journal-contention notices are mostly recoveries and need no action.
+Most of the remaining notices are journal-contention recoveries, which need no action.
 
 ## Maintainer review docket
 
@@ -693,7 +681,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.3M | $452.06 _(notional, rate-card)_ | 44% of 271.0M (ok) |
+| Claude | 118.4M | $452.48 _(notional, rate-card)_ | 44% of 271.0M (ok) |
 | Codex | 400.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154655528 tokens/day lower bound._
