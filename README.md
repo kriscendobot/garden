@@ -1,25 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T19:59:24Z_
+_As of 2026-11-15T20:03:47Z_
 
 ## Latest
 
-Maintainer attention is needed on a few blocked paths.
+Rolling deploys are still stuck on **oros-studio-garden-ce242c49**. It failed its canary again on 18fc7b17375 and is held drained. The Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both fixes need someone at the machine, so the leader can't advance past it, and the canary probes for it are queued in todo.
 
-**Oros is still operator-held.** It failed its rolling-deploy canary again and stays drained, so the leader can't deploy past it. It needs a Claude `/login` and a look at why `garden-secret-broker` fails after deploy. Meanwhile minion.town PR work is parked, though the project is also paused by directive.
+The other changes are mostly recoveries:
+- Many journal-contention watchdogs cleared.
+- The minion.town screening tick recovered after 11 failures.
+- The codex worker count moved between 1 and 2, and monks went 4→3→2 under the budget ramp.
 
-**Open questions for you:**
-- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging and awaits your merge or review decision, or more rounds. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed.
-- **Node pin:** the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) blocks milestone M3 (Phase 2c, #1504). It also gates the weaves and conducts of #667, #1504, #1573 and #1658, and the #1594 shepherd.
-- **minion.town:** the DNS repoint of minion.town and ocap.site to an unknown address (flagged 2026-11-10) is still unanswered. The settings-simplification report also needs `deploy-accounts-store.sh` run by hand before merge.
+Things that need a maintainer's attention:
+- **Gauntlet budget:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round, which declined its gated outcome. Both can resume with `--add-rounds`.
+- **Merge blocker:** several parked jobs wait on [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. The foreman has flagged it as blocking milestone M3, and it holds [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) and [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594).
+- **Pause side effects:** the minion.town pause is firing refusals every tick. The foreman and mentor self-heal notices diagnose a rc=78 policy refusal being handled as a crash. The comment watchers on all armed repos are also stuck in a GitHub primary-quota cooldown and are posting no acknowledgments.
+- **Disk space:** the leader's filesystem briefly hit 0 bytes free.
+- **minion.town DNS:** a worker reports the apex records repointed to an unfamiliar address on 2026-11-10. It needs a maintainer answer on whether the change was intentional.
 
-**Constraints:** a GitHub primary-quota cooldown has held all 17 comment watchers silent for roughly an hour, and minion.town screening is deferred behind the same latch. The host disk was reported nearly full (hundreds of MiB free) and needs hand cleanup.
-
-The foreman and mentor self-heal notices come from `post-job.sh` refusing paused-project jobs (rc=78) and being treated as crashes. Several parked daily-summary and build jobs await promotion.
-
-Journal-contention notices mostly cleared. No job transitions were resolved in this window.
+The shepherd for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and the follow-up for [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) completed on the board.
 
 ## Maintainer review docket
 
@@ -583,17 +582,11 @@ Delegation: **active**
 
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-11-13T05:53:04Z, latest 2026-11-15T19:10:54Z).
-> The SAME condition (`minion-town-screening-tick-failed-endolin-garden-ece02cb4`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-13T05:53:04Z, cleared 2026-11-15T20:01:57Z).
+> It was observed 11 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> minion.town screening on endolin-garden-ece02cb4 has not completed for 3 consecutive proxy ticks (first failure 2026-11-15T19:00:45Z).
->
-> Failure class: github-deferred
-> Latest detail: gh api screen:pr-list admission refused: host-shared gh-api cooldown live (2992s left, tag receipt:kriscendobot-vattr97:PR source:primary-quota <- comment:source-timeout-fanout; API rate limit already exceeded for user); not issued 
->
-> No screening gate was bypassed and the delegation was not resumed. The proxy will retry on its next tick and post a recovery update after a completed screen.
-> Runbook: context/operations/minion-town-screening.md
+> minion.town screening on endolin-garden-ece02cb4 completed after a 12-tick failure streak.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal.md)
 
@@ -717,10 +710,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $476.73 _(notional, rate-card)_ | 46% of 271.0M (ok) |
+| Claude | 124.9M | $477.47 _(notional, rate-card)_ | 46% of 271.0M (ok) |
 | Codex | 403.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154676108 tokens/day lower bound._
+_Fleet token-unlock pace: 154702699 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
