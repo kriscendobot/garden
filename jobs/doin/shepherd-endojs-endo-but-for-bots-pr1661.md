@@ -10,6 +10,7 @@ Shepherd endojs/endo-but-for-bots PR #1661, the Phase 8 daemon-agent-tools HTTP 
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=50 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
