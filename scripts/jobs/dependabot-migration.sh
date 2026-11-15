@@ -20,6 +20,15 @@
 # before shepherding CI (designs/claude-harness-provisioning.md § Standing upgrade
 # obligation, step 3).
 #
+# Second row: every `peter-evans/create-pull-request` bump on endojs/endo-but-for-bots
+# rewrites the SHA pin in .github/workflows/update-action-pins{,-major}.yml but keeps
+# the floating `# v8` trailing comment, which zizmor flags as a mismatched version
+# comment (PR #1662, 2026-11-15T20:25:40Z, repaired by a hand-made bot commit). The
+# built-in `action-pin-comments` step resolves the pinned SHA to its exact
+# `vX.Y.Z` tag on the action's upstream (`git ls-remote`, no PR text) and rewrites
+# only that comment. A step named `builtin:<fn>` runs a function in this file; any
+# other step name is an `npm run` script.
+#
 # The lookup is an exact string match on the watcher's charset-validated captures,
 # so no PR text reaches a job body through it. The runner fails CLOSED at each gate
 # and never commits on a failure:
@@ -44,6 +53,12 @@ hook_table() {
     claude-harness:refresh claude-harness:check \
     'tools/claude-harness/manifest.json tools/claude-harness/manifest.json.sig tools/claude-harness/release.json' \
     'chore(claude-harness): refresh signed release manifest'
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    action-pin-comments endojs/endo-but-for-bots peter-evans/create-pull-request \
+    '.github/workflows/update-action-pins.yml .github/workflows/update-action-pins-major.yml' \
+    builtin:action-pin-comments builtin:action-pin-comments-check \
+    '.github/workflows/update-action-pins.yml .github/workflows/update-action-pins-major.yml' \
+    'chore: pin action version comments to the exact tag'
 }
 
 die() { printf 'dependabot-migration: %s\n' "$*" >&2; exit "${2:-2}"; }
@@ -65,6 +80,90 @@ run_npm_script() {  # run_npm_script <checkout> <script>
   fi
 }
 
+# --- built-in steps -------------------------------------------------------------
+# A built-in exits rc 2 itself (via die) when the PR is not the plain bump it knows;
+# any other failure returns non-zero and the runner reports rc 4. Each is called as <fn> <checkout> <base-ref> <action> <outputs>, where <action> is
+# the row's package (an `owner/repo` GitHub Action) and <outputs> its output set.
+: "${GARDEN_DEP_MIGRATION_ACTION_REMOTE:=https://github.com}"
+
+pin_line_re() {  # ERE for one `uses: <action>@<sha> # <comment>` line of <action>
+  local a="${1//./\\.}"
+  printf '^[[:space:]]*(- )?uses: %s@[0-9a-f]{40}( # [A-Za-z0-9.+_-]+)?[[:space:]]*$' "$a"
+}
+
+# pinned_shas <checkout> <action> <outputs>: the distinct SHAs <action> is pinned to.
+# Every output must carry at least one pin line, or it is not the file this row knows.
+pinned_shas() {
+  local co="$1" a="$2" f re
+  re="$(pin_line_re "$a")"
+  for f in $3; do
+    [ -f "$co/$f" ] || { echo "missing $f" >&2; return 1; }
+    grep -Eq "$re" "$co/$f" || { echo "no '$a' pin line in $f" >&2; return 1; }
+    grep -E "$re" "$co/$f" | sed -E 's/.*@([0-9a-f]{40}).*/\1/'
+  done | sort -u
+}
+
+# exact_tag <action> <sha>: the single `vX.Y.Z` tag whose commit is <sha>.
+exact_tag() {
+  local refs tags n
+  local to=()
+  command -v timeout >/dev/null 2>&1 && to=(timeout --kill-after=10s 60s)
+  refs="$("${to[@]}" git ls-remote --tags "$GARDEN_DEP_MIGRATION_ACTION_REMOTE/$1" 2>/dev/null)" \
+    || { echo "git ls-remote of '$1' failed" >&2; return 1; }
+  # A peeled `^{}` row names an annotated tag's commit; a bare row a lightweight tag's.
+  tags="$(printf '%s\n' "$refs" | awk -v s="$2" '
+    { r = $2; sub(/^refs\/tags\//, "", r); p = sub(/\^\{\}$/, "", r)
+      if (p) peeled[r] = $1; else direct[r] = $1 }
+    END { for (r in direct) { c = (r in peeled) ? peeled[r] : direct[r]
+            if (c == s && r ~ /^v[0-9]+\.[0-9]+\.[0-9]+$/) print r } }' | sort -u)"
+  n="$(printf '%s' "$tags" | grep -c . || true)"
+  [ "$n" -eq 1 ] || { echo "'$1@$2' resolves to $n exact vX.Y.Z tags (${tags//$'\n'/ }), need exactly 1" >&2; return 1; }
+  printf '%s\n' "$tags"
+}
+
+builtin_action-pin-comments() {
+  local co="$1" base="$2" a="$3" outs="$4" re line shas sha tag f
+  re="$(pin_line_re "$a")"
+  # Plain-bump gate: the PR's changed lines are all pin lines of <action>.
+  # shellcheck disable=SC2086
+  while IFS= read -r line; do
+    case "$line" in '+++ '*|'--- '*|'@@'*|'diff '*|'index '*|'') continue ;; esac
+    [[ "${line:0:1}" == [+-] ]] || continue
+    printf '%s\n' "${line:1}" | grep -Eq "$re" \
+      || die "PR changes a line that is not a '$a' pin (${line:0:120}); not a plain bump"
+  done < <(git -C "$co" diff -U0 "$base...HEAD" -- $outs)
+  shas="$(pinned_shas "$co" "$a" "$outs")" || die "the '$a' pins are not in the shape this hook knows"
+  [ "$(printf '%s\n' "$shas" | grep -c .)" -eq 1 ] \
+    || die "'$a' is pinned to more than one SHA (${shas//$'\n'/ }); not a plain bump"
+  sha="$shas"
+  tag="$(exact_tag "$a" "$sha")" || return 1
+  for f in $outs; do
+    sed -E -i "s|^([[:space:]]*(- )?uses: ${a//./\\.}@$sha)( # [A-Za-z0-9.+_-]+)?[[:space:]]*\$|\1 # $tag|" "$co/$f"
+  done
+}
+
+builtin_action-pin-comments-check() {
+  local co="$1" a="$3" outs="$4" re shas tag f
+  re="$(pin_line_re "$a")"
+  shas="$(pinned_shas "$co" "$a" "$outs")" || return 1
+  [ "$(printf '%s\n' "$shas" | grep -c .)" -eq 1 ] || { echo "'$a' pinned to several SHAs" >&2; return 1; }
+  tag="$(exact_tag "$a" "$shas")" || return 1
+  for f in $outs; do
+    if grep -E "$re" "$co/$f" | grep -vqF "@$shas # $tag"; then
+      echo "$f has a '$a' pin whose comment is not '# $tag'" >&2; return 1
+    fi
+  done
+}
+
+# run_step <checkout> <base-ref> <step> <package> <outputs>
+run_step() {
+  case "$3" in
+    builtin:*) "builtin_${3#builtin:}" "$1" "$2" "$4" "$5" ;;
+    *) run_npm_script "$1" "$3" ;;
+  esac
+}
+describe_step() { case "$1" in builtin:*) printf '%s' "$1" ;; *) printf 'npm run %s' "$1" ;; esac; }
+
 action="${1:-}"
 case "$action" in
   lookup)
@@ -76,7 +175,7 @@ case "$action" in
     id="$2" co="$3" baseref="$4"
     row="$(hook_table | awk -F'\t' -v i="$id" '$1 == i')"
     [ -n "$row" ] || die "unknown hook '$id'"
-    IFS=$'\t' read -r _ _ _ inputs refresh validate outputs subject <<< "$row"
+    IFS=$'\t' read -r _ _ pkg inputs refresh validate outputs subject <<< "$row"
     git -C "$co" rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "'$co' is not a git checkout"
     git -C "$co" rev-parse -q --verify "$baseref^{commit}" >/dev/null || die "base ref '$baseref' is not a commit in '$co'"
 
@@ -92,12 +191,12 @@ case "$action" in
     done <<< "$changed"
 
     # Run the refresh. A failure leaves whatever it wrote in place and uncommitted.
-    run_npm_script "$co" "$refresh" || fail 4 "'npm run $refresh' failed in '$co'; nothing committed"
+    run_step "$co" "$baseref" "$refresh" "$pkg" "$outputs" || fail 4 "'$(describe_step "$refresh")' failed in '$co'; nothing committed"
 
     # Gate 3: the command wrote only its declared outputs.
     dirty="$(git -C "$co" status --porcelain --untracked-files=all)"
     if [ -z "$dirty" ]; then
-      run_npm_script "$co" "$validate" || fail 4 "'npm run $validate' failed in '$co'"
+      run_step "$co" "$baseref" "$validate" "$pkg" "$outputs" || fail 4 "'$(describe_step "$validate")' failed in '$co'"
       echo already-current
       exit 0
     fi
@@ -110,13 +209,13 @@ case "$action" in
     done <<< "$dirty"
 
     # Gate 4: the regenerated pin agrees with the bumped manifest and lockfile.
-    run_npm_script "$co" "$validate" || fail 4 "'npm run $validate' rejected the refreshed output in '$co'; nothing committed"
+    run_step "$co" "$baseref" "$validate" "$pkg" "$outputs" || fail 4 "'$(describe_step "$validate")' rejected the refreshed output in '$co'; nothing committed"
 
     # shellcheck disable=SC2086  # $outputs is a space-separated path list
     git -C "$co" add -- $outputs
     # shellcheck disable=SC2086
     git -C "$co" commit -q -m "$subject" \
-      -m "Regenerated by \`npm run $refresh\` (garden scripts/jobs/dependabot-migration.sh hook '$id') after the Dependabot bump; \`npm run $validate\` passed on the result." \
+      -m "Regenerated by \`$(describe_step "$refresh")\` (garden scripts/jobs/dependabot-migration.sh hook '$id') after the Dependabot bump; \`$(describe_step "$validate")\` passed on the result." \
       -- $outputs
     printf 'committed %s\n' "$(git -C "$co" rev-parse HEAD)"
     ;;
