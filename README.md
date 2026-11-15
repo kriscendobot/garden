@@ -1,20 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T10:28:11Z_
+_As of 2026-11-15T10:33:58Z_
 
 ## Latest
 
-The fleet completed work on several Endo PRs on 2026-11-15. The weave and shepherd jobs for [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) finished, as did the weave job for [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594). The gauntlet and viability jobs for [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) also completed, and the gauntlet one reports the PR as not viable. The board transitions list resolved no file-level changes, so this comes from the board's completed (`tada`) list.
+Several maintainer calls are waiting. Oros (oros-studio-garden-ce242c49) is still drained and operator-held. Its rolling-deploy canary has failed repeatedly, the Claude OAuth session has expired, and `garden-secret-broker` fails after deploy. Because of that, the leader is stuck at an older commit. The EROFS fix can't reach the leader, so minion.town jobs that need a project checkout are still parked. The minion.town project is also paused. The watchdog has now counted that pause refusal 55,131 times, and it has crashed `garden-foreman` (rc=78) and `garden-mentor` into self-heal.
 
-**Decisions waiting on you:**
-- **Gauntlet budget:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. CI is green, and it is waiting on you to either grant more rounds or review it yourself. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined.
-- **Oros host:** `oros-studio-garden-ce242c49` is still drained and failing its rolling-deploy canary. It needs someone at the machine to re-run Claude `/login` and to fix `garden-secret-broker.service`. Until the canary passes, the leader can't deploy.
-- **minion.town:** The project is paused. A reaper notice reports its DNS repointed to a different address on 2026-11-10, so the production site went dark. The notice asks whether you made that change. Separately, the foreman and mentor services keep crashing, because they treat the pause refusal as a fatal error.
-- **Disk:** The leader's disk is nearly full, with only about 176–500 MiB free, so space needs reclaiming by hand.
+Other open decisions:
+- **Gauntlet halts:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up its 6 review rounds, so it needs a human call or `--add-rounds`. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round.
+- **Milestone M3:** the foreman is waiting on a choice between keeping [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593)'s fail-closed collision policy and adopting the qualified names in [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) and [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348).
+- **DNS:** an earlier message reported minion.town's DNS pointing at a different address since 2026-11-10. Nobody has said whether the repoint was intentional.
 
-Most other messages are journal-contention watchdog notices that have already recovered.
+The leader's disk is nearly full, with a few hundred MiB free and a brief hit of 0, so it needs a manual cleanup.
+
+On the board, [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661)'s gauntlet finished as not viable. Weave and shepherd jobs for [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) and a weave for [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) also completed today. Most of the journal-contention watchdog notices have cleared on their own.
 
 ## Maintainer review docket
 
@@ -435,11 +434,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #12 (first seen 2026-11-14T04:34:56Z, latest 2026-11-15T06:51:51Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 12 times; this is
-> ONE entry that updates in place, not 12 messages. Latest detail:
+> COALESCED message — occurrence #13 (first seen 2026-11-14T04:34:56Z, latest 2026-11-15T10:31:34Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 13 times; this is
+> ONE entry that updates in place, not 13 messages. Latest detail:
 >
-> M3’s top-priority child-agent stack is blocked on maintainer approval and merge of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560; only then can its dependent PRs be restacked. Decide whether Phase 8 should retain merge-ready #1593’s fail-closed tool naming or replace it with #1661’s renamed-tool approach.
+> Milestone M3’s next agent-tools integration step needs a maintainer decision: retain PR #1593’s fail-closed collision policy or adopt the qualified names in PR #1661/#1348. Choose the policy and corresponding PR; #1661 is otherwise overtaken.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -680,10 +679,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.6M | $385.88 _(notional, rate-card)_ | 37% of 271.0M (ok) |
-| Codex | 396.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 102.0M | $387.33 _(notional, rate-card)_ | 38% of 271.0M (ok) |
+| Codex | 396.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154294763 tokens/day lower bound._
+_Fleet token-unlock pace: 154326176 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.051686s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
