@@ -1,25 +1,25 @@
 # Garden bulletin
 
-_As of 2026-11-15T06:49:14Z_
+_As of 2026-11-15T06:52:22Z_
 
 ## Latest
 
-No file-level board transitions resolved this cycle. The completions visible in the tada list are `build-daemon-agent-tools-phase-eight-fetch-plugin`, shepherd jobs for [endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/pull/1560), and a gauntlet for [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) that was judged not viable.
+Quiet window: no job-board transitions resolved, so the notable items are open maintainer decisions.
 
-**Needs a maintainer decision:**
-- **Gauntlet on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588):** it used all 6 panel/fix rounds without converging (CI green, $22.22 spent). The PR is left for a human call, or you can grant more rounds with `--add-rounds`.
-- **Gauntlet on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504):** it halted after fix round 1, when the fix stage reported the outcome as declined.
-- **M3 stack:** the daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is still waiting on the green zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). The foreman has now asked 11 times whether to merge it.
+**Oros is the main blocker.** [oros-studio-garden-ce242c49] has failed its rolling-deploy canary repeatedly (a halted roll, with retries exhausted) and is held drained. It needs someone at the machine for two fixes: re-run `/login` for the expired Claude OAuth session, and look at `garden-secret-broker.service`, which fails after each deploy. Until that happens, the leader stays on its old build. That keeps the EROFS fix from reaching it and leaves minion.town PR work parked. The minion.town pause is in force and the watchdog keeps refusing paused-project jobs, with its notice count now above 51,000.
 
-**Fleet health:**
-- **Oros host:** it is still drained and held by the operator. Its rolling-deploy canary failed again, which blocks the leader's deploy.
-  - Blockers: an expired Claude OAuth session and a failing `garden-secret-broker`. Both need someone at the machine.
-  - Fallout: nine canary-probe jobs for Oros sit unclaimed in todo.
-  - The earlier arc-press message says the stuck leader deploy leaves the minion.town EROFS fix undeployed.
-- **Disk on the leader:** the host reported only about 176–500 MiB free, and briefly 0, during an improve job. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Paused project:** the minion.town pause is still being enforced. The watchdog count is past 51,000 refusals, the latest being the weekly accountant job. The foreman and mentor self-heal notices come from the same cause (exit code 78 on refused posts), not a real breakage.
-- **minion.town DNS:** an arc-press message from 11-10 reports production DNS repointed to an unrecognized address. The message is still unread, and DNS has not been touched. Please confirm whether the change was yours.
-- **Journal contention:** most notices cleared on their own over the past day, and the rest are routine.
+**Decisions waiting on you**
+- Gauntlet [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging (about $22). The resume command with `--add-rounds` is in the message.
+- The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix round.
+- The foreman's M3 notice (12 occurrences) asks you to approve and merge [#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560, and to choose between #1593's fail-closed tool naming and #1661's renamed-tool approach for Phase 8.
+- The minion.town DNS question from 2026-11-10 is unanswered. Production appears repointed to a different address, and no one has confirmed it was intentional.
+- The `deploy-accounts-store.sh` run, which a minion.town settings simplification needs before it can merge, is also unanswered.
+
+**Housekeeping**
+- The leader's disk was nearly full, briefly hitting 0 free bytes. Reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- The foreman and mentor services keep crashing, because a paused-project refusal (rc=78) is handled as a fatal error.
+- Several daily-summary and build jobs are parked after exhausting their requeues.
+- Most journal-contention notices have recovered by themselves.
 
 ## Maintainer review docket
 
@@ -447,11 +447,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #11 (first seen 2026-11-14T04:34:56Z, latest 2026-11-14T16:17:11Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 11 times; this is
-> ONE entry that updates in place, not 11 messages. Latest detail:
+> COALESCED message — occurrence #12 (first seen 2026-11-14T04:34:56Z, latest 2026-11-15T06:51:51Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 12 times; this is
+> ONE entry that updates in place, not 12 messages. Latest detail:
 >
-> M3’s daemon worker-import stack (PRs #1559 → #1590 → #1592) is blocked until the green shared zizmor fix in endojs/endo-but-for-bots PR #1659 merges. Please decide whether to merge #1659 so the stack can be reweaved and CI resumed.
+> M3’s top-priority child-agent stack is blocked on maintainer approval and merge of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560; only then can its dependent PRs be restacked. Decide whether Phase 8 should retain merge-ready #1593’s fail-closed tool naming or replace it with #1661’s renamed-tool approach.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -692,7 +692,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.8M | $351.90 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.9M | $352.27 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 394.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154453596 tokens/day lower bound._
