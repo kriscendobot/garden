@@ -1,24 +1,24 @@
 # Garden bulletin
 
-_As of 2026-11-15T08:33:46Z_
+_As of 2026-11-15T08:36:16Z_
 
 ## Latest
 
-Nothing moved on the board in this window (no posts, claims or completions resolved), so this is a status read of what is waiting on the maintainer.
+Two gauntlets stopped. [endojs-endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) without converging, and its last fix is pushed with CI green. It needs a human merge or review call, or `--add-rounds 2` to continue. The gauntlet on [endojs-endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 because the fixer reported the outcome as declined. It can resume with `--add-rounds 2`. The input shows no job posts, claims or completions since the last bulletin.
 
-**Fleet health:** The Oros follower, `oros-studio-garden-ce242c49`, is still operator-held. It failed its canary again at 18fc7b17375 because its Claude OAuth session expired and `garden-secret-broker` fails after deploy. Because the rolling deploy rolls followers first, the leader is stuck behind it. That leaves the leader's EROFS fix undeployed, and the minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the dead canary. The leader's disk also hit about 0 bytes free at one point and needs manual reclaiming.
+Several items are blocked on you:
 
-**Foreman and mentor failures:** The foreman and mentor are both crash-looping on the same cause. They propose jobs for the paused `minion-town` project, and `post-job.sh` refuses with rc=78, which the scripts treat as fatal. Self-heal has written up the fix for each.
+- **Oros is held, and the leader is stuck behind it.** Oros has failed its rolling-deploy canary repeatedly and stays drained. Its Claude login has expired, so it needs `/login` at the machine. `garden-secret-broker` also fails after deploy. Because canaries run on followers first, the leader is still on `f2788117645` and can't take the EROFS fix. Until it deploys, monk jobs that need a project checkout die, so minion.town PR work is parked. The decision is whether to revive Oros or to authorize deploying the leader past the dead canary.
+- **minion.town went dark on 2026-11-10.** The apex DNS answer moved to a different host that serves a static page, and the real host is healthy. The arc supervisor asked whether that repoint was yours, and says it may be a zone compromise if not. Restoring the A records needs you or a credentialed host. minion.town development is also paused, and the pause is being refused at its chokepoints (52,740 coalesced watchdog notices). The foreman and mentor services both crash-loop on the pause's rc=78 refusal.
+- **The leader's disk is nearly full.** It has about 176–500 MiB free and briefly hit 0. Reclaim space by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **Parked jobs.** Several scheduled jobs, including daily summaries and the Phase 8 fetch-plugin build, are parked after their retries failed. Promote or drop them.
+- **Foreman M3.** It needs approval and merge of [endojs-endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560. It also asks whether Phase 8 keeps #1593's fail-closed tool naming or switches to #1661's renamed tools.
+- **Other reports waiting for you.**
+  - A minion.town settings simplification needs `deploy-accounts-store.sh` run first, plus a veto check on four choices.
+  - A scholar ingest raised an Iron Horse test-infra question.
+  - A leftover anonymous guest sits on production minion.town.
 
-**Minion.town:** Production appears to have gone dark on 2026-11-10 because DNS was repointed to an unexpected address. The maintainer needs to say whether that was deliberate.
-
-**Gauntlets and reviews:**
-- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel rounds without converging. Granting more rounds is the maintainer's call.
-- [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage declared failure.
-
-**Foreman milestone M3:** The milestone M3 stack is blocked on approval and merge of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/pull/1558) and #1560. The maintainer must also choose between #1593's fail-closed tool naming and #1661's renamed-tool approach for Phase 8.
-
-**Journal contention:** Most journal-contention watchdog notices have recovered on their own.
+The journal-contention watchdogs mostly cleared on their own.
 
 ## Maintainer review docket
 
@@ -290,9 +290,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T21:05:16Z, latest 2026-11-15T06:35:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-09T21:05:16Z, latest 2026-11-15T08:35:22Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=4 target=1
 
@@ -686,7 +686,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.8M | $367.42 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 96.8M | $367.79 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 395.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154763946 tokens/day lower bound._
