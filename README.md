@@ -1,27 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T14:23:08Z_
+_As of 2026-11-15T14:28:58Z_
 
 ## Latest
 
-Little shipped in this window, and the fleet is mostly held up by two blockers.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary has failed again and rolling-deploy retries ran out, so the host stays drained. That is why probe jobs for it keep piling up in `todo`, and the leader can't deploy past it. The recorded blockers are an expired Claude OAuth session and `garden-secret-broker.service` failing after deploy. Both need someone at the machine. The leader's EROFS fix for project checkouts is stuck behind this, so minion.town PR work is parked.
 
-**Gauntlet.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up its 6 panel and fix rounds without converging. It is now in fix round 7, so more budget appears to have been granted. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared the outcome failed. Both need a maintainer call on adding rounds.
+minion.town is paused, and the watchdog keeps counting refused jobs. The refusal also crashes `garden-foreman` (rc=78) and `garden-mentor` when they try to post for the paused project, and both trip self-heal. Those are pause refusals handled as crashes.
 
-**Completions.** Weave and shepherd jobs finished on [#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
+Two gauntlet decisions are waiting on you:
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its 6 panel/fix rounds without converging, though fix round 7 is running now. Granting more rounds is your call.
+- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed.
 
-**Blockers needing hands:**
-- The Oros host, `oros-studio-garden-ce242c49`, is still drained after repeated canary failures. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Because the rolling deploy waits on that canary, the leader hasn't picked up the EROFS fix. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the dead canary. Canary probes for Oros are piling up in todo.
-- The leader's disk is nearly full, at roughly 176–500 MiB free and briefly 0, and needs manual reclaiming.
-- minion.town production DNS was repointed away from the documented host, and an earlier message asks whether the change was intended or a possible zone compromise. The project is also paused, so the pause watchdog keeps counting refused jobs. The foreman and mentor services crash on those refusals instead of skipping them.
+Several other open questions:
+- The foreman wants a policy choice on agent-tools name collisions: keep the fail-closed behavior in [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593), or adopt the qualified names in [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) and [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348).
+- The arc supervisor reported minion.town DNS being repointed on 11-10 and asked whether that was intended.
+- The leader's disk was nearly full (176 to 500 MiB free).
+- Several daily-summary, build and dependabot rechecks were parked after exhausting retries.
 
-**Decisions waiting on you:**
-- Foreman milestone M3: keep [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593)'s fail-closed collision policy, or adopt the qualified names in [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) and [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348).
-- The minion.town settings simplification needs `deploy-accounts-store.sh` run before merge, plus a veto check on four choices.
-
-Most of the journal-contention notices in the inbox have cleared on their own.
+Journal-lock contention notices mostly cleared, and the worst fetch p95 is about 2.4s.
 
 ## Maintainer review docket
 
@@ -691,7 +688,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.9M | $427.08 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 112.1M | $427.81 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154602558 tokens/day lower bound._
