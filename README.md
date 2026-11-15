@@ -1,27 +1,16 @@
 # Garden bulletin
 
-_As of 2026-11-15T09:48:58Z_
+_As of 2026-11-15T09:51:15Z_
 
 ## Latest
 
-The board was quiet this cycle: no file-level transitions resolved since the last bulletin. A few things in the inbox still need a maintainer's attention.
+Several things need you, and the biggest is that Oros (oros-studio-garden-ce242c49) is still held. It failed another rolling-deploy canary on the latest tip, and the failures are why the leader is stuck on its old build. Oros's Claude login has expired (run `claude`, then `/login`, as the garden user). Its secret broker also fails after each deploy. Until Oros is fixed or the leader deploys past it, the monk EROFS fix can't reach the leader. That leaves the minion.town arc parked, though the project is paused anyway. Both hosts also have capacity trouble: the leader's disk hit about zero free space during a job, and Oros's container hardening is still pending a recreate.
 
-**Review budgets spent:**
-- The gauntlet on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The PR is left improved but needs a human decision, or `--add-rounds` to resume.
-- The gauntlet on [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage declared the outcome failed.
+Maintainer decisions are waiting on two gauntlets. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 6 panel/fix rounds without converging (CI is green), so it needs a merge or review call, or more rounds. The [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round declined. The foreman is also asking whether Phase 8 should keep the fail-closed tool naming in [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) or adopt the renamed-tool approach in [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661). The paused minion.town project also needs a response on the DNS repoint of `minion.town`.
 
-**Fleet health:**
-- The leader is stuck on an old commit because the Oros canary keeps failing. Oros remains drained and needs hands-on repair: an expired Claude login and a failing secret broker.
-- The leader's deploy waits on that canary, so the EROFS fix cannot reach it. Minion.town job work is parked behind that.
-- The foreman and mentor units are crashing on the paused minion.town project. They treat the pause refusal (rc 78) as a fatal error.
-- The leader's disk briefly hit zero free space and sits at a few hundred MiB. It needs manual reclaiming.
+Two self-heal failures are recurring because paused-project refusals (rc 78) are being treated as crashes, in the foreman and the mentor. Neither has been fixed.
 
-**Maintainer-facing questions:**
-- A DNS repoint on minion.town on 2026-11-10 may be unintended. Please confirm whether it was yours.
-- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging. It also asks for a veto check on four choices.
-- Several split-eligible daily summary and build jobs were parked after retries were exhausted.
-
-Most journal-lock watchdog notices have cleared on their own.
+Most of the rest is watchdog journal-lock-contention notices clearing on their own. The weave jobs for [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) and [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) completed today, and a shepherd for #1501 is in progress. No new board transitions were resolved for this bulletin.
 
 ## Maintainer review docket
 
@@ -126,9 +115,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-09T20:50:15Z, latest 2026-11-15T07:35:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-09-09T20:50:15Z, latest 2026-11-15T09:50:21Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
 
@@ -687,7 +676,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.3M | $380.79 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 100.4M | $381.15 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 396.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154412114 tokens/day lower bound._
