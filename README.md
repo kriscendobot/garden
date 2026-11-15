@@ -1,24 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T18:25:13Z_
+_As of 2026-11-15T18:29:25Z_
 
 ## Latest
 
-The only board movement was on [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594). Its shepherd job left `doin` and was parked in the plan queue. A CI-followup shepherd is also parked, blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Earlier today the shepherd work on #1594 and on [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) completed. So did the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet's seventh fix round.
+Nothing moved on the board since the last bulletin, so the changes below come from the maintainer inbox and the recent completions.
 
-**Needs a maintainer decision:**
-- **#1646:** The Node 24 pin gates a lot of parked work, including the weaves for [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504), [#667](https://github.com/endojs/endo-but-for-bots/pull/667), and [#1573](https://github.com/endojs/endo-but-for-bots/pull/1573), plus the conduct of [#1658](https://github.com/endojs/endo-but-for-bots/pull/1658). The foreman reports milestone M3 blocked on it.
-- **#1588 gauntlet:** It used all 7 review rounds without converging, and the PR is left for a human call. You can grant more rounds with `--add-rounds`.
-- **#1504 gauntlet:** It halted after a fix round declared failure.
-- **Oros (`oros-studio-garden-ce242c49`):** The host is still drained after repeated canary failures. It needs its Claude OAuth login renewed and `garden-secret-broker` repaired, both by someone at the machine. While Oros is down, the leader can't roll out the EROFS fix. That leaves minion.town jobs that need a project checkout dead, though the minion.town project is currently paused.
-- **Disk space on the leader:** The leader's disk has been nearly full, briefly hitting zero, and needs space reclaimed by hand.
-- **minion.town DNS:** The apex record changed unexpectedly on 2026-11-10. An open message asks whether the change was intentional.
+**Completions.** The [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used its full 7 panel/fix rounds without converging. Fix round 7 landed with CI green, and the PR is now waiting on a human merge or review decision. You can grant more rounds with `--add-rounds`. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round declared failure. It can be resumed with 2 extra rounds. Shepherd and dependabotany-recheck jobs for the Endo repo also completed, including a shepherd report on [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591).
 
-**Fleet noise:**
-- **Foreman and mentor:** Both keep failing with rc=78 and rc=1 whenever they try to post work for the paused minion.town project. It's a pause refusal being handled as a crash, and self-heal notices keep firing.
-- **Journal contention:** Most contention notices recovered on their own.
+**Blockers.**
+- **Oros host:** `oros-studio-garden-ce242c49` is still operator-held and drained. It has failed the rolling-deploy canary repeatedly, and canary probes are queued in todo. It needs someone at the machine to renew the Claude OAuth session and fix `garden-secret-broker.service`.
+- **Leader deploy:** because Oros is stuck as the canary, the leader may stay on an older commit. The minion.town arc supervisor asked whether to revive Oros or authorize a leader deploy past the dead canary.
+- **Foreman and mentor:** both fail with rc=78 or rc=1 whenever they propose work for the paused minion-town project. The pause refusal is handled as a crash, and a fix job is diagnosed.
+- **Disk space:** the leader's filesystem briefly hit 0 bytes free and was at only a few hundred MiB when last checked. Space needs reclaiming by hand.
+
+**Decisions waiting on the maintainer.**
+- **minion.town DNS:** production DNS may have been repointed away from the documented host. This needs a yes or no on whether the change was intentional.
+- **Milestone M3:** the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) gates several weaves.
+- **Other items:** four minion.town settings choices need a veto check, and the accounts-store deploy script must run before merging that PR. The Iron Horse test-infra question is also open.
+
+Most journal-contention watchdog notices have recovered on their own.
 
 ## Maintainer review docket
 
@@ -690,7 +691,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.8M | $464.64 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 122.0M | $465.37 _(notional, rate-card)_ | 45% of 271.0M (ok) |
 | Codex | 401.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154492285 tokens/day lower bound._
