@@ -1,23 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-15T06:43:33Z_
+_As of 2026-11-15T06:45:42Z_
 
 ## Latest
 
-Only one job moved this cycle. The gauntlet viability stage for [endojs/endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) went from claimed to completed. Nothing was posted or newly claimed.
+Gauntlet [endojs-endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) was refused by its pre-spend viability gate and closed out as not viable. The gate found the premise overtaken, so the maintainer needs to decide whether to close the PR as superseded or confirm it is still the only live implementation of its HTTP-tools change.
 
-Two gauntlets need a maintainer decision:
-- **[#1588](https://github.com/endojs/endo-but-for-bots/pull/1588):** The gauntlet used all 6 panel/fix rounds ($22.22) without converging. The last fix pushed with CI green, and the PR now waits on a human merge or review call. Granting 2 more rounds is a `--resume-from-stage … panel --add-rounds 2` away.
-- **[#1504](https://github.com/endojs/endo-but-for-bots/pull/1504):** The gauntlet halted after one round when a fix stage reported its own outcome as failed or declined. It can resume with extra rounds.
+[endojs-endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. It was left improved with CI green, and resuming needs `--add-rounds`. [endojs-endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, when the fix stage reported the outcome as declined.
 
-Other blockers on the maintainer's desk:
-- **Oros:** The host `oros-studio-garden-ce242c49` is still drained. Its rolling-deploy canary keeps failing. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy.
-- **Leader deploy:** The Oros failure blocks the leader's deploy. The EROFS fix therefore can't reach the leader, and minion.town jobs that need a project checkout remain parked.
-- **M3 stack:** The M3 daemon worker-import stack (#1559, #1590, #1592) waits on [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659), the zizmor fix. Several weave jobs are also blocked on it.
-- **Disk space:** The leader's filesystem hit ENOSPC, and space needs reclaiming by hand.
-- **minion.town DNS:** The minion.town DNS appears to have been repointed on 11-10, taking production dark. It needs a maintainer answer on whether that was intentional.
+**Needs maintainer action:**
+- **Oros:** Oros (`oros-studio-garden-ce242c49`) is still held and drained. Its canary has failed repeatedly, the Claude OAuth session has expired, and `garden-secret-broker` fails after deploy. Until it is revived or the leader is deployed past it, the leader stays on an old revision, so monk jobs that need a project checkout die with EROFS. Canary probes for Oros are queued unclaimed.
+- **Leader disk:** the leader's filesystem was nearly full, with 176–500 MiB free and a brief ENOSPC. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town:** development is paused, and the watchdog's refusal count for the pause is past 51,000. The foreman and mentor services are crashing on the refusals (rc=78 and rc=1) and tripping self-heal. Production DNS was also reported repointed to a static page on 2026-11-10, and that report is still unanswered.
 
-The minion.town pause is still being enforced, and watchdog notices for it keep accumulating. The foreman and mentor self-heal notices both come from the same cause: a paused-project post refusal (rc=78) is being handled as a crash. The journal-contention notices mostly show as recovered.
+Several daily-summary, build and dependabot-recheck jobs sit parked after exhausting retries. Most of the journal-contention noise has recovered.
 
 ## Maintainer review docket
 
@@ -173,11 +169,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-11-13T12:42:09Z, cleared 2026-11-14T18:49:00Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-13T12:42:09Z, latest 2026-11-15T06:45:12Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.026543s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -286,6 +282,10 @@ Delegation: **active**
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `endojs-endo-but-for-bots-pr1661-gauntlet-not-viable` — from gauntlet:endojs-endo-but-for-bots-pr1661-gauntlet-not-viable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1661-gauntlet-not-viable.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1661-gauntlet REFUSED by its pre-spend viability gate: the premise was overtaken. Deciding question: Is #1661 the only live implementation of its core change, which is adding HTTP tools to the agent workspace when an `http` grant is given? Answering yes would mean it is not superseded and its need is still open. Option: close as superseded.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -690,7 +690,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $348.99 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.3M | $350.08 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 394.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154335723 tokens/day lower bound._
@@ -713,13 +713,13 @@ worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (0)
 (none)
 
-### tada (17113)
+### tada (17114)
+- [`endojs-endo-but-for-bots-pr1661-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1661-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1661-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1661-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/endojs-endo-but-for-bots-pr1661-gauntlet-viability.md) — Cost
 - [`build-daemon-agent-tools-phase-eight-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/build-daemon-agent-tools-phase-eight-fetch-plugin.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1590`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/shepherd-endojs-endo-but-for-bots-pr1590.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/shepherd-endojs-endo-but-for-bots-pr1560.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-20261115-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/dependabotany-recheck-endo-but-for-bots-20261115-030509.md) — Cost
-- … and 17108 more
+- … and 17109 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
