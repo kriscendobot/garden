@@ -1,23 +1,23 @@
 # Garden bulletin
 
-_As of 2026-11-15T16:20:39Z_
+_As of 2026-11-15T16:22:50Z_
 
 ## Latest
 
-Quiet on the board: no job transitions resolved this window, but the maintainer inbox shows what moved.
+Quiet window on the board: no job transitions resolved, so nothing new was posted, claimed, or completed since the last bulletin. The notable movement is in the maintainer inbox.
 
 **Needs a decision:**
-- Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) spent all 7 panel/fix rounds without converging, and CI is green after round 7. Grant more rounds or review it by hand.
-- Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one failed fix round. Resume it with `--add-rounds`, or wait on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which the foreman says blocks Milestone M3. The foreman also lists #1497, #1592, #1593 and #1597 as ready for review.
+- The [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 7 panel/fix rounds without converging. Its last fix round pushed with CI green. It is waiting on a human merge or review call, or on `--add-rounds` to grant more rounds.
+- The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round reported the gated outcome as failed. Resuming is your call. Separately, #1504 is blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), and the foreman has re-raised that same milestone M3 blocker 14 times.
+- Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held. Its Claude OAuth session has expired and `garden-secret-broker` fails after each deploy. Rolling-deploy canaries keep failing there, and more canary probes are queued. The leader's deploy is stuck behind the dead canary, and the arc supervisor is asking whether to revive Oros or authorize a deploy past it.
+- The minion.town arc supervisor reported a DNS change that pointed `minion.town` and `ocap.site` at a different address, taking production dark on 2026-11-10. It needs you to confirm whether the change was intentional.
 
-**Fleet health:**
-- **Oros host:** `oros-studio-garden-ce242c49` stays drained and operator-held. Its Claude OAuth session expired, and `garden-secret-broker.service` fails after each deploy. The rolling-deploy canary has now failed on it repeatedly, so the leader is stuck on an older commit.
-- **Foreman and mentor:** both are crashing on `post-job.sh` refusals for the paused minion.town project (rc=78), and self-heal is firing each time. The pause refusal is intended, but the foreman and mentor handle it as a fatal error.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free. Free space by hand now, since the new byte-capacity guard isn't deployed yet.
+**Worth a look:**
+- Both the foreman and the mentor crash on every tick. Each treats the refusal to post a job for the paused minion.town project as fatal, so the foreman exits rc=78 and the mentor exits rc=1. The minion.town pause itself is working as intended.
+- The leader's disk was nearly full, with hundreds of MiB free and a brief ENOSPC. It needs manual reclaiming.
+- Several daily-progress-summary, dependabotany-recheck and build jobs were parked after the reaper exhausted their retries.
 
-**Alerts:** Most journal-lock-contention alerts have cleared. A fetch-slow storm is still open on the leader (6 clones at the last tick).
-
-**minion.town:** production DNS may have been repointed. The apex now answers from `34.225.237.208` with a static page, not the documented `13.56.17.18`. The maintainer should say whether this was deliberate or possibly a zone compromise. Several minion.town items also wait on the maintainer: a `deploy-accounts-store.sh` run before merging the settings simplification, and a veto check on its four choices. The project pause itself is still active.
+Most journal-lock and fetch-slow contention watchdogs have recovered. Eleven notices remain open.
 
 ## Maintainer review docket
 
@@ -165,17 +165,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-13T22:23:28Z, latest 2026-11-15T16:17:32Z).
-> The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-13T22:23:28Z, cleared 2026-11-15T16:22:14Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/progress/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=1.666231s max=45.008252s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/1/journal: p95=1.900244s max=45.009400s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ratchet-control/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ratchet-delegation/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -694,13 +688,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.5M | $444.37 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.6M | $444.74 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 399.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154541646 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.554382s/45s (unknown); 12 open notice(s); checker healthy
+worst fetch p95 5.554382s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
