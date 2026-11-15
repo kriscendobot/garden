@@ -1,23 +1,18 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-11-15T00:07:10Z
+sent_at: 2026-11-15T07:01:17Z
 watchdog_key: self-heal-garden-foreman
-notice_count: 10
+notice_count: 11
 first_seen: 2026-11-14T04:26:12Z
-last_seen: 2026-11-15T00:07:10Z
+last_seen: 2026-11-15T07:01:17Z
 ---
-WATCHDOG notice — occurrence #10 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T00:07:10Z).
-The SAME condition (`self-heal-garden-foreman`) has now been observed 10 times; this is ONE
-coalesced notice that updates in place, not 10 messages. Latest detail:
+WATCHDOG notice — occurrence #11 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T07:01:17Z).
+The SAME condition (`self-heal-garden-foreman`) has now been observed 11 times; this is ONE
+coalesced notice that updates in place, not 11 messages. Latest detail:
 
-self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: eacc126344192365b2eb2b8c8bbaa34c1414b9bb (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p eacc126344192365b2eb2b8c8bbaa34c1414b9bb). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-rc78
-The foreman exits 78 whenever its pumping hits a paused project. That makes systemd mark `garden-foreman` failed and triggers self-heal, even though nothing is broken.
+self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 94485d470884f64586a3b26ce09ca3e05a5d553b (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 94485d470884f64586a3b26ce09ca3e05a5d553b). Diagnosis: Cause: the foreman proposed the milestone step `fix-endojs-endo-but-for-bots-pr1661`. `post-job.sh` refused it with rc=78, because the job maps to the paused project `minion-town`. The foreman's generic `post_rc -ne 0` branch (`scripts/jobs/foreman.sh`, about line 737) then runs `exit "$post_rc"`. That exit fails the unit. systemd restarts it, the same proposal comes back, and the unit fails again.
 
-Failure signature, from the captured tail:
-- `[post] refusing to post 'build-daemon-git-remotes-transport-timing': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) ... (rc=78)`
-- `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`, then exit 78.
+The foreman already handles the completed-collision refusal with a re-prompt, so a paused-project refusal needs the same handling.
 
-The project is paused deliberately (the minion.town pause, recorded in commit a0b0f010fcc), so the post refusal is expected.
-
-Fix in `scripts/jobs/foreman.sh`, around lines 738-741, in the generic `elif [ "$post_rc" -ne 0 ]` branch after post-job:
-- Add a dedicated br
+JOB self-heal-fix-garden-foreman-paused-project-rc78
+In `scripts/jobs/foreman.sh`, around lines 712-740, `post-job.sh` can refuse a proposed milestone step with rc=78 (EX_CONFIG). The log line reads "refusing to post '<base>': it belongs to PAUSED project '<p>' (jo
