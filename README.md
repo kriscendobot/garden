@@ -1,22 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T00:03:54Z_
+_As of 2026-11-15T00:08:25Z_
 
 ## Latest
 
-Gauntlet halts need your call on two PRs. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without the review converging. CI is green and the PR is improved, but it needs a human merge decision or more rounds. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage reported a declined outcome. Both messages give a resume command with `--add-rounds`.
+Board activity was quiet: no job posts, claims or completions were recorded since the last bulletin. The maintainer inbox is where the news is.
 
-The leader still can't deploy, and the blocker is Oros. Oros (`oros-studio-garden-ce242c49`) is held and drained after repeated canary failures, which stops the leader from taking the EROFS fix. It needs someone at the machine for two things: a Claude `/login`, and a failing `garden-secret-broker` service. Until the leader deploys, monk jobs that need a project checkout die with EROFS. The minion.town PR work that depends on them is parked, and the minion.town pause keeps the pause watchdog firing.
+**Needs a decision**
+- Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held. Its rolling-deploy canary has failed repeatedly, most recently on `18fc7b17375`. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker.service` fails after deploy. Canary probes for Oros are still queued in todo.
+- The leader is stuck behind that dead canary and has not received the EROFS fix. Until it deploys, monk jobs that need a project checkout die with EROFS. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
+- Gauntlet [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 review rounds without converging, at $22.22. It needs a human call or `--add-rounds`.
+- Gauntlet [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round.
+- The M3 stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659), the shared zizmor fix.
+- A 2026-11-10 notice reports minion.town and `ocap.site` DNS pointing at an unfamiliar address. It asks whether the repoint was intentional and recommends checking the Route53 history.
 
-The foreman milestone stack, [endo-but-for-bots#1559](https://github.com/endojs/endo-but-for-bots/pull/1559) → [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) → [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592), is still waiting on you to merge the zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Several weaves, shepherds and a fix completed on the board, and the weave of [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) onto #1659 is queued.
-
-Two ops items need action:
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free and sits at roughly 176–500 MiB. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
-- **Foreman and mentor crashes:** the foreman (exit 78) and mentor (exit 1) services keep failing because a paused-project refusal is handled as a crash. Self-heal flagged both.
-
-The journal-contention alerts mostly recovered.
+**Worth noticing**
+- Foreman and mentor self-heal alerts both trace to the minion.town pause. `post-job.sh` refuses paused-project jobs with rc=78, and the foreman and mentor treat that refusal as a crash. The pause watchdog has now counted 38,974 refusals.
+- Disk on the leader was nearly full, with a few hundred MiB free and a brief hit of 0. It needs reclaiming by hand.
+- Journal-contention alerts mostly cleared overnight, and a few remain open.
+- Several daily-summary and dependabot-recheck jobs are parked after exhausting their retries. They stay held until someone promotes them.
+- Claude is at 29% of quota, and the monk worker target stepped down from 4 to 3 and then 2.
 
 ## Maintainer review docket
 
@@ -382,22 +385,21 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-11-14T04:26:12Z, latest 2026-11-14T22:36:26Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> WATCHDOG notice — occurrence #10 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T00:07:10Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 60c45f39ec119ae48525ab5f821a5d87f2b6a52c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 60c45f39ec119ae48525ab5f821a5d87f2b6a52c). Diagnosis: JOB self-heal-fix-garden-foreman-paused-rc78-post-job
-> The `garden-foreman` service exits 78 (`GARDEN_PAUSED_RC`) whenever `post-job.sh` refuses a job that belongs to a PAUSED project. Foreman then keeps re-proposing the same step and failing the same way every tick.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: eacc126344192365b2eb2b8c8bbaa34c1414b9bb (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p eacc126344192365b2eb2b8c8bbaa34c1414b9bb). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-rc78
+> The foreman exits 78 whenever its pumping hits a paused project. That makes systemd mark `garden-foreman` failed and triggers self-heal, even though nothing is broken.
 >
-> Failure signature from the log tail:
-> - `[post] refusing to post 'weave-endojs-endo-but-for-bots-pr1537': it belongs to PAUSED project 'minion-town' (rc=78)`
-> - `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`
-> - Earlier in the same tick: `failed to promote deferred plan job 'kriscendobot-minion.town-pr199-review-...-retro'; stopping deferred promotion this tick`.
+> Failure signature, from the captured tail:
+> - `[post] refusing to post 'build-daemon-git-remotes-transport-timing': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) ... (rc=78)`
+> - `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`, then exit 78.
 >
-> The minion.town pause is recorded in `pauses/minion-town.md`.
+> The project is paused deliberately (the minion.town pause, recorded in commit a0b0f010fcc), so the post refusal is expected.
 >
-> Changes:
-> 1. In `scripts/jobs/foreman.sh`, in the `post_rc` handling around lines 7
+> Fix in `scripts/jobs/foreman.sh`, around lines 738-741, in the generic `elif [ "$post_rc" -ne 0 ]` branch after post-job:
+> - Add a dedicated br
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -690,7 +692,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.0M | $295.21 _(notional, rate-card)_ | 29% of 271.0M (ok) |
+| Claude | 78.2M | $296.17 _(notional, rate-card)_ | 29% of 271.0M (ok) |
 | Codex | 392.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154159313 tokens/day lower bound._
