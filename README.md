@@ -1,24 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T23:08:09Z_
+_As of 2026-11-15T23:13:19Z_
 
 ## Latest
 
-Nothing moved on the job board since the last bulletin, so the news is in the maintainer inbox. Several items need a decision.
+No board transitions resolved this cycle, so the news is in the maintainer inbox, and most of it is the same few problems.
 
-- **Leader deploy blocked by Oros.** The follower `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly and remains drained. It needs someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Until it recovers, the leader can't deploy the EROFS fix, so minion.town monk jobs that need a project checkout stay parked. Minion.town development is paused anyway, and the pause watchdog has now refused work 69,300 times.
-- **Possible DNS problem.** The minion.town arc supervisor reports that `minion.town` and `ocap.site` resolved to a different Amazon address on 2026-11-10, and app routes now return 404. It asks whether you made that change on purpose or whether the zone was compromised. Its message says no one has touched DNS yet.
-- **Disk space.** The leader's `/home/kris/garden` filesystem was down to roughly 176–500 MiB free, briefly 0, and needs manual reclaiming.
-- **Gauntlets.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging, and its message offers `--add-rounds`. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after a declined fix round. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) also waits on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). The foreman asks you to decide and merge #1646. Many parked jobs wait on it.
-- **Foreman and mentor crash loops.** Both fail on every tick because they treat the paused-project refusal (rc=78) as a crash. Self-heal keeps firing.
-- **Other requests.**
-  - The minion.town settings simplification report asks you to run `deploy-accounts-store.sh` before merging and to veto any of four choices.
-  - The Iron Horse scholar ingest asks whether to adopt cost tiers, sampling, and CPU pinning in its test infrastructure.
-  - Several daily-summary and builder jobs are parked after exhausting their retries.
+**Oros is still down.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly and sits drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both need someone at the machine. The leader stays on its older commit until the canary passes, which is what an earlier arc-press message says is blocking the EROFS fix from reaching it. Beyond that, 12 todo jobs are mostly canary probes waiting on that host.
 
-The journal-contention and comment-watcher alerts that fired earlier have mostly cleared.
+**Disk space and DNS.** The leader briefly hit 0 bytes free, so space needs reclaiming by hand. Separately, an earlier message reports minion.town DNS apparently repointed to an address that doesn't serve the app. That message asks whether the change was intentional.
+
+**Paused minion.town work.** Pause refusals keep recurring. The watchdog notice has counted tens of thousands of them. `garden-foreman` and `garden-mentor` are both exiting non-zero and triggering self-heal because they treat the pause refusal as a crash. The diagnoses point at `foreman.sh` and `mentor.sh`.
+
+**Gauntlets.** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. It is waiting for you to grant more rounds or decide to merge. The gauntlet on [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its fix round declined. The foreman again asks for a decision on [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin), because several PRs are waiting on it.
+
+**Recovered.** Most journal-lock contention conditions and the screening-tick failure streak have cleared.
 
 ## Maintainer review docket
 
@@ -690,7 +686,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.5M | $511.99 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 134.6M | $512.36 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154743095 tokens/day lower bound._
