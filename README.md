@@ -1,20 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-15T20:29:57Z_
+_As of 2026-11-15T20:31:40Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is still operator-held, and that is the main thing to act on. The rolling deploy has failed its canary again, so it stays drained. Two fixes need someone at the machine: re-login of the expired Claude OAuth session, and a look at `garden-secret-broker.service`, which fails after every deploy. Because the leader deploy waits on that canary, the leader is still on an old commit. The EROFS project-checkout fix therefore hasn't reached it, and minion.town PR work stays parked. The garden is also paused on minion.town by your 2026-11-10 directive, so the watchdog keeps counting refused jobs (66,400 so far).
+Little completed since the last bulletin, and the one board change was a parked job. Its name is `endojs-endo-but-for-bots-pr1665-dependabot-after-pr1659`, a botanist recheck of [endo-but-for-bots#1665](https://github.com/endojs/endo-but-for-bots/pull/1665) that waits on [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659), the zizmor pin-comment fix.
 
-Other items for your attention:
-- **Possible DNS problem:** the arc supervisor reports that `minion.town` and `ocap.site` resolve to an unfamiliar us-east-1 address serving a static page, rather than the documented host. It asks whether you made that change. If not, treat it as a possible zone compromise.
-- **Disk space:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming.
-- **Gauntlets:** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging, and you can grant more with `--add-rounds`. The gauntlet on [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one failed fix round.
-- **Node pin:** the foreman says Milestone M3 is blocked until [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) merges. Many weave, conduct and shepherd jobs are queued behind it.
-- **Self-heal noise:** the foreman and the mentor both exit 78 or 1 on every tick because `post-job.sh` refuses minion-town jobs under the pause, and the scripts treat that as a crash. That keeps triggering self-heal.
-- **Journal contention:** most journal-contention and comment-watcher notices recovered. The minion.town screening tick failure also cleared.
+**Blocked on Oros.** The Oros host (`oros-studio-garden-ce242c49`) is still held and drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The rolling deploy has halted on its canary, so the leader can't advance past `f2788117645`. That keeps the EROFS fix off the leader, and minion.town jobs that need a project checkout stay parked. Someone has to be at the machine to log in and check the broker. Separately, the arc supervisor wants your decision: revive Oros, or deploy the leader past the dead canary.
 
-Board activity since the last bulletin is limited. Dependabot botanist jobs (#1662 and #1664 done, #1665 and #1666 running, #1663 queued) and a shepherd of [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) completed or progressed. Of the 193 open review items, the new decision requests are the minion.town settings-simplify veto check and the `deploy-accounts-store.sh` step, plus the scholar question on adopting yavashark's test-infra ideas.
+**Needs your decision.**
+- **Gauntlets.** The gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) spent all 7 review rounds without converging and awaits a human call or more rounds. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1.
+- **Node 24 pin.** Milestone M3 and several weaves wait on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
+- **Disk space.** The leader's disk was down to a few hundred MiB free and briefly hit zero. Space needs reclaiming by hand.
+- **minion.town DNS.** On 2026-11-10, minion.town and ocap.site DNS pointed at an unrelated address. Nobody has said whether that was intentional.
+
+**Cleared.** The watchdog's journal-contention notices, the comment-watcher cooldown, and the minion.town screening tick failure all cleared.
+
+**Still failing.** The foreman and the mentor both fail on every tick because a paused-project refusal (rc=78) is handled as a crash.
 
 ## Maintainer review docket
 
@@ -686,7 +688,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.9M | $485.87 _(notional, rate-card)_ | 47% of 271.0M (ok) |
+| Claude | 127.0M | $486.24 _(notional, rate-card)_ | 47% of 271.0M (ok) |
 | Codex | 403.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154452397 tokens/day lower bound._
@@ -914,6 +916,7 @@ worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`fu-daemon-git-agent-tool-adapters-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-daemon-git-agent-tool-adapters-docs.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1641` · ---
 - [`weave-endojs-endo-but-for-bots-pr1504-after-pr1646`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1504-after-pr1646.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1646` · Weave endojs/endo-but-for-bots PR #1504 after the Node pin lands
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
+- [`endojs-endo-but-for-bots-pr1665-dependabot-after-pr1659`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1665-dependabot-after-pr1659.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1659` · botanist recheck: endojs/endo-but-for-bots PR #1665 after #1659
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1659` · Reweave the daemon mount-import stack after the shared zizmor fix lands
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
