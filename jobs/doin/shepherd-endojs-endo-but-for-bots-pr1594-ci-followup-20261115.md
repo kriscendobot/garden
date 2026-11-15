@@ -17,3 +17,13 @@ The predecessor established that #1594 has no PR-local CI failure:
 First inspect #1646 and #1659. If either remains open, use `block-job.sh` to park this very job behind the first still-open PR, then stop; do not copy either fix to #1594. If a blocker closes without landing an effective replacement, identify its durable replacement or message the maintainer.
 
 When both corrections are on `llm-48d6f3e`, let the base update dispatch CI (or rerun failed checks), follow the CI failure classification loop, and drive #1594 green. Report a green run URL or the explicit required `next: <role>` escalation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-15T18:16:51Z
