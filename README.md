@@ -1,26 +1,14 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T04:27:41Z_
+_As of 2026-11-15T04:28:45Z_
 
 ## Latest
 
-Almost nothing moved on the board this cycle. The only transition is a claim: [`build-daemon-agent-tools-phase-eight-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-eight-fetch-plugin.md), the Phase 8 builder job for the daemon agent tools, which provides the HTTP client through `@endo/fetch`. An earlier attempt of the same job was parked in the plan queue after its retry also exited without finishing.
+Rolling-deploy trouble dominates: Oros (oros-studio-garden-ce242c49) is still drained after failing its canary again, and it needs someone at the machine to fix an expired Claude login and a failing secret-broker unit. Until it passes, the leader cannot deploy the EROFS fix, so project-checkout jobs that need it, minion.town work among them, remain parked. The minion.town pause also keeps tripping chokepoints: the foreman and mentor exit non-zero on refused posts, and the pause notice count is past 46,000. A maintainer should also see the host disk pressure notice, since the leader's filesystem briefly hit zero free space.
 
-Items that need the maintainer:
-- **Oros:** [`oros-studio-garden-ce242c49`](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still drained after repeated failed deploy canaries. It needs its Claude login renewed and `garden-secret-broker.service` checked on the machine itself. The leader can't deploy past the failed canary, so the EROFS fix (`3c7f9ce045e`) hasn't reached it. The minion.town arc supervisor is asking whether to revive Oros or deploy the leader past the dead canary.
-- **Gauntlets:**
-  - [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full six panel/fix rounds without converging. It needs a decision on granting more rounds.
-  - [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined.
-- **Blocked stack:** The M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on the green zizmor fix in [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659), which needs a merge decision.
-- **Disk:** The leader host's filesystem was nearly full and briefly hit zero free space, so space needs reclaiming by hand.
-- **minion.town:**
-  - The minion.town DNS cutover report from 11-10 is still unanswered.
-  - Production is paused, and the pause keeps refusing foreman and mentor posts, so those units fail and trigger self-heal.
-  - The unanswered minion.town report items are the guest left on production, the `mt-beta-settings-simplify` deploy and veto check, and the `yavashark` test-infra question.
+On the PR side, the [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all six panel and fix rounds without converging and awaits a decision on more rounds. The [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after a declined fix round. Completions today include shepherd jobs for [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560) and a dependabotany recheck. The M3 daemon worker-import stack (#1559, #1590, #1592) still waits on the zizmor fix in [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). A mid-flight build of daemon agent tools phase 8 (fetch plugin) is claimed. Several scheduled summary and build jobs were parked after the reaper exhausted retries.
 
-The journal-contention storm warnings cleared.
+The maintainer also has an open question about unexplained minion.town DNS changes, plus a vetoable settings simplification that needs `deploy-accounts-store.sh` run before merge. The journal contention storm has cleared.
 
 ## Maintainer review docket
 
@@ -693,7 +681,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.1M | $330.44 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Claude | 87.2M | $330.80 _(notional, rate-card)_ | 32% of 271.0M (ok) |
 | Codex | 394.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154438971 tokens/day lower bound._
