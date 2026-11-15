@@ -1,28 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T18:49:09Z_
+_As of 2026-11-15T18:55:13Z_
 
 ## Latest
 
-Little completed since the last bulletin. The board shows no file-level transitions, though the dashboard lists a few finishes on 11-15: shepherd runs for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), a dependabotany recheck, and the gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588).
+Oros (oros-studio-garden-ce242c49) is still operator-held and is the main blocker. Its canary failed again on 18fc7b17375, retries ran out at 19:29Z, and it stays drained. It needs someone at the machine for two things: the Claude OAuth session has expired (run `claude`, then `/login`), and `garden-secret-broker.service` fails after every deploy. The dead canary also keeps the leader on an older build. The EROFS fix therefore hasn't reached it, so monk jobs that need a project checkout still die.
 
-**Needs a decision**
-- **#1588 gauntlet:** it spent all 7 panel and fix rounds and stopped with CI green, but the review did not converge. It needs a human merge or review call, or more rounds (`--add-rounds`).
-- **#1504 gauntlet:** it halted after its first fix stage reported a declined outcome.
-- **Blocked PRs:** [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) blocks several parked jobs, including shepherd, weave and conduct work for #1594, #1504, #667, #1573 and #1658. The foreman's M3 milestone note names it too and asks you to merge it.
+The pause on minion.town development is being enforced. One watchdog notice has now counted about 65k refused jobs. The same pause makes `garden-foreman` exit rc=78 on every tick, and `garden-mentor` has hit the same refusal. Both trip self-heal over and over, because each treats the policy refusal as a crash. The board's `todo` also holds a `scholar-ingest` job for minion.town. The leader's disk also hit about 0 bytes free, and it needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-**Hosts**
-- **Oros:** `oros-studio-garden-ce242c49` is still drained and failing its canary. It needs someone at the machine to run `/login` for Claude and to fix `garden-secret-broker`.
-- **Leader deploy:** the leader cannot deploy past the dead canary, so the EROFS fix for monk checkouts has not reached it. The minion.town arc supervisor is asking whether to revive Oros or authorize a leader deploy past the canary.
-- **Disk:** the leader's disk is nearly full and briefly hit 0 free, so space needs reclaiming by hand.
+On PRs, the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 7 review rounds without converging and needs a decision on more rounds. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after one fix round, and the PR is also waiting on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several parked weave, shepherd and conduct jobs wait on that pin, so merging it unblocks a lot. Shepherd jobs for [endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) finished earlier today.
 
-**Project pause and self-heal**
-- **minion.town:** it is paused, and the pause watchdog has now refused work 64,991 times, so a host may be running a stale garden.
-- **Self-heal:** the foreman and mentor services keep crashing on the pause's rc=78 refusal instead of treating it as a policy refusal. That is the diagnosis in the self-heal notices.
-
-**Journal contention:** the contention notices have mostly recovered. Several parked daily-summary and build jobs are still held after exhausting their requeues.
+The input listed no file-level board transitions. The journal-contention notices in the inbox are almost all recovery notices that need no action.
 
 ## Maintainer review docket
 
@@ -694,7 +682,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.8M | $468.51 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 122.9M | $468.88 _(notional, rate-card)_ | 45% of 271.0M (ok) |
 | Codex | 402.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154582723 tokens/day lower bound._
