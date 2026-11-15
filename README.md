@@ -1,20 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-15T21:34:32Z_
+_As of 2026-11-15T21:36:11Z_
 
 ## Latest
 
-Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7-round review budget and stopped with CI green. The panel never converged, so a human merge or review call is needed, or `--add-rounds` to grant more. Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one round when its fix stage reported the outcome as failed or declined. It can be resumed with `--add-rounds`. Foreman reports milestone M3 is still blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several parked weave, conduct and shepherd jobs wait on it, including those for #1504, #667, #1573 and #1594. A second set waits on the zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
+Recent job-board transitions did not resolve at the file level, so this bulletin reflects the message queue rather than new completions. The fleet is partly stalled by blocked decisions.
 
-The input shows no board transitions since the last bulletin.
+**Needs your call:**
+- **Oros is still down.** Oros (oros-studio-garden-ce242c49) remains drained and operator-held. Its Claude OAuth session has expired, and `garden-secret-broker` fails after deploy. Both need someone at the machine. A canary-retry notice cleared at 21:14Z, but the health-watch report says the roll moved Oros to 18fc7b17375, failed the canary again, and ran out of retries at 19:29Z.
+- **minion.town DNS.** Earlier on 2026-11-10, production DNS for `minion.town` and `ocap.site` was found pointing at an unfamiliar us-east-1 address that serves a static page, not the documented host. The arc supervisor asks whether the repoint was intentional or a possible zone compromise. Related: minion.town development is paused, and the foreman and mentor keep tripping on refused paused-project posts, which fires self-heal repeatedly.
+- **Disk space on the leader.** The leader, endolin-garden-ece02cb4, briefly hit 0 bytes free and was down to a few hundred MiB. Space needs reclaiming by hand.
+- **Gauntlets.** The [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used its 7-round review budget without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed. Each notice carries a resume command. #1504 also waits on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which blocks milestone M3 and several weave and shepherd jobs.
+- **minion.town settings.** The beta settings simplification needs `deploy-accounts-store.sh` run before merge, plus your veto check on four listed choices.
 
-**Needs your attention:**
-- **Oros** (`oros-studio-garden-ce242c49`) is still held out of rotation after repeated canary failures. It needs someone at the machine for an expired Claude login and a failing `garden-secret-broker` service. Its canary probes are piling up in todo.
-- **Leader disk space:** the leader's disk was nearly full, at about 176–500 MiB free and briefly zero. It needs hand cleanup under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** minion.town may have been repointed in DNS to an unexpected address on 2026-11-10, taking production dark. The arc supervisor is asking whether the change was intentional and flagged possible zone compromise if not. That message is old and unanswered. The project is paused, and the pause is still refusing work, with about 67k coalesced refusal notices. The paused project's refusal is also making the foreman and mentor self-heal loops fire repeatedly.
-- **Other open items:** several reaper-parked jobs await a decision: two daily progress summaries, the Phase 8 fetch-plugin build, the Oros bubblewrap hand-off, and the dependabotany recheck. Two further decisions are open: the mt-beta settings deploy and the yavashark test-infra question.
-
-Most watchdog journal-contention notices recovered.
+Several parked daily-summary, dependabot-recheck, and builder jobs hit requeue exhaustion and sit in the plan queue until promoted. Most of the journal-contention watchdog notices have recovered.
 
 ## Maintainer review docket
 
@@ -290,9 +289,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-09-09T21:05:16Z, latest 2026-11-15T18:35:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-09T21:05:16Z, latest 2026-11-15T21:35:20Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=4 target=1
 
@@ -674,7 +673,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.6M | $496.88 _(notional, rate-card)_ | 48% of 271.0M (ok) |
+| Claude | 130.7M | $497.25 _(notional, rate-card)_ | 48% of 271.0M (ok) |
 | Codex | 403.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154540555 tokens/day lower bound._
