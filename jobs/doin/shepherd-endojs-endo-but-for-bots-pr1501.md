@@ -10,6 +10,7 @@ Shepherd endojs/endo-but-for-bots PR #1501 (`feat/endopi-edit-tool-preview`) aft
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=724 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
