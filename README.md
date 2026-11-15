@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-15T19:04:18Z_
+_As of 2026-11-15T19:11:31Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held. The canary probes failed again and retries ran out at 19:29Z. The leader has not advanced, so the EROFS fix for monk project checkouts still hasn't reached it. Oros needs someone at the machine for two things: a Claude `/login`, and a failing `garden-secret-broker.service`. The `minion.town` arc supervisor is blocked on the same stall, and the paused project is also causing noise. The foreman and mentor each exit rc=78 every tick because `post-job.sh` refuses jobs for the paused `minion-town` project. Self-heal has fired 17 times on the foreman. The pause refusal is counted at about 65,000 occurrences.
+Job-board transitions weren't resolved this cycle, so there's nothing new to report on completions. The state on the board is what matters.
 
-Review-side items for you:
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7 panel/fix rounds without converging. CI is green, and it is waiting on you to grant more rounds or decide by hand.
-- The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1. Its fixer declined the outcome.
-- Milestone M3 is blocked on merging the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several parked weaves and shepherds, including those for #1504, #1573, #1594, #667 and #1658, wait on it.
+**Oros is still held.** The rolling deploy to `oros-studio-garden-ce242c49` failed its canary again, and retries ran out at 19:29Z. The host stays drained, so the leader can't advance past the canary. Oros needs someone at the machine for two things. The Claude OAuth session has expired and needs `/login`. `garden-secret-broker.service` has also failed after each deploy since 11-07. The leader is therefore stuck behind the dead canary, and the minion.town EROFS fix can't reach it.
 
-Two ops decisions are open. The leader host's filesystem hit about 0 bytes free during a job (ENOSPC), so space needs reclaiming by hand. A `minion.town` DNS repoint to `34.225.237.208` took production dark on 11-10, and it is still unanswered whether that was intentional.
+**Gauntlets need your call.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. CI is green, and `--add-rounds N` will grant more. The #1504 gauntlet halted after fix round 1 declined. The foreman reports milestone M3 blocked on merging the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). #1646 also gates several parked weaves and shepherds, including #1594, #1573, #1658, and #667.
 
-The journal-contention notices are mostly recoveries and need nothing from you.
+**Needs a decision or a fix:**
+- Disk on the leader hit 0 bytes free during one job, and it is now at a few hundred MiB free. It needs reclaiming by hand.
+- Several scheduled and build jobs (daily summaries, `build-oros-secrets-bwrap-handoff-20261106`, the Phase 8 fetch plugin) were parked after their retries were exhausted.
+- minion.town DNS appears to have been repointed on 11-10. Is that change yours?
+- The pause on minion.town keeps tripping the foreman and mentor (exit 78 and exit 1 on every tick), which keeps firing self-heal. The screening tick is also failing on a GitHub rate-limit cooldown.
+
+Journal-lock contention notices have mostly recovered by themselves.
 
 ## Maintainer review docket
 
@@ -557,11 +560,17 @@ Delegation: **active**
 
 - `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
 
-> RECOVERED — the watchdog condition `minion-town-screening-tick-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-13T05:53:04Z, cleared 2026-11-13T06:44:30Z).
-> It was observed 10 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #11 (first seen 2026-11-13T05:53:04Z, latest 2026-11-15T19:10:54Z).
+> The SAME condition (`minion-town-screening-tick-failed-endolin-garden-ece02cb4`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
-> minion.town screening on endolin-garden-ece02cb4 completed after a 12-tick failure streak.
+> minion.town screening on endolin-garden-ece02cb4 has not completed for 3 consecutive proxy ticks (first failure 2026-11-15T19:00:45Z).
+>
+> Failure class: github-deferred
+> Latest detail: gh api screen:pr-list admission refused: host-shared gh-api cooldown live (2992s left, tag receipt:kriscendobot-vattr97:PR source:primary-quota <- comment:source-timeout-fanout; API rate limit already exceeded for user); not issued 
+>
+> No screening gate was bypassed and the delegation was not resumed. The proxy will retry on its next tick and post a recovery update after a completed screen.
+> Runbook: context/operations/minion-town-screening.md
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal.md)
 
@@ -685,7 +694,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.2M | $469.97 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 123.3M | $470.33 _(notional, rate-card)_ | 45% of 271.0M (ok) |
 | Codex | 402.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154603807 tokens/day lower bound._
