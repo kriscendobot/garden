@@ -1,0 +1,26 @@
+elapsed-constancy exit0-wedge-suspect: shepherd-endojs-endo-but-for-bots-pr1661
+
+gardener-2 on endolin-garden-ece02cb4: job shepherd-endojs-endo-but-for-bots-pr1661 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 50,48s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>08:13:18 [cleric/2] resuming codex session 01a1de07-68c5-72b2-9f28-94379d942ecc for job 'shepherd-endojs-endo-but-for-bots-pr1661' that STOPPED without completing; continue framing
+<6>08:13:18 [cleric/2] job 'shepherd-endojs-endo-but-for-bots-pr1661' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>08:13:18 [cleric/2] job 'shepherd-endojs-endo-but-for-bots-pr1661' attaching minion.town MCP (stdio bridge as minion-town)
+<6>08:13:58 [cleric/2] job 'shepherd-endojs-endo-but-for-bots-pr1661' ended its turn without the completion signal; nudging codex session 01a1de07-68c5-72b2-9f28-94379d942ecc to verify and complete (nudge 1/1)
+<6>08:14:05 [cleric/2] codex completion nudge for 'shepherd-endojs-endo-but-for-bots-pr1661' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1de07-68c5-72b2-9f28-94379d942ecc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"CI failure fixed and pushed in `7750832094` (`ci: repin create-pull-request v8`).\n\nPR #1661 is currently mergeable/CLEAN; all 36 checks completed with zero failures. Project worktree is clean.\n\n<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":6956377,"cached_input_tokens":6798464,"cache_write_input_tokens":0,"output_tokens":9415,"reasoning_output_tokens":1467}}
