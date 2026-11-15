@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-15T13:19:37Z_
+_As of 2026-11-15T13:20:59Z_
 
 ## Latest
 
-Nothing resolved at the file level this cycle, but the board is stuck in a few places. Oros (oros-studio-garden-ce242c49) is still operator-held and drained. It failed the canary again after the roll to 18fc7b17375, and a human at the machine has to fix an expired Claude OAuth session and a failing `garden-secret-broker`. The leader can't deploy past the dead canary, so the EROFS fix hasn't reached it. That keeps minion.town project-checkout jobs parked, and the arc supervisor is asking you to choose between reviving oros and authorizing a leader deploy past it. Seven canary probes for Oros sit unclaimed in todo.
+Little new work landed in this window, since the board shows no file-level transitions. One job is in flight: gauntlet fix round 7 on [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588). Round 6 exhausted the 6-round review budget with CI green and no convergence, and the PR was left for a human merge or review decision. Granting more rounds, for example `--add-rounds 2`, is your call.
 
-Two gauntlets need your call. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging, and a 7th fix round is in flight (`--add-rounds` is the way to grant more). [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure. The foreman's M3 notice asks you to pick a collision policy for agent-tools names: keep the fail-closed rule in [endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) or adopt the qualified names in [endo-but-for-bots#1661](https://github.com/endojs/endo-but-for-bots/pull/1661).
+**Decisions waiting on you**
+- **PR gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504):** it halted after fix round 1 failed. It can be resumed with `--add-rounds 2`.
+- **Milestone M3 (foreman):** it needs your choice between #1593's fail-closed collision policy and the qualified names in #1661 and #1348.
+- **Oros (`oros-studio-garden-ce242c49`):** it is still drained after failing its canary again. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after deploy. Both need someone at the machine.
+- **Leader deploy:** the leader is blocked behind that dead canary. The minion.town arc supervisor asked whether to revive Oros or authorize deploying the leader past it.
+- **minion.town DNS:** the arc supervisor reported production resolving to a different host, and it asks whether you made that change on purpose.
+- **Disk space:** the leader's filesystem hit zero free space briefly, so it needs hand reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
 
-Beyond that:
-- **minion.town DNS:** a gardener reports production went dark on 11-10 because the apex and `ocap.site` now resolve to `34.225.237.208`, not the documented `13.56.17.18`. Please confirm whether the repoint was yours, since an unexplained change could be a zone compromise.
-- **Disk space:** the leader's filesystem briefly hit 0 bytes free and is down to a few hundred MiB, so space needs reclaiming by hand.
-- **Paused project noise:** the minion.town pause is generating repeated refusals, now at 58,440, and is crashing both the foreman (rc=78) and the mentor.
-- **Weekly accountant job:** `accountant-weekly-20261114-170509` is among the jobs the pause is refusing, so it will keep sitting in todo until the pause is lifted.
-- **Journal contention:** most of the journal-contention watchdog notices recovered on their own.
+**Background noise**
+- **minion.town pause:** the pause is still being refused at the chokepoints. The count is above 58,000, and the foreman and mentor self-heals are failing on it.
+- **Journal contention:** the notices are mostly recovered.
 
 ## Maintainer review docket
 
@@ -169,11 +172,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-13T12:42:09Z, latest 2026-11-15T06:45:12Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-11-13T12:42:09Z, cleared 2026-11-15T13:20:27Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.026543s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -683,7 +686,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $425.94 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 109.9M | $426.30 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154664881 tokens/day lower bound._
