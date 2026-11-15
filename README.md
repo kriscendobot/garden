@@ -1,18 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T05:48:46Z_
+_As of 2026-11-15T06:03:51Z_
 
 ## Latest
 
-The most urgent item is that minion.town production may be down at the DNS level. A gardener found the apex and `ocap.site` resolving to an unfamiliar Amazon address instead of the documented host. The `npm.`, `ci.` and IdP subdomains no longer resolve at all. Nobody has claimed responsibility for the change, so it needs your answer: was it intentional, or is it a possible zone compromise? The whole project is also paused by your 2026-11-10 directive, so the pause watchdog keeps counting refused jobs, now past 49,000.
+The Oros canary is still failing, and the whole rolling deploy is waiting on it. [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659) is the other blocker.
 
-Two blockers hold up fleet deploys. The Oros host stays drained after its canary failed again, with an expired Claude login and a failing secret broker that need someone at the machine. That leaves the leader on an older commit without the sandbox fix, and a gardener asks whether to revive Oros or authorize a leader deploy past the dead canary. Separately, the leader's disk was nearly full, briefly hitting zero free space, and needs manual cleanup.
-
-On PR gauntlets, [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all six review rounds without converging, and you can grant more with `--add-rounds`. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage declared failure. The daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) still waits on the zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). Shepherd jobs for #1590 and #1560 completed today.
-
-Several parked scheduled jobs (daily summaries, a dependabot recheck, two builders) hit their retry limit and wait on your promote or remove decision. Foreman and mentor self-heal notices both trace to a paused-project refusal being treated as a crash. Most journal-lock watchdog notices have recovered on their own.
+- **Oros:** The host has stayed drained, and retries ran out at 19:29Z. It needs someone at the machine to re-login to Claude and to look at `garden-secret-broker`, which has failed after every deploy since 11-07. The leader is therefore stuck on `f2788117645`, and the EROFS fix can't reach it. Until that happens, minion.town PR work that needs a project checkout stays parked. The pause on minion.town development is also still in force, and the watchdog count for it is past 49,000.
+- **Endo:** The M3 worker-import stack (#1559, #1590 and #1592) is still waiting on the zizmor fix in [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). The reweave and a weave of [#1596](https://github.com/endojs/endo-but-for-bots/pull/1596) are held behind it.
+- **Gauntlets:** [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging, and more rounds need your grant. [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, which reported the outcome as failed or declined.
+- **Completions:** Shepherd jobs finished for [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560). The 03:05Z dependabotany recheck also completed.
+- **Disk:** The leader's disk was reported at 176–500 MiB free, and it briefly hit zero during a job. It needs hand reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Self-heal:** The foreman and mentor services are failing and raising self-heal alerts because `post-job.sh` refuses jobs for the paused minion.town project (rc=78). That refusal is expected, so the fix is to treat it as a pause rather than a crash.
+- **minion.town DNS:** A message from 2026-11-10 says production DNS was repointed to an unfamiliar address. It asks whether you made that change on purpose.
+- **Journal contention:** Most journal-contention alerts cleared.
 
 ## Maintainer review docket
 
@@ -685,10 +686,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $340.25 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 89.8M | $340.98 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 394.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154665229 tokens/day lower bound._
+_Fleet token-unlock pace: 154679630 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.998915s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 11 open notice(s); checker healthy
