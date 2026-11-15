@@ -1,25 +1,20 @@
 # Garden bulletin
 
-_As of 2026-11-15T09:19:51Z_
+_As of 2026-11-15T09:22:17Z_
 
 ## Latest
 
-Board transitions weren't resolved for this window, but the tada list shows several endo-but-for-bots jobs completed today. They include weaves of [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) and [#1594](https://github.com/endojs/endo-but-for-bots/pull/1594), a viability check and "not viable" verdict on the [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) gauntlet, and the daemon agent-tools Phase 8 fetch-plugin build. Both gauntlets that stopped need a maintainer decision:
-- [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds ($22.22) without converging. It is left for a human merge call, or more rounds with `--add-rounds`.
-- [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure ($4.77 spent). It can be resumed with `--add-rounds 2`.
+Very little work completed in this window: the only board movement is a claim of `shepherd-endojs-endo-but-for-bots-pr1501`, which is now in progress. The tada list shows [endo-but-for-bots#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) with a fresh weave, and [endo-but-for-bots#1594](https://github.com/endojs/endo-but-for-bots/pull/1594) also had a weave completed. The gauntlet for #1661 was marked not viable. The Phase 8 fetch-plugin build is now reported done, though its earlier parked copy still sits in the plan queue.
 
-**Fleet health**
-- **Oros:** still drained after repeated canary failures, and the leader can't deploy past it. Rolling-deploy canary probes against it sit unclaimed in todo. The operator needs to run `/login` for the expired Claude OAuth session and fix `garden-secret-broker`. Until then the leader stays on the old build, and the project-checkout EROFS fix can't reach it.
-- **Disk:** the leader host's garden filesystem has been down to roughly 176–500 MiB free, and briefly hit 0. It needs a manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
-- **Foreman and mentor:** `garden-foreman` (12 occurrences) and the mentor handler both crash on paused-project refusals (rc 78) instead of skipping them. The pause refusal itself is firing constantly (53,548 occurrences) because the foreman and board keep proposing minion.town jobs.
+**Needs a maintainer's decision:**
+- **Oros is still held.** The rolling deploy keeps failing its canary, and Oros stays drained. Its Claude login has expired and `garden-secret-broker` fails after deploy. Both need someone at the machine. While Oros is down, the leader can't take newer fixes, including the EROFS fix. That keeps the minion.town PR work parked, and it is also paused by the project pause.
+- **Gauntlets are out of budget or halted.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging ($22.22). The #1504 gauntlet halted after its first fix round failed. Each notice gives the resume command with `--add-rounds`.
+- **minion.town DNS.** An earlier report says production DNS was repointed to an unfamiliar address. Say whether you made that change on purpose.
+- **Disk space.** The leader's garden filesystem hit 0 free at one point and has been at only a few hundred MiB since. The byte-capacity guard that would page on this has not deployed yet, so the space needs reclaiming by hand.
+- **Foreman and mentor crash loops.** Both fail on the minion.town pause. The foreman exits rc=78 when it tries to post a job for the paused project, and the mentor fails the same way. Both are being treated as crashes, not as expected refusals.
+- **Parked daily summaries.** Several scheduled jobs were doomed and parked in the plan queue: two daily progress summaries, the dependabotany recheck, and the Oros bwrap hand-off build.
 
-**Decisions waiting on you**
-- **minion.town production:** DNS for `minion.town` and `ocap.site` was repointed on 2026-11-10 away from the documented host. The new address serves a static "no accounts" page, and all app routes return 404. Confirm whether the repoint was intentional. If it wasn't, treat it as a possible zone compromise.
-- **minion.town settings:** run `deploy-accounts-store.sh` before merging the settings-simplification work, and veto any of its four choices you object to.
-- **Foreman M3:** the child-agent stack is blocked on approval and merge of [#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560. Phase 8 also needs a choice between the tool naming in merge-ready #1593 and the renamed-tool approach in #1661.
-- **Parked jobs:** the daily progress summaries for 11-05 and 11-06, the oros-secrets-bwrap handoff, and the Phase 8 fetch-plugin build are parked after their retries were exhausted.
-
-The journal-contention notices were all recovery notices, and the fleet's contention checker reports healthy.
+Journal-lock-contention notices mostly cleared and need no action.
 
 ## Maintainer review docket
 
@@ -685,7 +680,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.1M | $376.03 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 99.3M | $376.77 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 395.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154328509 tokens/day lower bound._
@@ -705,8 +700,8 @@ worst fetch p95 3.927165s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (0)
-(none)
+### doin (1)
+- [`shepherd-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1501.md) — ---
 
 ### tada (17116)
 - [`weave-endojs-endo-but-for-bots-pr1501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/15/weave-endojs-endo-but-for-bots-pr1501.md) — Panel-head freshness
