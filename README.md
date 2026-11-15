@@ -1,26 +1,14 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T14:28:58Z_
+_As of 2026-11-15T14:33:37Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary has failed again and rolling-deploy retries ran out, so the host stays drained. That is why probe jobs for it keep piling up in `todo`, and the leader can't deploy past it. The recorded blockers are an expired Claude OAuth session and `garden-secret-broker.service` failing after deploy. Both need someone at the machine. The leader's EROFS fix for project checkouts is stuck behind this, so minion.town PR work is parked.
+Oros (`oros-studio-garden-ce242c49`) is still held, which is the main thing to know. The rolling deploy has failed its canary repeatedly, so the leader hasn't advanced. Oros needs someone at the machine: its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. The held leader deploy has also left the EROFS fix unshipped, which parks the minion.town PR work behind it. That work is already paused by maintainer directive, and the pause watchdog has now logged tens of thousands of refusals. It also leaves the foreman and mentor crash-looping on the pause refusal (rc=78).
 
-minion.town is paused, and the watchdog keeps counting refused jobs. The refusal also crashes `garden-foreman` (rc=78) and `garden-mentor` when they try to post for the paused project, and both trip self-heal. Those are pause refusals handled as crashes.
+Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its 6-round review budget without converging, and round 7 is currently running. Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, and the maintainer chooses whether to add rounds. Other recent completions include weaves and shepherds on [#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) and [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501).
 
-Two gauntlet decisions are waiting on you:
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its 6 panel/fix rounds without converging, though fix round 7 is running now. Granting more rounds is your call.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed.
-
-Several other open questions:
-- The foreman wants a policy choice on agent-tools name collisions: keep the fail-closed behavior in [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593), or adopt the qualified names in [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) and [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348).
-- The arc supervisor reported minion.town DNS being repointed on 11-10 and asked whether that was intended.
-- The leader's disk was nearly full (176 to 500 MiB free).
-- Several daily-summary, build and dependabot rechecks were parked after exhausting retries.
-
-Journal-lock contention notices mostly cleared, and the worst fetch p95 is about 2.4s.
+The leader's disk is nearly full (hundreds of MiB free, briefly 0), and the space needs reclaiming by hand. Separately, the maintainer should check the minion.town DNS question, which may be a zone compromise. The foreman is also waiting on a policy choice between [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) and [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661). Most of the journal-contention notices have cleared.
 
 ## Maintainer review docket
 
@@ -690,10 +678,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.1M | $427.81 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 112.3M | $428.57 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 397.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154602558 tokens/day lower bound._
+_Fleet token-unlock pace: 154637353 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.417703s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
