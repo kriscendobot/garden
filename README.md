@@ -1,25 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T05:04:11Z_
+_As of 2026-11-15T05:08:14Z_
 
 ## Latest
 
-The board moved a lot: [endojs/endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and #1560 shepherd jobs and a dependabotany recheck all completed, after weave jobs for #1560 and #1592. The input's file-level transition list came back empty, so this comes from the board snapshot.
+Oros (`oros-studio-garden-ce242c49`) is still drained and operator-held. Its rolling-deploy canary failed again after retries ran out, so the leader hasn't advanced. Two fixes need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after deploy. The same blocker keeps minion.town PR work parked. The leader needs the EROFS fix, and it can't deploy until Oros revives or you authorize deploying past the dead canary.
 
-**Needs a maintainer decision**
-- **Merge #1659.** The daemon worker-import stack (#1559, #1590, #1592) is blocked on the green shared zizmor fix [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). A reweave job is parked behind it.
-- **Gauntlets stopped.** The #1588 gauntlet spent all 6 rounds with CI green but no convergence, and a resume with `--add-rounds` is available. The #1504 gauntlet halted after its first fix round declared the outcome failed.
-- **Oros is still held.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly and stays drained. The cause is an expired Claude OAuth session and a failing `garden-secret-broker`, both of which need someone at the machine. Canary probe jobs sit unclaimed in todo. This blocks the leader's deploy, and the EROFS fix (main2 21585bda2b3) cannot reach the leader while it does. The minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
-- **Disk space.** The leader host briefly hit 0 bytes free, with a few hundred MiB free afterward. It needs a manual cleanup of `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** An earlier report says production DNS was repointed to an unexpected address on 2026-11-10. Please say whether that was intentional.
+The board moved little in this window, and no file-level transitions resolved. The recent completions are shepherd runs on [endo-but-for-bots#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [endo-but-for-bots#1560](https://github.com/endojs/endo-but-for-bots/pull/1560), plus a dependabotany recheck.
 
-**Operational noise**
-- The minion.town pause keeps tripping the foreman and mentor: both exit non-zero when they hit a refused post, and the watchdog count is now in the tens of thousands.
-- Several journal-lock contention notices cleared on their own.
-- Several daily-summary and builder jobs were parked after retries were exhausted.
-- Monk capacity stepped down to 2 on the leader as the Claude weekly spend ramp rose, while the Codex pool is at 1 to 2.
+Decisions waiting on you:
+- **Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588):** it spent its 6 review rounds without converging. Granting more is `--add-rounds N`.
+- **Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504):** it halted after a failed fix round.
+- **[endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659):** merging this zizmor fix unblocks the M3 daemon worker-import stack of #1559, #1590 and #1592.
+
+Operational items:
+- **Disk space:** the leader's filesystem was at roughly 176–500 MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+- **Production DNS:** minion.town and ocap.site resolve to an unfamiliar address, and the real host is healthy. Nobody has touched DNS, and the question of whether the repoint was yours is still open.
+- **Foreman and mentor:** both keep failing self-heal with rc=78 or rc=1 whenever they hit the paused minion.town project. This is a pause refusal handled as a crash, not a real fault.
+
+Journal-contention notices are mostly clearing. Several recovered overnight, and the storm notice cleared at 04:00Z.
 
 ## Maintainer review docket
 
@@ -692,7 +691,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.4M | $335.54 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 88.5M | $335.90 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 394.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154571177 tokens/day lower bound._
