@@ -8,15 +8,4 @@ dispatch: automatic
 ---
 Build Phase 8 of `designs/daemon-agent-tools.md` in endojs/endo-but-for-bots on `llm`, using the `@endo/fetch` plugin decision; preserve #1497’s merge gate for the Phase 2c ledger item.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-15T04:26:48Z
+<!-- garden-reaped: 0 -->
