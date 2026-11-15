@@ -1,20 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T07:07:15Z_
+_As of 2026-11-15T07:08:38Z_
 
 ## Latest
 
-Work on the endo-but-for-bots child-agent stack kept moving. Gauntlet [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) was judged not viable, and the Phase 8 fetch-plugin build and shepherd jobs for [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560) finished. A new shepherd for #1661 is now the only job in progress. Two gauntlets need a decision from you. [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging, and [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure. The foreman's M3 notice also asks whether Phase 8 should keep the fail-closed tool naming in merge-ready #1593 or switch to the renamed tools in #1661.
+Several [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) PRs moved off the board in this window. The 1661 gauntlet (stage job `endojs-endo-but-for-bots-pr1661-gauntlet`) was closed as not viable. The Phase 8 fetch-plugin build (`build-daemon-agent-tools-phase-eight-fetch-plugin`) and the shepherds for [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590) and [#1560](https://github.com/endojs/endo-but-for-bots/pull/1560) completed. The shepherd for [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661) is still in progress. The input listed no file-level transitions, so these come from the board's tada listing.
 
-The fleet has three problems that need a person.
+**Needs your decision:**
+- **Gauntlet review budgets.** The gauntlet for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. The PR is improved and CI is green, and the message offers `--add-rounds` to continue. The [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after one fix round that declared its own outcome failed.
+- **Oros is still held out of the fleet.** Its canary keeps failing because the Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Both fixes need someone at the machine. Because Oros never passes its canary, the leader cannot deploy. The EROFS fix that minion.town jobs need is stuck behind it. Decide whether to revive Oros or authorize a leader deploy past the dead canary.
+- **minion.town DNS.** A supervisor reported that production DNS was repointed to an unrelated host on 2026-11-10 and asked whether you did it on purpose. Project work is also paused by your 2026-11-10 directive.
+- **Disk space.** The leader had only about 176–500 MiB free and briefly hit zero, so space needs reclaiming by hand.
+- **Foreman and mentor crash loops.** Both fail with rc=78 or rc=1 when `post-job.sh` refuses a paused-project job. A self-heal fix is queued for the foreman, and the paused-project counter has passed 51,000 refusals.
+- **Milestone M3.** It is waiting on your approval and merge of [#1558](https://github.com/endojs/endo-but-for-bots/issues/1558) and #1560. You also need to choose between [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593)'s fail-closed tool naming and [#1661](https://github.com/endojs/endo-but-for-bots/pull/1661)'s renamed-tool approach for Phase 8.
 
-- **Oros:** it is still drained and held, with an expired Claude login and a failing secret broker. Its canary has failed repeatedly, so the leader cannot roll forward. The minion.town arc is parked on that.
-- **Disk:** the leader host was down to a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
-- **Foreman and mentor:** both are crash-looping because a paused-project refusal (rc=78) is treated as fatal.
-
-Minion.town production DNS also appears to have been repointed. The maintainer inbox still holds that question, along with the guest-cleanup and invitation-deploy items.
+Most of the other messages are journal-contention watchdog notices that have already recovered.
 
 ## Maintainer review docket
 
@@ -682,7 +682,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.6M | $355.04 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 93.7M | $355.40 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 394.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154498466 tokens/day lower bound._
