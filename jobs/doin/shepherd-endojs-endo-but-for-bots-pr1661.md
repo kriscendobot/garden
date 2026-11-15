@@ -14,3 +14,13 @@ Shepherd endojs/endo-but-for-bots PR #1661, the Phase 8 daemon-agent-tools HTTP 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-15T08:13:09Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-15T08:13:13Z
