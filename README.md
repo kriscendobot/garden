@@ -1,22 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T16:09:27Z_
+_As of 2026-11-15T16:14:30Z_
 
 ## Latest
 
-Gauntlet [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. It now awaits a human merge or review decision, or a grant of more rounds with `--add-rounds`. Gauntlet [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared the outcome failed, and it can be resumed with extra rounds. Shepherd and weave jobs for [endojs/endo-but-for-bots#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) also completed. The input didn't resolve any individual board transitions.
+Nothing resolved in the board transitions this cycle, so the news is in the message inbox and the completed jobs.
 
-Several items need a maintainer:
+**Needs a maintainer decision**
+- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up its review budget. All 7 panel/fix rounds ran and the last fix is pushed with CI green, but the panel never converged. It needs a human merge/review call or more rounds (`--add-rounds`).
+- The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1, because the fix reported that it failed or declined. It can be resumed with extra rounds.
+- Milestone M3 is blocked at the Phase 2c sandbox-shell path. #1504 needs the Node 24 pin in [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) merged first. Several weave and conduct jobs on the plan queue are also waiting on #1646.
 
-- **Oros is still operator-held.** The Oros host (`oros-studio-garden-ce242c49`) is drained and failing its canary. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. This stalls the leader's rolling deploy, which keeps the EROFS fix off the leader. That in turn parks minion.town PR work.
-- **Foreman and mentor errors.** The foreman exits 78, and the mentor exits 1, whenever they try to post work for the paused minion.town project. These two failures keep recurring until the pause is lifted or the code is fixed.
-- **Disk space.** The leader host's disk briefly hit zero free space and needs manual cleanup.
-- **minion.town DNS.** An earlier report says the minion.town DNS was repointed to an unexpected address. It asks whether that change was intentional.
-- **Milestone M3.** M3 is blocked on merging [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
+**Fleet and infrastructure**
+- Oros (`oros-studio-garden-ce242c49`) is still operator-held and drained. It failed the rolling-deploy canary again after moving to 18fc7b17375, and several `canary-probe` jobs for it sit unclaimed in todo. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after deploy.
+- An earlier message says the leader is stuck on an old commit behind that dead canary, so the EROFS fix has not reached it. Whether to revive Oros or deploy the leader past it is still an open question.
+- The foreman and mentor services keep crash-looping because `post-job.sh` refuses jobs for the paused minion.town project and exits rc=78. The foreman's self-heal alert is at its 15th occurrence. The pause refusal itself is intended, but both services handle it as a fatal error.
+- The leader's disk was almost full during one job, with roughly 176–500 MiB free and a brief ENOSPC. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-The journal-contention watchdog notices are mostly recoveries and need no action.
+**Quieter items**
+- Almost all of the journal lock and fetch contention alerts have cleared. A few still show as open, on the bulletin, foreman, deadline-nudge and regenerate-sections-index journals.
+- Several daily-summary, dependabotany and Oros-related jobs are parked in the plan queue after exhausting their retries, awaiting a go-ahead.
+- The budget level moved the leader down to 2 monk workers and up to 2 cleric workers.
 
 ## Maintainer review docket
 
@@ -386,20 +390,15 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #14 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T15:12:03Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 14 times; this is ONE
-> coalesced notice that updates in place, not 14 messages. Latest detail:
+> WATCHDOG notice — occurrence #15 (first seen 2026-11-14T04:26:12Z, latest 2026-11-15T16:12:55Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 86d255d5acc6d8b1b36b83893991aae261f5f210 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 86d255d5acc6d8b1b36b83893991aae261f5f210). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-rc78
-> The foreman exits 78 and the unit fails whenever it picks a milestone step that belongs to a paused project.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 19e267ee07c1213c407eaff53c7cdcf20a911353 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 19e267ee07c1213c407eaff53c7cdcf20a911353). Diagnosis: The foreman exited 78 because `post-job.sh` refused a post, and the foreman treats any refusal as fatal.
 >
-> Failure signature, from the 2026-11-15 15:11:46 log tail:
-> - `[post] refusing to post 'build-daemon-git-remotes-transport-timing-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`.
-> - `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`.
-> - The foreman then exits with `exit "$post_rc"`.
-> - The log also shows a related symptom: "failed to promote deferred plan job ... kriscendobot-minion.town-pr199-review-4460eb00-retro; stopping deferred promotion this tick".
+> **Cause.** `post-job.sh` refused to post `shepherd-endojs-endo-but-for-bots-pr1476`. It reported that the base belongs to PAUSED project `minion-town` (record `pauses/minion-town.md`) and returned rc=78 (`EX_CONFIG`). In `scripts/jobs/foreman.sh`, the `elif [ "$post_rc" -ne 0 ]` branch near line 737 logs "ERROR: post-job failed" and runs `exit "$post_rc"`. It only special-cases the completed-collision rc and the tempfail rc 75. So a deliberate pause refusal crashes the unit on every tick and systemd restarts it. The foreman will re-propose the same step each tick until the pause is lifted or the code changes.
 >
-> Cause: the post-job failure branch in `scripts/jobs/foreman.sh` (around lines 737-740) treats every no
+> The refusal is intended behavior (see the recent docs commit "record the min
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -692,13 +691,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.0M | $442.32 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.2M | $443.29 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 399.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154500030 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.417703s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
+worst fetch p95 2.838589s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
