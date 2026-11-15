@@ -1,28 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-15T01:13:15Z_
+_As of 2026-11-15T01:18:46Z_
 
 ## Latest
 
-The board's file-level transitions didn't resolve this cycle, so the news is in the messages. Several of them are blockers for you.
+Nothing moved on the board since the last bulletin (no file-level transitions resolved), so the useful signal is in the maintainer inbox, where several items need a decision.
 
-**Needs a decision**
-- **Oros.** [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still drained after the rolling deploy halted on a failed canary (retries ran out). Its Claude OAuth session has expired, and `garden-secret-broker` fails after deploy. Both need someone at the machine. Until the leader deploys, the EROFS fix can't reach it. That fix gates every minion.town job that needs a project checkout, so those jobs stay parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary. Canary probes for Oros are piling up in todo.
-- **DNS.** The arc supervisor reports that minion.town and ocap.site have resolved to an unrelated Amazon address since about 13:14Z on 11-10, instead of the documented production host. Several subdomains no longer resolve. The supervisor didn't touch DNS and asks whether you made the change. If you didn't, it is a possible zone compromise.
-- **Disk.** The leader's `/home/kris/garden` filesystem briefly hit zero free space and sat at roughly 176–500 MiB. It needs manual reclaiming.
-- **Gauntlets.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its 6/6 review rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed. Both messages give resume commands with `--add-rounds`.
-- **Zizmor fix.** The M3 worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) waits on the green zizmor fix in [endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/pull/1659). The foreman has now asked 11 times whether to merge it.
+**Needs your call**
+- **Oros is still down.** `oros-studio-garden-ce242c49` has failed its canary again. The roll is halted and the host stays drained. It needs someone at the machine to fix an expired Claude OAuth session (`claude`, then `/login`) and a `garden-secret-broker` failure after deploy.
+- **The leader is stuck behind Oros.** The EROFS fix cannot reach the leader because it rolls after the dead Oros canary. As a result, minion.town PR work stays parked. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the canary.
+- **minion.town DNS.** A message from 2026-11-10 reports production DNS repointed to an unfamiliar address. It asks whether you made that change. If you didn't, it may be a zone compromise.
+- **minion.town pause.** The pause is working: the watchdog has refused minion.town jobs about 40,000 times. Two side effects are noisy. The foreman and mentor services crash with rc=78 and rc=1 and trigger self-heal, because they treat a paused-project refusal as a fatal error.
+- **Gauntlets that need more rounds.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 6 panel/fix rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined. Each message gives a `--add-rounds` resume command.
+- **M3 stack blocked.** The M3 daemon worker-import stack ([#1559](https://github.com/endojs/endo-but-for-bots/pull/1559), [#1590](https://github.com/endojs/endo-but-for-bots/pull/1590), [#1592](https://github.com/endojs/endo-but-for-bots/pull/1592)) is waiting on you to merge the green zizmor fix [#1659](https://github.com/endojs/endo-but-for-bots/pull/1659).
+- **Disk pressure.** The leader's filesystem briefly hit 0 bytes free and was at roughly 176–500 MiB free during a job. The new byte detector isn't deployed yet, so space has to be reclaimed by hand.
 
-**Known noise**
-- The minion.town pause is still being exercised. The foreman and mentor exit non-zero when they hit a paused project, which triggers self-heal. The watchdog has now refused about 40,568 attempts, most recently `accountant-weekly-20261114-170509`. That is worth a fix.
-- Several scheduled daily summaries and the `build-daemon-agent-tools-phase-8-fetch-plugin-20261106` and `build-oros-secrets-bwrap-handoff-20261106` builds were parked after their retries were exhausted.
-- Journal-contention notices have mostly recovered.
-
-**Maintainer notes**
-- minion.town settings simplification: run `deploy-accounts-store.sh` before merging, or Log out stays hidden and account deletion answers 503. The report also lists four choices that stand unless you veto them.
-- Claude spend is 30% of quota, so the monk pool was throttled back to 2.
+Journal-lock contention warnings mostly recovered over the last day.
 
 ## Maintainer review docket
 
@@ -695,10 +688,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.2M | $303.81 _(notional, rate-card)_ | 30% of 271.0M (ok) |
-| Codex | 393.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 80.3M | $304.54 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Codex | 393.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154340614 tokens/day lower bound._
+_Fleet token-unlock pace: 154372511 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.493930s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 11 open notice(s); checker healthy
