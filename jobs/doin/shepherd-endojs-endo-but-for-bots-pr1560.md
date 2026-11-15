@@ -9,6 +9,7 @@ dispatch: automatic
 Shepherd endojs/endo-but-for-bots PR #1560, driving its CI and remaining readiness checks toward a mergeable state for the M3 durable child-agent coordinator.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=10696 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
