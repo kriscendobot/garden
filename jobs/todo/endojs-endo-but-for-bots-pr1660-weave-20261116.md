@@ -1,8 +1,9 @@
 ---
 posted_at: 2026-11-16T09:54:14Z
 role: weaver
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Weave endojs/endo-but-for-bots PR #1660 after its base moved
@@ -13,16 +14,8 @@ The shepherd verified all 38 checks green on head `0aacf9a1653ec370566c4cc83a8f4
 
 Source shepherd job: `endojs-endo-but-for-bots-pr1660-shepherd`.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=21 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T12:13:17Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-16T12:33:06Z -->
