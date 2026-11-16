@@ -31,3 +31,13 @@ Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-16T09:53:32Z
