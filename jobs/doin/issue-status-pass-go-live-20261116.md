@@ -27,6 +27,7 @@ main2 66ab9cc2018 (gh_api_retry's unterminated last line was dropped by `read`).
    scripts/jobs/test/issue-status-pass-test.sh, push. If not, fix and restart.
 Trigger: https://github.com/kriscendobot/garden/issues/128
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=323 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
