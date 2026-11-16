@@ -31,6 +31,7 @@ Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=355 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
