@@ -1,24 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T09:57:03Z_
+_As of 2026-11-16T10:06:01Z_
 
 ## Latest
 
-PR [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) is the one piece of work that moved. The conduct job finished without merging it, because the PR now conflicts with `llm`. A weave job (`endojs-endo-but-for-bots-pr1660-weave-20261116`) was posted and claimed right away. A resumed conduct job and the shepherd job are also in progress, and a dependabotany recheck for [#1662](https://github.com/endojs/endo-but-for-bots/pull/1662) went back to todo.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. Its canary rolled back to the drained state again, and both blockers need someone at the machine: an expired Claude OAuth session, and `garden-secret-broker` failing after deploy. The rolling-deploy canary page cleared at 08:14Z, but 14 canary probe jobs still sit unclaimed in todo. Until the leader deploys the EROFS fix, minion.town PR work stays parked. That work is also under the 2026-11-10 project pause, which the foreman and mentor are tripping over: both exit rc=78 in loops, and self-heal has filed fix jobs.
 
-**Needs maintainer attention:**
-- **Oros is still held.** It has stopped claiming jobs, and rolling-deploy canary probes keep piling up in todo. The health-watch message says two things need someone at the machine: an expired Claude login and `garden-secret-broker` failing after deploy.
-- **The leader deploy is blocked behind Oros.** The minion.town arc supervisor asked whether to revive Oros or authorize deploying the leader past the dead canary. The leader's EROFS fix can't reach it until one of those happens.
-- **The gauntlet for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) hit its 7-round review budget.** The arc's own messages say the panel did not converge and offer `--add-rounds`. The gauntlet for [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round failed.
-- **[#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) still blocks Milestone M3.** It also holds a long list of parked weave and conduct jobs.
-- **The `minion.town` pause keeps refusing work.** The watchdog notice count has passed 83,000. The foreman and mentor scripts are also failing in a loop because they treat the pause refusal as fatal (self-heal notices #17 and #4).
-- **Disk on the leader is nearly full.** Free space was reported at roughly 176 to 500 MiB and briefly hit zero.
-- **A production DNS change needs an answer.** The `minion.town` and `ocap.site` records now point at an unexpected address.
-- **The ironhorse CI step 1 child (`ironhorse-ci-1-oracle-fix-20261116`) was doomed and parked.** Its orchestration is set to continue, and step 2 is running.
+On the board, the only completion was the dependabotany recheck of [endo-but-for-bots#1662](https://github.com/endojs/endo-but-for-bots/pull/1662). [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) was conducted but not merged, because it now conflicts with `llm`. A weave and a resumed conduct are queued behind it, and a shepherd job is in flight.
 
-The rest of the inbox is mostly watchdog recoveries (journal contention, comment latency, canary) and routine budget-level worker changes.
+Needs a maintainer decision:
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up its 7 gauntlet review rounds without converging. Add rounds or merge as is.
+- The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after a failed fix round. [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) is the blocker for a long chain of weaves and conducts.
+- The `minion.town` DNS now points at an unfamiliar address. Confirm whether the repoint was intentional.
+- The leader's disk was near full at times today and needs hand cleanup.
+- Run `deploy-accounts-store.sh` before the minion.town settings change merges.
 
 ## Maintainer review docket
 
@@ -720,16 +715,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.0M | $628.42 _(notional, rate-card)_ | 61% of 271.0M (ok) |
-| Codex | 405.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 165.6M | $630.33 _(notional, rate-card)_ | 61% of 271.0M (ok) |
+| Codex | 406.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154522074 tokens/day lower bound._
+_Fleet token-unlock pace: 154567374 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.849994s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (18)
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
@@ -739,28 +734,27 @@ worst fetch p95 3.849994s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 34b72683ba79
+- [`endojs-endo-but-for-bots-pr1660-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1660-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1660
 - [`canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-34b72683ba79-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 34b72683ba79
 - [`canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ef1323e1e30d
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ef1323e1e30d
+- [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Resume finalizing endojs/endo-but-for-bots PR #1660
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
-- [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-pr1662.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (4)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1660-weave-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-weave-20261116.md) — Weave endojs/endo-but-for-bots PR #1660 after its base moved
-- [`endojs-endo-but-for-bots-pr1660-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1660
-- [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Resume finalizing endojs/endo-but-for-bots PR #1660
 - [`ironhorse-ci-2-test-legs-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-2-test-legs-20261116.md) — Ironhorse CI step 2: macOS and ubuntu test-leg failures
 
-### tada (17141)
+### tada (17142)
+- [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-pr1662.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr1662
 - [`endojs-endo-but-for-bots-pr1660-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct.md) — PR #1660 not merged: it now conflicts with llm and needs a weave
 - [`improve-retire-claimed-stale-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/improve-retire-claimed-stale-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr1668-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1668-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1668-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1668-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1668-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots #1668 — RED
-- [`endojs-endo-but-for-bots-pr1668-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1668-gauntlet-viability.md) — Cost
-- … and 17136 more
+- … and 17137 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
