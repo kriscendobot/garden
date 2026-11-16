@@ -75,7 +75,7 @@ export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
-TR=/home/kris/.garden-ciw-test
+TR="${GARDEN_CIW_TEST_ROOT:-/home/kris/.garden-ciw-test}"
 SLUG=endojs-endo-but-for-bots
 REPO=endojs/endo-but-for-bots
 PASS=0; FAIL=0
@@ -794,6 +794,52 @@ claim_in_bare "$BARE_O" "$SLUG-pr102-shepherd"      # a gardener claims it: todo
 run_ci "$TR/state-o" "$BARE_O" "$FIX_O" "102=10"    # now green, but it is CLAIMED
 in_lane "$BARE_O" doin "$SLUG-pr102-shepherd" && ok "claimed shepherd untouched in doin (never race an in-flight gardener)" || bad "claimed shepherd disappeared from doin"
 in_lane "$BARE_O" tada "$SLUG-pr102-shepherd" && bad "claimed shepherd wrongly retired to tada" || ok "claimed shepherd not retired"
+
+# O2: a CLAIMED shepherd whose handler TERMINATED (doin/ + reap-now hint, the pr1636
+# retry-exhaustion shape) is retired same-claim doin → tada once CI is no longer red.
+hint_in_bare() {  # hint_in_bare <bare> <base> [host]  -> rewrite the doin claim with a reap-now hint
+  local v; v="$(mktemp -d "$TR/hn.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  printf '<!-- garden-reap-now -->\n---\nclaim:\n  host: %s\n  gardener: 1\n' "${3:-test}" >> "$v/jobs/doin/$2.md"
+  git -C "$v" add "jobs/doin/$2.md"; git -C "$v" "${git_id[@]}" commit -q -m "hint $2"
+  git -C "$v" push -q origin "$BRANCH"; rm -rf "$v"
+}
+BARE_O2="$TR/o2.git"; seed_bare "$BARE_O2"
+FIX_O2="$TR/fix-o2.tsv"; prline 106 kriscendobot "$REPO" > "$FIX_O2"
+run_ci "$TR/state-o2" "$BARE_O2" "$FIX_O2" "106=0"
+claim_in_bare "$BARE_O2" "$SLUG-pr106-shepherd"
+hint_in_bare "$BARE_O2" "$SLUG-pr106-shepherd"
+run_ci "$TR/state-o2" "$BARE_O2" "$FIX_O2" "106=0"    # still red → terminated claim stands
+in_lane "$BARE_O2" doin "$SLUG-pr106-shepherd" && ok "terminated claim with RED CI stays in doin" || bad "terminated claim with red CI wrongly moved"
+run_ci "$TR/state-o2" "$BARE_O2" "$FIX_O2" "106=10"   # green → retire the terminated claim
+in_lane "$BARE_O2" doin "$SLUG-pr106-shepherd" && bad "terminated claimed shepherd still in doin" || ok "terminated claimed shepherd removed from doin"
+in_lane "$BARE_O2" tada "$SLUG-pr106-shepherd" && ok "terminated claimed shepherd landed in tada" || bad "terminated claimed shepherd not in tada"
+tada_has_marker "$BARE_O2" "$SLUG-pr106-shepherd" && ok "doin retirement report carries the completion marker" || bad "doin retirement report missing completion marker"
+
+# O3: same-claim guard — the claim changes AFTER the sweep validated it (the rollup
+# stub lands a re-claim as a side effect), so the retire must leave it in doin.
+BARE_O3="$TR/o3.git"; seed_bare "$BARE_O3"
+FIX_O3="$TR/fix-o3.tsv"; prline 107 kriscendobot "$REPO" > "$FIX_O3"
+run_ci "$TR/state-o3" "$BARE_O3" "$FIX_O3" "107=0"
+claim_in_bare "$BARE_O3" "$SLUG-pr107-shepherd"
+hint_in_bare "$BARE_O3" "$SLUG-pr107-shepherd"
+RACESTUB="$TR/rollup-race.sh"
+{ printf '#!/bin/bash\n'
+  printf 'v="$(mktemp -d)"\n'
+  printf 'git clone -q --single-branch --branch %q %q "$v" 2>/dev/null\n' "$BRANCH" "$BARE_O3"
+  printf 'printf -- "---\\nclaim:\\n  host: other\\n  gardener: 9\\n" > "$v/jobs/doin/%s.md"\n' "$SLUG-pr107-shepherd"
+  printf 'git -C "$v" add -A; git -C "$v" -c user.name=t -c user.email=t@t commit -q -m reclaim\n'
+  printf 'git -C "$v" push -q origin %q; rm -rf "$v"\n' "$BRANCH"
+  printf 'exit 10\n'; } > "$RACESTUB"
+chmod +x "$RACESTUB"
+: > "$TR/fix-o3-empty.tsv"
+env GARDEN_STATE="$TR/state-o3" GARDEN_API_COOLDOWN_DIR="$TR/state-o3/gh-api-cooldown" \
+    JOURNAL_REMOTE="$BARE_O3" JOURNAL_BRANCH="$BRANCH" GARDEN_BOT_LOGIN=kriscendobot \
+    GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$TR/fix-o3-empty.tsv" GARDEN_CI_ROLLUP="$RACESTUB" \
+    GARDEN_CI_POST="$JOBS/post-job.sh" "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/o3.err" || true
+in_lane "$BARE_O3" doin "$SLUG-pr107-shepherd" && ok "claim changed after validation: shepherd left in doin" || bad "changed claim was retired (same-claim guard broken)"
+in_lane "$BARE_O3" tada "$SLUG-pr107-shepherd" && bad "changed claim wrongly retired to tada" || ok "changed claim not retired"
+grep -q 'claim changed since validation' "$TR/o3.err" && ok "same-claim guard logged the refusal" || bad "no same-claim refusal log ($(tail -n5 "$TR/o3.err"))"
 
 # ============================================================================
 hr; echo "P — sweep retires on PENDING (settling) and NONE (no checks), not just green"; hr
