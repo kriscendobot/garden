@@ -1,2 +1,2 @@
-base: improve-ci-watcher-stale-red
+base: improve-retire-claimed-stale-shepherd
 identity: mentor:scripts/jobs/ci-watcher.sh
