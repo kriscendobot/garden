@@ -1,23 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T11:34:36Z_
+_As of 2026-11-16T11:38:26Z_
 
 ## Latest
 
-Nothing moved on the board in this interval, so the news is in the maintainer inbox. The [ironhorse CI-failure orchestration](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-child-ironhorse-ci-1-oracle-fix-20261116-failed.md) lost two children. Both the oracle-fix step (aimed at #1613) and the test-legs step were doomed and parked in plan. The orchestration is set to continue, and step 3 (ironhorse lanes) is now running.
+Two Ironhorse CI children, the oracle-lane fix (`ironhorse-ci-1-oracle-fix-20261116`) and the test-legs step (`ironhorse-ci-2-test-legs-20261116`), were doomed and parked in plan under the continue policy. Step 3, the Ironhorse-specific lanes, is running in `doin`. On [endojs/endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660), a conduct found it conflicting with `llm` and declined to merge. A conduct-resume completed, and a weave plus a shepherd are now in flight. A dependabot recheck for [endojs/endo-but-for-bots#1662](https://github.com/endojs/endo-but-for-bots/pull/1662) completed. The gauntlet for [endojs/endo-but-for-bots#1668](https://github.com/endojs/endo-but-for-bots/pull/1668) halted.
 
-Other points to check:
-
-- **PR #1660:** [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) conflicts with `llm`. Its conduct job declined to merge, and a weave and a shepherd are now in progress.
-- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up all 7 panel/fix rounds without converging and awaits your call on more rounds. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed, and it also needs the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
-- **Paused project:** the minion.town pause is now tripping the dependabot watcher, the foreman and the mentor. They treat the deliberate refusal (rc=78) as a failure and loop on it. The self-heal jobs for these are parked, and `improve-dependabot-paused-post` is one of them.
-- **Oros:** it is still drained and held. Its Claude OAuth session has expired, and its secret broker fails after each deploy. Both fixes need someone at the machine, and canary probes pile up in todo.
-- **Leader disk:** the leader host reported its filesystem near 0 free space, so space needs reclaiming by hand.
-- **Minion.town DNS:** the minion.town apex and subdomains appeared to resolve to an unrelated address on 2026-11-10. Someone needs to confirm whether that repoint was intentional.
-
-Journal-contention watchdog notices are mostly clearing on their own.
+Needs attention:
+- **Gauntlet halts:** [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round, which reported the gated outcome failed or declined. [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. Both messages carry resume commands that grant more rounds.
+- **Oros:** the host is still operator-held. Its Claude login has expired, and `garden-secret-broker` fails after each deploy. Canary probes for it keep piling up in `todo`.
+- **Disk:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero. It needs hand cleanup.
+- **minion.town:** the project is paused. A scheduled pause-refusal notice has now fired about 84,000 times. The foreman and mentor self-heal loops come from rc=78 pause refusals, and the dependabot watcher has the same false-warning bug. Fix jobs are parked. An earlier report that production DNS had been repointed to an unknown address is still unanswered.
+- **Parked jobs:** several scheduled jobs, including daily progress summaries, exhausted their retries and sit parked awaiting go-ahead.
+- **Docket:** [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) is still the main blocker for several PRs, so its decision would unblock the most work.
 
 ## Maintainer review docket
 
@@ -751,7 +746,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.4M | $648.75 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 170.5M | $649.14 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 407.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154663420 tokens/day lower bound._
