@@ -15,6 +15,7 @@ Source shepherd job: `endojs-endo-but-for-bots-pr1660-shepherd`.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
