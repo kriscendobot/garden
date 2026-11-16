@@ -14,6 +14,7 @@ scripts/jobs/dependabot-watcher.sh:1056 discards post-job’s rc=78, then lines 
 <!-- garden-plain-retry-not-before: 2026-11-16T11:03:05Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=35,31 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
