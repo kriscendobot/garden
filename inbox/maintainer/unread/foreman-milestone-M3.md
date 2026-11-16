@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: foreman
 msg_key: foreman-milestone-M3
-notice_count: 18
+notice_count: 19
 first_seen: 2026-11-14T04:34:56Z
-last_seen: 2026-11-16T23:26:36Z
-sent_at: 2026-11-16T23:26:36Z
+last_seen: 2026-11-16T23:37:47Z
+sent_at: 2026-11-16T23:37:47Z
 ---
-COALESCED message — occurrence #18 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:26:36Z).
-The SAME message (episode key `foreman-milestone-M3`) has now been sent 18 times; this is
-ONE entry that updates in place, not 18 messages. Latest detail:
+COALESCED message — occurrence #19 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:37:47Z).
+The SAME message (episode key `foreman-milestone-M3`) has now been sent 19 times; this is
+ONE entry that updates in place, not 19 messages. Latest detail:
 
-Milestone M3’s `endo-claude-agents-capability` stack is built and open at endojs/endo-but-for-bots#1558 and #1560, but both lack a maintainer review decision. Please approve, request changes, or direct their merge sequencing.
+M3’s remaining critical PRs are either in flight or blocked: PR #1595 exhausted its six gauntlet rounds with an unavailable must-fix list. Decide whether to authorize a fresh review/fix path for #1595; its bounded Git-remote profiles serve the minion-town git-remote arc.
