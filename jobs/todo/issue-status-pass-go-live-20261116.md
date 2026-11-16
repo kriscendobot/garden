@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Go live with the issue status pass (second observation window)
@@ -28,13 +29,6 @@ main2 66ab9cc2018 (gh_api_retry's unterminated last line was dropped by `read`).
 Trigger: https://github.com/kriscendobot/garden/issues/128
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=323 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T06:05:21Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-16T06:23:04Z -->
