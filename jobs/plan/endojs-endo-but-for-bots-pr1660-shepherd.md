@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+handler-timeout: 10800
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-16T12:13:08Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-16T12:13:08Z
+---
+
+---
 posted_at: 2026-11-16T06:48:00Z
 tier: minion
 model-burned: mentor
@@ -20,20 +41,3 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please conduct. 
-
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-16T10:13:05Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=5526,6820 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T10:13:28Z

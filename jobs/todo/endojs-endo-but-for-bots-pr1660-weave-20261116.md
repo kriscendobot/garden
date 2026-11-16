@@ -14,16 +14,3 @@ The shepherd verified all 38 checks green on head `0aacf9a1653ec370566c4cc83a8f4
 Source shepherd job: `endojs-endo-but-for-bots-pr1660-shepherd`.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=193 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T12:03:18Z
