@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T16:29:27Z_
+_As of 2026-11-16T16:30:28Z_
 
 ## Latest
 
@@ -684,10 +684,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.061400s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `watchdog-handler-budget-overrun-ironhorse-ci-4-remaining-20261116` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-ci-4-remaining-20261116.md)
-
-> gardener job 'ironhorse-ci-4-remaining-20261116' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=10800s, handler-budget=10800s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
 
