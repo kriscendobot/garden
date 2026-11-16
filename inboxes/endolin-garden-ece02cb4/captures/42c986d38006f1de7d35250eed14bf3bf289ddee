@@ -1,0 +1,26 @@
+elapsed-constancy exit0-wedge-suspect: ironhorse-ci-3-ironhorse-lanes-20261116
+
+gardener-2 on endolin-garden-ece02cb4: job ironhorse-ci-3-ironhorse-lanes-20261116 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 22,27s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>13:13:13 [cleric/2] resuming codex session 01a1e40b-349c-7941-9087-8c98686331f9 for job 'ironhorse-ci-3-ironhorse-lanes-20261116' that STOPPED without completing; continue framing
+<6>13:13:13 [cleric/2] job 'ironhorse-ci-3-ironhorse-lanes-20261116' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>13:13:14 [cleric/2] job 'ironhorse-ci-3-ironhorse-lanes-20261116' attaching minion.town MCP (stdio bridge as minion-town)
+<6>13:13:28 [cleric/2] job 'ironhorse-ci-3-ironhorse-lanes-20261116' ended its turn without the completion signal; nudging codex session 01a1e40b-349c-7941-9087-8c98686331f9 to verify and complete (nudge 1/1)
+<6>13:13:40 [cleric/2] codex completion nudge for 'ironhorse-ci-3-ironhorse-lanes-20261116' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1e40b-349c-7941-9087-8c98686331f9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Verified complete.\n\n#1621: fixed the carried-`await` Promise defect and restamped affected snapshot fixtures. Pushed `4dae1ea9e1`, `d815d43db0`, and `897aa55f8e`. Sandbox, debug, macOS, and release lanes pass.\n\n#1610: rerunning cleared the runner-space failure; `test-ironhorse` and `compare-ironhorse-math` pass. No commit was required.\n\nBoth PRs retain only the known stage3-math 054/055 oracle failures assigned to #1613. CI-equivalent local suites and both golden providers passed. No merges were performed.\n\n<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":33005458,"cached_input_tokens":32596864,"cache_write_input_tokens":0,"output_tokens":44595,"reasoning_output_tokens":13727}}
