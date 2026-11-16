@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 **Role: accountant.** Weekly **reset-credit watch**: keep an eye on the garden's manual quota-reset credits, work out how best to use them, and send the maintainer **one recommendation in the maintainer inbox** (`message-user.sh <your-base>`).
@@ -31,13 +32,6 @@ Standing maintainer direction (kriskowal, 2026-09-30): "We should plan to use th
 Keep it short: one screen. If nothing is actionable (no live credits, or none near expiry), send a one-line "no action this week" status and finish.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=277 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T17:05:47Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-16T17:23:06Z -->
