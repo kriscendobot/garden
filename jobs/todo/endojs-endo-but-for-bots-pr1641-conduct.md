@@ -1,12 +1,13 @@
 ---
-posted_at: 2026-11-16T07:08:15Z
+posted_at: 2026-11-16T07:09:22Z
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
-# Finalize (curate -> merge) endojs/endo-but-for-bots PR #1645
+# Finalize (curate -> merge) endojs/endo-but-for-bots PR #1641
 
 A trusted maintainer APPROVED this PR (the approval is still effective
 even if the head has since advanced) and the approval RECONCILER
@@ -26,20 +27,11 @@ Guards (the reconciler already enforced these; re-verify before merging):
     approval dismissed), dispatch the shepherd/fixer instead of the merge.
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
-PR: https://github.com/endojs/endo-but-for-bots/pull/1645
+PR: https://github.com/endojs/endo-but-for-bots/pull/1641
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
-<!-- garden-reaped: 0 -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=355 -->
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=68 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T07:43:51Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-16T08:03:05Z -->
