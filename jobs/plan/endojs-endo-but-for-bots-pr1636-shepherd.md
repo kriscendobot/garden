@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: shepherd
+tier: minion
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-16T08:43:08Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-16T08:43:08Z
+---
+
+---
 posted_at: 2026-11-16T07:09:47Z
 role: shepherd
 tier: minion
@@ -27,20 +49,3 @@ shepherd->fixer auto-chain. Re-fetch the live state before acting; this
 job was minted from a status read at post time. Once green, the conductor
 is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
-
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-16T08:23:05Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=145,717 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T08:23:49Z
