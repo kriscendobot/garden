@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T17:28:47Z_
+_As of 2026-11-16T17:34:16Z_
 
 ## Latest
 
@@ -653,6 +651,48 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` cleared on oros-studio-garden-ce242c49.
 
+- `doomed-reset-credit-watch-20261116-170511-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-reset-credit-watch-20261116-170511-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/reset-credit-watch-20261116-170511; it stays HELD until a human promotes it
+> (promote-plan.sh reset-credit-watch-20261116-170511) or removes it, so nothing is lost.
+> Original job base: reset-credit-watch-20261116-170511
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> **Role: accountant.** Weekly **reset-credit watch**: keep an eye on the garden's manual quota-reset credits, work out how best to use them, and send the maintainer **one recommendation in the maintainer inbox** (`message-user.sh <your-base>`).
+>
+> Standing maintainer direction (kriskowal, 2026-09-30): "We should plan to use these resets mid-week before they expire."
+>
+> **Inputs (read first):**
+> - `journal2:projects/garden/reset-credits.md` is the credit inventory, expiries and use log. It is the source of truth for what credits exist; only the maintainer creates credits.
+> - The latest dashboard checkpoints (`budget/manual-checkpoints/*.jsonl`), the live meter (`budget/live/*`), reset events (`budget/reset-events/*.jsonl`) and the true-cap estimates (`fit-quota-calibration.sh --dry-run`).
+> - Natural boundaries:
+>   - Claude endolin subscriptions reset Friday 20:00 America/Los_Angeles.
+>   - codex-endolin resets on a rolling 7 days from its last reset.
+>
+> **Policy:** the target is to spend a subscription to **90%, never 100%**, then reset. The last 10% is maintainer discretion. A credit is worth the most when it is used **mid-week**, once the subscription reaches about 90% well before its natural reset, and **before the credit expires**. A credit used just before a natural reset is mostly wasted. A credit that expires unused is fully wasted.
+>
+> **Each week:**
+> 1. Reconcile the inventory against this week's evidence (any maintainer messages, reset events).
+>    - If a credit looks used or expired, update `reset-credits.md` with `scripts/jobs/land-journal-edit.sh projects/garden/reset-credits.md`.
+>    - Never invent credits.
+> 2. For each subscription with a live credit, estimate from current pace when it will cross 90% and how that compares with its natural reset and the credit's expiry.
+> 3. **Recommend** a concrete plan: which credit, which subscription, and a target day and time window, for example "burn claude-endolin2 to 90% by Wed, reset Wed evening PT; the credit expires Oct 22".
+>    - Say whether the fleet should **accelerate** first (a near planned deadline via `append-reset-event.sh --type expected-next-scheduled`, plus worker counts) to reach 90% in time.
+>    - Say whether a credit is at risk of expiring unused.
+>    - Include a one-line status for every subscription (current %, pace, natural reset, credits and expiries).
+> 4. **Send the recommendation** with `message-user.sh`, one concise message. **Do not actuate:** do not change budget pools, backoff fraction, worker counts or reset events yourself. The maintainer decides, and the liaison executes.
+> 5. Complete the job, noting whether the recommendation needs a timely decision (for example a credit expiring within 10 days).
+>
+> Keep it short: one screen. If nothing is actionable (no live credits, or none near expiry), send a one-line "no action this week" status and finish.
+
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_fleet_health_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_fleet_health_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_fleet_health_journal` has CLEARED (first seen 2026-11-16T08:22:57Z, cleared 2026-11-16T14:17:13Z).
@@ -826,10 +866,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.3M | $655.10 _(notional, rate-card)_ | 63% of 271.0M (ok) |
-| Codex | 408.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 171.3M | $655.17 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Codex | 408.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154700557 tokens/day lower bound._
+_Fleet token-unlock pace: 154702362 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 13 open notice(s); checker healthy
@@ -854,8 +894,7 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
-- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reset-credit-watch-20261116-170511.md) — ---
+### doin (1)
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
 
 ### tada (17144)
@@ -912,6 +951,7 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`kriscendobot-minion-town-pr183-open-findings-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr183-open-findings-fix-20261015.md) — _normal_ · Fix the structural findings left open on kriscendobot/minion.town#183
 - [`endojs-endo-but-for-bots-pr1498-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1498-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1498
 - [`kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr237-screen-304dd248-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #237
+- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/reset-credit-watch-20261116-170511.md) — _normal_ · ---
 - [`endopi-extension-package-guest-provider-kinds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endopi-extension-package-guest-provider-kinds.md) — _normal_ · ---
 - [`minion-town-remote-guest-cli-live-proof`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-remote-guest-cli-live-proof.md) — _normal_ · ---
 - [`minion-town-arc-press-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-200509.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
