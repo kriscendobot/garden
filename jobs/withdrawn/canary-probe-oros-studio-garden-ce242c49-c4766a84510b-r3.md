@@ -1,5 +1,11 @@
 ---
-posted_at: 2026-11-15T21:23:02Z
+withdrawn: true
+withdrawn_by: liaison
+withdrawn_at: 2026-11-16T22:40:33Z
+withdrawn_reason: "canary probe pinned to offline host oros-studio-garden-ce242c49; unclaimable, inflates the foreman in-flight count (maintainer go-ahead, liaison session 2026-11-16)"
+---
+---
+posted_at: 2026-11-15T22:23:02Z
 requires: host=oros-studio-garden-ce242c49
 canary-probe: true
 handler-timeout: 120
