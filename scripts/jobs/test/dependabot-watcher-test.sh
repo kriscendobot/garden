@@ -16,6 +16,8 @@
 #      still gets a botanist job (the botanist renders a recommendation there — the
 #      producer must not silently drop it the way the branch-driving ci-watcher does)
 #   F. an already-live botanist job (present in todo/) → idempotent skip (no dup)
+#   F2. a paused-project refusal is recognized (no false lost-post warning), and
+#       the PR is admitted on a later tick after the pause is lifted
 #
 # and the SUPERSESSION PREFLIGHT (the cross-PR reconciliation that runs before the
 # posting loop, so a stale duplicate never buys a full Opus review):
@@ -172,6 +174,9 @@ depline() { printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$DEP" "$REPO" "$FRESH_TS" "$2"; 
 cmpline() { printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$@"; }
 
 run_dep() {  # run_dep <state> <bare> <fixture> [slug]
+  local dep_post="${GARDEN_DEP_POST:-$JOBS/post-job.sh}"
+  local dep_stdout="${DEP_RUN_STDOUT:-/dev/null}"
+  local dep_stderr="${DEP_RUN_STDERR:-/dev/null}"
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_BOT_LOGIN=kriscendobot \
       GARDEN_DEP_PR_SOURCE="$SRCSTUB" DEP_FIXTURE="$3" \
@@ -180,8 +185,8 @@ run_dep() {  # run_dep <state> <bare> <fixture> [slug]
       GARDEN_DEP_BASE_CI="$BASECISTUB" BASE_CI_FIXTURE="${BASE_CI_FIXTURE:-}" BASE_CI_LOG="${BASE_CI_LOG:-}" \
       GARDEN_FETCH_CMD="${GARDEN_FETCH_CMD:-}" VLOCK_LOG="${VLOCK_LOG:-}" \
       GARDEN_DEPENDABOT_CLOSE_HOST=write-host \
-      GARDEN_DEP_POST="$JOBS/post-job.sh" \
-      "$JOBS/dependabot-watcher.sh" "${4:-$SLUG}" >/dev/null 2>&1
+      GARDEN_DEP_POST="$dep_post" \
+      "$JOBS/dependabot-watcher.sh" "${4:-$SLUG}" >"$dep_stdout" 2>"$dep_stderr"
 }
 
 # ============================================================================
@@ -240,6 +245,32 @@ git -C "$v" push -q origin "$BRANCH"; rm -rf "$v"
 FIX_F="$TR/fix-f.tsv"; prline 849 "$DEP" > "$FIX_F"
 run_dep "$TR/state-f" "$BARE_F" "$FIX_F"
 [ "$(todo_count "$BARE_F")" -eq 1 ] && ok "no duplicate for an already-live botanist job" || bad "duplicated an already-live job ($(todo_count "$BARE_F"))"
+
+# ============================================================================
+hr; echo "F2 — paused-project refusal is a quiet skip until the pause is lifted"; hr
+BARE_F2="$TR/f2.git"; seed_bare "$BARE_F2"
+FIX_F2="$TR/fix-f2.tsv"; prline 850 "$DEP" > "$FIX_F2"
+PAUSED_POST="$TR/paused-post.sh"; PAUSED_POST_LOG="$TR/paused-post.log"
+cat > "$PAUSED_POST" <<'EOF'
+#!/bin/bash
+printf '%s\n' "$1" >> "${PAUSED_POST_LOG:?set PAUSED_POST_LOG}"
+exit "${GARDEN_PAUSED_RC:?set GARDEN_PAUSED_RC}"
+EOF
+chmod +x "$PAUSED_POST"
+F2_ERR="$TR/f2.err"
+GARDEN_DEP_POST="$PAUSED_POST" PAUSED_POST_LOG="$PAUSED_POST_LOG" \
+  GARDEN_PAUSED_RC=79 DEP_RUN_STDERR="$F2_ERR" \
+  run_dep "$TR/state-f2" "$BARE_F2" "$FIX_F2"
+[ "$(cat "$PAUSED_POST_LOG")" = "$SLUG-pr850-dependabot" ] \
+  && ! board_has "$BARE_F2" "$SLUG-pr850-dependabot" \
+  && grep -q 'skipped until its pause is lifted' "$F2_ERR" \
+  && ! grep -q 'did not reach origin/' "$F2_ERR" \
+  && ok "GARDEN_PAUSED_RC is preserved and classified as a quiet skip" \
+  || bad "paused refusal was misclassified ($(cat "$F2_ERR"))"
+run_dep "$TR/state-f2" "$BARE_F2" "$FIX_F2"
+board_has "$BARE_F2" "$SLUG-pr850-dependabot" \
+  && ok "the skipped PR is admitted on a later tick after the pause is lifted" \
+  || bad "paused PR remained skipped after the pause was lifted"
 
 # ============================================================================
 hr; echo "G — same package, SAME target → higher PR full, other cheap-superseded, no oracle call"; hr

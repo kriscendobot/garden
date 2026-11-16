@@ -1053,8 +1053,17 @@ while IFS=$'\t' read -r pr pkg old new; do
   else
     write_full_body "$pr" "$pkg" "$old" "$new" > "$jb"
   fi
-  "$GARDEN_DEP_POST" "$base" "$jb" >/dev/null 2>&1 || true
+  post_rc=0
+  "$GARDEN_DEP_POST" "$base" "$jb" >/dev/null 2>&1 || post_rc=$?
   rm -f "$jb"
+
+  # A project pause is a deliberate admission refusal, not a lost journal post.
+  # Leave the PR unposted so a later tick can admit it once the pause is lifted,
+  # but do not emit the retry warning on every tick while the pause remains.
+  if [ "$post_rc" -eq "$GARDEN_PAUSED_RC" ]; then
+    log "#$pr belongs to a PAUSED project — skipped until its pause is lifted"
+    continue
+  fi
 
   if posted_anywhere "$base" fresh; then
     if [ -n "$peer" ]; then
