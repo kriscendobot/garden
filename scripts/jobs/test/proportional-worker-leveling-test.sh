@@ -23,6 +23,34 @@ env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARD
 if grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&grep -q '^small op=set-workers kind=monk count=2$' "$ACT";then ok "143M:64M caps apportion the six-monk ceiling as 4:2";else bad "monk allocation: $(tr '\n' ';'<"$ACT")";fi
 if grep -q '^large op=set-workers kind=cleric count=1$' "$ACT"&&grep -q '^small op=set-workers kind=cleric count=3$' "$ACT";then ok "clerics split 1:3 from host-eligible demand, independently of Anthropic caps";else bad "cleric split: $(tr '\n' ';'<"$ACT")";fi
 
+# A cleric preflight fault is one edge-latched incident: an unchanged active
+# count above its host's physical cap warns once across controller ticks, a safe
+# count closes it once, and the steady recovered state remains silent.
+git -C "$SEED" pull -q --rebase
+for n in 1 2 3 4 5;do printf '%s\n' '---' 'claim:' '  worker_kind: cleric' '  host: small' "  gardener: $n" '---' work >"$SEED/jobs/doin/active$n.md";done
+git -C "$SEED" add jobs/doin;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm clerics-above-cap;git -C "$SEED" push -q
+CLERIC_ALERTS="$TR/cleric-alerts.log";: >"$CLERIC_ALERTS"
+cleric_latch_env=(GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE"
+ GARDEN_STATE="$TR/cleric-latch-state" GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh"
+ GARDEN_ALERT_RECORD="$CLERIC_ALERTS" GARDEN_USAGE_NOW="$(date -u +%s)"
+ GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send")
+for tick in 1 2;do env "${cleric_latch_env[@]}" "$JOBS/budget-level.sh" >"$TR/cleric-freeze$tick.out" 2>&1;done
+git -C "$SEED" pull -q --rebase
+rm "$SEED/jobs/doin/active5.md"
+git -C "$SEED" add jobs/doin/active5.md;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm clerics-within-cap;git -C "$SEED" push -q
+for tick in 1 2;do env "${cleric_latch_env[@]}" "$JOBS/budget-level.sh" >"$TR/cleric-recovery$tick.out" 2>&1;done
+if [ "$(grep -c '^KEY=budget-level-cleric-preflight$' "$CLERIC_ALERTS")" -eq 2 ] \
+ && grep -q '^MSG=cleric allocation frozen: small has 5 active clerics above physical cap 4$' "$CLERIC_ALERTS" \
+ && grep -q '^MSG=RECOVERED: budget-level: fleet cleric allocation recovered on leader' "$CLERIC_ALERTS" \
+ && grep -q 'cleric allocation frozen: small has 5 active clerics above physical cap 4' "$TR/cleric-freeze1.out" \
+ && ! grep -q 'cleric allocation frozen' "$TR/cleric-freeze2.out" \
+ && grep -q 'fleet cleric allocation recovered on leader' "$TR/cleric-recovery1.out" \
+ && ! grep -q 'fleet cleric allocation recovered' "$TR/cleric-recovery2.out";then
+ ok "cleric preflight freeze warns once, recovers once, and suppresses steady repeats"
+else
+ bad "cleric preflight latch: alerts=$(tr '\n' ';'<"$CLERIC_ALERTS") freeze1=$(tr '\n' ';'<"$TR/cleric-freeze1.out") freeze2=$(tr '\n' ';'<"$TR/cleric-freeze2.out") recovery1=$(tr '\n' ';'<"$TR/cleric-recovery1.out") recovery2=$(tr '\n' ';'<"$TR/cleric-recovery2.out")"
+fi
+
 # Every accepted worker-count actuation is also durable in the weekly decision
 # ledger, with the sensed input and the actual clamped from/to step.
 git -C "$SEED" pull -q --rebase

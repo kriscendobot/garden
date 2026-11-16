@@ -491,7 +491,8 @@ if [ "$cv" -eq 1 ];then
  if [ "$cv" -eq 1 ]&&! provider_cooldown_active openai;then
   for jf in "$DIR"/jobs/todo/*.md;do [ -f "$jf" ]||continue;eh=();for h in "${eligible[@]}";do cleric_eligible "$jf" "$h"&&eh+=("$h");done;[ "${#eh[@]}" -gt 0 ]||continue;Q=$((Q+1));frac="$(awk -v n="${#eh[@]}" 'BEGIN{printf "%.12f",1/n}')";for h in "${eh[@]}";do demand["$h"]="$(awk -v a="${demand[$h]}" -v b="$frac" 'BEGIN{printf "%.12f",a+b}')";done;done
  fi
- [ "$cv" -eq 1 ]||{ log "WARN: cleric allocation frozen: $bad";finish; }
+ [ "$cv" -eq 1 ]||{ report_freeze budget-level-cleric-preflight "$bad" "cleric allocation frozen: $bad";finish; }
+ report_unfreeze budget-level-cleric-preflight "budget-level: fleet cleric allocation recovered on $GARDEN; eligible, physically-backed hosts are allocatable and leveling has resumed."
  A=0;capacity=0;for h in "${eligible[@]}";do A=$((A+active[$h]));capacity=$((capacity+ccap[$h]));done
  N=${#eligible[@]};idle=$N;[ "$idle" -le "$cf" ]||idle="$cf";kd=$((A+Q));[ "$kd" -le "$cf" ]||kd="$cf";K="$idle";[ "$K" -ge "$kd" ]||K="$kd";[ "$K" -ge "$A" ]||K="$A";alloc="$K"
  [ "$alloc" -le "$capacity" ]||{ alloc="$capacity";log "WARN: cleric fleet target $K exceeds physical capacity $capacity; allocating to caps";alert_maintainer budget-level-cleric-capacity "budget-level: cleric fleet target $K exceeds physical capacity $capacity; allocated only to physical caps.";}
@@ -501,6 +502,6 @@ if [ "$cv" -eq 1 ];then
  left=$((alloc-dt));while [ "$left" -gt 0 ];do pick="";for h in "${eligible[@]}";do [ "${ctarget[$h]}" -lt "${ccap[$h]}" ]||continue;if [ -z "$pick" ]||[ "${ctarget[$h]}" -lt "${ctarget[$pick]}" ]||{ [ "${ctarget[$h]}" -eq "${ctarget[$pick]}" ]&&[[ "$h" < "$pick" ]];};then pick="$h";fi;done;[ -n "$pick" ]||break;ctarget["$pick"]=$((ctarget[$pick]+1));left=$((left-1));done
  codex_status="$(meter_quota_status codex-endolin "$DIR")"
  for h in "${eligible[@]}";do cur="$(read_desired_count "$DIR/hosts/$h" clerics 2>/dev/null)"||{ pool_failure codex-endolin "$h" read-host-clerics "$?";continue;};target="${ctarget[$h]}";[ "$codex_status" != backoff ]||target="$GARDEN_BUDGET_LEVEL_MIN";apply_target codex-endolin "$h" cleric "$cur" "$target" "shared codex subscription demand active=$A queue=$Q quota=$codex_status fleet-envelope=$cf target=$target" "$Q" "$cf" config/worker-leveling eligible-queue-demand;done
-else log "WARN: cleric allocation frozen: $bad";fi
+else report_freeze budget-level-cleric-preflight "$bad" "cleric allocation frozen: $bad";fi
 
 finish
