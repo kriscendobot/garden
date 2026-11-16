@@ -33,3 +33,13 @@ upstream agoric/agoric-sdk.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-16T08:23:05Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T08:23:49Z
