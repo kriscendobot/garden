@@ -23,6 +23,7 @@ Task: #1621 (red: sandbox-drivers, test-ironhorse, test-ironhorse-macos, test-ir
 <!-- garden-plain-retry-not-before: 2026-11-16T13:13:05Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=22,27 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
