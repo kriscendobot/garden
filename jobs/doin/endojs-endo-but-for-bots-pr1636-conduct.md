@@ -22,3 +22,13 @@ introduced. #1659 fixes it on the same frozen base llm-48d6f3e. A shepherd job
 (endojs-endo-but-for-bots-pr1636-shepherd) is also live on this PR. Do not edit
 workflows in this PR. Wait for #1659 to land (then weave if needed), or decide per
 the conductor brief whether a non-PR-attributable red blocks the merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-16T07:36:53Z
