@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T17:04:02Z_
+_As of 2026-11-16T17:06:32Z_
 
 ## Latest
 
@@ -837,7 +837,8 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
+### doin (2)
+- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reset-credit-watch-20261116-170511.md) — ---
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
 
 ### tada (17144)
