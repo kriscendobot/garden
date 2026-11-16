@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T22:53:58Z_
+_As of 2026-11-16T22:58:58Z_
 
 ## Latest
 
@@ -550,11 +548,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #14 (first seen 2026-11-14T04:34:56Z, latest 2026-11-15T15:16:47Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 14 times; this is
-> ONE entry that updates in place, not 14 messages. Latest detail:
+> COALESCED message — occurrence #15 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T22:56:01Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 15 times; this is
+> ONE entry that updates in place, not 15 messages. Latest detail:
 >
-> Milestone M3 is blocked at the Phase 2c sandbox-shell path: PR #1504 needs the Node 24 pin in PR #1646 merged before it can be woven and driven green. Please decide and merge #1646; #1497, #1592, #1593, and #1597 are also ready for maintainer review.
+> M3’s next integration step is blocked on a workspace-catalog naming rule for the `fetch` and `inspect` collisions in PRs #1593 and #1348. Decide whether makers must qualify colliding names (for example, `inspectShell` and `inspectGitRemote`) before the fix work resumes.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -865,10 +863,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.5M | $653.31 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.6M | $652.47 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 409.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154478394 tokens/day lower bound._
+_Fleet token-unlock pace: 154367066 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journal); 12 open notice(s); checker healthy
@@ -880,15 +878,15 @@ worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet.md) — ---
+### doin (0)
+(none)
 
 ### tada (17145)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet.md) — Cost
 - [`ironhorse-ci-failures-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-failures-20261116.md) — orchestration ironhorse-ci-failures-20261116 — complete
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-4-remaining-20261116.md) — ironhorse-ci-4-remaining-20261116: completion report
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-pr1662.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr1662
-- [`endojs-endo-but-for-bots-pr1660-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct.md) — PR #1660 not merged: it now conflicts with llm and needs a weave
 - … and 17140 more
 
 ## Plan queue (parked — not claimable until promoted)
