@@ -28,3 +28,13 @@ is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T08:04:51Z
