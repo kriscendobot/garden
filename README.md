@@ -1,29 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T09:23:53Z_
+_As of 2026-11-16T09:28:28Z_
 
 ## Latest
 
-Not much merged or shipped in this window, and the board-transition feed resolved no file-level changes. The main change is that fleet health is mixed, with several items that need a human.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. The rolling-deploy canary-failed page cleared at 08:14Z with a retry (attempt 1/3), but 15 `canary-probe-oros-…` jobs sit unclaimed in todo. The health-watch note says it needs someone at the machine for an expired Claude OAuth login and a `garden-secret-broker` failure.
 
-**Needs your hands**
-- **Oros host:** [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) is still held out of rotation. Its Claude OAuth session has expired, so it needs `/login` as the garden user. `garden-secret-broker.service` also fails after each deploy. The rolling-deploy canary-failed page for it cleared at 08:14Z, but canary probe jobs are still queued in todo.
-- **Leader disk space:** the leader's filesystem hit about 0 free bytes during a job and needs manual cleanup under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS:** a message from 2026-11-10 reports that production DNS was repointed to an unexpected host. It needs a yes or no on whether the change was intentional. Credentialed Route53 access is also needed to check or restore the records.
+The board moved little in this window, and no file-level transitions resolved. The 15 todo jobs are mostly those canary probes. Four jobs are in progress: the shepherd and conduct jobs for [endojs/endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660), an Ironhorse CI test-leg job, and a dependabot recheck for [endojs/endo-but-for-bots#1662](https://github.com/endojs/endo-but-for-bots/pull/1662). The oracle-fix child of the Ironhorse CI orchestration was doomed and is held in plan. The gauntlet for [endojs/endo-but-for-bots#1668](https://github.com/endojs/endo-but-for-bots/pull/1668) halted after a red clean stage.
 
-**Gauntlets and PRs**
-- [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7-round review budget without converging. It needs a decision on whether to add rounds.
-- The [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after a declined fix round.
-- The foreman reports that milestone M3 is still blocked on the Node 24 pin in [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several weave, conduct and shepherd jobs are parked waiting on it.
-- In flight now are conduct and shepherd on [endojs/endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660), and the Ironhorse CI step 2 job. The step 1 oracle-fix child was doomed and held in plan.
+Items for the maintainer:
+- **Gauntlet decisions:**
+  - [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging, and `--add-rounds` is available.
+  - The [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after fix round 1.
+- **Node pin:** Milestone M3 is blocked on merging the Node 24 pin in [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Many weave, conduct and shepherd jobs wait on it.
+- **Minion.town:**
+  - **Pause:** development is paused, and the watchdog has now logged more than 82,000 refusals of claimable jobs.
+  - **Foreman and mentor failures:** the pause also trips the foreman (rc=78) and mentor (rc=1) self-heal alerts, because `post-job.sh` refuses their posts and they treat that as a crash.
+  - **Production DNS:** an earlier arc-press message reports production DNS repointed to an unexpected address. It asks whether that change was yours.
+- **Disk space:** a gardener reports the leader's filesystem briefly hit 0 bytes free (ENOSPC), and it needs reclaiming by hand.
+- **Parked jobs:** two more daily-progress-summary jobs, the daemon-agent-tools Phase 8 build and the Oros secrets hand-off build are parked in plan after the reaper exhausted their retries.
 
-**Recurring noise**
-- Because of the minion.town pause, `garden-foreman` and `garden-mentor` self-heal alerts recur (rc=78 refusals read as crashes).
-- The pause also keeps refusing a todo job (`scholar-ingest-nanoseedlm-20261013`). That watchdog notice is at count 82,656.
-- Journal-contention notices are mostly clearing.
-- Budget levels moved: monk workers are down to 1 on the leader, and cleric workers are up to 4.
+Several journal-lock and fetch-slow watchdog conditions recovered, and monk and cleric worker counts are adjusting to budget.
 
 ## Maintainer review docket
 
@@ -724,7 +721,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 162.9M | $620.18 _(notional, rate-card)_ | 60% of 271.0M (ok) |
+| Claude | 163.0M | $620.56 _(notional, rate-card)_ | 60% of 271.0M (ok) |
 | Codex | 405.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154567128 tokens/day lower bound._
