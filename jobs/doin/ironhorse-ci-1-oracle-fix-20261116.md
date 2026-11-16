@@ -19,6 +19,7 @@ Task: #1613 (fix(ci): run the XS oracle lanes on Ubuntu 24.04, base llm-9a14ddf)
 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1661 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
