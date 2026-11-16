@@ -23,6 +23,7 @@ Task: PRs whose red includes a test, cover or macOS leg beyond the oracle lanes:
 <!-- garden-plain-retry-not-before: 2026-11-16T10:53:04Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=8576,59 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
