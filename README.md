@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T23:00:57Z_
+_As of 2026-11-16T23:03:59Z_
 
 ## Latest
 
@@ -550,11 +548,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #15 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T22:56:01Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 15 times; this is
-> ONE entry that updates in place, not 15 messages. Latest detail:
+> COALESCED message — occurrence #16 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:02:03Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 16 times; this is
+> ONE entry that updates in place, not 16 messages. Latest detail:
 >
-> M3’s next integration step is blocked on a workspace-catalog naming rule for the `fetch` and `inspect` collisions in PRs #1593 and #1348. Decide whether makers must qualify colliding names (for example, `inspectShell` and `inspectGitRemote`) before the fix work resumes.
+> M3’s sandbox-shell critical path is blocked pending a decision between overlapping ready PR #1542 and draft #1591; merge #1542 and close #1591 as superseded, or explicitly choose #1591 instead, before Phase 2c/#1504 can proceed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -866,9 +864,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 171.6M | $652.47 _(notional, rate-card)_ | 63% of 271.0M (ok) |
-| Codex | 409.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Codex | 409.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154367066 tokens/day lower bound._
+_Fleet token-unlock pace: 154374076 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journal); 12 open notice(s); checker healthy
@@ -880,8 +878,8 @@ worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
 
 ### tada (17146)
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-clean.md) — Cost
