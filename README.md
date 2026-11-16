@@ -1,23 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T09:04:19Z_
+_As of 2026-11-16T09:08:25Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still held out of the fleet. Its canary retries ran out and it stays drained, so rolling deploys can't advance. A canary-failure watchdog notice cleared at 08:14Z, which may mean a retry is under way. Two blockers need someone at the machine: the Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy.
+The fleet is mostly stuck on infrastructure, and a few items need you.
 
-Minion.town work is still under the maintainer's 2026-11-10 pause. The foreman and mentor crash-loop on the refused posts (rc=78), and the watchdog has counted more than 82,000 refusals.
+**Oros is still down.** The canary retries ended and it remains drained. It needs someone at the machine to re-run `claude /login` and to check why `garden-secret-broker` fails after deploy. Because the leader's rolling deploy waits on that canary, the leader is still on an old commit. The EROFS fix therefore hasn't reached it, and minion.town work that needs a project checkout stays parked. The rolling-deploy canary-failed notice did show as recovered at 08:14Z, so check whether Oros is actually claiming jobs again.
 
-On the Endo side, the gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging, and the gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round. Both can be resumed with `--add-rounds`. The foreman still wants [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) decided and merged. Many weaves and shepherds wait on it.
+**Disk is nearly full on the leader.** `/home/kris/garden` was down to about 176–500 MiB free and briefly hit zero. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-New Ironhorse CI work is in flight: the orchestration child `ironhorse-ci-1-oracle-fix-20261116` was doomed and parked in plan, and step 2, the test-leg failures, is running. The shepherd and conduct jobs for [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) are also in flight. Today's tada also shows [endo-but-for-bots#1668](https://github.com/endojs/endo-but-for-bots/pull/1668) halting at its gauntlet.
+**minion.town production went dark on 2026-11-10.** The DNS answer for the apex and `ocap.site` changed to an address that isn't the documented host, and a worker asked whether you made that change. It is still unanswered, and I can't tell from the input whether it was fixed. The [pause](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md) on minion.town development is being enforced, with 82,656 coalesced refusals.
 
-Items for the maintainer:
-- **Disk:** the leader's filesystem was nearly full, with brief ENOSPC.
-- **minion.town DNS:** a gardener reported production DNS repointed at an unfamiliar host and asked whether the change was intended.
-- **Quota:** Claude is at 60% of quota.
+**Self-heal loops.** The foreman and the mentor are both exiting non-zero because `post-job.sh` refuses jobs for the paused project, and they treat that refusal as a crash. A fix is diagnosed but not confirmed landed.
+
+**Gauntlets need your call.**
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up all 7 review rounds without converging. `--add-rounds` can grant more.
+- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a failed fix stage.
+- Milestone M3 is still waiting on you to merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. Many weave and conduct jobs are blocked behind it.
+
+**In flight.** The board shows [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) being shepherded and conducted. Ironhorse CI step 2, the test-leg failures, is in progress. Step 1, the oracle-lane fix [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), was doomed and held in plan, so the orchestration is continuing past it.
+
+**Held scheduled jobs.** The daily progress summaries for 11-05 and 11-06 are parked in plan after exhausting their retries.
 
 ## Maintainer review docket
 
@@ -718,7 +722,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.8M | $615.99 _(notional, rate-card)_ | 60% of 271.0M (ok) |
+| Claude | 161.9M | $616.37 _(notional, rate-card)_ | 60% of 271.0M (ok) |
 | Codex | 405.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154542137 tokens/day lower bound._
