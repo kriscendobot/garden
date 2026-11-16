@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T23:19:57Z_
+_As of 2026-11-16T23:21:34Z_
 
 ## Latest
 
@@ -130,11 +130,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-09-09T20:50:15Z, latest 2026-11-16T13:05:21Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> WATCHDOG notice — occurrence #12 (first seen 2026-09-09T20:50:15Z, latest 2026-11-16T23:20:24Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=0 queue=2 quota=ok fleet-envelope=4 target=2
+> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
 
 - `ironhorse-ci-failures-20261116-terminal-complete-with-failures` — from orchestrator:ironhorse-ci-failures-20261116-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-terminal-complete-with-failures.md)
 
@@ -863,7 +863,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.7M | $654.24 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.7M | $654.85 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 411.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154377262 tokens/day lower bound._
