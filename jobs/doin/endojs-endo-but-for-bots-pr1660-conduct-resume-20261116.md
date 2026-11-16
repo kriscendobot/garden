@@ -13,6 +13,7 @@ The prior conductor undrafted the PR, unfroze its base from `llm-48d6f3e` to liv
 PR: https://github.com/endojs/endo-but-for-bots/pull/1660
 Head: endojs/endo-but-for-bots (bot-pushable)
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=254 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
