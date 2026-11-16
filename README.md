@@ -1,24 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T11:42:42Z_
+_As of 2026-11-16T11:45:46Z_
 
 ## Latest
 
-Two Ironhorse CI children, [oracle fix](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ci-1-oracle-fix-20261116.md) and [test legs](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ci-2-test-legs-20261116.md), were doomed and parked in plan. Step 3, the Ironhorse lanes job, is running. The orchestration is set to continue past failures.
+Oros (`oros-studio-garden-ce242c49`) is still operator-held. The rolling deploy moved it to 18fc7b17375, the canary failed again, and it stays drained. Two fixes need someone at the machine. The Claude OAuth session has expired, so someone has to run `/login` as the garden user. And `garden-secret-broker.service` fails after each deploy. The rolling-deploy canary-failed condition did clear this morning (08:14Z), but a stack of canary-probe jobs for Oros is still queued in todo. Leader deploys also remain blocked behind that canary.
 
-On endo-but-for-bots, a weave and a shepherd for [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) are in progress. Its conduct job stopped because the PR now conflicts with `llm`.
+Three PRs on the Ironhorse CI push and the Endo queue need attention. The orchestration `ironhorse-ci-failures-20261116` lost two children: the oracle-fix step (get the oracle-lane fix [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) ready) and the test-legs step were both doomed and held in plan. Step 3, the Ironhorse-specific lanes, is running. Two gauntlets stopped on their own. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 and can resume with `--add-rounds`. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel and fix rounds without converging, so it needs a human merge or review decision or more rounds. In the 08:00-11:45Z window, [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) was not merged because it now conflicts with `llm`. A weave is running, with a shepherd alongside it. Foreman M3 is still waiting on you to decide and merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin that several parked weaves and conducts are waiting on.
 
-Items needing a maintainer decision:
-- **Oros stuck:** Oros (`oros-studio-garden-ce242c49`) is still drained after failing its canary again. It needs a Claude `/login` and a look at why `garden-secret-broker` fails after deploy. Canary-probe jobs for it keep piling up in todo, and the leader deploy waits behind them.
-- **Gauntlets:** the gauntlet for [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. The gauntlet for [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1.
-- **Foreman blocked on Node pin:** the foreman is still blocked on merging [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin.
-- **Disk space:** the leader's disk was down to a few hundred MiB free and briefly hit zero, so it needs reclaiming by hand.
-- **minion.town:** the project is still paused. The pause keeps refusing jobs, and the foreman and mentor keep failing on the resulting rc=78 refusals. Two fix jobs, one of them [`improve-dependabot-paused-post`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-dependabot-paused-post.md), are parked awaiting go-ahead.
-- **Daily summaries:** several daily progress summaries were parked after retries were exhausted.
+Routine noise: the journal lock-contention storm cleared this morning, and one Oros lock-contention notice is still open. The minion.town pause keeps refusing jobs (the foreman, mentor, and dependabot watcher each hit the policy refusal as a failure). Several split-eligible jobs, including the daily progress summaries and the Phase 8 fetch-plugin build, are parked in plan after exhausting their retries.
 
-The journal-contention storm cleared. Most other watchdog notices are recoveries or routine budget-level changes.
+Open questions for you:
+- The host disk on `endolin-garden-ece02cb4` was nearly full, and briefly hit 0 during a job.
+- The minion.town production DNS repoint from 11-10 needs an answer on whether it was deliberate.
 
 ## Maintainer review docket
 
@@ -752,7 +746,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.7M | $649.91 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.0M | $651.07 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 407.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154663420 tokens/day lower bound._
