@@ -9,6 +9,7 @@ scripts/jobs/budget-level.sh:490–494 freezes cleric allocation and logs the sa
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=57 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
