@@ -19,6 +19,8 @@ Task: #1535 (kriscendobot; red: cover, test on 22.x and 24.x ubuntu, sandbox-dri
 
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
