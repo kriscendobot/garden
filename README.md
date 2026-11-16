@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T12:09:31Z_
+_As of 2026-11-16T12:16:24Z_
 
 ## Latest
 
@@ -788,10 +786,9 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1660-weave-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-weave-20261116.md) — Weave endojs/endo-but-for-bots PR #1660 after its base moved
 - [`ironhorse-ci-3-ironhorse-lanes-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-3-ironhorse-lanes-20261116.md) — Ironhorse CI step 3: ironhorse-specific failures
-- [`endojs-endo-but-for-bots-pr1660-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1660
 
 ### tada (17143)
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
@@ -872,6 +869,7 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`improve-suppress-routine-retry-progress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-suppress-routine-retry-progress.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`design-daemon-git-remotes-ssh-transport-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-ssh-transport-r2.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1660-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1660-shepherd.md) — _normal_ · shepherd directive on endojs/endo-but-for-bots PR #1660
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`endojs-endo-but-for-bots-pr1652-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1652-gauntlet-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1652
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
