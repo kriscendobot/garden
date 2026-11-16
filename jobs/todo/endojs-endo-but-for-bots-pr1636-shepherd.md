@@ -1,8 +1,9 @@
 ---
 posted_at: 2026-11-16T07:09:47Z
 role: shepherd
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -27,16 +28,8 @@ job was minted from a status read at post time. Once green, the conductor
 is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=145 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T08:04:51Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-16T08:23:05Z -->
