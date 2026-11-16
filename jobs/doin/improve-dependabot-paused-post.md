@@ -10,6 +10,7 @@ scripts/jobs/dependabot-watcher.sh:1056 discards post-job’s rc=78, then lines 
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=35 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
