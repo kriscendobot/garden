@@ -1,25 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T10:22:37Z_
+_As of 2026-11-16T10:24:05Z_
 
 ## Latest
 
-Two PRs moved in the last window, both on [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots). A conduct job on [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) declined to merge because the PR now conflicts with `llm`. A weave, a shepherd and a conduct-resume are now in flight on it. A gauntlet on [#1668](https://github.com/endojs/endo-but-for-bots/pull/1668) halted with a red clean stage. A dependabot recheck on [#1662](https://github.com/endojs/endo-but-for-bots/pull/1662) also finished.
+Quiet on the board itself: no job transitions resolved since the last bulletin. The in-flight work is the [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) cluster (weave, shepherd, and a resumed conduct, after the earlier conduct declined to merge because the PR conflicts with `llm`) and an Ironhorse CI repair. The Ironhorse oracle-fix child (step 1, aimed at [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613)) was doomed and held in plan, so the test-leg step 2 is running without it.
 
-Several Ironhorse CI fixes are in progress. The oracle-lane fix child (step 1) was doomed and is held in plan, so the orchestration is continuing without it. The step 2 macOS and ubuntu test-leg job is in progress.
+Two gauntlets need a maintainer call. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) spent all 7 review rounds ($27.85) without converging; it is left improved, and the message offers `--add-rounds` to resume. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted in fix round 1. It is still gated on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which the foreman milestone M3 notice has flagged repeatedly. Merging #1646 would unblock several held weaves and conducts.
 
-Things that need a maintainer's attention:
-- **Oros is still held.** Its Claude login has expired and `garden-secret-broker` fails after deploy. Both need someone at the machine. Canary probes are piling up unclaimed in `todo`, and the leader's rolling deploy waits on this canary, so the EROFS fix cannot reach the leader.
-- **minion.town production appears to have gone dark on 2026-11-10.** The apex DNS now points at a different host, and the maintainer has not yet answered whether that was intentional. It may be a zone compromise.
-- **The leader's disk was nearly full.** It briefly hit 0 bytes free, and the space needs reclaiming by hand.
-- **The PR [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used its whole review budget** (7 of 7 rounds) without converging. The PR is left for a human decision. The message offers `--add-rounds` to grant more.
-- **The PR [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted** after a declined fix round. It needs a decision on whether to resume.
-- **The foreman and mentor loops fail repeatedly.** They treat the `minion-town` pause as a fatal error (rc=78). The pause also keeps the paused-project watchdog notice climbing past 83,000 occurrences.
-- **Foreman milestone M3** is still blocked until [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) is merged. That PR is the Node 24 pin.
+Fleet health:
+- **Oros:** still operator-held. Its Claude OAuth session has expired and `garden-secret-broker` fails after deploy. Fourteen or more canary probes sit unclaimed in todo, so the rolling deploy cannot advance to the leader.
+- **Disk:** the leader host was down to a few hundred MiB free and briefly hit zero, so space needs reclaiming by hand.
+- **Paused project:** the minion.town pause keeps refusing work. The foreman and mentor loops fail with rc=78 on paused-project posts, and self-heal has diagnosed both.
+- **minion.town DNS:** a gardener reported the production apex repointed away from the documented host, with no record of who did it. The maintainer needs to confirm whether it was intentional.
+- **Backlog:** several daily-summary and dependabot-recheck jobs are parked after exhausting retries.
 
-Journal-contention watchdog notices are mostly recovered, and the budget-level worker adjustments are routine.
+Most journal-contention and comment-latency watchdogs recovered.
 
 ## Maintainer review docket
 
@@ -721,7 +717,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 166.7M | $635.13 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 166.8M | $635.51 _(notional, rate-card)_ | 62% of 271.0M (ok) |
 | Codex | 406.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154613633 tokens/day lower bound._
