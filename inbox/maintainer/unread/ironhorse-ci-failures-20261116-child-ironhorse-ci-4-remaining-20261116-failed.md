@@ -3,16 +3,14 @@ from: orchestrator:ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining
 msg_key: ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed
 notice_count: 1
 first_seen: 2026-11-16T16:31:41Z
-last_seen: 2026-11-16T16:31:43Z
 sent_at: 2026-11-16T16:31:43Z
+last_seen: 2026-11-16T19:02:19Z
+recovered: true
 ---
-orchestration-event: orchestration-child-timeout
+orchestration-event: orchestration-child-recovered
 orchestration: ironhorse-ci-failures-20261116
-orchestration-status: running
+orchestration-status: complete-with-failures
 child: ironhorse-ci-4-remaining-20261116
-failure-kind: handler-timeout
-order: serial
-on-child-failure: continue
-detail: stalled in flight for 11106s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1)
+recovered: true
 
-Orchestration ironhorse-ci-failures-20261116 observed child ironhorse-ci-4-remaining-20261116: stalled in flight for 11106s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1).
+RECOVERED — orchestration ironhorse-ci-failures-20261116 finished reporting child ironhorse-ci-4-remaining-20261116 as failed; it has since reached a clean tada (no gated-failure declaration). The completion record now reads 'recovered after transient failure'.
