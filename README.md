@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T12:41:54Z_
+_As of 2026-11-16T12:46:05Z_
 
 ## Latest
 
@@ -796,8 +794,7 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1660-weave-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-weave-20261116.md) — Weave endojs/endo-but-for-bots PR #1660 after its base moved
+### doin (1)
 - [`ironhorse-ci-3-ironhorse-lanes-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-3-ironhorse-lanes-20261116.md) — Ironhorse CI step 3: ironhorse-specific failures
 
 ### tada (17143)
@@ -830,6 +827,7 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`shepherd-endojs-endo-but-for-bots-pr1661`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/shepherd-endojs-endo-but-for-bots-pr1661.md) — _normal_ · ---
 - [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-6659790262.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
+- [`endojs-endo-but-for-bots-pr1660-weave-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1660-weave-20261116.md) — _normal_ · Weave endojs/endo-but-for-bots PR #1660 after its base moved
 - [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr228-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr228-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #228
 - [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports-r2.md) — _normal_ · ---
