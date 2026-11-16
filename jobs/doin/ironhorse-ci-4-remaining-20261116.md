@@ -17,3 +17,13 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 
 Task: #1535 (kriscendobot; red: cover, test on 22.x and 24.x ubuntu, sandbox-drivers, oracle sanitizers) - fix it. #1548 and #1473 are kumavis's PRs: diagnose their reds (browser-tests, cover, test, sandbox-drivers; test-xs) and report the cause and a suggested fix; do not push. Then write the closing report for the whole sequence: a table of every open ironhorse PR with its CI state now, and which reds remain and why (expected: only the oracle lanes, until #1613 reaches their base).
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T13:26:35Z
