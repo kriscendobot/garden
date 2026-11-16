@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T19:00:11Z_
+_As of 2026-11-16T19:04:44Z_
 
 ## Latest
 
@@ -424,16 +422,13 @@ Delegation: **active**
 
 - `ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed` — from orchestrator:ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed.md)
 
-> orchestration-event: orchestration-child-timeout
+> orchestration-event: orchestration-child-recovered
 > orchestration: ironhorse-ci-failures-20261116
-> orchestration-status: running
+> orchestration-status: complete-with-failures
 > child: ironhorse-ci-4-remaining-20261116
-> failure-kind: handler-timeout
-> order: serial
-> on-child-failure: continue
-> detail: stalled in flight for 11106s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1)
+> recovered: true
 >
-> Orchestration ironhorse-ci-failures-20261116 observed child ironhorse-ci-4-remaining-20261116: stalled in flight for 11106s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1).
+> RECOVERED — orchestration ironhorse-ci-failures-20261116 finished reporting child ironhorse-ci-4-remaining-20261116 as failed; it has since reached a clean tada (no gated-failure declaration). The completion record now reads 'recovered after transient failure'.
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -869,9 +864,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 171.3M | $651.63 _(notional, rate-card)_ | 63% of 271.0M (ok) |
-| Codex | 408.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Codex | 408.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154473586 tokens/day lower bound._
+_Fleet token-unlock pace: 154473773 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journal); 13 open notice(s); checker healthy
@@ -900,8 +895,8 @@ worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journa
 (none)
 
 ### tada (17145)
-- [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-4-remaining-20261116.md) — ironhorse-ci-4-remaining-20261116: completion report
 - [`ironhorse-ci-failures-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-failures-20261116.md) — orchestration ironhorse-ci-failures-20261116 — complete
+- [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-4-remaining-20261116.md) — ironhorse-ci-4-remaining-20261116: completion report
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-pr1662.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr1662
 - [`endojs-endo-but-for-bots-pr1660-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct.md) — PR #1660 not merged: it now conflicts with llm and needs a weave
