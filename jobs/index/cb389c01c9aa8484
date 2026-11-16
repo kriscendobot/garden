@@ -1,2 +1,2 @@
-base: improve-dependabot-base-ci-escalation
+base: improve-dependabot-paused-post
 identity: mentor:scripts/jobs/dependabot-watcher.sh
