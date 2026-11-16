@@ -1,21 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T08:25:27Z_
+_As of 2026-11-16T08:28:35Z_
 
 ## Latest
 
-Two shepherd jobs are in flight: [endo-but-for-bots#1636](https://github.com/endojs/endo-but-for-bots/pull/1636) was claimed (approved but CI needs work), and [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) saw its shepherd job updated. #1660 also has a conduct job running. The only new post is another rolling-deploy canary probe for oros-studio-garden-ce242c49 (ef1323e1e30d), one of many queued probes for that host.
+Few jobs moved in this window, and the board transitions resolved no file-level changes. The main change is on the Oros canary: the rolling-deploy watchdog cleared its failed-canary page at 08:14Z, and canary retries are queued again, though the host was still operator-held and drained as of the last health note. That note blames an expired Claude OAuth session and a failing `garden-secret-broker`, both needing someone at the machine. The leader is therefore still behind the EROFS fix. The minion.town arc supervisor has asked whether to revive Oros or authorize a leader deploy past the canary.
 
-Things to notice:
-- **Oros is still held.** The operator-held message says it needs a Claude `/login` and a fix for `garden-secret-broker`. The canary-failed watchdog notice cleared at 08:14Z, so a retry may be underway, but the probes are unclaimed.
-- **Deploy blocked.** The minion.town arc supervisor is waiting on you to either revive Oros or authorize a leader deploy past the dead canary. Until the leader gets the EROFS fix, monk jobs that need a project checkout fail.
-- **minion.town is paused**, and the pause is still being refused at the board. The foreman and mentor self-heal notices come from pause refusals (rc=78) being treated as crashes.
-- **Production DNS.** You need to say whether the repoint of minion.town and ocap.site was yours. The apex now answers from a different host, and the real one is healthy.
-- **Disk.** The leader's disk briefly hit zero free space and needs reclaiming by hand.
-- **Gauntlets need decisions.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix. Both can resume with `--add-rounds`.
-- **M3 is blocked on #1646.** Merging [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) unblocks #1504 and a long list of parked weaves and conducts.
+Things to look at:
+- **minion.town:** production was reported dark on 2026-11-10 because DNS was repointed, and no one has said whether the change was intended. The project pause is still being enforced against queued jobs. That is also why the foreman and mentor self-heal notices keep recurring: both exit rc=78 when `post-job.sh` refuses a paused-project job.
+- **Gauntlets:** the gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7-round review budget without converging. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after a declined fix round. Milestone M3 is still blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
+- **Active work:** conduct and shepherd jobs are running on [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) and [endo-but-for-bots#1636](https://github.com/endojs/endo-but-for-bots/pull/1636). The Ironhorse CI orchestration lost its first child, the oracle-fix step, which was doomed and held in plan. Step 2, the test-leg failures, is now running.
+- **Disk:** the leader host has been reported at about 176–500 MiB free, and it briefly hit zero. That needs reclaiming by hand.
+- **Parked jobs:** several scheduled daily-summary and dependabotany jobs were parked after retries were exhausted.
+
+The rest is noise: journal-contention notices cleared, and the monk and cleric worker counts moved with budget pacing.
 
 ## Maintainer review docket
 
@@ -708,7 +706,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.4M | $605.36 _(notional, rate-card)_ | 58% of 271.0M (ok) |
+| Claude | 158.5M | $605.84 _(notional, rate-card)_ | 58% of 271.0M (ok) |
 | Codex | 405.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154752888 tokens/day lower bound._
