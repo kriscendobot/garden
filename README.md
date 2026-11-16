@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T18:53:29Z_
+_As of 2026-11-16T19:00:11Z_
 
 ## Latest
 
@@ -868,10 +866,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.3M | $656.66 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.3M | $651.63 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 408.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154703203 tokens/day lower bound._
+_Fleet token-unlock pace: 154473586 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journal); 13 open notice(s); checker healthy
@@ -896,16 +894,16 @@ worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
-- [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
+### doin (0)
+(none)
 
-### tada (17144)
+### tada (17145)
+- [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-4-remaining-20261116.md) — ironhorse-ci-4-remaining-20261116: completion report
 - [`ironhorse-ci-failures-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-failures-20261116.md) — orchestration ironhorse-ci-failures-20261116 — complete
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-pr1662.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr1662
 - [`endojs-endo-but-for-bots-pr1660-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct.md) — PR #1660 not merged: it now conflicts with llm and needs a weave
-- [`improve-retire-claimed-stale-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/improve-retire-claimed-stale-shepherd.md) — Cost
-- … and 17139 more
+- … and 17140 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
