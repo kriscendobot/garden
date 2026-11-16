@@ -1,22 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T10:38:23Z_
+_As of 2026-11-16T10:45:32Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still operator-held, and the board shows it. About 17 canary probe jobs for it sit unclaimed in `todo`. The rolling deploy moved it to `18fc7b17375` and failed the canary again. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Both fixes need someone at the machine. While Oros is held, the leader can't deploy past its canary. The minion.town arc supervisor also asked whether to revive Oros or authorize a leader deploy past the dead canary.
+Little moved on the board since the last bulletin: `ironhorse-ci-2-test-legs-20261116` (macOS and ubuntu test-leg failures) went from claimed back to todo, and `improve-dependabot-paused-post` is still in progress. The improve job is the fix for the foreman and mentor self-heal loops. Both services keep failing on the paused-project refusal (rc=78) for minion.town, and the watchdog notice has now been counted about 84,000 times.
 
-Two other items need a maintainer decision. The minion.town DNS question is still unanswered: the apex and `ocap.site` were repointed to `34.225.237.208`, the app routes answer 404, and the prod probe has been red since 14:52Z on 11-10 ([kriscendobot/minion.town#256](https://github.com/kriscendobot/minion.town/issues/256)). Separately, the endolin root filesystem was down to a few hundred MiB free and briefly hit 0 during a job.
+The first step of that Ironhorse CI campaign, `ironhorse-ci-1-oracle-fix-20261116`, was doomed and is held in the plan queue. The orchestration is set to continue past it, but the oracle-lane fix [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613) has not been made ready.
 
-On PRs, the [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet spent all 7 panel/fix rounds without converging. It needs your merge decision, or more rounds granted with `--add-rounds`. The [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round declared failure. Milestone M3 is still blocked on the Node 24 pin in [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
+**Needs maintainer attention:**
+- **Oros** (`oros-studio-garden-ce242c49`) is still operator-held. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after each deploy. Canary probe jobs for it are piling up in todo, and the leader deploy waits behind them.
+- **minion.town DNS.** Production went dark on 2026-11-10 because the apex records now point at a different address. The arc supervisor asked whether the repoint was intentional, and no answer is recorded.
+- **Leader disk space.** The leader's filesystem briefly hit zero free space, and a cleanup by hand is requested.
+- **Gauntlet budget.** The gauntlet for [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 rounds without converging, and the gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1. Either can be resumed with `--add-rounds`.
+- **Weave on #1660.** The conduct job for [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) did not merge it because it now conflicts with `llm`. A weave and a resumed conduct are in progress.
+- **Node 24 pin.** The Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) is still blocking milestone M3 and a long list of weave and conduct jobs.
 
-Jobs in progress are the weave, shepherd and conduct-resume for [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660). A conduct job completed without merging it, because the PR now conflicts with `llm`. An Ironhorse CI orchestration is also running. Its first child, the oracle fix for [#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), was doomed and is held in plan. The second child, the macOS and ubuntu test-leg failures, is in progress.
-
-The `garden-foreman` and `garden-mentor` units keep failing with rc=78. `post-job.sh` refuses their posts for the paused minion.town project, and both treat that refusal as fatal. The refused `scholar-ingest-fudco-gist` job shows up in the pause notice's count of 83,609.
-
-Several daily-summary and dependabot-recheck jobs were parked after the reaper's retry failed. Most journal-contention notices have recovered.
+The journal-contention and comment-latency watchdog notices that cleared were routine.
 
 ## Maintainer review docket
 
@@ -133,13 +133,13 @@ Delegation: **active**
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #83609 (first seen 2026-11-10T19:35:37Z, latest 2026-11-16T09:41:04Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 83609 times; this is ONE
-> coalesced notice that updates in place, not 83609 messages. Latest detail:
+> WATCHDOG notice — occurrence #84674 (first seen 2026-11-10T19:35:37Z, latest 2026-11-16T10:41:12Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 84674 times; this is ONE
+> coalesced notice that updates in place, not 84674 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
@@ -718,7 +718,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.2M | $637.34 _(notional, rate-card)_ | 62% of 271.0M (ok) |
+| Claude | 167.7M | $639.64 _(notional, rate-card)_ | 62% of 271.0M (ok) |
 | Codex | 406.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154646316 tokens/day lower bound._
@@ -727,7 +727,7 @@ _Fleet token-unlock pace: 154646316 tokens/day lower bound._
 worst fetch p95 3.849994s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (18)
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
@@ -743,15 +743,15 @@ worst fetch p95 3.849994s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ef1323e1e30d
+- [`ironhorse-ci-2-test-legs-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ci-2-test-legs-20261116.md) — Ironhorse CI step 2: macOS and ubuntu test-leg failures
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1660-weave-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-weave-20261116.md) — Weave endojs/endo-but-for-bots PR #1660 after its base moved
 - [`improve-dependabot-paused-post`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-paused-post.md) — ---
 - [`endojs-endo-but-for-bots-pr1660-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1660
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Resume finalizing endojs/endo-but-for-bots PR #1660
-- [`ironhorse-ci-2-test-legs-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-2-test-legs-20261116.md) — Ironhorse CI step 2: macOS and ubuntu test-leg failures
 
 ### tada (17142)
 - [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-pr1662.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr1662
