@@ -30,15 +30,4 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1645
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=1161 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T07:22:37Z
+<!-- garden-reaped: 0 -->
