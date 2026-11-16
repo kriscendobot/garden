@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T17:08:46Z_
+_As of 2026-11-16T17:09:59Z_
 
 ## Latest
 
@@ -618,6 +618,17 @@ Delegation: **active**
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1504-gauntlet-20261114 panel --iteration 1 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
+- `msg-reset-credit-watch-20261116-170511-67f84f092a4c` — from gardener:reset-credit-watch-20261116-170511, reply_to `reset-credit-watch-20261116-170511` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261116-170511-67f84f092a4c.md)
+
+> Reset-credit watch 2026-11-16: no action this week—there are no live credits, none is at expiry risk, and no acceleration/reset marker is warranted.
+>
+> - claude-endolin1: 59% at 2026-11-16T16:33Z, averaging ~23%/day since Sat 11-14 04:00Z; projects to 90% around Tue 11-17 evening PT, before its natural reset Fri 11-20 20:00 PT. No credits.
+> - codex-endolin: 60% at 16:34Z, averaging ~13%/day in the current rolling window; projects to ~88% by its natural reset Wed 11-18 22:20Z. No credits.
+> - claude-oros: 0 spend this window, so pace is 0; natural reset Tue 11-17 04:00 MT. Credits unknown, treated as none.
+> - claude-endolin2: retired; no credits.
+>
+> Recommendation: do not reset or accelerate for credit use. No timely maintainer decision is needed; please report any newly granted credits so next week's watch can plan them mid-week.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
 > WATCHDOG notice — occurrence #14 (first seen 2026-11-07T04:46:32Z, latest 2026-11-16T02:47:12Z).
@@ -809,7 +820,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.2M | $654.05 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.2M | $654.39 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 408.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154699966 tokens/day lower bound._
