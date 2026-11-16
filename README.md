@@ -1,29 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T09:08:25Z_
+_As of 2026-11-16T09:13:34Z_
 
 ## Latest
 
-The fleet is mostly stuck on infrastructure, and a few items need you.
+Oros (`oros-studio-garden-ce242c49`) is still stuck. Its canary retries ran out and it stays drained, with 12 canary-probe jobs sitting unclaimed in todo. The health-watch message says it needs someone at the machine. The Claude OAuth session has expired, so it needs `claude` then `/login`. `garden-secret-broker.service` has also failed after every deploy since 11-07. Until Oros recovers, the rolling deploy can't move the leader past the dead canary.
 
-**Oros is still down.** The canary retries ended and it remains drained. It needs someone at the machine to re-run `claude /login` and to check why `garden-secret-broker` fails after deploy. Because the leader's rolling deploy waits on that canary, the leader is still on an old commit. The EROFS fix therefore hasn't reached it, and minion.town work that needs a project checkout stays parked. The rolling-deploy canary-failed notice did show as recovered at 08:14Z, so check whether Oros is actually claiming jobs again.
+On the Endo side, the [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used all 7 panel/fix rounds without converging. Its CI is green, so it now waits on your call to merge or to grant more rounds. The [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix stage reported failure. It is blocked behind the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which also holds M3 and several weave and conduct jobs.
 
-**Disk is nearly full on the leader.** `/home/kris/garden` was down to about 176–500 MiB free and briefly hit zero. It needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+Ironhorse CI step 1, the oracle-lane fix [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), was doomed and is parked in plan. Step 2, the test-leg failures, is in progress. Conduct and shepherd jobs for [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) are also running.
 
-**minion.town production went dark on 2026-11-10.** The DNS answer for the apex and `ocap.site` changed to an address that isn't the documented host, and a worker asked whether you made that change. It is still unanswered, and I can't tell from the input whether it was fixed. The [pause](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md) on minion.town development is being enforced, with 82,656 coalesced refusals.
-
-**Self-heal loops.** The foreman and the mentor are both exiting non-zero because `post-job.sh` refuses jobs for the paused project, and they treat that refusal as a crash. A fix is diagnosed but not confirmed landed.
-
-**Gauntlets need your call.**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up all 7 review rounds without converging. `--add-rounds` can grant more.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a failed fix stage.
-- Milestone M3 is still waiting on you to merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. Many weave and conduct jobs are blocked behind it.
-
-**In flight.** The board shows [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) being shepherded and conducted. Ironhorse CI step 2, the test-leg failures, is in progress. Step 1, the oracle-lane fix [endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/pull/1613), was doomed and held in plan, so the orchestration is continuing past it.
-
-**Held scheduled jobs.** The daily progress summaries for 11-05 and 11-06 are parked in plan after exhausting their retries.
+Several items need your hands. One is a root filesystem on the leader that was briefly at 0 bytes free. The other is a message about minion.town DNS having been repointed away from the documented host, which asks whether you did it. That message dates from 11-10, and the project is paused. Several recurring doomed-job messages (daily summaries, the Phase 8 fetch-plugin build, the Oros bwrap hand-off) are parked in plan awaiting promotion. The journal-contention watchdog notices are mostly recovered, and worst fetch p95 is 3.8s.
 
 ## Maintainer review docket
 
@@ -546,6 +533,10 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.015960s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2.md)
+
+> Host-requirements gate: job 'canary-probe-oros-studio-garden-ce242c49-ef1323e1e30d-r2' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `msg-reset-credit-watch-20261109-170519-6a0254967ba8` — from gardener:reset-credit-watch-20261109-170519, reply_to `reset-credit-watch-20261109-170519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261109-170519-6a0254967ba8.md)
 
 > Reset-credit watch 2026-11-09: no action this week. No live credits are left: the codex 11-06 credit has expired (codex rolled to 0% about 11-04T22:05Z; if that was the credit, it was used in time). Status: claude-endolin1 is at 12% (about 5%/day, roughly 33% by its 11-14T04:00Z reset), no credits. claude-oros is at 26%, resets 11-10T11:00Z, credits unknown. codex-endolin was at 24% on 11-05 (the meter anchor is stale), resets about 11-11T18:05Z, no credits. claude-endolin2 is retired. If you're granted new credits, tell the liaison and I'll plan around them.
@@ -724,7 +715,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.9M | $616.37 _(notional, rate-card)_ | 60% of 271.0M (ok) |
+| Claude | 162.1M | $617.13 _(notional, rate-card)_ | 60% of 271.0M (ok) |
 | Codex | 405.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154542137 tokens/day lower bound._
