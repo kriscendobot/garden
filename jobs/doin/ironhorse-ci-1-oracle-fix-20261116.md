@@ -17,3 +17,13 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 
 Task: #1613 (fix(ci): run the XS oracle lanes on Ubuntu 24.04, base llm-9a14ddf) is green (38/38 pass) and is the fix for the oracle red that appears on nearly every ironhorse PR (#1548, #1599-#1624, #1535 and others). Verify it still is green and mergeable, confirm its root cause (glibc on ubuntu-26.04) against a fresh failing run, and bring it to ready-for-review state (un-draft is not needed: it is already ready). Do not merge. Then, for each ironhorse PR whose ONLY red is the two oracle lanes (#1599-#1609, #1611, #1617, #1619, #1624, ...), state in your report whether it will go green once its base carries #1613, and what base/weave step that needs. Do not weave them here.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T07:07:29Z
