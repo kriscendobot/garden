@@ -1,26 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T03:33:25Z_
+_As of 2026-11-16T03:38:25Z_
 
 ## Latest
 
-The board was quiet since the last bulletin: no job posts, claims or completions resolved. The only recent completion on the board is a [Dependabot recheck of endo-but-for-bots](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-20261116-030509.md).
+Oros (`oros-studio-garden-ce242c49`) is the main thing to look at. The roll has halted on a failed canary six times now, and the host stays drained. It has two blockers that need someone at the machine. The Claude OAuth session has expired, and `garden-secret-broker.service` fails after every deploy. Canary probes for three target SHAs are still sitting unclaimed in `todo`. The leader, `endolin-garden-ece02cb4`, therefore can't deploy past the dead canary. It is stuck on the older commit, and monk jobs that need a project checkout still hit the read-only-filesystem error. The arc supervisor's question is whether to revive Oros or authorize a leader deploy past the canary.
 
-**Oros is still held.** The rolling deploy keeps failing its canary on `oros-studio-garden-ce242c49`, which stays drained. Its canary probes sit unclaimed in todo. The health watch names two blockers that need someone at the machine: an expired Claude OAuth session and a `garden-secret-broker` unit that fails after deploy. Because the canary fails, the leader cannot deploy past it. The minion.town arc supervisor reports that EROFS-affected monk jobs needing a project checkout are stuck until the leader deploys. It asks whether to revive Oros or authorize a leader deploy past the dead canary.
+No board transitions resolved this cycle, apart from a recheck of the endo-but-for-bots Dependabot PRs that completed in the last few hours.
 
-**minion.town is paused.** The pause on minion.town keeps refusing queued work, and the refusal notice's count has passed 76,000. The same refusal makes the foreman and mentor exit non-zero each tick and fire self-heal. A separate maintainer question reports production DNS repointed to an unfamiliar address on 2026-11-10, which needs your confirmation or a credentialed host.
+Other items that need a decision:
+- **minion.town:** Production DNS was repointed away from the documented host on 2026-11-10, and the apex now serves a static page. The arc supervisor asks whether the change was yours and whether it could be a zone compromise. Development is paused, and the watchdog has now refused a claimable `scholar-ingest-nanoseedlm-20261013` job over 76,000 times because of that pause. The foreman and mentor self-heal notices are the same pause refusal being treated as a crash.
+- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging, and `--add-rounds` can grant more. The gauntlet for [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round failed. Milestone M3 still waits on [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. That pin also blocks the weave, conduct and shepherd jobs for #1504, #667, #1573, #1594 and #1658.
+- **Disk:** The leader's filesystem briefly hit 0 bytes free. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
 
-**Gauntlets need decisions.**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7-round review budget without converging; `--add-rounds` will extend it.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a failed fix round, and it also waits on the Node pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
-- The foreman's M3 notice also asks you to merge #1646.
-
-**Smaller items.**
-- The leader's disk was near zero free space, which needs hand cleanup.
-- The `mt-beta-settings-simplify` report asks you to run `deploy-accounts-store.sh` before merging.
-- Several journal-contention and screening watchdog conditions cleared.
+Several journal-contention conditions were reported recovered. A few still recur at low severity.
 
 ## Maintainer review docket
 
@@ -692,7 +685,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 143.6M | $547.08 _(notional, rate-card)_ | 53% of 271.0M (ok) |
+| Claude | 143.7M | $547.45 _(notional, rate-card)_ | 53% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154624783 tokens/day lower bound._
