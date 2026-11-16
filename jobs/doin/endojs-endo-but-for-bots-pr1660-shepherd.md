@@ -27,6 +27,7 @@ discipline. The excerpt below is for human context only:
 <!-- garden-plain-retry-not-before: 2026-11-16T10:13:05Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=5526,6820 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
