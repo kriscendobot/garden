@@ -22,3 +22,13 @@ Task: PRs whose red includes a test, cover or macOS leg beyond the oracle lanes:
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-16T10:53:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T10:53:12Z
