@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-ci-1-oracle-fix-20261116 ironhorse-ci-2-test-legs-20261116 ironhorse-ci-3-ironhorse-lanes-20261116 ironhorse-ci-4-remaining-20261116
 on-child-failure: continue
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-16T06:56:18Z
 ---
