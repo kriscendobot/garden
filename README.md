@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T11:57:26Z_
+_As of 2026-11-16T11:58:14Z_
 
 ## Latest
 
@@ -98,6 +98,10 @@ Delegation: **active**
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_mentor_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_mentor_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/mentor/journal: p95=18.002358s max=18.002358s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
@@ -768,7 +772,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 154695680 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 13 open notice(s); checker healthy
+worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (17)
