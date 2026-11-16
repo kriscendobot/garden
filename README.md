@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T13:25:19Z_
+_As of 2026-11-16T13:28:32Z_
 
 ## Latest
 
@@ -472,6 +470,19 @@ Delegation: **active**
 > performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
 > on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
+- `ironhorse-ci-failures-20261116-child-ironhorse-ci-3-ironhorse-lanes-20261116-failed` — from orchestrator:ironhorse-ci-failures-20261116-child-ironhorse-ci-3-ironhorse-lanes-20261116-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-child-ironhorse-ci-3-ironhorse-lanes-20261116-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: ironhorse-ci-failures-20261116
+> orchestration-status: running
+> child: ironhorse-ci-3-ironhorse-lanes-20261116
+> failure-kind: doomed
+> order: serial
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration ironhorse-ci-failures-20261116 observed child ironhorse-ci-3-ironhorse-lanes-20261116: doomed and held in plan.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
 > WATCHDOG notice — occurrence #12 (first seen 2026-11-06T02:46:39Z, latest 2026-11-16T02:47:03Z).
@@ -796,8 +807,8 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (0)
-(none)
+### doin (1)
+- [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
 
 ### tada (17143)
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
