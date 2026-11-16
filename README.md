@@ -1,20 +1,29 @@
 # Garden bulletin
 
-_As of 2026-11-16T09:51:31Z_
+_As of 2026-11-16T09:52:51Z_
 
 ## Latest
 
-Over the latest window the board saw little movement. [endojs-endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) is being finalized: a `conduct-resume-20261116` job was claimed alongside the original conduct job, which was updated, and its shepherd job is still in progress. Another rolling-deploy canary probe for oros-studio-garden-ce242c49 was queued at 3c8215c92516. That brings the Oros canary backlog to many unclaimed probes, because Oros has stopped claiming jobs.
+The fleet kept moving, but the board showed no file-level transitions since the last bulletin, so there is little new to narrate. The main items are an oros blocker, a halted gauntlet and a few stalls.
 
-Things to notice:
+**Needs your hands**
+- **Oros** (`oros-studio-garden-ce242c49`) is still operator-held and drained. Its Claude OAuth session has expired, so it needs `claude` then `/login`. Its `garden-secret-broker` service also fails after each deploy. Sixteen canary probes for oros sit unclaimed in todo.
+- **Leader deploy.** The leader is still on an older commit and waits on that failed oros canary. Monk jobs that need a project checkout therefore keep dying with EROFS. The arc supervisor asked whether to revive oros or authorize a leader deploy past the dead canary.
+- **Disk.** The leader's filesystem briefly hit zero free space and is at a few hundred MiB. Space needs reclaiming by hand under `.garden-state`, `scratch/` and `worktrees/`.
+- **minion.town DNS.** A message from 2026-11-10 reports that the production apex and `ocap.site` resolve to a different address. The reporter says the real host is healthy and nothing in the journal explains the change. They have not touched DNS and are asking whether you made it. Development on the project is still paused, and that pause keeps refusing jobs.
 
-- **Oros is still held.** It is drained, its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both blockers need someone at the machine. The leader is stuck behind it, so the EROFS fix cannot roll out there, and minion.town PR work stays parked. minion.town development is also formally paused. The pause watchdog's refusal count is above 83,000.
-- **Leader disk is almost full.** The leader's disk had only about 176 to 500 MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
-- **minion.town DNS.** DNS for `minion.town` and `ocap.site` was reported repointed to an unfamiliar address, and the maintainer has not yet answered whether that was intentional.
-- **Review budgets.** The gauntlet for [endojs-endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. The gauntlet for [endojs-endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1. Each can be resumed with more rounds. Milestone M3 still waits on [endojs-endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin.
-- **Ironhorse CI.** The oracle-fix child of the Ironhorse CI orchestration was doomed and held in plan. The test-legs child is running.
+**Gauntlets**
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging. Its CI is green, and extra rounds can be granted.
+- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 failed, and it needs the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). Several parked weaves and conducts wait on #1646 too, and the foreman is again asking you to decide and merge it.
+- The gauntlet for [endo-but-for-bots#1668](https://github.com/endojs/endo-but-for-bots/pull/1668) halted today with a red clean stage.
+- [endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) is being shepherded and conducted.
 
-Several journal-contention and comment-latency watchdog conditions cleared.
+**Stalls**
+- The first Ironhorse CI orchestration child, the oracle-lane fix for #1613, was doomed and is held in plan. Step 2, the macOS and ubuntu test-leg failures, is in progress.
+- The self-heal notices for the foreman and mentor loops come from the project pause. Both exit non-zero when a paused minion.town job is refused, so they will keep recurring until that is fixed.
+- Several daily-summary, dependabotany and builder jobs were parked after their retries were exhausted.
+
+Most other messages are watchdog noise or recoveries. The journal-contention storms and the comment-latency notice cleared.
 
 ## Maintainer review docket
 
@@ -543,15 +552,16 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T20:50:35Z, latest 2026-11-14T04:51:53Z).
-> The SAME condition (`self-heal-garden-mentor`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-25T20:50:35Z, latest 2026-11-16T09:51:58Z).
+> The SAME condition (`self-heal-garden-mentor`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 240eefebd0b262d7083d812ffe39dc67002c07f6 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 240eefebd0b262d7083d812ffe39dc67002c07f6). Diagnosis: I've found the cause and am writing it up now.
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: e2e14d2c83bb00f31fb768358ca466435b13a5f2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e2e14d2c83bb00f31fb768358ca466435b13a5f2). Diagnosis: The failure is a code defect, not a transient one. I didn't read the surrounding code beyond the lines around the `die` call.
 >
-> **Diagnosis:** `garden-mentor` exited 1 because the mentor's improve handler tried to post `improve-foreman-paused-plan-and-pipeline`. `post-job.sh` refused it with rc=78, because the job belongs to the paused project `minion-town` (journal record `pauses/minion-town.md`, per the recent "minion.town project pause" commit). `mentor.sh` (around line 407) treats any non-transient handler failure as fatal. It leaves the input markers unadvanced, so every tick reproduces the same refusal, dies, and fires self-heal. Nothing is wrong with the digest or the provider. This is a pause refusal handled as a crash.
+> `mentor.sh` ran its improve handler. The handler tried to post `improve-dependabot-post-outbox`, which belongs to the paused project `minion-town`. `post-job.sh` refused with rc=78. `mentor.sh` then called `die` ("improve handler failed; leaving markers so the next tick retries"). The markers never advance, so every tick hits the same refusal and fails again. Systemd restarts the unit and the loop repeats. The pause is deliberate, so the mentor should skip these jobs instead of failing.
 >
-> Restarting the service won't clear it, and the refusal will recur every tick until the pause is lifted (`pause-project.sh minion-town off`) o
+> JOB self-heal-fix-garden-mentor-paused-project-post-rc78
+> `scripts/jobs/mentor.sh` fails in a loop. The improve handler tries to post `improve-dependabot-post-outbox`, which belongs
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal.md)
 
@@ -715,7 +725,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 164.3M | $625.92 _(notional, rate-card)_ | 61% of 271.0M (ok) |
+| Claude | 164.5M | $626.51 _(notional, rate-card)_ | 61% of 271.0M (ok) |
 | Codex | 405.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154641839 tokens/day lower bound._
