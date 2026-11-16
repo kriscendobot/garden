@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T23:39:10Z_
+_As of 2026-11-16T23:44:09Z_
 
 ## Latest
 
@@ -159,9 +157,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #98395 (first seen 2026-11-10T19:35:37Z, latest 2026-11-16T22:41:57Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 98395 times; this is ONE
-> coalesced notice that updates in place, not 98395 messages. Latest detail:
+> WATCHDOG notice — occurrence #99277 (first seen 2026-11-10T19:35:37Z, latest 2026-11-16T23:42:10Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 99277 times; this is ONE
+> coalesced notice that updates in place, not 99277 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -560,11 +558,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #19 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:37:47Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 19 times; this is
-> ONE entry that updates in place, not 19 messages. Latest detail:
+> COALESCED message — occurrence #20 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:42:38Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 20 times; this is
+> ONE entry that updates in place, not 20 messages. Latest detail:
 >
-> M3’s remaining critical PRs are either in flight or blocked: PR #1595 exhausted its six gauntlet rounds with an unavailable must-fix list. Decide whether to authorize a fresh review/fix path for #1595; its bounded Git-remote profiles serve the minion-town git-remote arc.
+> Milestone M3’s daemon-agent-tools critical path needs the maintainer to merge clean, ready PR #1497; its next implementation phase remains behind the in-flight #1591 gauntlet.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -875,7 +873,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.7M | $655.31 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.7M | $655.79 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 411.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154378684 tokens/day lower bound._
