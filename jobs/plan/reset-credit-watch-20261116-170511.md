@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-16T17:33:13Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-16T17:33:13Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -30,19 +50,3 @@ Standing maintainer direction (kriskowal, 2026-09-30): "We should plan to use th
 5. Complete the job, noting whether the recommendation needs a timely decision (for example a credit expiring within 10 days).
 
 Keep it short: one screen. If nothing is actionable (no live credits, or none near expiry), send a one-line "no action this week" status and finish.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-16T17:23:06Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=277,30 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-16T17:23:40Z
