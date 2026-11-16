@@ -17,3 +17,13 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 
 Task: #1621 (red: sandbox-drivers, test-ironhorse, test-ironhorse-macos, test-ironhorse-oracle, test-ironhorse-release, ironhorse-oracle-sanitizers) and #1610 (red: compare-ironhorse-math, test-ironhorse, plus oracle lanes). Read the failing logs, find the real cause, fix on the PR heads. Mind the ironhorse boot-heap change restamp checklist (intrinsic order, state_golden regen on both providers, metamorphic restamp, fuzz seeds) if a golden moved.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T11:08:16Z
