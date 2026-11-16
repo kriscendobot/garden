@@ -14,6 +14,7 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1660
 Head: endojs/endo-but-for-bots (bot-pushable)
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=254 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
