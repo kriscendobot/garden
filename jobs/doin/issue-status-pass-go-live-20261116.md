@@ -26,3 +26,13 @@ main2 66ab9cc2018 (gh_api_retry's unterminated last line was dropped by `read`).
    context/operations/systemd-units.md wording, run
    scripts/jobs/test/issue-status-pass-test.sh, push. If not, fix and restart.
 Trigger: https://github.com/kriscendobot/garden/issues/128
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T06:05:21Z
