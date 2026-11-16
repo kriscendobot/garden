@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T16:30:28Z_
+_As of 2026-11-16T16:35:00Z_
 
 ## Latest
 
@@ -138,6 +136,19 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=0 queue=2 quota=ok fleet-envelope=4 target=2
 
+- `ironhorse-ci-failures-20261116-terminal-complete-with-failures` — from orchestrator:ironhorse-ci-failures-20261116-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-terminal-complete-with-failures.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: ironhorse-ci-failures-20261116
+> orchestration-status: complete-with-failures
+> order: serial
+> children-total: 4
+> children-failed: 4
+> failed-children: ironhorse-ci-1-oracle-fix-20261116 ironhorse-ci-2-test-legs-20261116 ironhorse-ci-3-ironhorse-lanes-20261116 ironhorse-ci-4-remaining-20261116
+> recovered-children: 
+>
+> Orchestration ironhorse-ci-failures-20261116 complete WITH FAILURES (serial): 4/4 failed: ironhorse-ci-1-oracle-fix-20261116 ironhorse-ci-2-test-legs-20261116 ironhorse-ci-3-ironhorse-lanes-20261116 ironhorse-ci-4-remaining-20261116
+
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
 > Report minion-town-docs-tower-report-20261016: two items need your call.
@@ -196,11 +207,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-13T22:23:28Z, cleared 2026-11-15T16:22:14Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-11-13T22:23:28Z, latest 2026-11-16T16:32:52Z).
+> The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/progress/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/mentor/journal: p95=18.002358s max=18.002358s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ratchet-control/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/orch/journal: p95=1.654408s max=31.678144s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ratchet-delegation/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -408,6 +425,19 @@ Delegation: **active**
 > ---
 > scripts/jobs/dependabot-watcher.sh
 > scripts/jobs/dependabot-watcher.sh:1056 discards post-job’s rc=78, then lines 1059-1071 misclassify the deliberate pause refusal as a lost post every tick. Preserve and recognize GARDEN_PAUSED_RC, suppress the retry warning, and skip the paused PR until its pause is lifted; the same false warning recurred from 09:28:28Z through 10:19:55Z.
+
+- `ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed` — from orchestrator:ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-child-ironhorse-ci-4-remaining-20261116-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: ironhorse-ci-failures-20261116
+> orchestration-status: running
+> child: ironhorse-ci-4-remaining-20261116
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: continue
+> detail: stalled in flight for 11106s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1)
+>
+> Orchestration ironhorse-ci-failures-20261116 observed child ironhorse-ci-4-remaining-20261116: stalled in flight for 11106s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1).
 
 - `doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-oros-secrets-bwrap-handoff-20261106-requeue-exhausted.md)
 
@@ -785,13 +815,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.1M | $651.46 _(notional, rate-card)_ | 63% of 271.0M (ok) |
-| Codex | 408.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 171.2M | $652.14 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Codex | 408.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154695680 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 13 open notice(s); checker healthy
+worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (17)
@@ -816,13 +846,13 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 ### doin (1)
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
 
-### tada (17143)
+### tada (17144)
+- [`ironhorse-ci-failures-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-failures-20261116.md) — orchestration ironhorse-ci-failures-20261116 — complete
 - [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-pr1662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-pr1662.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr1662
 - [`endojs-endo-but-for-bots-pr1660-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct.md) — PR #1660 not merged: it now conflicts with llm and needs a weave
 - [`improve-retire-claimed-stale-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/improve-retire-claimed-stale-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr1668-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1668-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1668-gauntlet — HALTED
-- … and 17138 more
+- … and 17139 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
