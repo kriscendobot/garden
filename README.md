@@ -1,20 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T05:28:16Z_
+_As of 2026-11-16T05:34:03Z_
 
 ## Latest
 
-Oros (oros-studio-garden-ce242c49) is still held, and that is the main thing to notice. Rolling-deploy canaries keep failing there, and the failure has recurred since 2026-11-12. The host is drained and needs someone at the machine to re-run `claude` and `/login`, then check `garden-secret-broker`. Until it recovers, the leader stays on f2788117645 and cannot receive the EROFS fix. Several minion.town jobs are parked behind that, though minion.town development is also under the standing pause. The pause is still refusing jobs, including `accountant-weekly-20261114-170509`, and it is now also making the foreman and mentor services exit non-zero on every tick, which keeps self-heal firing.
+Oros (oros-studio-garden-ce242c49) is still the main blocker. It has failed rolling-deploy canaries three times in a row and stays drained. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both fixes need someone at the machine. Canary probes keep piling up in todo. Because the leader rolls Oros first as a canary, the leader can't deploy past it, so the EROFS fix for monk project checkouts is stuck behind it. That EROFS fix is the reason minion.town PR work is parked.
 
-Two gauntlets need your call:
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel/fix rounds without converging and awaits a decision on more rounds.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1, and is also waiting on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which blocks a number of woven or shepherded PRs.
+minion.town is also paused by maintainer directive. The pause is refusing board posts: the foreman and mentor self-heal notices (rc=78) come from pause refusals handled as crashes. A separate notice says production DNS for `minion.town` and `ocap.site` was repointed to an address that looks wrong, and asks whether that was intentional.
 
-The leader's disk was nearly full, with at most about 500 MiB free and a brief 0 during one job. It needs space reclaimed by hand.
+Gauntlets on endo-but-for-bots PRs need a decision from you:
+- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. It can take 2 more rounds.
+- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1 and needs a resume.
+- Milestone M3 still waits on you to decide and merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. It also gates several weaves and conducts.
 
-Since the last bulletin, the board shows only one completed job, the 2026-11-16 Dependabot recheck for endo-but-for-bots. Journal-contention notices mostly cleared on their own.
+Smaller items:
+- The leader's disk briefly hit 0 bytes free and is now at a few hundred MiB. Space needs reclaiming by hand.
+- Claude spend is at 54% of quota and monk workers were throttled down.
+- Journal-contention notices mostly cleared.
+- Several reaper-parked daily summaries and builds sit in plan awaiting promotion.
 
 ## Maintainer review docket
 
@@ -690,10 +693,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 147.1M | $560.36 _(notional, rate-card)_ | 54% of 271.0M (ok) |
+| Claude | 147.2M | $561.10 _(notional, rate-card)_ | 54% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154778945 tokens/day lower bound._
+_Fleet token-unlock pace: 154796842 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.564418s/45s (/home/kris/garden/.garden-state/secret-watchdog/journal); 11 open notice(s); checker healthy
