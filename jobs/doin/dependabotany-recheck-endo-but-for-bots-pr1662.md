@@ -8,6 +8,7 @@ Wear roles/botanist/AGENT.md and re-evaluate endojs/endo-but-for-bots PR #1662 (
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=19 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
