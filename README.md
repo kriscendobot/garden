@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T17:19:15Z_
+_As of 2026-11-16T17:26:28Z_
 
 ## Latest
 
@@ -620,17 +618,6 @@ Delegation: **active**
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1504-gauntlet-20261114 panel --iteration 1 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
-- `msg-reset-credit-watch-20261116-170511-67f84f092a4c` — from gardener:reset-credit-watch-20261116-170511, reply_to `reset-credit-watch-20261116-170511` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261116-170511-67f84f092a4c.md)
-
-> Reset-credit watch 2026-11-16: no action this week—there are no live credits, none is at expiry risk, and no acceleration/reset marker is warranted.
->
-> - claude-endolin1: 59% at 2026-11-16T16:33Z, averaging ~23%/day since Sat 11-14 04:00Z; projects to 90% around Tue 11-17 evening PT, before its natural reset Fri 11-20 20:00 PT. No credits.
-> - codex-endolin: 60% at 16:34Z, averaging ~13%/day in the current rolling window; projects to ~88% by its natural reset Wed 11-18 22:20Z. No credits.
-> - claude-oros: 0 spend this window, so pace is 0; natural reset Tue 11-17 04:00 MT. Credits unknown, treated as none.
-> - claude-endolin2: retired; no credits.
->
-> Recommendation: do not reset or accelerate for credit use. No timely maintainer decision is needed; please report any newly granted credits so next week's watch can plan them mid-week.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
 > WATCHDOG notice — occurrence #14 (first seen 2026-11-07T04:46:32Z, latest 2026-11-16T02:47:12Z).
@@ -755,6 +742,21 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
+- `20261116T172527Z-fcf009` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261116T172527Z-fcf009.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: reset-credit-watch-20261116-170511
+> - question (msgid msg-reset-credit-watch-20261116-170511-67f84f092a4c.md)
+> - tentative answer: Proxy/tentative (the maintainer may revise): Agreed with the watch's conclusion. This is a status report, not a gating decision, so I'm treating it as informational.
+>
+> - Take no action this week. Don't reset, accelerate, or place any marker. No live credits exist, and none is at expiry risk.
+> - The projections look fine as they stand:
+>   - claude-endolin1 is expected to reach about 90% before its natural reset on Fri 11-20.
+>   - codex-endolin is expected to reach about 88% before its natural reset on Wed 11-18.
+> - Neither account is projected to exhaust its quota. If claude-endolin1 gets close to its ceiling early, route the overflow to Codex or other pools as usual. Don't raise the Claude pool cap.
+> - Keep claude-oros's credits as "unknown, treated as none." Re-run the watch next week. If the maintainer reports newly granted credits, plan them mid-week.
+> - No reply is needed from the maintainer.
+
 - `msg-improve-byte-capacity-guard-f6ab3d56da32` — from gardener:improve-byte-capacity-guard, reply_to `improve-byte-capacity-guard` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-byte-capacity-guard-f6ab3d56da32.md)
 
 > FYI from improve-byte-capacity-guard: host endolin-garden-ece02cb4's /home/kris/garden filesystem (/dev/nvme0n1p2, ~3.6 TiB) is at ~176-500 MiB free right now and briefly hit 0 during this job (a Claude tmp write failed with ENOSPC; tests can't use /dev/shm, which is noexec). The new root-repo-guard byte detector (main2 a6b75fe4c08, 5 GiB floor) will page on this once deployed, but the space needs reclaiming by hand now: du -xsh under .garden-state, scratch/, worktrees/.
@@ -822,7 +824,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.2M | $654.87 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.3M | $655.10 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 408.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154700557 tokens/day lower bound._
@@ -831,14 +833,13 @@ _Fleet token-unlock pace: 154700557 tokens/day lower bound._
 worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (17)
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
-- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/reset-credit-watch-20261116-170511.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -851,7 +852,8 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (1)
+### doin (2)
+- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reset-credit-watch-20261116-170511.md) — ---
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
 
 ### tada (17144)
