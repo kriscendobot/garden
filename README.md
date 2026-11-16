@@ -1,20 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T03:53:37Z_
+_As of 2026-11-16T03:58:28Z_
 
 ## Latest
 
-The fleet is throttled and mostly parked this cycle. The board saw no resolved transitions, and the one fresh completion was a Dependabot recheck of endo-but-for-bots on 2026-11-16.
+Little finished since the last bulletin. The board shows no new transitions, apart from a Dependabot recheck of `endo-but-for-bots` that completed on 2026-11-16. Several journal-contention notices have cleared on their own.
 
-The biggest blocker is the Oros follower, `oros-studio-garden-ce242c49`. It has failed its rolling-deploy canary three times and stays drained. The Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both fixes need someone at the machine. Probe jobs pile up unclaimed in `todo`, and the leader can't deploy until the canary passes. One arc supervisor asks whether to revive Oros or authorize a leader deploy past it.
+Things that need a maintainer decision:
 
-Several Endo PRs wait on [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin. It gates weaves and shepherds for #1504, #667, #1573, #1594 and #1658, and the foreman says Milestone M3 is blocked on it. Please decide and merge it. The #1504 gauntlet halted after one fix round, and [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 panel rounds without converging. Both can resume with more rounds.
+- **Oros is still down.** `oros-studio-garden-ce242c49` is drained after repeated failed rolling-deploy canaries. Its Claude login has expired and `garden-secret-broker` fails after deploy. Both need someone at the machine. Canary probes keep piling up in todo, and the leader is held back until Oros recovers or you authorize deploying the leader past it.
+- **`minion.town` DNS may have been repointed.** A supervisor job reported that production now resolves to an unrelated address, and the subdomains no longer resolve. Please say whether this was intentional. The project is also paused, so the pause watchdog keeps counting refused jobs.
+- **Disk space on the leader.** The leader host was at about 176–500 MiB free and briefly hit zero, so it needs manual cleanup.
+- **PR gauntlets.**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without the review converging.
+  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix round.
+  - Both can be resumed with `--add-rounds`.
+  - Milestone M3 is also waiting on a decision to merge [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin.
+- **Foreman and mentor crash loops.** Both exit non-zero because the pause refuses a `minion-town` post, which they treat as fatal.
 
-Minion.town development stays paused. The watchdog has counted tens of thousands of refused claims, and two jobs that post for the paused project fail on every tick (`garden-foreman` and `garden-mentor`, both rc=78). A 2026-11-10 message reports that production DNS appeared to point at the wrong host. Please say whether that repoint was intentional.
-
-The leader's disk is nearly full (about 176–500 MiB free, briefly 0), so someone needs to reclaim space by hand. The journal contention alerts mostly cleared, and Codex capacity moved between 1 and 2 workers.
+The parked daily-summary and Phase 8 build jobs are held for your promotion.
 
 ## Maintainer review docket
 
@@ -686,7 +690,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 144.3M | $549.66 _(notional, rate-card)_ | 53% of 271.0M (ok) |
+| Claude | 144.4M | $550.03 _(notional, rate-card)_ | 53% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154647625 tokens/day lower bound._
