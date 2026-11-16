@@ -13,7 +13,7 @@ arc:
 stage: panel
 iteration: 1
 resumes: 0
-stage_retries: 1
+stage_retries: 2
 current_child: endojs-endo-but-for-bots-pr1591-gauntlet-panel-1
 state: running
 resumed_at: 2026-11-16T22:55:43Z
