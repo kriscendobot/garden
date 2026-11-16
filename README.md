@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-11-16T07:29:49Z_
+_As of 2026-11-16T07:33:03Z_
 
 ## Latest
 
-Several things need you. Oros (oros-studio-garden-ce242c49) is still operator-held. Its rolling-deploy canary failed again on c4766a84510b after three retries, which halted the roll. It also has an expired Claude login and a failing `garden-secret-broker`. That leaves the leader behind, which keeps the EROFS fix from deploying. Every monk job that needs a project checkout dies on EROFS, so minion.town PR work stays parked. The minion.town project is also paused. The pause is generating thousands of refusal notices, and the foreman and mentor loops keep crashing on it, so self-heal fires repeatedly.
+Oros (`oros-studio-garden-ce242c49`) is the main thing to notice. It is still drained and operator-held after repeated canary failures, most recently on `c4766a84510b`. Its Claude login has expired, and `garden-secret-broker` fails after each deploy. The leader is therefore stuck behind the failed canary: the rolling deploy won't advance past it. The minion.town PR work that needs the EROFS fix is parked until the leader deploys. Both blockers need someone at the machine.
 
-Other items:
+Three new items need a maintainer decision:
+- The [endojs-endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) gauntlet used its full 7 panel/fix rounds without converging. Granting more rounds is your call.
+- The [endojs-endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) gauntlet halted after its first fix round failed. It is blocked on the Node 24 pin in [endojs-endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which also gates several parked weaves and conducts.
+- A minion.town production DNS repoint, flagged as possibly a zone compromise, awaits your word on whether it was intentional.
 
-- **DNS:** a message from the minion.town arc supervisor reports that production DNS appeared to be repointed to an unfamiliar address on 2026-11-10. It asks whether the change was yours, and if not, to check Route53 history for a possible zone compromise.
-- **Disk:** the leader host's disk is nearly full, at 176–500 MiB free, and briefly hit zero. It needs reclaiming by hand.
-- **Gauntlets:** two have stopped. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure. Both can be resumed with more rounds if you want.
-- **Pending decisions:** merging [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) unblocks several parked weaves and conducts, including #1504. A minion.town settings change needs `deploy-accounts-store.sh` run before it merges.
+Smaller items:
+- The leader's disk was nearly full, down to roughly 176–500 MiB free, and briefly hit zero.
+- The foreman and mentor keep tripping self-heal because the minion.town pause makes `post-job.sh` refuse with rc=78. The pause refusal counter is above 81,000.
+- Several daily-summary and builder jobs were parked after their requeues ran out.
 
-Recent movement was small. The Dependabot recheck and the [endo-but-for-bots#1658](https://github.com/endojs/endo-but-for-bots/pull/1658) shepherd completed, and shepherd and conduct jobs are running for [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) and [#1645](https://github.com/endojs/endo-but-for-bots/pull/1645). Most journal-contention and screening alerts have cleared on their own.
+Many journal-contention and screening-tick alerts cleared on their own. Worker budget levels moved up and down with quota. Dependabot and shepherd work continues on [endojs-endo-but-for-bots#1636](https://github.com/endojs/endo-but-for-bots/pull/1636), [endojs-endo-but-for-bots#1645](https://github.com/endojs/endo-but-for-bots/pull/1645), and [endojs-endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660). [endojs-endo-but-for-bots#1658](https://github.com/endojs/endo-but-for-bots/pull/1658) (preact 10.29.8 → 11.1.1) finished its shepherd report.
 
 ## Maintainer review docket
 
@@ -693,10 +696,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.4M | $586.63 _(notional, rate-card)_ | 57% of 271.0M (ok) |
-| Codex | 404.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 153.5M | $587.20 _(notional, rate-card)_ | 57% of 271.0M (ok) |
+| Codex | 404.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154653164 tokens/day lower bound._
+_Fleet token-unlock pace: 154683716 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.849994s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
