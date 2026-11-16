@@ -28,6 +28,7 @@ main2 66ab9cc2018 (gh_api_retry's unterminated last line was dropped by `read`).
 Trigger: https://github.com/kriscendobot/garden/issues/128
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=323 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
