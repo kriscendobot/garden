@@ -1,18 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T01:18:42Z_
+_As of 2026-11-16T01:23:29Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is still stuck. The rolling deploy halted again on a failed canary at 22:35Z, after three automatic retries. The host stays drained, and its expired Claude login and a failing secret-broker service both need someone at the machine. The leader is still on the older build because the roll won't advance past the dead canary. That is why [kriscendobot/minion.town#246](https://github.com/kriscendobot/minion.town/pull/246) and the other minion.town PR work is parked. A direct leader deploy or reviving Oros would unblock it.
+Little board motion resolved this cycle (no file-level transitions), so the news is mostly in the maintainer inbox.
 
-- **Gauntlets:** [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used up all 7 panel/fix rounds without converging. It is left for a human merge or review decision, or a grant of more rounds. The gauntlet for [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined. [endojs/endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) is still the gate for M3 and for many parked weave, conduct and shepherd jobs.
-- **Disk:** the leader's filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming now, before the deploy of the new byte detector.
-- **Minion.town:** the project pause keeps refusing jobs, and the foreman and mentor services crash-loop on those refusals. A DNS repoint is still unexplained. It took production dark on 11-10 and needs your answer on whether it was intentional.
-- **Cleared:** most journal-lock contention notices have recovered, along with the comment-watcher cooldown and minion.town screening failures.
-- **Throttling:** workers on the leader dropped to 2 monks and 1 cleric.
+**Needs a decision or hands:**
+- **Oros is still held.** The rolling deploy halted again on a failed canary for `oros-studio-garden-ce242c49`, so the leader can't advance. The host's Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both fixes need someone at that machine.
+- **minion.town production DNS.** An earlier arc-press message reports the apex and `ocap.site` resolving to an unexpected address. The garden has no AWS credentials to check or fix it, and it asks whether the change was intentional.
+- **Disk pressure on the leader.** The leader's filesystem briefly hit zero free space. It needs manual reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **Gauntlet budgets.**
+  - [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging.
+  - [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after fix round 1.
+  - Both can be resumed with more rounds.
+- **Node pin.** [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) still blocks milestone M3 and several parked weave and shepherd jobs.
+
+**Paused project noise:** the minion.town pause keeps tripping chokepoints. The `foreman` and `mentor` services exit non-zero when `post-job.sh` refuses a paused-project job, which triggers repeated self-heal. The watchdog pause notice has reached 72,779 occurrences.
+
+**Cleared:** most journal-contention, comment-watcher and minion.town screening-tick alerts cleared.
 
 ## Maintainer review docket
 
@@ -684,7 +690,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.0M | $529.36 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Claude | 139.1M | $529.73 _(notional, rate-card)_ | 51% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154975577 tokens/day lower bound._
