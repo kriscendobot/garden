@@ -1,24 +1,19 @@
 # Garden bulletin
 
-_As of 2026-11-16T06:04:08Z_
+_As of 2026-11-16T06:06:30Z_
 
 ## Latest
 
-Board transitions weren't resolved this cycle, so nothing new is confirmed as posted, claimed or completed. The most recent completions on the board are a Dependabot recheck of `endo-but-for-bots` from the early hours of 11-16 and a handful of 11-15 jobs (Dependabot PRs #1663 and #1665, a test-xs fix for #667, and a pin-comment improvement).
+Board activity was quiet: the only transition was a claim of `issue-status-pass-go-live-20261116`, the second observation window for the issue status pass, which is now in progress. No completions or new posts landed.
 
-**Needs a maintainer:**
-- **Oros is still down.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary repeatedly and stays drained. Two things need someone at the machine: the Claude OAuth session has expired (run `claude`, then `/login`), and `garden-secret-broker` fails after each deploy. Until it is revived, or you authorize deploying the leader past the dead canary, the EROFS fix can't reach the leader. That keeps the minion.town PR work parked.
-- **minion.town is paused** since 11-10, and the pause watchdog has now refused work 80,928 times. A `garden-foreman` self-heal notice and a `garden-mentor` one are both most likely this same pause. The foreman exits rc=78 on every tick, and the mentor dies when `post-job.sh` refuses a paused-project post. Both treat the refusal as a crash.
-- **minion.town production DNS.** An 11-10 report says DNS for `minion.town` and `ocap.site` was repointed to an unfamiliar address. The report asks whether you made that change, and whether to treat it as a possible zone compromise if you didn't. It has no reply yet.
-- **Gauntlet [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588)** spent all 7 review rounds without converging. The message gives the command to grant more rounds.
-- **Gauntlet [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504)** halted after a failed fix round.
-- **Milestone M3** is still blocked on merging the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). That pin also gates several parked weaves and conducts.
-- **Disk space.** The leader's disk was reported nearly full (hundreds of MiB free, briefly 0) and needs reclaiming by hand.
+Items that need a maintainer decision:
+- **Oros is still down.** `oros-studio-garden-ce242c49` has failed its canary again, and the roll's retries ran out. Its Claude OAuth session has expired, and `garden-secret-broker` fails after each deploy. Both need someone at the machine. While it is held, the leader can't deploy the EROFS fix (main2 `21585bda2b3`). That keeps minion.town PR work parked, along with the canary probes queued for Oros. The arc supervisor asks whether to revive Oros or authorize a leader deploy past the dead canary.
+- **minion.town DNS.** A 2026-11-10 message reports that production DNS now points at an unexpected address and the subdomains no longer resolve. The sender asks whether the change was yours. It also notes the app is healthy on its documented host.
+- **Gauntlets.** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a declined fix round. Both can resume with extra rounds. Milestone M3 is also blocked on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646).
+- **Disk space on the leader.** The leader filesystem was nearly full and briefly hit zero free. It needs manual reclaiming.
+- **Project pause noise.** The minion.town pause still triggers repeated refusals (80,928 so far). It also makes `garden-foreman` and `garden-mentor` exit nonzero and fire self-heal.
 
-**Other items:**
-- Four reaper requeue-exhausted jobs, including two daily-progress-summary runs, are parked awaiting your promotion.
-- The monk pool on the leader stepped down from 4 to 1 and back up to 2 as the budget ramp responded to spend, and the Codex worker pool moved between 1 and 2.
-- Most journal-contention and screening-failure watchdog notices have recovered. The remaining open ones are low-level lock contention on the leader and Oros.
+Most of the journal-contention watchdog notices have recovered. Several daily-summary and builder jobs are still parked after their retries ran out.
 
 ## Maintainer review docket
 
@@ -694,7 +689,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.1M | $564.44 _(notional, rate-card)_ | 55% of 271.0M (ok) |
+| Claude | 148.3M | $565.18 _(notional, rate-card)_ | 55% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154837279 tokens/day lower bound._
@@ -717,8 +712,8 @@ worst fetch p95 3.564418s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (0)
-(none)
+### doin (1)
+- [`issue-status-pass-go-live-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-status-pass-go-live-20261116.md) — Go live with the issue status pass (second observation window)
 
 ### tada (17131)
 - [`dependabotany-recheck-endo-but-for-bots-20261116-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/dependabotany-recheck-endo-but-for-bots-20261116-030509.md) — Recheck of endojs/endo-but-for-bots Dependabot PRs, 2026-11-16
