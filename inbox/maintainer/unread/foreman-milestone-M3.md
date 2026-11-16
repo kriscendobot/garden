@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: foreman
 msg_key: foreman-milestone-M3
-notice_count: 16
+notice_count: 17
 first_seen: 2026-11-14T04:34:56Z
-last_seen: 2026-11-16T23:02:03Z
-sent_at: 2026-11-16T23:02:03Z
+last_seen: 2026-11-16T23:17:21Z
+sent_at: 2026-11-16T23:17:21Z
 ---
-COALESCED message — occurrence #16 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:02:03Z).
-The SAME message (episode key `foreman-milestone-M3`) has now been sent 16 times; this is
-ONE entry that updates in place, not 16 messages. Latest detail:
+COALESCED message — occurrence #17 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:17:21Z).
+The SAME message (episode key `foreman-milestone-M3`) has now been sent 17 times; this is
+ONE entry that updates in place, not 17 messages. Latest detail:
 
-M3’s sandbox-shell critical path is blocked pending a decision between overlapping ready PR #1542 and draft #1591; merge #1542 and close #1591 as superseded, or explicitly choose #1591 instead, before Phase 2c/#1504 can proceed.
+Milestone M3’s critical in-flight work is blocked on maintainer review: approve or otherwise disposition the CI-green child-agent factory PR #1560 and the exhausted-review-budget confined-fetch PR #1588. Their dependent implementation and restack steps cannot advance autonomously.
