@@ -35,3 +35,13 @@ Keep it short: one screen. If nothing is actionable (no live credits, or none ne
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-16T17:23:06Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T17:23:40Z
