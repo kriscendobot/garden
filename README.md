@@ -1,23 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T06:44:42Z_
+_As of 2026-11-16T06:50:12Z_
 
 ## Latest
 
-The board transitions list is empty, so this summary draws on the dashboard alone.
+The board barely moved this cycle: [endojs-endo-but-for-bots#1660](https://github.com/endojs/endo-but-for-bots/pull/1660) got a shepherd claim (`endojs-endo-but-for-bots-pr1660-shepherd` is in `doin`), and no new completions were recorded in this window.
 
-**Fleet blocker:** Oros (`oros-studio-garden-ce242c49`) is still operator-held and drained. Rolling-deploy canary probes keep failing, and the 12 todo jobs are mostly stale canary probes for it. Two causes need someone at the machine: an expired Claude OAuth session (fix with `claude`, then `/login`) and `garden-secret-broker.service` failing after deploy. The leader (`endolin-garden-ece02cb4`) therefore can't advance past the dead canary, and the EROFS fix is stuck behind it.
+Items that need you:
 
-**Minion.town:** Development is paused, and the watchdog count of refused jobs for it is now above 81,000. That pause is also making the foreman and mentor exit rc=78 on every tick, because they try to post paused-project jobs and treat the refusal as a crash. Both have open self-heal notices. Separately, the 2026-11-10 message reporting DNS pointing minion.town and ocap.site at the wrong host is still unanswered.
+- **Oros is still down.** `oros-studio-garden-ce242c49` has failed its rolling-deploy canary three times at `c4766a84510b`. It stays drained, and the leader has not advanced. Oros has two blockers that need someone at the machine: an expired Claude OAuth session (`claude`, then `/login`) and `garden-secret-broker.service` failing after deploy. Both are in the Oros health message. Nine canary probes are queued in `todo` with no claimant. Until the leader deploys, monk jobs that need a project checkout die with EROFS, so any project work that needs a checkout is stalled behind this. Whether to revive Oros or authorize a leader deploy past the dead canary is the standing decision.
+- **Disk space is low on the leader.** `/home/kris/garden` was down to roughly 176–500 MiB free and briefly hit 0. It needs manual reclamation under `.garden-state`, `scratch/` and `worktrees/`.
+- **The minion.town pause keeps generating refusals.** `scholar-ingest-fudco-gist-20261105` was refused again, and the notice count is past 81,000. The foreman and mentor self-heal notices (rc=78 and rc=1) are the same pause refusal being treated as a crash. Also, a 2026-11-10 message reports that minion.town DNS had been repointed away from the documented production host (EIP `13.56.17.18`). Whether that change was intentional is still unanswered.
+- **Gauntlets are stalled.** [endojs-endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) hit its 7-round review budget with CI green. Resuming it takes `--add-rounds N`. The gauntlet for [endojs-endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after a failed fix round. Milestone M3 still waits on merging [endojs-endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), the Node 24 pin.
 
-**Endo gauntlets:**
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used its full 7-round review budget without converging. It is left for a human decision, or `--add-rounds`.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declined.
-- The foreman reports Milestone M3 blocked until [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) (the Node 24 pin) merges. Many weaves and shepherds are parked behind it.
-
-**Housekeeping:** Disk space on the leader briefly hit zero, so it needs manual reclaiming. Most journal-contention watchdog notices have recovered.
+Most journal-contention and screening notices have recovered. The recurring lock-contention notices on `endolin-garden-ece02cb4` (reducer, review-docket, worktree-sweeper) are still open at one giveup per window.
 
 ## Maintainer review docket
 
@@ -693,10 +689,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.2M | $572.58 _(notional, rate-card)_ | 55% of 271.0M (ok) |
+| Claude | 150.5M | $573.69 _(notional, rate-card)_ | 56% of 271.0M (ok) |
 | Codex | 404.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154904203 tokens/day lower bound._
+_Fleet token-unlock pace: 154944142 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.564418s/45s (/home/kris/garden/.garden-state/secret-watchdog/journal); 11 open notice(s); checker healthy
@@ -716,8 +712,8 @@ worst fetch p95 3.564418s/45s (/home/kris/garden/.garden-state/secret-watchdog/j
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1660-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1660-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1660
 
 ### tada (17132)
 - [`issue-status-pass-go-live-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/issue-status-pass-go-live-20261116.md) — Cost
