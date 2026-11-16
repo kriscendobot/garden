@@ -1,32 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T00:13:24Z_
+_As of 2026-11-16T00:18:50Z_
 
 ## Latest
 
-The board shows no file-level transitions since the last bulletin. The visible change is in the maintainer inbox, where a lot of journal-lock and fetch-slow contention notices (the lock-contention ones from both endolin and oros hosts) were marked RECOVERED. The screening-tick failure streak on endolin also cleared, and so did the comment-watcher cooldown stall.
+No board transitions resolved this cycle, so nothing new was posted, claimed or completed. The notable events are in the maintainer inbox.
 
-Three things are still stuck and need a human:
+**Needs a decision:**
+- **Gauntlet budgets.** Two PR gauntlets stopped for lack of review rounds. [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 rounds without converging, and its fix round 7 left CI green. [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix stage reported a failed or declined outcome. Both messages give a `--add-rounds` resume command. #1504 is also gated on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646), which blocks milestone M3 and many parked weave and conduct jobs.
+- **Oros canary.** The roll to `oros-studio-garden-ce242c49` failed its canary again and retries are exhausted, so that host stays drained. The two blockers are an expired Claude OAuth session and `garden-secret-broker` failing after deploy. Both need someone at the machine. The leader is therefore held behind the dead canary. An earlier message from the minion.town arc supervisor asks whether to revive Oros or authorize a leader deploy past it.
+- **Disk pressure.** The leader's filesystem has dipped to roughly 176–500 MiB free, briefly hitting zero, and needs manual reclaiming.
 
-- **Oros canary.** The oros host (`oros-studio-garden-ce242c49`) is still drained and has failed the rolling-deploy canary six times. Its Claude OAuth session has expired, and `garden-secret-broker.service` fails after deploy. Until oros recovers or you authorize a leader deploy past it, the leader can't pick up the EROFS fix, and minion.town PR work stays parked. The 12 `canary-probe-oros-…` jobs in `todo` are unclaimed.
-- **Paused-project refusals.** The minion.town pause is now tripping the foreman (rc=78 on every tick) and the mentor's improve handler (rc=1). Both treat a policy refusal as a crash, which keeps firing self-heal. The pause watchdog notice has reached 71k occurrences, with `scholar-ingest-fudco-gist-20261105` the latest refused job.
-- **Disk.** The endolin root filesystem was down to a few hundred MiB free and briefly hit zero. It needs manual reclaiming under `.garden-state`, `scratch/` and `worktrees/`.
+**Pause side effects:** the minion.town pause keeps refusing jobs, now at over 71,000 occurrences. It also makes `foreman.sh` and `mentor.sh` exit nonzero on the refusal, which repeatedly triggers self-heal.
 
-Two gauntlets also stopped:
+**Recovered:** a batch of journal lock-contention and fetch-slow notices cleared, as did the comment-watcher cooldown and minion.town screening failures.
 
-- [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. It needs your merge or review decision, or more rounds.
-- [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after its first fix round declared failure. Per the foreman's M3 notice it is also waiting on the Node 24 pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). That PR gates a long tail of parked weave, shepherd and conduct jobs.
-
-Unanswered questions for you:
-
-- Whether the minion.town DNS repoint to `34.225.237.208` was intentional.
-- Whether to leave the leftover anonymous guest on production minion.town.
-- Whether to run `deploy-accounts-store.sh` before merging the settings-simplification work.
-- Whether to post an Iron Horse test-infra job from the yavashark ingest.
-
-Four daily-progress-summary and build jobs are parked in `plan/` after their retries ran out.
+**Still parked:** several daily-summary and build jobs, parked after their retries were exhausted, still await promotion or removal.
 
 ## Maintainer review docket
 
@@ -698,10 +687,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.4M | $519.38 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 136.6M | $520.13 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 404.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154835811 tokens/day lower bound._
+_Fleet token-unlock pace: 154855223 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.447664s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
