@@ -1,4 +1,5 @@
 ---
+child-ironhorse-ci-2-test-legs-20261116-failure-notified: true
 child-ironhorse-ci-2-test-legs-20261116-host: endolin-garden-ece02cb4
 child-ironhorse-ci-2-test-legs-20261116-reap-count: 0
 child-ironhorse-ci-1-oracle-fix-20261116-failure-notified: true
