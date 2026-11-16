@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T17:09:59Z_
+_As of 2026-11-16T17:14:19Z_
 
 ## Latest
 
@@ -822,7 +820,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.2M | $654.39 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.2M | $654.87 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 408.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154699966 tokens/day lower bound._
@@ -831,13 +829,14 @@ _Fleet token-unlock pace: 154699966 tokens/day lower bound._
 worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (18)
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
+- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/reset-credit-watch-20261116-170511.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-3c8215c92516-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3c8215c92516
 - [`canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-c4766a84510b-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c4766a84510b
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -850,8 +849,7 @@ worst fetch p95 18.002358s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-66ab9cc20185-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 66ab9cc20185
 
-### doin (2)
-- [`reset-credit-watch-20261116-170511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reset-credit-watch-20261116-170511.md) — ---
+### doin (1)
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci-4-remaining-20261116.md) — Ironhorse CI step 4: the remaining reds and the final report
 
 ### tada (17144)
