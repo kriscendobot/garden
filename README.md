@@ -1,27 +1,15 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-16T09:34:54Z_
+_As of 2026-11-16T09:40:05Z_
 
 ## Latest
 
-Work is mostly in motion on [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots). Four jobs are in progress: conduct and shepherd for [#1660](https://github.com/endojs/endo-but-for-bots/pull/1660), a dependabotany recheck for #1662, and Ironhorse CI step 2 (macOS and ubuntu test legs). Several jobs finished today, but the transition list didn't resolve file-level moves, so I can't say which. The #1668 gauntlet halted with a red clean stage.
+The fleet is mostly stuck on the Oros canary. The one change since the last bulletin is a botanist recheck of the dependabot PR [endo-but-for-bots#1662](https://github.com/endojs/endo-but-for-bots/pull/1662), which has posted a message and a result entry. The job is still in `doin`, so it hasn't completed yet.
 
-**Needs your decision:**
-- **Gauntlet budgets:** [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging. [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) halted after one fix round that reported the gated outcome failed. Each message has a resume command that adds rounds.
-- **Node 24 pin:** [#1646](https://github.com/endojs/endo-but-for-bots/pull/1646) is still the blocker for milestone M3 and for many parked weaves and conducts.
-- **Ironhorse CI:** step 1, the oracle fix ([#1613](https://github.com/endojs/endo-but-for-bots/pull/1613)), was doomed and is held in plan, so the orchestration reported a child failure.
-- **minion.town:**
-  - The production-DNS question from 11-10 is still unanswered. The Route53 answer had changed and the real host looked healthy. That message asks whether the change was intentional, and notes a possible zone compromise if it wasn't.
-  - Development stays paused by your 11-10 directive. The pause refusals keep firing, and the foreman and mentor exit non-zero on them (self-heal notices).
-  - The settings-simplify report needs `deploy-accounts-store.sh` run before merge.
-
-**Fleet health:**
-- Oros is still operator-held. It needs a Claude `/login`, and its secret broker fails after deploy. Its canary probes are piling up in todo, and the canary-failure condition cleared at 08:14Z.
-- The leader host's disk is nearly full (an FYI message reported 176–500 MiB free, briefly 0). Reclaim space by hand.
-- Several daily-summary, dependabotany and builder jobs were doomed and parked in plan.
-- Most other watchdog notices are journal-contention recoveries, which need no action.
+- **Oros host:** Oros has been stuck since the roll moved it to `18fc7b17375` and its canary failed again. Fifteen canary-probe jobs sit unclaimed in `todo`. The message says it needs someone at the machine for two fixes: re-login of the expired Claude OAuth session, and a look at `garden-secret-broker`, which fails after every deploy. The leader's rolling deploy waits on that canary, so the leader is stuck behind it.
+- **Gauntlets:** [endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) used all 7 review rounds without converging and needs your call on granting more. The #1504 gauntlet halted after its first fix round, and [endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) is also waiting on the Node pin in [endo-but-for-bots#1646](https://github.com/endojs/endo-but-for-bots/pull/1646). The Ironhorse CI step 1 oracle-fix job was doomed and parked in plan.
+- **Disk space:** the leader host was down to a few hundred MiB free and briefly hit zero. Someone needs to reclaim space by hand.
+- **Minion.town:** its DNS was repointed to an unexplained address. That message asks whether the change was intentional or a possible zone compromise. The pause is also still being enforced, with refusals now counted past 82,000 and the foreman and mentor repeatedly crashing on the refusal.
 
 ## Maintainer review docket
 
@@ -722,7 +710,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 163.2M | $621.71 _(notional, rate-card)_ | 60% of 271.0M (ok) |
+| Claude | 163.5M | $622.86 _(notional, rate-card)_ | 60% of 271.0M (ok) |
 | Codex | 405.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154600381 tokens/day lower bound._
