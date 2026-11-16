@@ -19,6 +19,7 @@ Task: #1621 (red: sandbox-drivers, test-ironhorse, test-ironhorse-macos, test-ir
 
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=6098 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
