@@ -20,6 +20,7 @@ Source shepherd job: `endojs-endo-but-for-bots-pr1660-shepherd`.
 <!-- garden-plain-retry-not-before: 2026-11-16T12:33:06Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=21,44 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
