@@ -19,3 +19,13 @@ Source shepherd job: `endojs-endo-but-for-bots-pr1660-shepherd`.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-16T12:33:06Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T12:33:10Z
