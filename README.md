@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T22:58:58Z_
+_As of 2026-11-16T23:00:57Z_
 
 ## Latest
 
@@ -881,13 +881,13 @@ worst fetch p95 5.080545s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### doin (0)
 (none)
 
-### tada (17145)
+### tada (17146)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet.md) — Cost
 - [`ironhorse-ci-failures-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-failures-20261116.md) — orchestration ironhorse-ci-failures-20261116 — complete
 - [`ironhorse-ci-4-remaining-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-4-remaining-20261116.md) — ironhorse-ci-4-remaining-20261116: completion report
-- [`endojs-endo-but-for-bots-pr1660-conduct-resume-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1660-conduct-resume-20261116.md) — Completion report
-- … and 17140 more
+- … and 17141 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
