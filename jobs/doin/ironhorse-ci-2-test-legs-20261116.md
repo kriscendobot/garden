@@ -17,3 +17,13 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 
 Task: PRs whose red includes a test, cover or macOS leg beyond the oracle lanes: #1623 (cover 24.x ubuntu, test 24.x macos-15), #1618 (test 22.x ubuntu, test 24.x macos-15), #1616 (test 24.x macos-15), #1615 (test 22.x ubuntu), #1614 (cover 22.x ubuntu), #1612 (sandbox-drivers, test 24.x macos-15), #1605 (test 24.x macos-15), #1585 (test 22.x macos-15). Known flakes in this repo: Node 24 undici ClientDestroyedError, claude-sandbox restore-context macOS, @endo/cli component exit-leak: rerun the failed leg once before changing code. Fix real defects on the PR heads; leave the oracle-lane red alone.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T08:06:01Z
