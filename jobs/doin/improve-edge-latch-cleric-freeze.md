@@ -13,3 +13,13 @@ scripts/jobs/budget-level.sh:490–494 freezes cleric allocation and logs the sa
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-16T08:23:05Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-16T08:33:11Z
