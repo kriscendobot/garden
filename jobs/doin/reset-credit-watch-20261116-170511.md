@@ -31,6 +31,7 @@ Standing maintainer direction (kriskowal, 2026-09-30): "We should plan to use th
 Keep it short: one screen. If nothing is actionable (no live credits, or none near expiry), send a one-line "no action this week" status and finish.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=277 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
