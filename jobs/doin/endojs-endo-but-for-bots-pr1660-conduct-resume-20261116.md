@@ -12,3 +12,13 @@ The prior conductor undrafted the PR, unfroze its base from `llm-48d6f3e` to liv
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1660
 Head: endojs/endo-but-for-bots (bot-pushable)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-16T09:49:33Z
