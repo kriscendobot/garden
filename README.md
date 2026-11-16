@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-16T11:58:14Z_
+_As of 2026-11-16T12:00:13Z_
 
 ## Latest
 
@@ -99,10 +99,6 @@ Delegation: **active**
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
 
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_mentor_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_mentor_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/mentor/journal: p95=18.002358s max=18.002358s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
 > WATCHDOG notice — occurrence #11 (first seen 2026-11-07T02:46:16Z, latest 2026-11-16T08:57:13Z).
@@ -139,10 +135,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 10 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 3): shared codex subscription demand active=1 queue=2 quota=ok fleet-envelope=4 target=3
-
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1660-weave-20261116` — from watchdog:cleric/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1660-weave-20261116.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr1660-weave-20261116' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7200s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
