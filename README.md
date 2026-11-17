@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T13:25:28Z_
+_As of 2026-11-17T13:28:22Z_
 
 ## Latest
 
@@ -159,13 +159,13 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.028201s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #105637 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T12:22:47Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 105637 times; this is ONE
-> coalesced notice that updates in place, not 105637 messages. Latest detail:
+> WATCHDOG notice — occurrence #105654 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T13:27:37Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105654 times; this is ONE
+> coalesced notice that updates in place, not 105654 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'accountant-weekly-20261114-170509' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
