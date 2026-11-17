@@ -31,3 +31,13 @@ commits ahead, at 2026-11-16T06:02:01Z.
    and restart the observation window.
 
 Trigger: https://github.com/kriscendobot/garden/issues/128
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-17T07:39:54Z
