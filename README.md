@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T03:19:03Z_
+_As of 2026-11-17T03:22:21Z_
 
 ## Latest
 
@@ -539,11 +539,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-17T00:05:19Z, latest 2026-11-17T00:35:33Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-17T00:05:19Z, latest 2026-11-17T03:20:21Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 4): shared codex subscription demand active=2 queue=2 quota=ok fleet-envelope=4 target=4
+> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 3): shared codex subscription demand active=2 queue=1 quota=ok fleet-envelope=4 target=3
 
 - `msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9` — from gardener:minion-town-arc-press-20261108-082012, reply_to `minion-town-arc-press-20261108-082012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9.md)
 
@@ -563,11 +563,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #23 (first seen 2026-11-14T04:34:56Z, latest 2026-11-17T01:21:36Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 23 times; this is
-> ONE entry that updates in place, not 23 messages. Latest detail:
+> COALESCED message — occurrence #24 (first seen 2026-11-14T04:34:56Z, latest 2026-11-17T03:21:29Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 24 times; this is
+> ONE entry that updates in place, not 24 messages. Latest detail:
 >
-> M3’s daemon-to-manager PR #1594 is blocked on the clean shared CI fixes in PRs #1659 and #1646. Please review and merge those fixes so the active #1594 shepherd can reweave and finish its CI pass.
+> M3’s MVS resolver PR #1596 is blocked on merging the green shared zizmor pin-comment fix, [endojs/endo-but-for-bots#1659](https://github.com/endojs/endo-but-for-bots/issues/1659); then it can be reweaved and its downstream semver-convergence work can proceed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
