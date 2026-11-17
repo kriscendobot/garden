@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T11:23:29Z_
+_As of 2026-11-17T11:25:42Z_
 
 ## Latest
 
@@ -122,11 +122,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-17T11:18:35Z).
-> It was observed 38 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #39 (first seen 2026-11-13T05:48:51Z, latest 2026-11-17T11:23:34Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 39 times; this is ONE
+> coalesced notice that updates in place, not 39 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.026807s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.026223s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.026206s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.027214s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.032083s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.039281s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -148,6 +154,86 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration ironhorse-ci-failures-20261116 complete WITH FAILURES (serial): 4/4 failed: ironhorse-ci-1-oracle-fix-20261116 ironhorse-ci-2-test-legs-20261116 ironhorse-ci-3-ironhorse-lanes-20261116 ironhorse-ci-4-remaining-20261116
+
+- `doomed-endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-budget-role: panel
+> handler-timeout: 10800
+> gauntlet: endojs-endo-but-for-bots-pr1594-gauntlet-r2
+> gauntlet_stage: panel
+> gauntlet_iteration: 1
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/1594](https://github.com/endojs/endo-but-for-bots/pull/1594)
+> ---
+>
+> # Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1594
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1594-gauntlet-r2). Run the deterministic read-only
+> style pre-pass against the pinned base/head. Only if it passes, run EXACTLY ONE
+> panel round and post the verdict. Then STOP — do NOT fix, do NOT un-draft, do not
+> loop.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Before dispatching any juror, retain the PR's immutable baseRefOid and
+>    headRefOid (both full 40-hex commit IDs), along with its head owner and branch.
+>    Get an ISOLATED project checkout of that head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve all four retained fields with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1594 --json baseRefOid,headRefOid,headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+>    Fetch the retained objects if necessary, check out the retained head object ID
+>    detached, and verify git rev-parse HEAD equals it. A missing/malformed object ID
+>    or head mismatch is a sensor failure: do not run probes or panel; emit
+>    panel=panel-error.
+> 2. Run the deterministic probes read-only against that exact pinned pair with
+>    `scripts/jobs/gardening/pre-push-gates.sh --no-auto-fix --probes-only \
+>      --base-ref <base-object-id> <worktree>`.
+>    Capture combined stdout/stderr byte-for-byte. On non-zero, do NOT
+>    run panel.sh and do NOT post a PR review. Put the exact captured output between
+>    these lines in the completion report, then emit panel=prepass-failed:
+>
+>    <!-- gauntlet-style-prepass-output-begin -->
+>    <exact combined stdout/stderr, unchanged>
+>    <!-- gauntlet-style-prepass-output-end -->
+>
+>    This is a deterministic finding, not a panel verdict. The driver routes that
+>    exact block to fix-1 and only spends juror seats after the probes pass.
+> 3. Only after the probes exit 0, run the panel in SINGLE-ROUND mode against that
+>    same worktree and retained base object ID:
+>    `GARDEN_PANEL_SINGLE_ROUND=1 \
+>      scripts/jobs/gardening/panel.sh <worktree> 1594 <base-object-id>`
+>    It fans the seats, aggregates, preflights the PR author against the authenticated
+>    login, and posts its own formal review. A must-fix result normally requests
+>    changes; on a self-authored PR it posts the same aggregate as a comment review,
+>    retaining the `Must-fix before merge` heading. It does NOT fix or un-draft.
+>    Only after the review post succeeds does it print the existing stage-result
+>    marker followed by a terminal line whose last token is `pass` or `must-fix`.
+>    Copy that marker into your completion report; do not post the aggregate yourself.
+> 4. If panel.sh exits NON-ZERO it did NOT return a posted review verdict. A seat error, a
+>    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
+>    failure, not a pass/must-fix decision. Do NOT report `orchestration-failed:
+>    true` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
+>    and emit the `panel=panel-error` marker: the driver then re-posts this panel
+>    round under its bounded stage-retry budget, exactly as it retries a doomed
+>    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
+>    its own marker below — never panel-error.
+>
+> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+> completion signal; the completion signal itself stays the very last line:
+>   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
+>   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
+>   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
+>   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -1214,17 +1300,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.4M | $658.93 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.5M | $660.23 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 432.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154051265 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 14 open notice(s); checker healthy
+worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`design-endopi-prompt-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endopi-prompt-templates.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
