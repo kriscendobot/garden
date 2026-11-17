@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T03:15:07Z_
+_As of 2026-11-17T03:16:03Z_
 
 ## Latest
 
@@ -346,26 +346,6 @@ Delegation: **active**
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
-
-- `doomed-fix-endojs-endo-but-for-bots-pr1560-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-endojs-endo-but-for-bots-pr1560-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/fix-endojs-endo-but-for-bots-pr1560; it stays HELD until a human promotes it
-> (promote-plan.sh fix-endojs-endo-but-for-bots-pr1560) or removes it, so nothing is lost.
-> Original job base: fix-endojs-endo-but-for-bots-pr1560
->
-> --- original job body ---
-> ---
-> posted_at: 2026-11-17T00:36:29Z
-> arc: unallocated
-> role: fixer
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> Fix endojs/endo-but-for-bots PR #1560’s current panel must-fix findings, then verify the durable child-agent coordinator remains CI-ready.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -856,26 +836,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
-
-- `doomed-fix-endojs-endo-but-for-bots-pr1594-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-endojs-endo-but-for-bots-pr1594-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/fix-endojs-endo-but-for-bots-pr1594; it stays HELD until a human promotes it
-> (promote-plan.sh fix-endojs-endo-but-for-bots-pr1594) or removes it, so nothing is lost.
-> Original job base: fix-endojs-endo-but-for-bots-pr1594
->
-> --- original job body ---
-> ---
-> posted_at: 2026-11-17T00:46:45Z
-> arc: unallocated
-> role: fixer
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> Fix endojs/endo-but-for-bots PR #1594’s current zizmor and test-xs failures to unblock the M3 daemon-to-manager rename.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
