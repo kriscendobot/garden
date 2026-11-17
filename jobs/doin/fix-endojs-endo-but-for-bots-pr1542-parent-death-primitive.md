@@ -10,6 +10,7 @@ Fix endojs/endo-but-for-bots PR #1542's remaining must-fix: establish a safe par
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=6022 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
