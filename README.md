@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T09:10:05Z_
+_As of 2026-11-17T09:15:49Z_
 
 ## Latest
 
@@ -161,13 +159,13 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.028201s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:promote-plan, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #103159 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T08:13:57Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 103159 times; this is ONE
-> coalesced notice that updates in place, not 103159 messages. Latest detail:
+> WATCHDOG notice — occurrence #103996 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T09:14:16Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 103996 times; this is ONE
+> coalesced notice that updates in place, not 103996 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused promote of parked job 'kriscendobot-minion.town-pr199-review-4460eb00-retro' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
@@ -278,6 +276,19 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1588-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 7 -> 9 (N is yours to choose).
+
+- `ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-1621-drift-20261117-failed` — from orchestrator:ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-1621-drift-20261117-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-1621-drift-20261117-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: ironhorse-ci-failures-round2-20261117
+> orchestration-status: running
+> child: ironhorse-ci2-1621-drift-20261117
+> failure-kind: doomed
+> order: parallel
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration ironhorse-ci-failures-round2-20261117 observed child ironhorse-ci2-1621-drift-20261117: doomed and held in plan.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_fork_watch_journal.md)
 
@@ -566,6 +577,34 @@ Delegation: **active**
 >
 > - **What failed:** At 05:02:05 the foreman proposed the next milestone step `fix-endojs-endo-but-for-bots-pr1595`. `post-job.sh` refused it because it "belongs to PAUSED project 'minion-town'" (pause record `pauses/minion-town.md`, rc=78).
 > - **Why it exits:** At `scripts/jobs/foreman.sh` around line 737, every nonzero return code other than the completed-collision and tempfail codes goes to the generic `ERROR: post-job failed` branch, which runs `exit "$post_rc"`. A pause refusal is expected, not a broken tick, so the foreman crash-loops under systemd for as long as it keeps proposing pause
+
+- `doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/ironhorse-ci2-1621-drift-20261117; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-ci2-1621-drift-20261117) or removes it, so nothing is lost.
+> Original job base: ironhorse-ci2-1621-drift-20261117
+>
+> --- original job body ---
+> ---
+> role: fixer
+> tier: mentor
+> posted_at: 2026-11-17T05:31:59Z
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-17T05:34:28Z cleared=none -->
+>
+> ---
+> role: fixer
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Ironhorse CI: #1621 Node 26 and zizmor drift
+>
+> Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-11-16/17): clear the remaining CI reds on kriscendobot ironhorse PRs, per the report in the completed job ironhorse-ci-4-remaining-20261116 (journal tada/2026/11/16). The first attempt at this work exited plainly twice without a report, so: work in small steps, push as you go, and write a report (per PR: before/after check state, cause, commit pushed) even if you finish only part. Run CI-equivalent checks locally before pushing. Push only to kriscendobot-authored heads. Do not merge; nothing merges until the ratchet improves the base. The two oracle lanes (test-ironhorse-oracle, ironhorse-oracle-sanitizers: stage3-math 054/055, ubuntu-26.04 glibc) stay red until #1613 reaches the base; leave them alone. Do not weave unless the task below says so.
+>
+> Task: #1621 is red on test-xs (Node 26 ThrowTypeError intrinsic-metadata baseline drift) and zizmor (create-pull-request v8 pin-comment drift), beyond the oracle lanes. Cherry-pick d7af7dc927 and cc8c641deb onto the #1621 head, exactly as was done on #1614 (commit 613eedb3ed). Verify test-xs and zizmor go green.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -1148,8 +1187,8 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
 
 ### doin (3)
+- [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — ---
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
-- [`ironhorse-ci2-1621-drift-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1621-drift-20261117.md) — Ironhorse CI: #1621 Node 26 and zizmor drift
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 
 ### tada (17160)
@@ -1262,6 +1301,7 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-gardener-handler-rc76-collision-expanded-window.md) — _normal_ · Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`ironhorse-1298-repin-fuzz-locks-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-1298-repin-fuzz-locks-20261117.md) — _normal_ · Ironhorse #1298: re-pin byte-pinned fuzz locks after the llm merge (F040 re-f...
 - [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — _normal_ · ---
+- [`ironhorse-ci2-1621-drift-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ci2-1621-drift-20261117.md) — _normal_ · Ironhorse CI: #1621 Node 26 and zizmor drift
 - [`minion-town-arc-press-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-165012.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`ironhorse-xs10-proxy-callable-flags`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-xs10-proxy-callable-flags.md) — _normal_ · IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #...
 - [`improve-transient-retry-correlation-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-transient-retry-correlation-r2.md) — _normal_ · ---
