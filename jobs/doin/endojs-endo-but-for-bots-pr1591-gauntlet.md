@@ -12,3 +12,13 @@ Resume the gauntlet for endojs/endo-but-for-bots PR #1591, rerunning its transie
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T00:43:06Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-17T00:43:50Z
