@@ -13,3 +13,13 @@ Fix endojs/endo-but-for-bots PR #1591’s containment findings: replace reaped-P
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T04:53:09Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-17T04:53:31Z
