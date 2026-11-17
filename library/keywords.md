@@ -179,3 +179,4 @@ inference provider broker, AgentInference, brokered Messages, inference reservat
 - Git capability, capability-scoped agent tools, confined agent tools -> policy-vs-capability-authorization
 - codefall, lividlabs/codefall, software factory, meta-harness, spec-driven development kit, Beads, bead, `bd`, EARS acceptance criteria, `/codefall-specify`, `/codefall-plan`, `/codefall-implement`, waves, rounds, ADR scaffold, Clean Architecture profile -> agentic-sdlc
 - ycc, whyrusleeping/ycc, docs-driven coding harness, work loop, ycc daemon, `spec.md`/`backlog`/`memory.md`, `ycc spec-check`, coordinator/implementer/reviewers roles, review tiers, `ycc login`, the daemon owns the work clients are views -> agent-fleet-orchestration
+- EndoPi extension package, extension package manifest, package manifest, plugin ecosystem, `endo` package key -> endopi-extension-packages
