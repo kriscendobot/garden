@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-ci-failures-round2-20261117
-priority: normal
-posted_by: producer
+role: fixer
+tier: mentor
 posted_at: 2026-11-17T05:31:59Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-17T05:34:49Z cleared=none -->
 
 ---
 role: fixer
