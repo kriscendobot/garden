@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T00:15:55Z_
+_As of 2026-11-17T00:17:53Z_
 
 ## Latest
 
@@ -556,11 +556,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #20 (first seen 2026-11-14T04:34:56Z, latest 2026-11-16T23:42:38Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 20 times; this is
-> ONE entry that updates in place, not 20 messages. Latest detail:
+> COALESCED message — occurrence #21 (first seen 2026-11-14T04:34:56Z, latest 2026-11-17T00:16:34Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 21 times; this is
+> ONE entry that updates in place, not 21 messages. Latest detail:
 >
-> Milestone M3’s daemon-agent-tools critical path needs the maintainer to merge clean, ready PR #1497; its next implementation phase remains behind the in-flight #1591 gauntlet.
+> Milestone M3’s next critical step is merging the daemon-agent-tools design re-sweep, [endojs/endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/issues/1497); please decide whether to merge it. PRs #1591 and #1646 are in flight, and #1504 remains blocked on #1646.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
