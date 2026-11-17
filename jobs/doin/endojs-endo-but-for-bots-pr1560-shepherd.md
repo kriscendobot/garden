@@ -28,6 +28,7 @@ is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=5932 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
