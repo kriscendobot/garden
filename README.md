@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T03:08:24Z_
+_As of 2026-11-17T03:15:07Z_
 
 ## Latest
 
@@ -348,6 +346,26 @@ Delegation: **active**
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `doomed-fix-endojs-endo-but-for-bots-pr1560-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-endojs-endo-but-for-bots-pr1560-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/fix-endojs-endo-but-for-bots-pr1560; it stays HELD until a human promotes it
+> (promote-plan.sh fix-endojs-endo-but-for-bots-pr1560) or removes it, so nothing is lost.
+> Original job base: fix-endojs-endo-but-for-bots-pr1560
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-17T00:36:29Z
+> arc: unallocated
+> role: fixer
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Fix endojs/endo-but-for-bots PR #1560’s current panel must-fix findings, then verify the durable child-agent coordinator remains CI-ready.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -839,6 +857,26 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
 
+- `doomed-fix-endojs-endo-but-for-bots-pr1594-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-endojs-endo-but-for-bots-pr1594-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/fix-endojs-endo-but-for-bots-pr1594; it stays HELD until a human promotes it
+> (promote-plan.sh fix-endojs-endo-but-for-bots-pr1594) or removes it, so nothing is lost.
+> Original job base: fix-endojs-endo-but-for-bots-pr1594
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-17T00:46:45Z
+> arc: unallocated
+> role: fixer
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Fix endojs/endo-but-for-bots PR #1594’s current zizmor and test-xs failures to unblock the M3 daemon-to-manager rename.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-11-14T12:44:26Z, cleared 2026-11-16T16:47:18Z).
@@ -975,11 +1013,10 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (4)
+### doin (3)
 - [`shepherd-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1347-20261117.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1596-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1596-20261117.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1560.md) — ---
+- [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — ---
 
 ### tada (17149)
 - [`weave-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/weave-endojs-endo-but-for-bots-pr1347-20261117.md) — Cost
@@ -1024,6 +1061,7 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`weave-endojs-endo-but-for-bots-pr1538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1538.md) — _normal_ · ---
 - [`minion-town-arc-press-20261107-043512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261107-043512.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
+- [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1594.md) — _normal_ · ---
 - [`oros-health-watch-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261107-075009.md) — _normal_ · ---
 - [`ironhorse-ci-3-ironhorse-lanes-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ci-3-ironhorse-lanes-20261116.md) — _normal_ · Ironhorse CI step 3: ironhorse-specific failures
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
@@ -1107,6 +1145,7 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`claude-on-minion-town-completion-press-20261105-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261105-133510.md) — _normal_ · Completion press: Claude-on-minion.town arc
+- [`fix-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1560.md) — _normal_ · ---
 - [`claude-on-minion-town-completion-press-20261106-020511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261106-020511.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`fix-endojs-endo-but-for-bots-pr1591`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1591.md) — _normal_ · ---
 - [`shepherd-endojs-endo-but-for-bots-pr1592`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/shepherd-endojs-endo-but-for-bots-pr1592.md) — _normal_ · ---
