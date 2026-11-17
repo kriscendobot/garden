@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Fix endojs/endo-but-for-bots PR #1560’s outstanding review findings on the child-agent coordinator, with regression coverage, and drive its CI back to green.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
