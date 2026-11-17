@@ -1,0 +1,26 @@
+elapsed-constancy exit0-wedge-suspect: shepherd-endojs-endo-but-for-bots-pr1596-20261117
+
+gardener-2 on endolin-garden-ece02cb4: job shepherd-endojs-endo-but-for-bots-pr1596-20261117 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 36,33s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>04:03:22 [cleric/2] resuming codex session 01a1e754-181d-77a3-a772-c1680ac7a8d5 for job 'shepherd-endojs-endo-but-for-bots-pr1596-20261117' that STOPPED without completing; continue framing
+<6>04:03:22 [cleric/2] job 'shepherd-endojs-endo-but-for-bots-pr1596-20261117' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>04:03:22 [cleric/2] job 'shepherd-endojs-endo-but-for-bots-pr1596-20261117' attaching minion.town MCP (stdio bridge as minion-town)
+<6>04:03:43 [cleric/2] job 'shepherd-endojs-endo-but-for-bots-pr1596-20261117' ended its turn without the completion signal; nudging codex session 01a1e754-181d-77a3-a772-c1680ac7a8d5 to verify and complete (nudge 1/1)
+<6>04:03:55 [cleric/2] codex completion nudge for 'shepherd-endojs-endo-but-for-bots-pr1596-20261117' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1e754-181d-77a3-a772-c1680ac7a8d5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"CI fix complete: `806c859b22` is pushed; PR #1596 is clean, mergeable, and all 35 checks—including zizmor—are green.\n\n<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":17194757,"cached_input_tokens":16874368,"cache_write_input_tokens":0,"output_tokens":16736,"reasoning_output_tokens":3019}}
