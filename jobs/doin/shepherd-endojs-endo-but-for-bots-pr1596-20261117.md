@@ -15,6 +15,7 @@ Shepherd endojs/endo-but-for-bots PR #1596 (`build/m3-mvs-resolver-reference`) t
 <!-- garden-plain-retry-not-before: 2026-11-17T04:03:07Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=36,33 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
