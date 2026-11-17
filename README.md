@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T06:57:50Z_
+_As of 2026-11-17T07:00:53Z_
 
 ## Latest
 
@@ -624,6 +622,14 @@ Delegation: **active**
 >
 > M3’s minion-town git-remote path is blocked on maintainer review of [endojs/endo-but-for-bots#1557](https://github.com/endojs/endo-but-for-bots/issues/1557); its next implementation slices are already represented by open PRs. Decide whether to approve that capability-URL foundation (and the stalled #1595/#1589 review outcomes) before more work is posted.
 
+- `liaison-followup-8749de239f39` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-8749de239f39.md)
+
+> Report ironhorse-ci2-1346-1299-20261117: ironhorse PRs #1346 and #1299 on endojs/endo-but-for-bots.
+>
+> - **Oracle lanes:** `test-ironhorse-oracle` and `ironhorse-oracle-sanitizers` fail only on stage3-math 054/055. That is the known ubuntu-26.04 glibc issue, and it waits on #1613. No action is needed.
+> - **Other reds:** the latest pushes triggered a full CI run. It shows new failures on both PRs outside ironhorse: `cover`/`test` (22.x, 24.x ubuntu), `test-xs` (hardened262), `sandbox-drivers` (bwrap), and `zizmor`. The worker did not touch anything outside `rust/engine`. It suspects drift in the old base (Node 26, zizmor floating tags, known bwrap failures) but did not confirm that by running the checks on the base itself.
+> - **Decision for you:** should the garden weave both PRs onto current `llm` to clear these? The worker flagged this as a separate decision. It would change the merge base on two in-flight PRs, and the weave could itself introduce conflicts. I have not posted a weave job. Tell me to weave them, or to wait until #1613 lands and the base improves.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-11-13T20:39:29Z, latest 2026-11-17T00:43:13Z).
@@ -1013,7 +1019,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.0M | $654.79 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.1M | $656.66 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 425.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154107531 tokens/day lower bound._
