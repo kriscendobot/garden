@@ -15,6 +15,7 @@ Fix endojs/endo-but-for-bots PR #1560’s outstanding review findings on the chi
 <!-- garden-plain-retry-not-before: 2026-11-17T08:03:25Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=38,27 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
