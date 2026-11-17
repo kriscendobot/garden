@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T05:52:16Z_
+_As of 2026-11-17T05:55:53Z_
 
 ## Latest
 
@@ -1005,7 +1003,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.0M | $655.20 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.0M | $655.41 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 424.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154315779 tokens/day lower bound._
@@ -1014,11 +1012,10 @@ _Fleet token-unlock pace: 154315779 tokens/day lower bound._
 worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`endojs-endo-but-for-bots-pr1560-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1560
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1560-review-a5e99160`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-review-a5e99160.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1591
@@ -1027,9 +1024,10 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
 - [`fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence.md) — ---
 
-### doin (5)
+### doin (6)
 - [`ironhorse-ci2-1346-1299-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1346-1299-20261117.md) — Ironhorse CI: #1346 and #1299 test and golden failures
 - [`ironhorse-ci2-1359-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1359-20261117.md) — Ironhorse CI: #1359 cover, zizmor, test-xs
+- [`endojs-endo-but-for-bots-pr1560-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1560
 - [`ironhorse-ci2-1621-drift-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1621-drift-20261117.md) — Ironhorse CI: #1621 Node 26 and zizmor drift
 - [`endojs-endo-but-for-bots-pr1560-review-d3f67ace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-review-d3f67ace.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`fix-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
