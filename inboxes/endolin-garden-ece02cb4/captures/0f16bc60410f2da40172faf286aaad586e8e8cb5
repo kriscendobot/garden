@@ -1,0 +1,26 @@
+elapsed-constancy exit0-wedge-suspect: fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence
+
+gardener-2 on endolin-garden-ece02cb4: job fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 27,28s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>08:54:27 [cleric/2] resuming codex session 01a1e87a-be6e-7042-9434-7eeb798323ea for job 'fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence' that STOPPED without completing; continue framing
+<6>08:54:27 [cleric/2] job 'fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>08:54:27 [cleric/2] job 'fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence' attaching minion.town MCP (stdio bridge as minion-town)
+<6>08:54:46 [cleric/2] job 'fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence' ended its turn without the completion signal; nudging codex session 01a1e87a-be6e-7042-9434-7eeb798323ea to verify and complete (nudge 1/1)
+<6>08:54:54 [cleric/2] codex completion nudge for 'fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1e87a-be6e-7042-9434-7eeb798323ea"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Done: `31aeb19c01` is pushed to PR #1591 with the requested regression proof; worktree clean and CI green.\n\n<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":11013159,"cached_input_tokens":10634112,"cache_write_input_tokens":0,"output_tokens":15334,"reasoning_output_tokens":4593}}
