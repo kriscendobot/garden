@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T03:42:34Z_
+_As of 2026-11-17T03:45:56Z_
 
 ## Latest
 
@@ -157,11 +155,11 @@ Delegation: **active**
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:claim/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #100018 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T02:43:39Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 100018 times; this is ONE
-> coalesced notice that updates in place, not 100018 messages. Latest detail:
+> WATCHDOG notice — occurrence #101101 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T03:43:57Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 101101 times; this is ONE
+> coalesced notice that updates in place, not 101101 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-edera-product-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -962,7 +960,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.1M | $654.80 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 172.1M | $654.85 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 419.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154392165 tokens/day lower bound._
