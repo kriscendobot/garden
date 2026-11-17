@@ -10,3 +10,13 @@ dispatch: automatic
 Fix endojs/endo-but-for-bots PR #1591’s containment findings: replace reaped-PGID signalling safely, propagate non-ESRCH errors, and add deterministic exit-sweep coverage to unblock the M3 shell-sandbox path.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-17T05:03:28Z
