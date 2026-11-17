@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T03:54:30Z_
+_As of 2026-11-17T03:57:20Z_
 
 ## Latest
 
@@ -966,7 +966,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.1M | $653.45 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 172.1M | $653.74 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 419.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154394062 tokens/day lower bound._
@@ -982,7 +982,8 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (1)
+### doin (2)
+- [`build-daemon-agent-tools-phase-8-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-8-fetch-plugin.md) — ---
 - [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — ---
 
 ### tada (17150)
