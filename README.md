@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T04:07:07Z_
+_As of 2026-11-17T04:09:55Z_
 
 ## Latest
 
@@ -190,6 +188,10 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration ironhorse-ci-failures-20261116 observed child ironhorse-ci-1-oracle-fix-20261116: doomed and held in plan.
+
+- `msg-build-daemon-agent-tools-phase-8-fetch-plugin-1d4656274753` — from gardener:build-daemon-agent-tools-phase-8-fetch-plugin, reply_to `build-daemon-agent-tools-phase-8-fetch-plugin` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-daemon-agent-tools-phase-8-fetch-plugin-1d4656274753.md)
+
+> build-daemon-agent-tools-phase-8-fetch-plugin (posted 2026-11-17) re-asks for Phase 8 (@endo/fetch as the HTTP provisioning path). That work already exists twice: draft [https://github.com/endojs/endo-but-for-bots/pull/1661](https://github.com/endojs/endo-but-for-bots/pull/1661) (job build-daemon-agent-tools-phase-eight-fetch-plugin, done 2026-11-15) and [https://github.com/endojs/endo-but-for-bots/pull/1593](https://github.com/endojs/endo-but-for-bots/pull/1593) (HTTP workspace tools). The 1661 gauntlet viability stage judged it overtaken by 1593 and is waiting on your call: close 1661 and review 1593 (recommended), or close 1593 and say 'run the gauntlet' on 1661. I did not open a third PR. Phase 8 also still depends on design PR [https://github.com/endojs/endo-but-for-bots/pull/1497](https://github.com/endojs/endo-but-for-bots/pull/1497), which is unmerged.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -962,7 +964,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.1M | $653.78 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 172.2M | $653.45 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 420.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154395898 tokens/day lower bound._
@@ -977,18 +979,17 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (3)
-- [`build-daemon-agent-tools-phase-8-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-8-fetch-plugin.md) — ---
+### doin (2)
 - [`shepherd-endojs-endo-but-for-bots-pr1596-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1596-20261117.md) — ---
 - [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — ---
 
-### tada (17150)
+### tada (17151)
+- [`build-daemon-agent-tools-phase-8-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-daemon-agent-tools-phase-8-fetch-plugin.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/shepherd-endojs-endo-but-for-bots-pr1347-20261117.md) — Cost
 - [`weave-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/weave-endojs-endo-but-for-bots-pr1347-20261117.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1592-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/shepherd-endojs-endo-but-for-bots-pr1592-20261117.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr1646-node-twenty-six-compatibility`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/fix-endojs-endo-but-for-bots-pr1646-node-twenty-six-compatibility.md) — Cost
-- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1591-gauntlet — HALTED
-- … and 17145 more
+- … and 17146 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
