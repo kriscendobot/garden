@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T13:44:58Z_
+_As of 2026-11-17T13:51:34Z_
 
 ## Latest
 
@@ -763,6 +761,13 @@ Delegation: **active**
 > ---
 > Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-bots dependabotany ledger whose maturity date has arrived or whose recorded blocker has cleared. Recover the ledger with: grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'. Execute the now-due verdict for each PR: MERGE-NOW through ci-wait-merge.sh --dependabot-auto-merge, REJECT closes, EMBARGO re-defers. Current row: #1629 (setup-python 7.1.0) is held on [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646.
 
+- `ironhorse-ratchet-halted-ironhorse-test262-press-20261113-225326` — from ironhorse-test262-ratchet, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ratchet-halted-ironhorse-test262-press-20261113-225326.md)
+
+> Ironhorse ratchet halted: multiple open ratchet PRs; one crank at a time
+> Tracker: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)
+> Inspect ratchets/ironhorse-test262-ratchet/state.json and
+> context/operations/ironhorse-ratchet.md. Explicitly resume only after resolution.
+
 - `doomed-endojs-endo-but-for-bots-pr1591-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1591-gauntlet-panel-1-requeue-exhausted.md)
 
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
@@ -1213,36 +1218,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.1M | $666.73 _(notional, rate-card)_ | 65% of 271.0M (ok) |
+| Claude | 177.2M | $666.15 _(notional, rate-card)_ | 65% of 271.0M (ok) |
 | Codex | 432.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154059460 tokens/day lower bound._
+_Fleet token-unlock pace: 154063573 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 19.920965s/45s (unknown); 13 open notice(s); checker healthy
+worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1591
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1670
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`endojs-endo-but-for-bots-pr1672-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1672-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1672
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1671-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1671-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1671
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
-- [`build-endopi-iterative-compaction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-iterative-compaction.md) — ---
 
-### doin (2)
-- [`design-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endopi-skills-markdown-format.md) — ---
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1671-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1671-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1671
 - [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-press-20261113-225326.md) — ---
+- [`build-endopi-iterative-compaction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endopi-iterative-compaction.md) — ---
 
-### tada (17186)
+### tada (17187)
+- [`design-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/design-endopi-skills-markdown-format.md) — Follow-ups
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1670-gauntlet-clean.md) — Cost
 - [`ironhorse-ci-failures-round2-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci-failures-round2-20261117.md) — orchestration ironhorse-ci-failures-round2-20261117 — complete
 - [`endojs-endo-but-for-bots-pr1671-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-panel-1.md) — Cost
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-flake-reruns-20261117.md) — Report: ironhorse-ci2-flake-reruns-20261117 (#1364, #1373, #1278)
-- [`endojs-endo-but-for-bots-pr1671-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-clean.md) — Cost
-- … and 17181 more
+- … and 17182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1464,6 +1469,7 @@ worst fetch p95 19.920965s/45s (unknown); 13 open notice(s); checker healthy
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1659` · Reweave the daemon mount-import stack after the shared zizmor fix lands
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
+- [`build-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endopi-skills-markdown-format.md) — awaiting `endojs-endo-but-for-bots-pr1672-gauntlet` · Build: the design in endojs/endo-but-for-bots#1672
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`build-minion-town-tool-removal-landing-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-tool-removal-landing-20261104.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/239` · Land the MCP tool removal after #239 deploys (kriscendobot/minion.town)
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
