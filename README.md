@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T21:44:36Z_
+_As of 2026-11-17T21:50:20Z_
 
 ## Latest
 
@@ -165,13 +163,13 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.016244s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #105866 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T20:47:34Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 105866 times; this is ONE
-> coalesced notice that updates in place, not 105866 messages. Latest detail:
+> WATCHDOG notice — occurrence #105884 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T21:49:16Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105884 times; this is ONE
+> coalesced notice that updates in place, not 105884 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
@@ -1227,7 +1225,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 186.2M | $700.68 _(notional, rate-card)_ | 69% of 271.0M (ok) |
 | Codex | 433.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153723352 tokens/day lower bound._
+_Fleet token-unlock pace: 153728872 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 14 open notice(s); checker healthy
