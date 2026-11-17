@@ -1,0 +1,28 @@
+elapsed-constancy exit0-wedge-suspect: ironhorse-ci2-1359-20261117
+
+gardener-3 on endolin-garden-ece02cb4: job ironhorse-ci2-1359-20261117 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 36,46s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>07:34:14 [cleric/3] resuming codex session 01a1e801-2bf4-7780-83b6-ff809eafb928 for job 'ironhorse-ci2-1359-20261117' that STOPPED without completing; continue framing
+<6>07:34:14 [cleric/3] job 'ironhorse-ci2-1359-20261117' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>07:34:14 [cleric/3] job 'ironhorse-ci2-1359-20261117' attaching minion.town MCP (stdio bridge as minion-town)
+<6>07:34:40 [cleric/3] job 'ironhorse-ci2-1359-20261117' ended its turn without the completion signal; nudging codex session 01a1e801-2bf4-7780-83b6-ff809eafb928 to verify and complete (nudge 1/1)
+<6>07:34:59 [cleric/3] codex completion nudge for 'ironhorse-ci2-1359-20261117' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1e801-2bf4-7780-83b6-ff809eafb928"}
+{"type":"turn.started"}
+{"type":"item.started","item":{"id":"item_0","type":"command_execution","command":"/bin/bash -lc \"printf '%s\\\\n' 'PR #1359 completed at verified remote head c7929ecf4b. Ported the #1566 bwrap fix, refreshed zizmor pins/comments, and recorded the intended RegExpPrototype baseline gains. Local CI-equivalent checks passed. The PR is conflicting, so CI did not dispatch; no prohibited weave or merge was performed. Summary: https://github.com/endojs/endo-but-for-bots/pull/1359#issuecomment-6939979688' '<<<GARDEN-ORCHESTRATION-FAILED>>>' '<<<GARDEN-JOB-COMPLETE>>>'\"","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_0","type":"command_execution","command":"/bin/bash -lc \"printf '%s\\\\n' 'PR #1359 completed at verified remote head c7929ecf4b. Ported the #1566 bwrap fix, refreshed zizmor pins/comments, and recorded the intended RegExpPrototype baseline gains. Local CI-equivalent checks passed. The PR is conflicting, so CI did not dispatch; no prohibited weave or merge was performed. Summary: https://github.com/endojs/endo-but-for-bots/pull/1359#issuecomment-6939979688' '<<<GARDEN-ORCHESTRATION-FAILED>>>' '<<<GARDEN-JOB-COMPLETE>>>'\"","aggregated_output":"PR #1359 completed at verified remote head c7929ecf4b. Ported the #1566 bwrap fix, refreshed zizmor pins/comments, and recorded the intended RegExpPrototype baseline gains. Local CI-equivalent checks passed. The PR is conflicting, so CI did not dispatch; no prohibited weave or merge was performed. Summary: https://github.com/endojs/endo-but-for-bots/pull/1359#issuecomment-6939979688\n<<<GARDEN-ORCHESTRATION-FAILED>>>\n<<<GARDEN-JOB-COMPLETE>>>\n","exit_code":0,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"PR #1359 completed at verified remote head c7929ecf4b. Ported the #1566 bwrap fix, refreshed zizmor pins/comments, and recorded the intended RegExpPrototype baseline gains. Local CI-equivalent checks passed. The PR is conflicting, so CI did not dispatch; no prohibited weave or merge was performed. Summary: https://github.com/endojs/endo-but-for-bots/pull/1359#issuecomment-6939979688\n<<<GARDEN-ORCHESTRATION-FAILED>>>\n<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":7632787,"cached_input_tokens":7505792,"cache_write_input_tokens":0,"output_tokens":17342,"reasoning_output_tokens":5353}}
