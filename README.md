@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T10:56:30Z_
+_As of 2026-11-17T11:00:17Z_
 
 ## Latest
 
@@ -1208,7 +1206,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.7M | $655.43 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.7M | $655.24 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 431.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154031352 tokens/day lower bound._
@@ -1217,27 +1215,26 @@ _Fleet token-unlock pace: 154031352 tokens/day lower bound._
 worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
-- [`regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2.md) — ---
 
 ### doin (5)
 - [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1560.md) — ---
-- [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1298-verify-20261117.md) — Ironhorse #1298: finish CI verification after the llm refresh
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
+- [`regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
 
-### tada (17171)
+### tada (17172)
+- [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-1298-verify-20261117.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2.md) — gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 — HALTED
 - [`ironhorse-ci-failures-round2-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci-failures-round2-20261117.md) — orchestration ironhorse-ci-failures-round2-20261117 — complete
 - [`endojs-endo-but-for-bots-pr1669-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1669-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1669-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean.md) — Cost
-- [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-refresh-1298-1534-20261117.md) — Cost
-- … and 17166 more
+- … and 17167 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
