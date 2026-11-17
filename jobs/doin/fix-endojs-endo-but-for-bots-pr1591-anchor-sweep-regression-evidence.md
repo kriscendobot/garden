@@ -9,6 +9,7 @@ dispatch: automatic
 Fix endojs/endo-but-for-bots PR #1591’s panel must-fix by proving the bwrap exit handler sweeps a retained process group when the leader exits while a member survives.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=2309 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
