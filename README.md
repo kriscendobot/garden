@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T04:09:55Z_
+_As of 2026-11-17T04:11:02Z_
 
 ## Latest
 
@@ -188,10 +188,6 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration ironhorse-ci-failures-20261116 observed child ironhorse-ci-1-oracle-fix-20261116: doomed and held in plan.
-
-- `msg-build-daemon-agent-tools-phase-8-fetch-plugin-1d4656274753` — from gardener:build-daemon-agent-tools-phase-8-fetch-plugin, reply_to `build-daemon-agent-tools-phase-8-fetch-plugin` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-daemon-agent-tools-phase-8-fetch-plugin-1d4656274753.md)
-
-> build-daemon-agent-tools-phase-8-fetch-plugin (posted 2026-11-17) re-asks for Phase 8 (@endo/fetch as the HTTP provisioning path). That work already exists twice: draft [https://github.com/endojs/endo-but-for-bots/pull/1661](https://github.com/endojs/endo-but-for-bots/pull/1661) (job build-daemon-agent-tools-phase-eight-fetch-plugin, done 2026-11-15) and [https://github.com/endojs/endo-but-for-bots/pull/1593](https://github.com/endojs/endo-but-for-bots/pull/1593) (HTTP workspace tools). The 1661 gauntlet viability stage judged it overtaken by 1593 and is waiting on your call: close 1661 and review 1593 (recommended), or close 1593 and say 'run the gauntlet' on 1661. I did not open a third PR. Phase 8 also still depends on design PR [https://github.com/endojs/endo-but-for-bots/pull/1497](https://github.com/endojs/endo-but-for-bots/pull/1497), which is unmerged.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
