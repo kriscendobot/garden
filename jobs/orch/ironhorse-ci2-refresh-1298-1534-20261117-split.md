@@ -1,4 +1,5 @@
 ---
+child-ironhorse-ci2-1534-verify-20261117-host: endolin-garden-ece02cb4
 child-ironhorse-ci2-1298-verify-20261117-host: endolin-garden-ece02cb4
 order: parallel
 children: ironhorse-ci2-1298-verify-20261117 ironhorse-ci2-1534-verify-20261117
