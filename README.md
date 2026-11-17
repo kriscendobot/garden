@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T08:16:43Z_
+_As of 2026-11-17T08:22:18Z_
 
 ## Latest
 
@@ -464,31 +464,31 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-11-13T06:01:28Z, latest 2026-11-17T08:14:05Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-11-13T06:01:28Z, latest 2026-11-17T08:19:06Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1794903966 set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout
 > gh-api GraphQL-only marker: expiry=1794903966 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2825s (since 2026-11-17T07:26:59Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2877s (since 2026-11-17T07:26:07Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2879s (since 2026-11-17T07:26:05Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2879s (since 2026-11-17T07:26:05Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2819s (since 2026-11-17T07:27:05Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2836s (since 2026-11-17T07:26:48Z)
-> watcher ticking but cooldown for 2873s (since 2026-11-17T07:26:11Z); detail: rest latch set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout expiry=1794903966
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2820s (since 2026-11-17T07:27:04Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2816s (since 2026-11-17T07:27:08Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2878s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2879s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 3125s (since 2026-11-17T07:26:59Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 3177s (since 2026-11-17T07:26:07Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 3179s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3179s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3119s (since 2026-11-17T07:27:05Z)
+> - kriscendobot/list: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3136s (since 2026-11-17T07:26:48Z)
+> watcher ticking but cooldown for 3173s (since 2026-11-17T07:26:11Z); detail: rest latch set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout expiry=1794903966
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3120s (since 2026-11-17T07:27:04Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 3116s (since 2026-11-17T07:27:08Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3178s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 3179s (since 2026-11-17T07:26:05Z)
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-4.md)
 
@@ -1093,16 +1093,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $660.73 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 427.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 173.2M | $661.02 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 428.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154116267 tokens/day lower bound._
+_Fleet token-unlock pace: 154116821 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 14 open notice(s); checker healthy
+worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`issue-status-pass-go-live-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-status-pass-go-live-20261117.md) — Go live with the issue status pass (third observation window)
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
@@ -1111,17 +1111,17 @@ worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1591
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`endojs-endo-but-for-bots-pr1299-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1299-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1299
-- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-review-d3f67ace.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`fix-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
 - [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
 
-### doin (7)
+### doin (8)
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
 - [`endojs-endo-but-for-bots-pr1560-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1560
 - [`ironhorse-1298-repin-fuzz-locks-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-1298-repin-fuzz-locks-20261117.md) — Ironhorse #1298: re-pin byte-pinned fuzz locks after the llm merge (F040 re-f...
 - [`ironhorse-ci2-1621-drift-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1621-drift-20261117.md) — Ironhorse CI: #1621 Node 26 and zizmor drift
 - [`endojs-endo-but-for-bots-pr1560-review-a5e99160`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-review-a5e99160.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
+- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-review-d3f67ace.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence.md) — ---
 
 ### tada (17159)
