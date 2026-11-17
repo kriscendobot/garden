@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T10:43:30Z_
+_As of 2026-11-17T10:45:42Z_
 
 ## Latest
 
@@ -456,11 +456,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` has CLEARED (first seen 2026-11-14T06:49:46Z, cleared 2026-11-14T12:44:55Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-14T06:49:46Z, latest 2026-11-17T10:43:35Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_proxy_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.026807s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
@@ -723,6 +723,16 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.015783s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `endojs-endo-but-for-bots-pr1594-gauntlet-r2-halted` — from gauntlet:endojs-endo-but-for-bots-pr1594-gauntlet-r2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1594-gauntlet-r2-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 HALTED: stage 'endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1594-gauntlet-r2 panel --iteration 1 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `doomed-dependabotany-recheck-endo-but-for-bots-20261107-013512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-dependabotany-recheck-endo-but-for-bots-20261107-013512-requeue-exhausted.md)
 
@@ -1206,29 +1216,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 154031297 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 13 open notice(s); checker healthy
+worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`weave-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endojs-endo-but-for-bots-pr1560.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (5)
+### doin (3)
 - [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — ---
-- [`weave-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1560.md) — ---
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1594
 - [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1298-verify-20261117.md) — Ironhorse #1298: finish CI verification after the llm refresh
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 
-### tada (17170)
+### tada (17171)
+- [`endojs-endo-but-for-bots-pr1594-gauntlet-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2.md) — gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 — HALTED
 - [`ironhorse-ci-failures-round2-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci-failures-round2-20261117.md) — orchestration ironhorse-ci-failures-round2-20261117 — complete
 - [`endojs-endo-but-for-bots-pr1669-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1669-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1669-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean.md) — Cost
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-refresh-1298-1534-20261117.md) — Cost
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2-viability.md) — Cost
-- … and 17165 more
+- … and 17166 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1304,6 +1313,7 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
 - [`oros-health-watch-20261108-203533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-203533.md) — _normal_ · ---
 - [`fixer-endojs-endo-but-for-bots-pr1595`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fixer-endojs-endo-but-for-bots-pr1595.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1594
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`improve-suppress-routine-retry-progress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-suppress-routine-retry-progress.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
