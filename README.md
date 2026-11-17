@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T14:24:44Z_
+_As of 2026-11-17T14:27:28Z_
 
 ## Latest
 
@@ -1218,7 +1218,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.4M | $668.31 _(notional, rate-card)_ | 65% of 271.0M (ok) |
+| Claude | 177.4M | $668.38 _(notional, rate-card)_ | 65% of 271.0M (ok) |
 | Codex | 432.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154069680 tokens/day lower bound._
@@ -1227,8 +1227,10 @@ _Fleet token-unlock pace: 154069680 tokens/day lower bound._
 worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (8)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1670
+- [`endojs-endo-but-for-bots-pr1671-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1671-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1671
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`endojs-endo-but-for-bots-pr1672-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1672-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1672
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
@@ -1272,8 +1274,6 @@ worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 - [`endojs-endo-but-for-bots-pr1660-weave-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1660-weave-20261116.md) — _normal_ · Weave endojs/endo-but-for-bots PR #1660 after its base moved
 - [`build-daemon-git-remotes-phase-six-interactive-provisioning-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning-r2.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr228-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr228-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #228
-- [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1670-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1670
-- [`endojs-endo-but-for-bots-pr1671-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1671-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1671
 - [`design-daemon-git-remotes-extended-transports-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports-r2.md) — _normal_ · ---
 - [`ironhorse-ci-1-oracle-fix-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ci-1-oracle-fix-20261116.md) — _normal_ · Ironhorse CI step 1: get the oracle-lane fix #1613 ready
 - [`fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1621-drop-regexp-hunk-20261106.md) — _normal_ · ---
