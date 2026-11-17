@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T21:00:22Z_
+_As of 2026-11-17T21:04:15Z_
 
 ## Latest
 
@@ -599,16 +597,12 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T11:04:30Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> WATCHDOG notice — occurrence #25 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T21:01:40Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 25 times; this is ONE
+> coalesced notice that updates in place, not 25 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: e8f4695b24ab98e9388380a06574c95dc4617581 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e8f4695b24ab98e9388380a06574c95dc4617581). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-rc78
-> The `garden-foreman` service exits 78 and systemd restarts it, over and over. The tail of its log shows the cause:
-> `[post] refusing to post 'build-daemon-git-remotes-phase-six-interactive-provisioning-retry-20261117': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md)... (rc=78)`
-> `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`
->
-> The minion.town pause is deliberate (see the "record the minion.town project pause" commit, a0b0f010fcc). The foreman proposed a step for that project anyway. `post-job.sh` correctly refused with rc=78. The catch-all branch in `scripts/jobs/foreman.sh` (about line 737, `elif [ "$post_rc" -ne 0 ]`) then does `exit "$post_rc"`, which crashes the unit o
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 2b31fa440f2dffa5c5069d94988db6160e651f94 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 2b31fa440f2dffa5c5069d94988db6160e651f94). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-rc78
+> The foreman exits 78 because it proposes a next-milestone step for a paused project, and `post-job.sh` refuses it. Failure signature from the log: `[post] refusing to post 'build-daemon-git-remotes-phase-six-interactive-provisioning-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`, followed by `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`. The `minion-town` pause was recorded by commit a0b0f010fcc. In `scripts/jobs/foreman.sh`, the `elif [ "$post_rc" -ne 0 ]` branch around line 737 treats every non-zero rc other than 75 and the completed-collision rc as fatal and runs `exit "$post_rc"`. That puts the unit in failed state and triggers self-heal on every tick whi
 
 - `doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted.md)
 
@@ -1235,10 +1229,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 185.8M | $699.69 _(notional, rate-card)_ | 69% of 271.0M (ok) |
-| Codex | 433.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
+| Claude | 185.8M | $699.92 _(notional, rate-card)_ | 69% of 271.0M (ok) |
+| Codex | 433.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153795489 tokens/day lower bound._
+_Fleet token-unlock pace: 153807994 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.776989s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 15 open notice(s); checker healthy
