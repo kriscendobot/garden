@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T00:19:58Z_
+_As of 2026-11-17T00:21:35Z_
 
 ## Latest
 
@@ -556,11 +556,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #21 (first seen 2026-11-14T04:34:56Z, latest 2026-11-17T00:16:34Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 21 times; this is
-> ONE entry that updates in place, not 21 messages. Latest detail:
+> COALESCED message — occurrence #22 (first seen 2026-11-14T04:34:56Z, latest 2026-11-17T00:20:55Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 22 times; this is
+> ONE entry that updates in place, not 22 messages. Latest detail:
 >
-> Milestone M3’s next critical step is merging the daemon-agent-tools design re-sweep, [endojs/endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/issues/1497); please decide whether to merge it. PRs #1591 and #1646 are in flight, and #1504 remains blocked on #1646.
+> Milestone M3 is blocked at daemon-agent-tools’ workspace catalog: choose fail-closed collisions (#1593) or qualified names (#1348/#1661), then authorize the corresponding PR path.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
@@ -871,7 +871,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.8M | $656.30 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.8M | $656.51 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 412.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154380925 tokens/day lower bound._
@@ -880,14 +880,14 @@ _Fleet token-unlock pace: 154380925 tokens/day lower bound._
 worst fetch p95 3.397387s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
-- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1646-node-twenty-six-compatibility`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1646-node-twenty-six-compatibility.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1591`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591.md) — ---
 
