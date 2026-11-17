@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T11:56:50Z_
+_As of 2026-11-17T12:05:02Z_
 
 ## Latest
 
@@ -1224,36 +1222,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.7M | $658.79 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 176.3M | $664.45 _(notional, rate-card)_ | 65% of 271.0M (ok) |
 | Codex | 432.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154063478 tokens/day lower bound._
+_Fleet token-unlock pace: 153970328 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
+worst fetch p95 19.920965s/45s (unknown); 15 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
+- [`endojs-endo-but-for-bots-pr1671-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1671-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1671
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
+- [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1670
 - [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-provider-registry-and-oauth.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
 
-### doin (2)
-- [`design-endopi-prompt-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endopi-prompt-templates.md) — ---
-- [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
 
-### tada (17178)
+### tada (17179)
+- [`design-endopi-prompt-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/design-endopi-prompt-templates.md) — Follow-ups
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1670-gauntlet-viability.md) — Cost
 - [`build-endopi-jsonl-transcript-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-endopi-jsonl-transcript-format.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #1591 (gauntlet r2)
 - [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — Cost
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-viability.md) — Cost
-- … and 17173 more
+- … and 17174 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1455,19 +1453,6 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-press-20261113-225326.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr1335-review-a060f580-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1335-review-a060f580-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1335 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1543-review-ed16aaac-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1543-review-ed16aaac-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1543 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1573-review-cc1b8fb6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1573-review-cc1b8fb6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1573 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1574-review-f45dd5bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1574-review-f45dd5bb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1574 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1575-review-938c3acf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1575-review-938c3acf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1575 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1647-review-693a492c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1647-review-693a492c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1647 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1652-review-358defcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1652-review-358defcf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1652 (primary: endojs-endo-but-...
-- [`kriscendobot-minion.town-pr199-review-4460eb00-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-review-4460eb00-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #199 (primary: kriscendobot-mini...
-- [`kriscendobot-minion.town-pr247-review-213830b3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr247-review-213830b3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #247 (primary: kriscendobot-mini...
-- [`kriscendobot-minion.town-pr248-review-edbd57fa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr248-review-edbd57fa-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #248 (primary: kriscendobot-mini...
-- [`endojs-endo-but-for-bots-pr1636-review-fbaddedd-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1636-review-fbaddedd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1636 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1560-review-d3f67ace-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1560 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1560-review-a5e99160-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1560-review-a5e99160-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1560 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
@@ -1503,6 +1488,7 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`migrate-coupons-onto-exo-dynamodb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-coupons-onto-exo-dynamodb.md) — awaiting `build-recursive-dynamodb-capabilities` · ---
 - [`endojs-endo-but-for-bots-pr1658-dependabot-conduct-after-pr1646`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1658-dependabot-conduct-after-pr1646.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1646` · Conduct endojs/endo-but-for-bots PR #1658 (preact 10.29.8 -> 11.1.1) after th...
+- [`build-endopi-prompt-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endopi-prompt-templates.md) — awaiting `endojs-endo-but-for-bots-pr1671-gauntlet` · Build: the design in endojs/endo-but-for-bots#1671
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`weave-endojs-endo-but-for-bots-pr1596-after-pr1659`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1596-after-pr1659.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1659` · Weave endojs/endo-but-for-bots PR #1596 after the zizmor pin-comment fix lands
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
