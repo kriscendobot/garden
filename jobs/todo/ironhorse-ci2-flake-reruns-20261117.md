@@ -17,16 +17,8 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 
 Task: #1364, #1373 and #1278 are red on macOS daemon-teardown and 'Failed to exit' flakes. Rerun the failed legs (up to twice each). If a leg still fails, read the log, say whether it is the known flake (Node 24 undici ClientDestroyedError, @endo/cli component exit-leak, restore-context macOS) or a real defect, and fix a real one.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=4180 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T10:43:49Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-17T12:13:38Z -->
