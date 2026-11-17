@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-17T10:33:40Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-17T10:33:40Z
+---
+
+---
 role: fixer
 tier: mentor
 posted_at: 2026-11-17T10:06:48Z
@@ -20,20 +41,3 @@ Task: confirm with `gh pr checks 1534 -R endojs/endo-but-for-bots` that nothing 
 - test-ironhorse-oracle and ironhorse-oracle-sanitizers: until #1613
 - compare-ironhorse-math: downstream of the oracle lane
 If anything else is red, rerun it once if it's a known flake, otherwise diagnose and fix it. Do not merge. Report the final check state.
-
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-17T10:23:38Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=81,20 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T10:23:57Z
