@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-11-17T04:37:25Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-daemon-rename-to-manager
+pr_number: 1594
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1594
+pr_head: daemon-rename-to-manager
