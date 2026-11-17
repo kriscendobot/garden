@@ -1,8 +1,9 @@
 ---
 posted_at: 2026-11-17T05:46:32Z
 role: shepherd
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -28,13 +29,6 @@ is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=5932 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T05:54:22Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-17T07:53:23Z -->
