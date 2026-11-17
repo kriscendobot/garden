@@ -1,4 +1,5 @@
 ---
+child-ironhorse-ci2-flake-reruns-20261117-host: endolin-garden-ece02cb4
 child-ironhorse-ci2-refresh-1298-1534-20261117-host: endolin-garden-ece02cb4
 child-ironhorse-ci2-1346-1299-20261117-host: endolin-garden-ece02cb4
 child-ironhorse-ci2-1621-drift-20261117-host: endolin-garden-ece02cb4
