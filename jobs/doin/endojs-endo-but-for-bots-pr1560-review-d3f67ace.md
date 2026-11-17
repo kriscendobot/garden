@@ -64,11 +64,11 @@ directive:
 Never state in your report that a peer did work you did not verify.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=154 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T08:03:25Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=154,76 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
