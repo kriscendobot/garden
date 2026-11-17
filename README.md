@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T11:16:38Z_
+_As of 2026-11-17T11:21:02Z_
 
 ## Latest
 
@@ -124,17 +122,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #38 (first seen 2026-11-13T05:48:51Z, latest 2026-11-17T10:53:42Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 38 times; this is ONE
-> coalesced notice that updates in place, not 38 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-17T11:18:35Z).
+> It was observed 38 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.026807s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.028201s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.026206s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.027214s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.032083s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.039281s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -169,9 +161,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #104886 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T10:15:51Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 104886 times; this is ONE
-> coalesced notice that updates in place, not 104886 messages. Latest detail:
+> WATCHDOG notice — occurrence #105591 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T11:18:41Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105591 times; this is ONE
+> coalesced notice that updates in place, not 105591 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -1222,35 +1214,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.2M | $657.03 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.4M | $657.92 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 432.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154033730 tokens/day lower bound._
+_Fleet token-unlock pace: 154051265 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
+worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (6)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`build-endopi-jsonl-transcript-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-jsonl-transcript-format.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-provider-registry-and-oauth.md) — ---
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1591
+- [`build-endopi-jsonl-transcript-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endopi-jsonl-transcript-format.md) — ---
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 - [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
 
-### tada (17176)
+### tada (17177)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #1591 (gauntlet r2)
 - [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-viability.md) — Cost
 - [`ironhorse-ci2-refresh-1298-1534-20261117-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-refresh-1298-1534-20261117-split.md) — orchestration ironhorse-ci2-refresh-1298-1534-20261117-split — complete
 - [`regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2.md) — Cost
-- [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-1298-verify-20261117.md) — Panel-head freshness
-- … and 17171 more
+- … and 17172 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
