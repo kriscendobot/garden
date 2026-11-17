@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T09:05:13Z_
+_As of 2026-11-17T09:06:38Z_
 
 ## Latest
 
@@ -993,26 +993,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
-
-- `doomed-fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence; it stays HELD until a human promotes it
-> (promote-plan.sh fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence) or removes it, so nothing is lost.
-> Original job base: fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence
->
-> --- original job body ---
-> ---
-> posted_at: 2026-11-17T05:31:20Z
-> arc: endo-ocapn-background
-> role: fixer
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> Fix endojs/endo-but-for-bots PR #1591’s panel must-fix by proving the bwrap exit handler sweeps a retained process group when the leader exits while a member survives.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
