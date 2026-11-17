@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T10:39:24Z_
+_As of 2026-11-17T10:42:06Z_
 
 ## Latest
 
@@ -208,6 +208,19 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-flake-reruns-20261117-failed` — from orchestrator:ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-flake-reruns-20261117-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-flake-reruns-20261117-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: ironhorse-ci-failures-round2-20261117
+> orchestration-status: running
+> child: ironhorse-ci2-flake-reruns-20261117
+> failure-kind: handler-timeout
+> order: parallel
+> on-child-failure: continue
+> detail: stalled in flight for 11078s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1)
+>
+> Orchestration ironhorse-ci-failures-round2-20261117 observed child ironhorse-ci2-flake-reruns-20261117: stalled in flight for 11078s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1).
 
 - `endojs-endo-but-for-bots-pr1591-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1591-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1591-gauntlet-halted.md)
 
@@ -478,15 +491,19 @@ Delegation: **active**
 > ---
 > Repo: endojs/endo-but-for-bots @ llm. Build Phase 8 of the daemon agent tools design (find it under designs/ via `grep -ril 'agent tools' designs/`). Maintainer decision on Open Question 4 (kriskowal, liaison muster 2026-11-06): the HTTP client is provided by the `@endo/fetch` plugin, NOT a new daemon `provideHttpClient` formula. Record the resolution in the design's open-questions section and tick the Phase 2c checkbox only if [endojs/endo-but-for-bots#1497](https://github.com/endojs/endo-but-for-bots/issues/1497) has merged (it was open on 2026-11-06; check first). Open a DRAFT PR on an in-repo endojs branch per the usual builder flow.
 
-- `endojs-endo-but-for-bots-pr1669-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1669-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1669-gauntlet-halted.md)
+- `ironhorse-ci-failures-round2-20261117-terminal-complete-with-failures` — from orchestrator:ironhorse-ci-failures-round2-20261117-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-round2-20261117-terminal-complete-with-failures.md)
 
-> Gauntlet endojs-endo-but-for-bots-pr1669-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1669-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
+> orchestration-event: orchestration-terminal
+> orchestration: ironhorse-ci-failures-round2-20261117
+> orchestration-status: complete-with-failures
+> order: parallel
+> children-total: 5
+> children-failed: 3
+> failed-children: ironhorse-ci2-1621-drift-20261117 ironhorse-ci2-1359-20261117 ironhorse-ci2-flake-reruns-20261117
+> recovered-children: ironhorse-ci2-refresh-1298-1534-20261117
 >
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1669-gauntlet panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+> Orchestration ironhorse-ci-failures-round2-20261117 complete WITH FAILURES (parallel): 3/5 failed: ironhorse-ci2-1621-drift-20261117 ironhorse-ci2-1359-20261117 ironhorse-ci2-flake-reruns-20261117
+> Recovered after a transient failure reading (superseded by a clean tada): ironhorse-ci2-refresh-1298-1534-20261117
 
 - `msg-oros-health-watch-20261111-205010-04ba7ec6ee39` — from gardener:oros-health-watch-20261111-205010, reply_to `oros-health-watch-20261111-205010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261111-205010-04ba7ec6ee39.md)
 
@@ -1070,10 +1087,6 @@ Delegation: **active**
 >
 > Orchestration ironhorse-ci-failures-round2-20261117 observed child ironhorse-ci2-1359-20261117: doomed and held in plan.
 
-- `watchdog-handler-budget-overrun-ironhorse-ci2-flake-reruns-20261117` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-ci2-flake-reruns-20261117.md)
-
-> gardener job 'ironhorse-ci2-flake-reruns-20261117' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=10800s, handler-budget=10800s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-11-14T09:14:51Z, latest 2026-11-17T04:43:36Z).
@@ -1209,13 +1222,13 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1298-verify-20261117.md) — Ironhorse #1298: finish CI verification after the llm refresh
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 
-### tada (17169)
+### tada (17170)
+- [`ironhorse-ci-failures-round2-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci-failures-round2-20261117.md) — orchestration ironhorse-ci-failures-round2-20261117 — complete
 - [`endojs-endo-but-for-bots-pr1669-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1669-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1669-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean.md) — Cost
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-refresh-1298-1534-20261117.md) — Cost
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1669-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1669-gauntlet-clean.md) — Cost
-- … and 17164 more
+- … and 17165 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
