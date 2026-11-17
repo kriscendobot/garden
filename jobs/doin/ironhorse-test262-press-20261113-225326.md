@@ -32,6 +32,7 @@ updates https://github.com/kriscendobot/garden/issues/51 after a confirmed merge
 No omnibus PR, no next crank before the previous PR merges, no queued auto-merge.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=419 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
