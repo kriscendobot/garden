@@ -2,8 +2,9 @@
 posted_at: 2026-11-17T07:34:30Z
 role: conductor
 handler-budget-role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -25,13 +26,6 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1560#pullrequestrevie
 Source review-directive job: endojs-endo-but-for-bots-pr1560-review-a5e99160
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=186 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T08:28:25Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-17T08:44:03Z -->
