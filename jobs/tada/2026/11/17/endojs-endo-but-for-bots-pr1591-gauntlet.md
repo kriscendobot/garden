@@ -1,20 +1,31 @@
 ---
-handed-off: endojs-endo-but-for-bots-pr1591-gauntlet-panel-1
-deliverable-complete: false
+pr: https://github.com/endojs/endo-but-for-bots/pull/1591
+repo: endojs/endo-but-for-bots
+pr_number: 1591
+build_job: 
+kind: feature
+stage: panel
+iteration: 1
+max_iterations: 6
+resumes: 0
+max_resumes: 6
+stage_retries: 2
+max_stage_retries: 2
+created_by: design-pr-gauntlet-coverage-audit
+created_at: 2026-10-31T14:07:26Z
+arc: 
+stage_requires: 
+current_child: endojs-endo-but-for-bots-pr1591-gauntlet-panel-1
+state: halted
+orchestration-status: halted
+gauntlet-status: halted
+halted_at: 2026-11-17T01:14:02Z
 ---
-Resumed the halted gauntlet for endojs/endo-but-for-bots PR #1591 at panel round 1. The durable stage child `endojs-endo-but-for-bots-pr1591-gauntlet-panel-1` is claimed and executing; the gauntlet record is running.
+# gauntlet endojs-endo-but-for-bots-pr1591-gauntlet — HALTED
 
-No source changes were required. The current draft PR head `59f6b2487541` was observed clean with all executed checks successful before the panel stage was claimed.
+stage 'endojs-endo-but-for-bots-pr1591-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
 
-Self-improvement: nothing this time.
-<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1591-gauntlet.jsonl; not agent-authored — do not edit -->
+## Unaddressed must-fix
 
-## Cost
-- Engagements: 2 on 1 host(s) (1 unmetered)
-- Input: 28 tokens (914064 cached reads)
-- Output: 5510 tokens
-- Cost: $0.8475568 (1 engagement(s) unpriced)
-- Wall-clock: 924s
-- Model(s): claude-opus-5-5 ×1
-
-<!-- garden-usage-end -->
+Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
+Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
