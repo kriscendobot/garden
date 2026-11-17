@@ -33,6 +33,7 @@ commits ahead, at 2026-11-16T06:02:01Z.
 Trigger: https://github.com/kriscendobot/garden/issues/128
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=370 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
