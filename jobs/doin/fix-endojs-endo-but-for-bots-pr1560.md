@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Fix endojs/endo-but-for-bots PR #1560’s current panel must-fix findings, then verify the durable child-agent coordinator remains CI-ready.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
