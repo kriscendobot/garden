@@ -1,12 +1,10 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1671-gauntlet
-priority: normal
 role: builder
+tier: mentor
 arc: unallocated
-posted_by: design-build-handoff
 posted_at: 2026-11-17T12:01:23Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-11-17T19:07:35Z cleared=none -->
 
 ---
 role: builder
