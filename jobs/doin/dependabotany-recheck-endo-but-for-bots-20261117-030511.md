@@ -39,6 +39,7 @@ Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-b
 <!-- garden-plain-retry-not-before: 2026-11-17T04:23:08Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=33,49 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
