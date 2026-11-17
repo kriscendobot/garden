@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Fix endojs/endo-but-for-bots PR #1594’s current zizmor and test-xs failures to unblock the M3 daemon-to-manager rename.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
