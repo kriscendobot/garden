@@ -30,6 +30,7 @@ Source review-directive job: endojs-endo-but-for-bots-pr1560-review-a5e99160
 <!-- garden-plain-retry-not-before: 2026-11-17T08:44:03Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=186,58 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
