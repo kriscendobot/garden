@@ -33,3 +33,13 @@ A real PR-attributable red should be diagnosed and fixed with local CI-equivalen
 
 Push only to the kriscendobot head and do not merge. Report the final check state.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-17T10:09:06Z
