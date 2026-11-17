@@ -18,6 +18,8 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 Task: #1298 and #1534 carry old bwrap dash/ulimit and parent-death reds already fixed on llm. Refresh each onto current llm (a plain rebase of the head; keep the PR base as it is unless the PR cannot go green otherwise, and say so), resolve conflicts, then re-check. Also diagnose the undiagnosed build red on #1534 and fix it.
 
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
