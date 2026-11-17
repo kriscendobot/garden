@@ -20,6 +20,7 @@ Task: #1621 is red on test-xs (Node 26 ThrowTypeError intrinsic-metadata baselin
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=34 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
