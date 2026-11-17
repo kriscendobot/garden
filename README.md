@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T17:37:09Z_
+_As of 2026-11-17T17:39:49Z_
 
 ## Latest
 
@@ -167,9 +165,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #105788 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T16:34:41Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 105788 times; this is ONE
-> coalesced notice that updates in place, not 105788 messages. Latest detail:
+> WATCHDOG notice — occurrence #105810 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T17:38:02Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105810 times; this is ONE
+> coalesced notice that updates in place, not 105810 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
