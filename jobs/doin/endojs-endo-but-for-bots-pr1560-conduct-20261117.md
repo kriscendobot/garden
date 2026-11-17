@@ -25,11 +25,11 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1560
 Approval: https://github.com/endojs/endo-but-for-bots/pull/1560#pullrequestreview-5933438899
 Source review-directive job: endojs-endo-but-for-bots-pr1560-review-a5e99160
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=186 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T08:44:03Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=186,58 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
