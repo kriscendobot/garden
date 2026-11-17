@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T07:38:27Z_
+_As of 2026-11-17T07:41:15Z_
 
 ## Latest
 
@@ -1041,9 +1041,8 @@ _Fleet token-unlock pace: 154115908 tokens/day lower bound._
 worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
-- [`issue-status-pass-go-live-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-status-pass-go-live-20261117.md) — Go live with the issue status pass (third observation window)
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`ironhorse-1298-repin-fuzz-locks-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-1298-repin-fuzz-locks-20261117.md) — Ironhorse #1298: re-pin byte-pinned fuzz locks after the llm merge (F040 re-f...
@@ -1054,8 +1053,9 @@ worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
 - [`fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence.md) — ---
 
-### doin (8)
+### doin (9)
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
+- [`issue-status-pass-go-live-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-status-pass-go-live-20261117.md) — Go live with the issue status pass (third observation window)
 - [`ironhorse-ci2-1359-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1359-20261117.md) — Ironhorse CI: #1359 cover, zizmor, test-xs
 - [`endojs-endo-but-for-bots-pr1560-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1560
 - [`ironhorse-ci2-1621-drift-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1621-drift-20261117.md) — Ironhorse CI: #1621 Node 26 and zizmor drift
