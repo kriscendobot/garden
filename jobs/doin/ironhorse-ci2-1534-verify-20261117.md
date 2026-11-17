@@ -21,3 +21,13 @@ Task: confirm with `gh pr checks 1534 -R endojs/endo-but-for-bots` that nothing 
 - compare-ironhorse-math: downstream of the oracle lane
 If anything else is red, rerun it once if it's a known flake, otherwise diagnose and fix it. Do not merge. Report the final check state.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-17T10:08:48Z
