@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T14:28:50Z_
+_As of 2026-11-17T14:31:44Z_
 
 ## Latest
 
@@ -161,9 +161,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #105654 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T13:27:37Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 105654 times; this is ONE
-> coalesced notice that updates in place, not 105654 messages. Latest detail:
+> WATCHDOG notice — occurrence #105728 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T14:30:52Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105728 times; this is ONE
+> coalesced notice that updates in place, not 105728 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -1218,7 +1218,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.4M | $668.38 _(notional, rate-card)_ | 65% of 271.0M (ok) |
+| Claude | 177.4M | $668.45 _(notional, rate-card)_ | 65% of 271.0M (ok) |
 | Codex | 432.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154069680 tokens/day lower bound._
