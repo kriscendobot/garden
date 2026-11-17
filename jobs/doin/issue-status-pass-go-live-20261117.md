@@ -38,6 +38,7 @@ Trigger: https://github.com/kriscendobot/garden/issues/128
 <!-- garden-plain-retry-not-before: 2026-11-17T08:03:25Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=370,43 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
