@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T04:30:53Z_
+_As of 2026-11-17T04:39:51Z_
 
 ## Latest
 
@@ -360,6 +358,50 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=76109214 cap=271000000 pace-bias=0 window-start=2026-11-14T04:00Z(calendar) deadline=2026-11-21T04:00Z(calendar) ceiling=4 backoff=0.5575(ramp) target=2
+
+- `doomed-dependabotany-recheck-endo-but-for-bots-20261117-030511-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-dependabotany-recheck-endo-but-for-bots-20261117-030511-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/dependabotany-recheck-endo-but-for-bots-20261117-030511; it stays HELD until a human promotes it
+> (promote-plan.sh dependabotany-recheck-endo-but-for-bots-20261117-030511) or removes it, so nothing is lost.
+> Original job base: dependabotany-recheck-endo-but-for-bots-20261117-030511
+>
+> --- original job body ---
+> ---
+> handler-timeout: 7200
+> ---
+>
+> Dependabotany active-row snapshot (v2):
+>
+> - Journal HEAD: `f1a33a5584adb886f3090c0caa45effa55508f8d`
+> - Project: `endo-but-for-bots`
+> - Repository: `endojs/endo-but-for-bots`
+> - Rows: 6
+>
+> This normalized snapshot is authoritative only when your synced journal HEAD
+> is exactly the commit above. If it matches, consume these rows directly and do
+> not reconstruct the unindexed prose ledger. If the snapshot is unavailable,
+> malformed, or HEAD has changed, fail open to the role's case-insensitive full scan.
+>
+> ```tsv
+> disposition	pr	source
+> MERGE-NOW	1655	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+> MERGE-NOW	1657	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+> MERGE-NOW	1658	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+> MERGE-NOW	1663	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+> MERGE-NOW	1664	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+> MERGE-NOW	1665	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+> ```
+>
+> ---
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-bots dependabotany ledger whose maturity date has arrived or whose recorded blocker has cleared. Recover the ledger with: grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'. Execute the now-due verdict for each PR: MERGE-NOW through ci-wait-merge.sh --dependabot-auto-merge, REJECT closes, EMBARGO re-defers. Current row: #1629 (setup-python 7.1.0) is held on [endojs/endo-but-for-bots#1613](https://github.com/endojs/endo-but-for-bots/issues/1613) and #1646.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
@@ -962,31 +1004,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.2M | $653.45 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 420.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Claude | 172.4M | $654.55 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 420.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154396479 tokens/day lower bound._
+_Fleet token-unlock pace: 154289626 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — ---
+### doin (2)
+- [`build-daemon-rename-to-manager`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1591-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591-20261117.md) — ---
 
-### tada (17152)
+### tada (17154)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-viability.md) — Cost
 - [`regauntlet-endojs-endo-but-for-bots-pr1591`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/regauntlet-endojs-endo-but-for-bots-pr1591.md) — Cost
 - [`build-daemon-agent-tools-phase-8-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-daemon-agent-tools-phase-8-fetch-plugin.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/shepherd-endojs-endo-but-for-bots-pr1347-20261117.md) — Cost
-- [`weave-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/weave-endojs-endo-but-for-bots-pr1347-20261117.md) — Cost
-- [`shepherd-endojs-endo-but-for-bots-pr1592-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/shepherd-endojs-endo-but-for-bots-pr1592-20261117.md) — Cost
-- … and 17147 more
+- … and 17149 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1085,6 +1129,7 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-watch-20261107-105011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261107-105011.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-gardener-handler-rc76-collision-expanded-window.md) — _normal_ · Land the gardener fix for spooled review-docket notices failing finished jobs
+- [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — _normal_ · ---
 - [`minion-town-arc-press-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-165012.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`ironhorse-xs10-proxy-callable-flags`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-xs10-proxy-callable-flags.md) — _normal_ · IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #...
 - [`improve-transient-retry-correlation-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-transient-retry-correlation-r2.md) — _normal_ · ---
