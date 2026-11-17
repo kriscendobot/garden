@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T04:55:05Z_
+_As of 2026-11-17T05:07:33Z_
 
 ## Latest
 
@@ -526,15 +524,14 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T03:41:50Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> WATCHDOG notice — occurrence #22 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T05:02:24Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 22 times; this is ONE
+> coalesced notice that updates in place, not 22 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: c76d63c93511b5058dc8715a7a594b49b6aae351 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p c76d63c93511b5058dc8715a7a594b49b6aae351). Diagnosis: The foreman exited 78 because it treated a deliberate refusal as a crash. It is a scoped code fix, not a transient failure.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: a1eba59099f49dbefa96e5cd3f7e7d0f05af417c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p a1eba59099f49dbefa96e5cd3f7e7d0f05af417c). Diagnosis: The foreman exited 78 because `post-job.sh` refused to post a job for a deliberately paused project, and the foreman treats any nonzero return code as fatal. I found no code defect in the pause itself.
 >
-> `post-job.sh` refused to post `weave-endojs-endo-but-for-bots-pr1542` with rc=78 (`EX_CONFIG`). The journal pause record `pauses/minion-town.md` pauses project `minion-town`, and the refusal says the job belongs to it. The generic `post_rc -ne 0` branch in `scripts/jobs/foreman.sh` (about line 737) then logged `ERROR: post-job failed ... (rc=78)` and ran `exit 78`. systemd marks that as a failed unit, which triggers self-heal. The unit will keep failing each tick for as long as the foreman proposes a paused-project step.
->
-> Two things are worth a look from the maintainer. The foreman's proposal was an endo PR weave attributed to the paused `minion-town` project, so the
+> - **What failed:** At 05:02:05 the foreman proposed the next milestone step `fix-endojs-endo-but-for-bots-pr1595`. `post-job.sh` refused it because it "belongs to PAUSED project 'minion-town'" (pause record `pauses/minion-town.md`, rc=78).
+> - **Why it exits:** At `scripts/jobs/foreman.sh` around line 737, every nonzero return code other than the completed-collision and tempfail codes goes to the generic `ERROR: post-job failed` branch, which runs `exit "$post_rc"`. A pause refusal is expected, not a broken tick, so the foreman crash-loops under systemd for as long as it keeps proposing pause
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -1006,10 +1003,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.4M | $654.08 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 422.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 172.5M | $657.28 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 423.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154294188 tokens/day lower bound._
+_Fleet token-unlock pace: 154299743 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
@@ -1021,9 +1018,10 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (2)
+### doin (3)
 - [`fix-endojs-endo-but-for-bots-pr1591-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591-20261117.md) — ---
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
+- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-review-d3f67ace.md) — Review directive on endojs/endo-but-for-bots PR #1560
 
 ### tada (17154)
 - [`build-daemon-rename-to-manager`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-daemon-rename-to-manager.md) — Panel-head freshness
@@ -1229,6 +1227,7 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`kriscendobot-minion.town-pr247-review-213830b3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr247-review-213830b3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #247 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr248-review-edbd57fa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr248-review-edbd57fa-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #248 (primary: kriscendobot-mini...
 - [`endojs-endo-but-for-bots-pr1636-review-fbaddedd-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1636-review-fbaddedd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1636 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1560-review-d3f67ace-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1560 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
