@@ -22,6 +22,7 @@ Task: recover each lock's program (or regexp case) as the PRE-merge generator fo
 <!-- garden-plain-retry-not-before: 2026-11-17T08:44:03Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=40,38 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
