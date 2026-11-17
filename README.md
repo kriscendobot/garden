@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T05:29:21Z_
+_As of 2026-11-17T05:34:06Z_
 
 ## Latest
 
@@ -1005,21 +1003,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.8M | $654.41 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 424.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 172.9M | $654.94 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 424.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154303994 tokens/day lower bound._
+_Fleet token-unlock pace: 154311039 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1560-review-a5e99160`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-review-a5e99160.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
+- [`fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence.md) — ---
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1591
@@ -1231,6 +1231,7 @@ worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`kriscendobot-minion.town-pr248-review-edbd57fa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr248-review-edbd57fa-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #248 (primary: kriscendobot-mini...
 - [`endojs-endo-but-for-bots-pr1636-review-fbaddedd-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1636-review-fbaddedd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1636 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1560-review-d3f67ace-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1560-review-d3f67ace-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1560 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1560-review-a5e99160-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1560-review-a5e99160-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1560 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
