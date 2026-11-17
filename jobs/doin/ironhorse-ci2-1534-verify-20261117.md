@@ -22,6 +22,7 @@ Task: confirm with `gh pr checks 1534 -R endojs/endo-but-for-bots` that nothing 
 If anything else is red, rerun it once if it's a known flake, otherwise diagnose and fix it. Do not merge. Report the final check state.
 
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=81 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
