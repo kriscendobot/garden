@@ -15,6 +15,7 @@ Fix endojs/endo-but-for-bots PR #1591’s containment findings: replace reaped-P
 <!-- garden-plain-retry-not-before: 2026-11-17T04:53:09Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
