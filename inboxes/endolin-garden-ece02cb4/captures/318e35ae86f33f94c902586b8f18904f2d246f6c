@@ -1,0 +1,26 @@
+elapsed-constancy exit0-wedge-suspect: ironhorse-1298-repin-fuzz-locks-20261117
+
+gardener-2 on endolin-garden-ece02cb4: job ironhorse-1298-repin-fuzz-locks-20261117 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 40,38s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>08:44:32 [cleric/2] resuming codex session 01a1e87c-6ab3-7d22-8e20-fb5ccf9d1161 for job 'ironhorse-1298-repin-fuzz-locks-20261117' that STOPPED without completing; continue framing
+<6>08:44:32 [cleric/2] job 'ironhorse-1298-repin-fuzz-locks-20261117' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>08:44:33 [cleric/2] job 'ironhorse-1298-repin-fuzz-locks-20261117' attaching minion.town MCP (stdio bridge as minion-town)
+<6>08:44:58 [cleric/2] job 'ironhorse-1298-repin-fuzz-locks-20261117' ended its turn without the completion signal; nudging codex session 01a1e87c-6ab3-7d22-8e20-fb5ccf9d1161 to verify and complete (nudge 1/1)
+<6>08:45:10 [cleric/2] codex completion nudge for 'ironhorse-1298-repin-fuzz-locks-20261117' failed (rc=0); restoring first report and taking the ordinary requeue
+codex completion nudge failed (rc=0); first report restored.
+{"type":"thread.started","thread_id":"01a1e87c-6ab3-7d22-8e20-fb5ccf9d1161"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Implemented and pushed `f71bf5412f` for PR #1298. The commit is contained in current head `34bb071b2d`; base remains `llm-387ea66`.\n\nRecovered and pinned all 51 affected pre-F040 fuzz locks. Local reproduction and CI-equivalent parity suites passed. Oracle lanes were intentionally left unchanged pending #1613.\n\nSelf-improvement: nothing this time.\n<<<GARDEN-JOB-COMPLETE>>>"}}
+{"type":"turn.completed","usage":{"input_tokens":15543482,"cached_input_tokens":14878720,"cache_write_input_tokens":0,"output_tokens":24669,"reasoning_output_tokens":5291}}
