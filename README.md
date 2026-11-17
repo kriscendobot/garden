@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T12:05:02Z_
+_As of 2026-11-17T12:15:05Z_
 
 ## Latest
 
@@ -124,27 +122,19 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #41 (first seen 2026-11-13T05:48:51Z, latest 2026-11-17T11:53:31Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 41 times; this is ONE
-> coalesced notice that updates in place, not 41 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-13T05:48:51Z, cleared 2026-11-17T12:08:40Z).
+> It was observed 41 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 8 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 8 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.027302s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.029943s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.026807s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.026223s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.026026s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.027214s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.032083s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.039281s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #14 (first seen 2026-09-09T20:50:15Z, latest 2026-11-17T04:20:21Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 14 times; this is ONE
-> coalesced notice that updates in place, not 14 messages. Latest detail:
+> WATCHDOG notice — occurrence #15 (first seen 2026-09-09T20:50:15Z, latest 2026-11-17T12:05:22Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=0 queue=2 quota=ok fleet-envelope=4 target=2
+> budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 1): shared codex subscription demand active=0 queue=4 quota=backoff fleet-envelope=4 target=1
 
 - `ironhorse-ci-failures-20261116-terminal-complete-with-failures` — from orchestrator:ironhorse-ci-failures-20261116-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-20261116-terminal-complete-with-failures.md)
 
@@ -1224,7 +1214,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 176.3M | $664.45 _(notional, rate-card)_ | 65% of 271.0M (ok) |
+| Claude | 176.6M | $664.44 _(notional, rate-card)_ | 65% of 271.0M (ok) |
 | Codex | 432.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153970328 tokens/day lower bound._
@@ -1233,27 +1223,26 @@ _Fleet token-unlock pace: 153970328 tokens/day lower bound._
 worst fetch p95 19.920965s/45s (unknown); 15 open notice(s); checker healthy
 
 ## Board
-### todo (9)
-- [`endojs-endo-but-for-bots-pr1671-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1671-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1671
+### todo (8)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1591
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`endojs-endo-but-for-bots-pr1671-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1671-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1671
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1670
-- [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-provider-registry-and-oauth.md) — ---
-- [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
+- [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-press-20261113-225326.md) — ---
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1591
+- [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 
-### tada (17179)
-- [`design-endopi-prompt-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/design-endopi-prompt-templates.md) — Follow-ups
-- [`endojs-endo-but-for-bots-pr1670-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1670-gauntlet-viability.md) — Cost
-- [`build-endopi-jsonl-transcript-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-endopi-jsonl-transcript-format.md) — Cost
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #1591 (gauntlet r2)
-- [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — Cost
-- … and 17174 more
+### tada (17183)
+- [`endojs-endo-but-for-bots-pr1671-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-clean.md) — Cost
+- [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-endopi-provider-registry-and-oauth.md) — Cost
+- [`endojs-endo-but-for-bots-pr1671-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-viability.md) — Cost
+- [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — Completion report — shepherd endojs/endo-but-for-bots PR #1560
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-1.md) — Cost
+- … and 17178 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1454,7 +1443,7 @@ worst fetch p95 19.920965s/45s (unknown); 15 open notice(s); checker healthy
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-press-20261113-225326.md) — _normal_ · ---
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
