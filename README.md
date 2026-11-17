@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T01:14:16Z_
+_As of 2026-11-17T01:15:41Z_
 
 ## Latest
 
@@ -207,6 +207,10 @@ Delegation: **active**
 
 - `endojs-endo-but-for-bots-pr1591-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1591-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1591-gauntlet-halted.md)
 
+> COALESCED message — occurrence #2 (first seen 2026-11-16T23:35:20Z, latest 2026-11-17T01:14:27Z).
+> The SAME message (episode key `endojs-endo-but-for-bots-pr1591-gauntlet-halted`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
 > Gauntlet endojs-endo-but-for-bots-pr1591-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1591-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
 >
 > Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
@@ -898,7 +902,7 @@ worst fetch p95 3.397387s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`shepherd-endojs-endo-but-for-bots-pr1594-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1594-20261117.md) — ---
 
 ### tada (17146)
-- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet.md) — Cost
+- [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1591-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-viability.md) — Cost
 - [`ironhorse-ci-failures-20261116`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/ironhorse-ci-failures-20261116.md) — orchestration ironhorse-ci-failures-20261116 — complete
