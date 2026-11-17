@@ -8,15 +8,4 @@ dispatch: automatic
 ---
 Fix endojs/endo-but-for-bots PR #1542's remaining must-fix: establish a safe parent-death primitive for bwrap init cleanup, or document and test why the existing mechanism is necessary.
 
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=6022 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T09:14:29Z
+<!-- garden-reaped: 0 -->
