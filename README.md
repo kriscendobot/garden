@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T17:26:01Z_
+_As of 2026-11-17T17:27:29Z_
 
 ## Latest
 
@@ -1222,7 +1222,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 178.4M | $669.42 _(notional, rate-card)_ | 66% of 271.0M (ok) |
+| Claude | 178.4M | $669.47 _(notional, rate-card)_ | 66% of 271.0M (ok) |
 | Codex | 432.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154012155 tokens/day lower bound._
@@ -1231,13 +1231,14 @@ _Fleet token-unlock pace: 154012155 tokens/day lower bound._
 worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1673-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1673
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1591
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
+- [`endojs-endo-but-for-bots-pr1672-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1672-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1672
 - [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-press-20261113-225326.md) — ---
 
 ### doin (2)
@@ -1407,7 +1408,6 @@ worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 - [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-immutable-arraybuffer.md) — _normal_ · IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
 - [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-application-makers-p2-20261002.md) — _normal_ · Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
 - [`improve-claude-completion-finalizer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-claude-completion-finalizer.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr1672-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1672-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1672
 - [`improve-gh-api-admission-fail-closed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-gh-api-admission-fail-closed.md) — _normal_ · ---
 - [`improve-issue-status-source-trust-filter-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-issue-status-source-trust-filter-r2.md) — _normal_ · ---
 - [`claude-on-minion-town-completion-press-20261105-195009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261105-195009.md) — _normal_ · Completion press: Claude-on-minion.town arc
