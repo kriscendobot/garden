@@ -33,6 +33,7 @@ upstream agoric/agoric-sdk.
 <!-- garden-plain-retry-not-before: 2026-11-17T07:53:23Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=5932,33 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
