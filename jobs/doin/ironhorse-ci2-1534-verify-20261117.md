@@ -23,6 +23,7 @@ If anything else is red, rerun it once if it's a known flake, otherwise diagnose
 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=81 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
