@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T19:04:44Z_
+_As of 2026-11-17T19:05:47Z_
 
 ## Latest
 
@@ -1248,13 +1248,13 @@ worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1672-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1672-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1672
 
-### tada (17210)
+### tada (17211)
+- [`endojs-endo-but-for-bots-pr1671-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1671-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2.md) — gauntlet endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2 — complete
 - [`endojs-endo-but-for-bots-pr1671-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-undraft.md) — Completion report: endojs/endo-but-for-bots#1591 un-draft (gauntlet r2, itera...
 - [`endojs-endo-but-for-bots-pr1671-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-panel-4.md) — Cost
-- [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1670-gauntlet-panel-2.md) — Cost
-- … and 17205 more
+- … and 17206 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
