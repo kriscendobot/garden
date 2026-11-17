@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-ci2-refresh-1298-1534-20261117-split
-priority: normal
-posted_by: orchestrator
+role: fixer
+tier: mentor
 posted_at: 2026-11-17T10:06:48Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-17T10:07:37Z cleared=none -->
 
 ---
 role: fixer
