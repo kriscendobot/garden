@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T10:45:42Z_
+_As of 2026-11-17T10:49:22Z_
 
 ## Latest
 
@@ -724,16 +724,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.015783s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `endojs-endo-but-for-bots-pr1594-gauntlet-r2-halted` — from gauntlet:endojs-endo-but-for-bots-pr1594-gauntlet-r2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1594-gauntlet-r2-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 HALTED: stage 'endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1594-gauntlet-r2 panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `doomed-dependabotany-recheck-endo-but-for-bots-20261107-013512-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-dependabotany-recheck-endo-but-for-bots-20261107-013512-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1210,10 +1200,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.7M | $655.39 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 431.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 173.7M | $655.43 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 431.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154031297 tokens/day lower bound._
+_Fleet token-unlock pace: 154031352 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 14 open notice(s); checker healthy
@@ -1226,10 +1216,11 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (3)
+### doin (4)
 - [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — ---
 - [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1298-verify-20261117.md) — Ironhorse #1298: finish CI verification after the llm refresh
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
+- [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
 
 ### tada (17171)
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2.md) — gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 — HALTED
