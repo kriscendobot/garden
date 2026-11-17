@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1594-gauntlet-r2-viability
+state: running
 created_by: gardener
 created_at: 2026-11-17T10:01:13Z
 ---
