@@ -18,6 +18,7 @@ Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-1
 Task: #1621 is red on test-xs (Node 26 ThrowTypeError intrinsic-metadata baseline drift) and zizmor (create-pull-request v8 pin-comment drift), beyond the oracle lanes. Cherry-pick d7af7dc927 and cc8c641deb onto the #1621 head, exactly as was done on #1614 (commit 613eedb3ed). Verify test-xs and zizmor go green.
 
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
