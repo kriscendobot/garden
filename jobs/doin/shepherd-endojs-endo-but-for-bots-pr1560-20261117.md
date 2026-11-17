@@ -9,6 +9,7 @@ dispatch: automatic
 Shepherd endojs/endo-but-for-bots PR #1560, the M3 child-agent coordinator, by diagnosing and resolving its current sandbox-drivers CI failure after the fresh weave.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=3634 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
