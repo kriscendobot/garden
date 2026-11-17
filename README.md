@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T11:34:22Z_
+_As of 2026-11-17T11:39:28Z_
 
 ## Latest
 
@@ -1222,7 +1220,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.5M | $660.57 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.5M | $660.92 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 432.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154063338 tokens/day lower bound._
@@ -1231,8 +1229,9 @@ _Fleet token-unlock pace: 154063338 tokens/day lower bound._
 worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`endojs-endo-but-for-bots-pr1670-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1670
 - [`design-endopi-prompt-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endopi-prompt-templates.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
