@@ -23,13 +23,6 @@ If anything else is red, rerun it once if it's a known flake, otherwise diagnose
 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=81 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T10:08:48Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-17T10:23:38Z -->
