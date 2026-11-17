@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T09:54:17Z_
+_As of 2026-11-17T10:00:17Z_
 
 ## Latest
 
@@ -98,6 +98,10 @@ Delegation: **active**
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `watchdog-handler-budget-overrun-ironhorse-ci2-refresh-1298-1534-20261117` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-ci2-refresh-1298-1534-20261117.md)
+
+> gardener job 'ironhorse-ci2-refresh-1298-1534-20261117' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=10804s, handler-budget=10800s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
@@ -658,6 +662,10 @@ Delegation: **active**
 >
 > Question: do you want to (a) revive oros, or (b) authorize deploying the leader to main2 past the dead canary (deploy-garden.sh on the leader, or the deploy-on-upgrade override)? I will re-arm the parked minion.town jobs as soon as the leader runs 3c7f9ce or later.
 
+- `endojs-endo-but-for-bots-pr1299-gauntlet-not-viable` — from gauntlet:endojs-endo-but-for-bots-pr1299-gauntlet-not-viable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1299-gauntlet-not-viable.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1299-gauntlet REFUSED by its pre-spend viability gate: the premise was overtaken. Deciding question: Does current `llm` still leave `%AsyncIteratorPrototype%[Symbol.asyncIterator]` without its `[Symbol.asyncIterator]` name, with the IronHorse `AsyncIteratorPrototype/intrinsic-metadata.js` scenario still failing? If not, the PR has been superseded and its premise no longer holds. The answer is no. Option: close as superseded.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-14T00:43:02Z, cleared 2026-11-16T06:41:36Z).
@@ -934,6 +942,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_fleet_health_journal` cleared on oros-studio-garden-ce242c49.
 
+- `ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-refresh-1298-1534-20261117-failed` — from orchestrator:ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-refresh-1298-1534-20261117-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-refresh-1298-1534-20261117-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: ironhorse-ci-failures-round2-20261117
+> orchestration-status: running
+> child: ironhorse-ci2-refresh-1298-1534-20261117
+> failure-kind: handler-timeout
+> order: parallel
+> on-child-failure: continue
+> detail: stalled in flight for 10854s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1)
+>
+> Orchestration ironhorse-ci-failures-round2-20261117 observed child ironhorse-ci2-refresh-1298-1534-20261117: stalled in flight for 10854s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1).
+
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-12T22:23:42Z, cleared 2026-11-13T04:18:42Z).
@@ -1156,36 +1177,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.3M | $663.46 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.5M | $664.13 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 430.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154119500 tokens/day lower bound._
+_Fleet token-unlock pace: 154016326 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (5)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`regauntlet-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/regauntlet-endojs-endo-but-for-bots-pr1594.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1669-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1669
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
-- [`endojs-endo-but-for-bots-pr1299-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1299-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1299
-- [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
 
-### doin (3)
+### doin (4)
 - [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — ---
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
+- [`regauntlet-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/regauntlet-endojs-endo-but-for-bots-pr1594.md) — ---
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
 
-### tada (17160)
+### tada (17163)
+- [`endojs-endo-but-for-bots-pr1299-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1299-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1299-gauntlet - not viable
+- [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1299-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1299-gauntlet-viability.md) — Viability gate for endojs/endo-but-for-bots#1299: overtaken
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117.md) — gauntlet endojs-endo-but-for-bots-pr1591-gauntlet-20261117 — HALTED
 - [`ironhorse-ci2-1346-1299-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-1346-1299-20261117.md) — Completion report: ironhorse-ci2-1346-1299-20261117
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-fix-1.md) — Cost
-- [`design-endopi-jsonl-transcript-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/design-endopi-jsonl-transcript-format.md) — Completion report: design-endopi-jsonl-transcript-format
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-1.md) — Cost
-- … and 17155 more
+- … and 17158 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
