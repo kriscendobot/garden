@@ -1,0 +1,34 @@
+from_host: endolin-garden-ece02cb4
+from: reaper:endolin-garden-ece02cb4
+sent_at: 2026-11-17T07:44:18Z
+doom_base: ironhorse-ci2-1359-20261117
+doom_signature: requeue-exhausted
+notice_count: 1
+first_seen: 2026-11-17T07:44:18Z
+last_seen: 2026-11-17T07:44:18Z
+---
+SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+The work is preserved at jobs/plan/ironhorse-ci2-1359-20261117; it stays HELD until a human promotes it
+(promote-plan.sh ironhorse-ci2-1359-20261117) or removes it, so nothing is lost.
+Original job base: ironhorse-ci2-1359-20261117
+
+--- original job body ---
+---
+role: fixer
+tier: mentor
+posted_at: 2026-11-17T05:31:59Z
+---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-17T05:34:38Z cleared=none -->
+
+---
+role: fixer
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+# Ironhorse CI: #1359 cover, zizmor, test-xs
+
+Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-11-16/17): clear the remaining CI reds on kriscendobot ironhorse PRs, per the report in the completed job ironhorse-ci-4-remaining-20261116 (journal tada/2026/11/16). The first attempt at this work exited plainly twice without a report, so: work in small steps, push as you go, and write a report (per PR: before/after check state, cause, commit pushed) even if you finish only part. Run CI-equivalent checks locally before pushing. Push only to kriscendobot-authored heads. Do not merge; nothing merges until the ratchet improves the base. The two oracle lanes (test-ironhorse-oracle, ironhorse-oracle-sanitizers: stage3-math 054/055, ubuntu-26.04 glibc) stay red until #1613 reaches the base; leave them alone. Do not weave unless the task below says so.
+
+Task: #1359 is red on cover 22.x/24.x (bwrap timeout flake: port the #1566 fix), zizmor (pin-comment drift), and test-xs (RegExpPrototype intrinsic-metadata on the ironhorse lanes, possibly a real baseline shift from this PR's RegExp accessor change). Decide which, fix the first two, and for test-xs update the baseline only if the shift is genuinely this PR's intended change; otherwise say what it is. Mind that the ratchet delegation applies: do not weave or merge.
