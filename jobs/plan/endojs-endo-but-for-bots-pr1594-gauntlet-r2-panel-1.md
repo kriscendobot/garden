@@ -1,17 +1,42 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1594-gauntlet-r2
 role: gardener
-arc: unallocated
+tier: mentor
 handler-budget-role: panel
 handler-timeout: 10800
-gauntlet: endojs-endo-but-for-bots-pr1669-gauntlet
-gauntlet_stage: panel
-gauntlet_iteration: 1
-pr: https://github.com/endojs/endo-but-for-bots/pull/1669
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-17T10:23:43Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-17T10:23:43Z
 ---
 
-# Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1669
+---
+posted_at: 2026-11-17T10:11:02Z
+role: gardener
+handler-budget-role: panel
+handler-timeout: 10800
+gauntlet: endojs-endo-but-for-bots-pr1594-gauntlet-r2
+gauntlet_stage: panel
+gauntlet_iteration: 1
+pr: https://github.com/endojs/endo-but-for-bots/pull/1594
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
 
-You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1669-gauntlet). Run the deterministic read-only
+# Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1594
+
+You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1594-gauntlet-r2). Run the deterministic read-only
 style pre-pass against the pinned base/head. Only if it passes, run EXACTLY ONE
 panel round and post the verdict. Then STOP — do NOT fix, do NOT un-draft, do not
 loop.
@@ -23,8 +48,8 @@ posting host's garden root.
 1. Before dispatching any juror, retain the PR's immutable baseRefOid and
    headRefOid (both full 40-hex commit IDs), along with its head owner and branch.
    Get an ISOLATED project checkout of that head:
-   `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1669-gauntlet-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
-   Resolve all four retained fields with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1669 --json baseRefOid,headRefOid,headRepositoryOwner,headRefName`;
+   `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1594-gauntlet-r2-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+   Resolve all four retained fields with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1594 --json baseRefOid,headRefOid,headRepositoryOwner,headRefName`;
    do not pass the base repo when the PR head belongs to a fork.
    Fetch the retained objects if necessary, check out the retained head object ID
    detached, and verify git rev-parse HEAD equals it. A missing/malformed object ID
@@ -46,7 +71,7 @@ posting host's garden root.
 3. Only after the probes exit 0, run the panel in SINGLE-ROUND mode against that
    same worktree and retained base object ID:
    `GARDEN_PANEL_SINGLE_ROUND=1 \
-     scripts/jobs/gardening/panel.sh <worktree> 1669 <base-object-id>`
+     scripts/jobs/gardening/panel.sh <worktree> 1594 <base-object-id>`
    It fans the seats, aggregates, preflights the PR author against the authenticated
    login, and posts its own formal review. A must-fix result normally requests
    changes; on a self-authored PR it posts the same aggregate as a comment review,
@@ -69,15 +94,3 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=25 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T10:16:03Z
