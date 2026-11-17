@@ -1,0 +1,50 @@
+from_host: endolin-garden-ece02cb4
+from: reaper:endolin-garden-ece02cb4
+sent_at: 2026-11-17T04:33:27Z
+doom_base: dependabotany-recheck-endo-but-for-bots-20261117-030511
+doom_signature: requeue-exhausted
+notice_count: 1
+first_seen: 2026-11-17T04:33:27Z
+last_seen: 2026-11-17T04:33:27Z
+---
+SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+The work is preserved at jobs/plan/dependabotany-recheck-endo-but-for-bots-20261117-030511; it stays HELD until a human promotes it
+(promote-plan.sh dependabotany-recheck-endo-but-for-bots-20261117-030511) or removes it, so nothing is lost.
+Original job base: dependabotany-recheck-endo-but-for-bots-20261117-030511
+
+--- original job body ---
+---
+handler-timeout: 7200
+---
+
+Dependabotany active-row snapshot (v2):
+
+- Journal HEAD: `f1a33a5584adb886f3090c0caa45effa55508f8d`
+- Project: `endo-but-for-bots`
+- Repository: `endojs/endo-but-for-bots`
+- Rows: 6
+
+This normalized snapshot is authoritative only when your synced journal HEAD
+is exactly the commit above. If it matches, consume these rows directly and do
+not reconstruct the unindexed prose ledger. If the snapshot is unavailable,
+malformed, or HEAD has changed, fail open to the role's case-insensitive full scan.
+
+```tsv
+disposition	pr	source
+MERGE-NOW	1655	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+MERGE-NOW	1657	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+MERGE-NOW	1658	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+MERGE-NOW	1663	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+MERGE-NOW	1664	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+MERGE-NOW	1665	entries/2026/11/16/030838Z-message-gardener-ec5225.md
+```
+
+---
+
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-bots dependabotany ledger whose maturity date has arrived or whose recorded blocker has cleared. Recover the ledger with: grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'. Execute the now-due verdict for each PR: MERGE-NOW through ci-wait-merge.sh --dependabot-auto-merge, REJECT closes, EMBARGO re-defers. Current row: #1629 (setup-python 7.1.0) is held on endojs/endo-but-for-bots#1613 and #1646.
