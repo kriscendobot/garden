@@ -27,6 +27,7 @@ If anything else is red, rerun it once if it's a known flake, otherwise diagnose
 <!-- garden-plain-retry-not-before: 2026-11-17T10:23:38Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=81,20 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
