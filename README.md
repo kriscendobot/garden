@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T11:08:27Z_
+_As of 2026-11-17T11:10:51Z_
 
 ## Latest
 
@@ -1220,7 +1220,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.1M | $656.41 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 174.1M | $656.73 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 432.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154033730 tokens/day lower bound._
@@ -1229,11 +1229,12 @@ _Fleet token-unlock pace: 154033730 tokens/day lower bound._
 worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
+- [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-provider-registry-and-oauth.md) — ---
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1591
