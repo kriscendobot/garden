@@ -35,6 +35,7 @@ Wear roles/botanist/AGENT.md and re-evaluate every open PR in the endo-but-for-b
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=33 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
