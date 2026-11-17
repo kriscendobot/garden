@@ -13,3 +13,13 @@ Shepherd endojs/endo-but-for-bots PR #1560, the M3 child-agent coordinator, by d
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T12:03:36Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-17T12:06:53Z
