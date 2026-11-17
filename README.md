@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T07:41:15Z_
+_As of 2026-11-17T07:52:33Z_
 
 ## Latest
 
@@ -122,17 +122,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #35 (first seen 2026-11-13T05:48:51Z, latest 2026-11-17T07:28:30Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 35 times; this is ONE
-> coalesced notice that updates in place, not 35 messages. Latest detail:
+> WATCHDOG notice — occurrence #36 (first seen 2026-11-13T05:48:51Z, latest 2026-11-17T07:48:42Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 36 times; this is ONE
+> coalesced notice that updates in place, not 36 messages. Latest detail:
 >
 > Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
 > - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.024541s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.024187s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.023282s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.024852s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.024288s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.032813s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.025976s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.030994s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.023424s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.025587s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.028529s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 > - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.039281s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
@@ -464,11 +464,31 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-11-13T06:01:28Z, cleared 2026-11-15T20:05:54Z).
-> It was observed 16 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #17 (first seen 2026-11-13T06:01:28Z, latest 2026-11-17T07:49:03Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1794903966 set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout
+> gh-api GraphQL-only marker: expiry=1794903966 set-by=mirror-closer:primary-quota
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1323s (since 2026-11-17T07:26:59Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 1375s (since 2026-11-17T07:26:07Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 1377s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1377s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1317s (since 2026-11-17T07:27:05Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1334s (since 2026-11-17T07:26:48Z)
+> watcher ticking but cooldown for 1371s (since 2026-11-17T07:26:11Z); detail: rest latch set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout expiry=1794903966
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1318s (since 2026-11-17T07:27:04Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1314s (since 2026-11-17T07:27:08Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1376s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 1377s (since 2026-11-17T07:26:05Z)
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-4.md)
 
@@ -803,6 +823,34 @@ Delegation: **active**
 > JOB self-heal-fix-garden-mentor-paused-project-post-rc78
 > `scripts/jobs/mentor.sh` fails in a loop. The improve handler tries to post `improve-dependabot-post-outbox`, which belongs
 
+- `doomed-ironhorse-ci2-1359-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1359-20261117-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/ironhorse-ci2-1359-20261117; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-ci2-1359-20261117) or removes it, so nothing is lost.
+> Original job base: ironhorse-ci2-1359-20261117
+>
+> --- original job body ---
+> ---
+> role: fixer
+> tier: mentor
+> posted_at: 2026-11-17T05:31:59Z
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-17T05:34:38Z cleared=none -->
+>
+> ---
+> role: fixer
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Ironhorse CI: #1359 cover, zizmor, test-xs
+>
+> Repo endojs/endo-but-for-bots. Maintainer ask (kriskowal, liaison session 2026-11-16/17): clear the remaining CI reds on kriscendobot ironhorse PRs, per the report in the completed job ironhorse-ci-4-remaining-20261116 (journal tada/2026/11/16). The first attempt at this work exited plainly twice without a report, so: work in small steps, push as you go, and write a report (per PR: before/after check state, cause, commit pushed) even if you finish only part. Run CI-equivalent checks locally before pushing. Push only to kriscendobot-authored heads. Do not merge; nothing merges until the ratchet improves the base. The two oracle lanes (test-ironhorse-oracle, ironhorse-oracle-sanitizers: stage3-math 054/055, ubuntu-26.04 glibc) stay red until #1613 reaches the base; leave them alone. Do not weave unless the task below says so.
+>
+> Task: #1359 is red on cover 22.x/24.x (bwrap timeout flake: port the #1566 fix), zizmor (pin-comment drift), and test-xs (RegExpPrototype intrinsic-metadata on the ironhorse lanes, possibly a real baseline shift from this PR's RegExp accessor change). Decide which, fix the first two, and for test-xs update the baseline only if the shift is genuinely this PR's intended change; otherwise say what it is. Mind that the ratchet delegation applies: do not weave or merge.
+
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` has CLEARED (first seen 2026-11-14T15:29:00Z, cleared 2026-11-14T21:24:19Z).
@@ -919,6 +967,19 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.022517s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-1359-20261117-failed` — from orchestrator:ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-1359-20261117-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci-failures-round2-20261117-child-ironhorse-ci2-1359-20261117-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: ironhorse-ci-failures-round2-20261117
+> orchestration-status: running
+> child: ironhorse-ci2-1359-20261117
+> failure-kind: doomed
+> order: parallel
+> on-child-failure: continue
+> detail: doomed and held in plan
+>
+> Orchestration ironhorse-ci-failures-round2-20261117 observed child ironhorse-ci2-1359-20261117: doomed and held in plan.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-11-14T09:14:51Z, latest 2026-11-17T04:43:36Z).
@@ -1032,37 +1093,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $659.32 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 425.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
+| Claude | 173.2M | $659.59 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 427.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154115908 tokens/day lower bound._
+_Fleet token-unlock pace: 154116080 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`endojs-endo-but-for-bots-pr1560-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1560
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`ironhorse-1298-repin-fuzz-locks-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-1298-repin-fuzz-locks-20261117.md) — Ironhorse #1298: re-pin byte-pinned fuzz locks after the llm merge (F040 re-f...
 - [`endojs-endo-but-for-bots-pr1560-conduct-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-conduct-20261117.md) — Finalize endojs/endo-but-for-bots PR #1560
+- [`endojs-endo-but-for-bots-pr1560-review-a5e99160`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-review-a5e99160.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`endojs-endo-but-for-bots-pr1299-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1299-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1299
-- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1560-review-d3f67ace.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1669-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1669-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1669
-- [`fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence.md) — ---
 
 ### doin (9)
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
 - [`issue-status-pass-go-live-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-status-pass-go-live-20261117.md) — Go live with the issue status pass (third observation window)
-- [`ironhorse-ci2-1359-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1359-20261117.md) — Ironhorse CI: #1359 cover, zizmor, test-xs
-- [`endojs-endo-but-for-bots-pr1560-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1560
+- [`ironhorse-1298-repin-fuzz-locks-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-1298-repin-fuzz-locks-20261117.md) — Ironhorse #1298: re-pin byte-pinned fuzz locks after the llm merge (F040 re-f...
 - [`ironhorse-ci2-1621-drift-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-1621-drift-20261117.md) — Ironhorse CI: #1621 Node 26 and zizmor drift
-- [`endojs-endo-but-for-bots-pr1560-review-a5e99160`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-review-a5e99160.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1591
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
+- [`endojs-endo-but-for-bots-pr1560-review-d3f67ace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-review-d3f67ace.md) — Review directive on endojs/endo-but-for-bots PR #1560
 - [`fix-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591-anchor-sweep-regression-evidence.md) — ---
 
 ### tada (17159)
 - [`ironhorse-ci2-1346-1299-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-1346-1299-20261117.md) — Completion report: ironhorse-ci2-1346-1299-20261117
@@ -1154,6 +1214,7 @@ worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-arc-press-20261107-075009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261107-075009.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`improve-decision-ledger-contention-spool-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-decision-ledger-contention-spool-r2.md) — _normal_ · ---
+- [`ironhorse-ci2-1359-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ci2-1359-20261117.md) — _normal_ · Ironhorse CI: #1359 cover, zizmor, test-xs
 - [`cutover-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cutover-budget-road.md) — _normal_ · Cut over to the budget road
 - [`claude-on-minion-town-completion-press-20261107-013512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-completion-press-20261107-013512.md) — _normal_ · Completion press: Claude-on-minion.town arc
 - [`design-daemon-git-remotes-server-half-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-server-half-r2.md) — _normal_ · ---
