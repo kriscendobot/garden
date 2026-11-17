@@ -19,6 +19,7 @@ Task: #1364, #1373 and #1278 are red on macOS daemon-teardown and 'Failed to exi
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=4180 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
