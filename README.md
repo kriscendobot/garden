@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T11:00:17Z_
+_As of 2026-11-17T11:06:59Z_
 
 ## Latest
 
@@ -595,15 +595,16 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #23 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T09:26:30Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 23 times; this is ONE
-> coalesced notice that updates in place, not 23 messages. Latest detail:
+> WATCHDOG notice — occurrence #24 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T11:04:30Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 24 times; this is ONE
+> coalesced notice that updates in place, not 24 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 688e39aed06dcb6dacf35e982e2ee6d477e9afaf (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 688e39aed06dcb6dacf35e982e2ee6d477e9afaf). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-refusal
-> The foreman exits 78 and restarts in a loop. In `scripts/jobs/foreman.sh`, the "pump next milestone step" branch around lines 737-741 handles any non-zero `post_rc` other than the completed-collision and tempfail codes as fatal (`ERROR: post-job failed ...; exit $post_rc`). The foreman's handler proposed `fix-endojs-endo-but-for-bots-pr1595`. `post-job.sh` refused it with rc=78 (`EX_CONFIG`) because the base belongs to the PAUSED project `minion-town` (journal record `pauses/minion-town.md`). A deliberate pause is a refusal, not a foreman fault, but the foreman exits and systemd restarts it with the same proposal every tick.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: e8f4695b24ab98e9388380a06574c95dc4617581 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e8f4695b24ab98e9388380a06574c95dc4617581). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-rc78
+> The `garden-foreman` service exits 78 and systemd restarts it, over and over. The tail of its log shows the cause:
+> `[post] refusing to post 'build-daemon-git-remotes-phase-six-interactive-provisioning-retry-20261117': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md)... (rc=78)`
+> `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`
 >
-> Change:
-> - Give the paused-project refusal a distinct, named return code in `post-job.sh` and `common.sh`,
+> The minion.town pause is deliberate (see the "record the minion.town project pause" commit, a0b0f010fcc). The foreman proposed a step for that project anyway. `post-job.sh` correctly refused with rc=78. The catch-all branch in `scripts/jobs/foreman.sh` (about line 737, `elif [ "$post_rc" -ne 0 ]`) then does `exit "$post_rc"`, which crashes the unit o
 
 - `doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted.md)
 
@@ -684,11 +685,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-17T00:05:19Z, latest 2026-11-17T05:35:31Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-17T00:05:19Z, latest 2026-11-17T11:05:24Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 4): shared codex subscription demand active=2 queue=7 quota=ok fleet-envelope=4 target=4
+> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 1): shared codex subscription demand active=2 queue=1 quota=backoff fleet-envelope=4 target=1
 
 - `msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9` — from gardener:minion-town-arc-press-20261108-082012, reply_to `minion-town-arc-press-20261108-082012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261108-082012-76df4c8f6ed9.md)
 
@@ -870,6 +871,19 @@ Delegation: **active**
 > coalesced notice that updates in place, not 14 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.015960s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `ironhorse-ci2-refresh-1298-1534-20261117-split-terminal-complete-with-failures` — from orchestrator:ironhorse-ci2-refresh-1298-1534-20261117-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci2-refresh-1298-1534-20261117-split-terminal-complete-with-failures.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: ironhorse-ci2-refresh-1298-1534-20261117-split
+> orchestration-status: complete-with-failures
+> order: parallel
+> children-total: 2
+> children-failed: 1
+> failed-children: ironhorse-ci2-1534-verify-20261117
+> recovered-children: 
+>
+> Orchestration ironhorse-ci2-refresh-1298-1534-20261117-split complete WITH FAILURES (parallel): 1/2 failed: ironhorse-ci2-1534-verify-20261117
 
 - `msg-reset-credit-watch-20261109-170519-6a0254967ba8` — from gardener:reset-credit-watch-20261109-170519, reply_to `reset-credit-watch-20261109-170519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261109-170519-6a0254967ba8.md)
 
@@ -1206,10 +1220,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.7M | $655.24 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 431.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 174.1M | $656.16 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 432.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154031352 tokens/day lower bound._
+_Fleet token-unlock pace: 154033730 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 15 open notice(s); checker healthy
@@ -1221,20 +1235,18 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (5)
-- [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — ---
-- [`weave-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1560.md) — ---
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1591
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ci2-flake-reruns-20261117.md) — Ironhorse CI: rerun the flaky PRs #1364, #1373, #1278
-- [`regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1560-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1560-20261117.md) — ---
 
-### tada (17172)
+### tada (17176)
+- [`fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/fix-endojs-endo-but-for-bots-pr1542-parent-death-primitive.md) — Cost
+- [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-viability.md) — Cost
+- [`ironhorse-ci2-refresh-1298-1534-20261117-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-refresh-1298-1534-20261117-split.md) — orchestration ironhorse-ci2-refresh-1298-1534-20261117-split — complete
+- [`regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/regauntlet-endojs-endo-but-for-bots-pr1591-20261117-r2.md) — Cost
 - [`ironhorse-ci2-1298-verify-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-1298-verify-20261117.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2.md) — gauntlet endojs-endo-but-for-bots-pr1594-gauntlet-r2 — HALTED
-- [`ironhorse-ci-failures-round2-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci-failures-round2-20261117.md) — orchestration ironhorse-ci-failures-round2-20261117 — complete
-- [`endojs-endo-but-for-bots-pr1669-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1669-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1669-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1594-gauntlet-r2-clean.md) — Cost
-- … and 17167 more
+- … and 17171 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1305,6 +1317,7 @@ worst fetch p95 7.099947s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-watch-20261108-113509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-113509.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`daily-progress-summary-20261107-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20261107-080513.md) — _normal_ · Daily midnight Pacific progress summary
+- [`weave-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endojs-endo-but-for-bots-pr1560.md) — _normal_ · ---
 - [`oros-health-watch-20261108-235013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261108-235013.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
