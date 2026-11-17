@@ -22,11 +22,11 @@ Task: confirm with `gh pr checks 1534 -R endojs/endo-but-for-bots` that nothing 
 If anything else is red, rerun it once if it's a known flake, otherwise diagnose and fix it. Do not merge. Report the final check state.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=81 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T10:23:38Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=81,20 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
