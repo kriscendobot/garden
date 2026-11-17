@@ -15,6 +15,7 @@ Weave endojs/endo-but-for-bots PR #1560, the M3 child-agent coordinator, onto th
 <!-- garden-plain-retry-not-before: 2026-11-17T10:53:38Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=986,31 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
