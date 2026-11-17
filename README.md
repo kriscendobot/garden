@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T19:43:53Z_
+_As of 2026-11-17T19:49:52Z_
 
 ## Latest
 
@@ -167,9 +165,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #105820 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T18:41:12Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 105820 times; this is ONE
-> coalesced notice that updates in place, not 105820 messages. Latest detail:
+> WATCHDOG notice — occurrence #105856 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T19:46:19Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105856 times; this is ONE
+> coalesced notice that updates in place, not 105856 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -1228,13 +1226,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 184.7M | $698.14 _(notional, rate-card)_ | 68% of 271.0M (ok) |
+| Claude | 184.7M | $698.47 _(notional, rate-card)_ | 68% of 271.0M (ok) |
 | Codex | 433.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154049479 tokens/day lower bound._
+_Fleet token-unlock pace: 154049757 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001006s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 15 open notice(s); checker healthy
+worst fetch p95 3.776989s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 15 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
