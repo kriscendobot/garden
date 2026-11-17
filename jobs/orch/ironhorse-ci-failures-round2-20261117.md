@@ -1,5 +1,5 @@
 ---
-child-ironhorse-ci2-refresh-1298-1534-20261117-failure-notified: true
+child-ironhorse-ci2-refresh-1298-1534-20261117-failure-notified: recovered
 child-ironhorse-ci2-1621-drift-20261117-failure-notified: true
 child-ironhorse-ci2-1359-20261117-failure-notified: true
 child-ironhorse-ci2-flake-reruns-20261117-host: endolin-garden-ece02cb4
