@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T09:24:35Z_
+_As of 2026-11-17T09:27:14Z_
 
 ## Latest
 
@@ -472,86 +472,6 @@ Delegation: **active**
 > (2) garden-secret-broker.service fails after deploy. It failed the same way on 11-07 through 11-10. Check it with: journalctl --user -u garden-secret-broker -n 80
 > I lifted nothing and reset nothing; the drain is roll-owned. Full record: projects/garden/host-health/oros-studio-garden-ce242c49.md
 
-- `doomed-endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr1591-gauntlet-20261117 exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 10800
-> gauntlet: endojs-endo-but-for-bots-pr1591-gauntlet-20261117
-> gauntlet_stage: panel
-> gauntlet_iteration: 2
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/1591](https://github.com/endojs/endo-but-for-bots/pull/1591)
-> ---
->
-> # Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1591
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1591-gauntlet-20261117). Run the deterministic read-only
-> style pre-pass against the pinned base/head. Only if it passes, run EXACTLY ONE
-> panel round and post the verdict. Then STOP — do NOT fix, do NOT un-draft, do not
-> loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Before dispatching any juror, retain the PR's immutable baseRefOid and
->    headRefOid (both full 40-hex commit IDs), along with its head owner and branch.
->    Get an ISOLATED project checkout of that head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1591-gauntlet-20261117-panel-2 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve all four retained fields with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1591 --json baseRefOid,headRefOid,headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
->    Fetch the retained objects if necessary, check out the retained head object ID
->    detached, and verify git rev-parse HEAD equals it. A missing/malformed object ID
->    or head mismatch is a sensor failure: do not run probes or panel; emit
->    panel=panel-error.
-> 2. Run the deterministic probes read-only against that exact pinned pair with
->    `scripts/jobs/gardening/pre-push-gates.sh --no-auto-fix --probes-only \
->      --base-ref <base-object-id> <worktree>`.
->    Capture combined stdout/stderr byte-for-byte. On non-zero, do NOT
->    run panel.sh and do NOT post a PR review. Put the exact captured output between
->    these lines in the completion report, then emit panel=prepass-failed:
->
->    <!-- gauntlet-style-prepass-output-begin -->
->    <exact combined stdout/stderr, unchanged>
->    <!-- gauntlet-style-prepass-output-end -->
->
->    This is a deterministic finding, not a panel verdict. The driver routes that
->    exact block to fix-2 and only spends juror seats after the probes pass.
-> 3. Only after the probes exit 0, run the panel in SINGLE-ROUND mode against that
->    same worktree and retained base object ID:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 1591 <base-object-id>`
->    It fans the seats, aggregates, preflights the PR author against the authenticated
->    login, and posts its own formal review. A must-fix result normally requests
->    changes; on a self-authored PR it posts the same aggregate as a comment review,
->    retaining the `Must-fix before merge` heading. It does NOT fix or un-draft.
->    Only after the review post succeeds does it print the existing stage-result
->    marker followed by a terminal line whose last token is `pass` or `must-fix`.
->    Copy that marker into your completion report; do not post the aggregate yourself.
-> 4. If panel.sh exits NON-ZERO it did NOT return a posted review verdict. A seat error, a
->    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
->    failure, not a pass/must-fix decision. Do NOT report `orchestration-failed:
->    true` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
->    and emit the `panel=panel-error` marker: the driver then re-posts this panel
->    round under its bounded stage-retry budget, exactly as it retries a doomed
->    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
->    its own marker below — never panel-error.
->
-> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
-> completion signal; the completion signal itself stays the very last line:
->   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
->   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
->   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
->   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
-
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
 > WATCHDOG notice — occurrence #24 (first seen 2026-11-13T06:01:28Z, latest 2026-11-17T08:24:06Z).
@@ -649,14 +569,15 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T05:02:24Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T09:26:30Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: a1eba59099f49dbefa96e5cd3f7e7d0f05af417c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p a1eba59099f49dbefa96e5cd3f7e7d0f05af417c). Diagnosis: The foreman exited 78 because `post-job.sh` refused to post a job for a deliberately paused project, and the foreman treats any nonzero return code as fatal. I found no code defect in the pause itself.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 688e39aed06dcb6dacf35e982e2ee6d477e9afaf (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 688e39aed06dcb6dacf35e982e2ee6d477e9afaf). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-post-refusal
+> The foreman exits 78 and restarts in a loop. In `scripts/jobs/foreman.sh`, the "pump next milestone step" branch around lines 737-741 handles any non-zero `post_rc` other than the completed-collision and tempfail codes as fatal (`ERROR: post-job failed ...; exit $post_rc`). The foreman's handler proposed `fix-endojs-endo-but-for-bots-pr1595`. `post-job.sh` refused it with rc=78 (`EX_CONFIG`) because the base belongs to the PAUSED project `minion-town` (journal record `pauses/minion-town.md`). A deliberate pause is a refusal, not a foreman fault, but the foreman exits and systemd restarts it with the same proposal every tick.
 >
-> - **What failed:** At 05:02:05 the foreman proposed the next milestone step `fix-endojs-endo-but-for-bots-pr1595`. `post-job.sh` refused it because it "belongs to PAUSED project 'minion-town'" (pause record `pauses/minion-town.md`, rc=78).
-> - **Why it exits:** At `scripts/jobs/foreman.sh` around line 737, every nonzero return code other than the completed-collision and tempfail codes goes to the generic `ERROR: post-job failed` branch, which runs `exit "$post_rc"`. A pause refusal is expected, not a broken tick, so the foreman crash-loops under systemd for as long as it keeps proposing pause
+> Change:
+> - Give the paused-project refusal a distinct, named return code in `post-job.sh` and `common.sh`,
 
 - `doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted.md)
 
@@ -1249,7 +1170,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $662.61 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.3M | $662.84 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 429.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154117479 tokens/day lower bound._
