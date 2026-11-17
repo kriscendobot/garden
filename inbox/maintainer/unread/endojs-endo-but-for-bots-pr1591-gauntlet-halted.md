@@ -1,11 +1,15 @@
 from_host: endolin-garden-ece02cb4
 from: gauntlet:endojs-endo-but-for-bots-pr1591-gauntlet-halted
 msg_key: endojs-endo-but-for-bots-pr1591-gauntlet-halted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-11-16T23:35:20Z
-last_seen: 2026-11-16T23:35:20Z
-sent_at: 2026-11-16T23:35:20Z
+last_seen: 2026-11-17T01:14:27Z
+sent_at: 2026-11-17T01:14:27Z
 ---
+COALESCED message — occurrence #2 (first seen 2026-11-16T23:35:20Z, latest 2026-11-17T01:14:27Z).
+The SAME message (episode key `endojs-endo-but-for-bots-pr1591-gauntlet-halted`) has now been sent 2 times; this is
+ONE entry that updates in place, not 2 messages. Latest detail:
+
 Gauntlet endojs-endo-but-for-bots-pr1591-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1591-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
 
 Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6
