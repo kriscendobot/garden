@@ -9,6 +9,7 @@ dispatch: automatic
 Shepherd endojs/endo-but-for-bots PR #1594 (`daemon-rename-to-manager`) through its fresh CI run after the completed fix, resolving any remaining actionable failures.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=5232 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
