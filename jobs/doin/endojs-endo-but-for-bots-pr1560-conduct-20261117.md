@@ -29,3 +29,13 @@ Source review-directive job: endojs-endo-but-for-bots-pr1560-review-a5e99160
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T08:44:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-17T08:44:45Z
