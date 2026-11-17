@@ -18,6 +18,8 @@ This index is a third axis next to [`sources/`](../sources/README.md) (by proven
 
 - [llm-exact-string-editing](llm-exact-string-editing.md) — unique-match `oldText`/`newText` replacement with ordered non-overlapping edits, line-ending preservation, unified-diff confirmation, and consumer-owned inline rendering (drafted 2026-10-19 by builder library lookup; topic agent-conventions).
 
+- [endopi-extension-packages](endopi-extension-packages.md) - one `package.json` key and install lifecycle for coordinated guest, skill, prompt, and provider resources with per-kind authority boundaries (drafted 2026-11-17 by designer library lookup; topics agent-conventions, capability-security).
+
 - [endo-gateway](endo-gateway.md) — the host-scoped HTTP/WebSocket/OCapN boundary that accepts proof-of-possession registration from per-user daemons and routes public keys and weblets without acquiring user authority (drafted 2026-10-19 by builder library lookup; topics daemon, ocapn, networking, capability-security).
 
 - [token-subspace-topology](token-subspace-topology.md) — an LLM vocabulary's learned embedding as a sampled topological subspace; empirical stratification and negative curvature; response-based recovery up to homeomorphism; a model diagnostic that complements but does not replace Endo capability confinement (added 2026-09-08 from Robinson-Dey-Sweet 2024 and Robinson-Dey-Kushner 2025; topic llm-token-space-geometry).
