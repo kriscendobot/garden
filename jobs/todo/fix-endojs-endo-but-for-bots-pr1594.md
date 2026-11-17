@@ -1,0 +1,9 @@
+---
+posted_at: 2026-11-17T00:46:45Z
+arc: unallocated
+role: fixer
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Fix endojs/endo-but-for-bots PR #1594’s current zizmor and test-xs failures to unblock the M3 daemon-to-manager rename.
