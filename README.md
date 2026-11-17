@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T01:42:31Z_
+_As of 2026-11-17T01:44:18Z_
 
 ## Latest
 
@@ -157,13 +155,13 @@ Delegation: **active**
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
 
-- `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
+- `watchdog-project-pause-active-minion-town` — from watchdog:claim/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #99500 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T00:42:14Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 99500 times; this is ONE
-> coalesced notice that updates in place, not 99500 messages. Latest detail:
+> WATCHDOG notice — occurrence #99772 (first seen 2026-11-10T19:35:37Z, latest 2026-11-17T01:43:29Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 99772 times; this is ONE
+> coalesced notice that updates in place, not 99772 messages. Latest detail:
 >
-> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'endojs-endo-but-for-bots-pr1560-gauntlet' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
+> PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused a claimable todo job 'scholar-ingest-fudco-gist-20261105' on the board because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
 > a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
 > IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
@@ -881,13 +879,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.9M | $653.48 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.9M | $652.96 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 416.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154385298 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.397387s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 13 open notice(s); checker healthy
+worst fetch p95 3.107411s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (4)
@@ -896,20 +894,19 @@ worst fetch p95 3.397387s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (5)
+### doin (4)
 - [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
-- [`weave-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1347-20261117.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1560.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1591`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1594-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1594-20261117.md) — ---
 
-### tada (17148)
+### tada (17149)
+- [`weave-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/weave-endojs-endo-but-for-bots-pr1347-20261117.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1592-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/shepherd-endojs-endo-but-for-bots-pr1592-20261117.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr1646-node-twenty-six-compatibility`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/fix-endojs-endo-but-for-bots-pr1646-node-twenty-six-compatibility.md) — Cost
 - [`endojs-endo-but-for-bots-pr1591-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1591-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1591-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1591-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/16/endojs-endo-but-for-bots-pr1591-gauntlet-viability.md) — Cost
-- … and 17143 more
+- … and 17144 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
