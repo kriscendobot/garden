@@ -15,6 +15,7 @@ On endojs/endo-but-for-bots PR #1591 (`fix/sandbox-bwrap-leader-exit-group-sweep
 <!-- garden-plain-retry-not-before: 2026-11-17T02:53:07Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=42,64 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
