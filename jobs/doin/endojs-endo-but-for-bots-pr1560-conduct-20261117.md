@@ -25,6 +25,7 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1560#pullrequestrevie
 Source review-directive job: endojs-endo-but-for-bots-pr1560-review-a5e99160
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=186 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
