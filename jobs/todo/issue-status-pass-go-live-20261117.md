@@ -1,6 +1,3 @@
-once: 2026-11-17T06:15:00Z
-job_basename_prefix: issue-status-pass-go-live-20261117
----
 ---
 tier: mentor
 fallback-tier: minion
