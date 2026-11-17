@@ -10,6 +10,7 @@ On endojs/endo-but-for-bots PR #1591 (`fix/sandbox-bwrap-leader-exit-group-sweep
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=8645 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
