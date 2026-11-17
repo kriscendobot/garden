@@ -22,3 +22,13 @@ Task: #1621 is red on test-xs (Node 26 ThrowTypeError intrinsic-metadata baselin
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T09:03:54Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-17T09:04:08Z
