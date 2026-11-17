@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T08:00:19Z_
+_As of 2026-11-17T08:07:04Z_
 
 ## Latest
 
@@ -464,31 +464,31 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #19 (first seen 2026-11-13T06:01:28Z, latest 2026-11-17T07:59:04Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 19 times; this is ONE
-> coalesced notice that updates in place, not 19 messages. Latest detail:
+> WATCHDOG notice — occurrence #20 (first seen 2026-11-13T06:01:28Z, latest 2026-11-17T08:04:05Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 20 times; this is ONE
+> coalesced notice that updates in place, not 20 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1794903966 set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout
 > gh-api GraphQL-only marker: expiry=1794903966 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 1924s (since 2026-11-17T07:26:59Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 1976s (since 2026-11-17T07:26:07Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 1978s (since 2026-11-17T07:26:05Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1978s (since 2026-11-17T07:26:05Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1918s (since 2026-11-17T07:27:05Z)
-> - kriscendobot/list: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 1935s (since 2026-11-17T07:26:48Z)
-> watcher ticking but cooldown for 1972s (since 2026-11-17T07:26:11Z); detail: rest latch set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout expiry=1794903966
-> - kriscendobot/minion.town: watcher ticking but cooldown for 1919s (since 2026-11-17T07:27:04Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 1915s (since 2026-11-17T07:27:08Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1977s (since 2026-11-17T07:26:06Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 1978s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2225s (since 2026-11-17T07:26:59Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2277s (since 2026-11-17T07:26:07Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 2279s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2279s (since 2026-11-17T07:26:05Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2219s (since 2026-11-17T07:27:05Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2236s (since 2026-11-17T07:26:48Z)
+> watcher ticking but cooldown for 2273s (since 2026-11-17T07:26:11Z); detail: rest latch set-by=receipt:kriscendobot-garden-book:PR source:primary-quota <- comment:source-timeout-fanout expiry=1794903966
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2220s (since 2026-11-17T07:27:04Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2216s (since 2026-11-17T07:27:08Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2278s (since 2026-11-17T07:26:06Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 2279s (since 2026-11-17T07:26:05Z)
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-4.md)
 
@@ -1093,10 +1093,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $659.95 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 427.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Claude | 173.2M | $660.13 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Codex | 427.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154116080 tokens/day lower bound._
+_Fleet token-unlock pace: 154116267 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.099168s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 14 open notice(s); checker healthy
