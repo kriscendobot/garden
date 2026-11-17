@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Build step for endojs/endo-but-for-bots, milestone M3: implement the endopi JSONL transcript format from the now-completed design (plan record endopi-jsonl-transcript-format) and open a DRAFT PR. The provider-registry-and-oauth build was the last step posted, and this design has no build job or PR yet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-17T11:18:51Z
