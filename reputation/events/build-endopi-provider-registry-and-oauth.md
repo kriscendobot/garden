@@ -1,23 +1,23 @@
 ---
 base: build-endopi-provider-registry-and-oauth
-kind: cleric
-provider: openai
-model: gpt-5.6-sol
+kind: monk
+provider: anthropic
+model: claude-opus-5-5
 thoughtfulness: high
 work_class: build:s
 target: main2
 accepted: true
-agentic_dollars: censored
+agentic_dollars: 0.526095
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 9.771984
+estimated_dollars: 0.010005
 attempts: 1
-duration_secs: 1896
+duration_secs: 145
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-1
-recorded_at: 2026-10-31T06:52:24Z
+recorded_by: endolin-garden-ece02cb4/monk-1
+recorded_at: 2026-11-17T12:13:02Z
 ---
-reputation event for build-endopi-provider-registry-and-oauth: arm openai/gpt-5.6-sol/high work_class build:s target main2 accepted true
+reputation event for build-endopi-provider-registry-and-oauth: arm anthropic/claude-opus-5-5/high work_class build:s target main2 accepted true
