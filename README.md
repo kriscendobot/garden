@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T04:21:36Z_
+_As of 2026-11-17T04:25:45Z_
 
 ## Latest
 
@@ -971,15 +969,14 @@ _Fleet token-unlock pace: 154396479 tokens/day lower bound._
 worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20261117-030511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261117-030511.md) — ---
 
 ### tada (17151)
 - [`build-daemon-agent-tools-phase-8-fetch-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-daemon-agent-tools-phase-8-fetch-plugin.md) — Cost
