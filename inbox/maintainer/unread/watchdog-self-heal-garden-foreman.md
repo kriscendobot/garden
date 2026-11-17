@@ -1,17 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-11-17T03:41:50Z
+sent_at: 2026-11-17T05:02:24Z
 watchdog_key: self-heal-garden-foreman
-notice_count: 21
+notice_count: 22
 first_seen: 2026-11-14T04:26:12Z
-last_seen: 2026-11-17T03:41:50Z
+last_seen: 2026-11-17T05:02:24Z
 ---
-WATCHDOG notice — occurrence #21 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T03:41:50Z).
-The SAME condition (`self-heal-garden-foreman`) has now been observed 21 times; this is ONE
-coalesced notice that updates in place, not 21 messages. Latest detail:
+WATCHDOG notice — occurrence #22 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T05:02:24Z).
+The SAME condition (`self-heal-garden-foreman`) has now been observed 22 times; this is ONE
+coalesced notice that updates in place, not 22 messages. Latest detail:
 
-self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: c76d63c93511b5058dc8715a7a594b49b6aae351 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p c76d63c93511b5058dc8715a7a594b49b6aae351). Diagnosis: The foreman exited 78 because it treated a deliberate refusal as a crash. It is a scoped code fix, not a transient failure.
+self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: a1eba59099f49dbefa96e5cd3f7e7d0f05af417c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p a1eba59099f49dbefa96e5cd3f7e7d0f05af417c). Diagnosis: The foreman exited 78 because `post-job.sh` refused to post a job for a deliberately paused project, and the foreman treats any nonzero return code as fatal. I found no code defect in the pause itself.
 
-`post-job.sh` refused to post `weave-endojs-endo-but-for-bots-pr1542` with rc=78 (`EX_CONFIG`). The journal pause record `pauses/minion-town.md` pauses project `minion-town`, and the refusal says the job belongs to it. The generic `post_rc -ne 0` branch in `scripts/jobs/foreman.sh` (about line 737) then logged `ERROR: post-job failed ... (rc=78)` and ran `exit 78`. systemd marks that as a failed unit, which triggers self-heal. The unit will keep failing each tick for as long as the foreman proposes a paused-project step.
-
-Two things are worth a look from the maintainer. The foreman's proposal was an endo PR weave attributed to the paused `minion-town` project, so the
+- **What failed:** At 05:02:05 the foreman proposed the next milestone step `fix-endojs-endo-but-for-bots-pr1595`. `post-job.sh` refused it because it "belongs to PAUSED project 'minion-town'" (pause record `pauses/minion-town.md`, rc=78).
+- **Why it exits:** At `scripts/jobs/foreman.sh` around line 737, every nonzero return code other than the completed-collision and tempfail codes goes to the generic `ERROR: post-job failed` branch, which runs `exit "$post_rc"`. A pause refusal is expected, not a broken tick, so the foreman crash-loops under systemd for as long as it keeps proposing pause
