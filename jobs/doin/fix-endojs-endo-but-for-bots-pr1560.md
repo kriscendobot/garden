@@ -15,6 +15,7 @@ Fix endojs/endo-but-for-bots PR #1560’s current panel must-fix findings, then 
 <!-- garden-plain-retry-not-before: 2026-11-17T03:03:07Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=28,44 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
