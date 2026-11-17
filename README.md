@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T06:19:31Z_
+_As of 2026-11-17T06:20:55Z_
 
 ## Latest
 
@@ -1012,9 +1012,10 @@ _Fleet token-unlock pace: 154319719 tokens/day lower bound._
 worst fetch p95 3.848747s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`ironhorse-ci2-refresh-1298-1534-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ci2-refresh-1298-1534-20261117.md) — Ironhorse CI: refresh #1298 and #1534 onto llm
+- [`issue-status-pass-go-live-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-status-pass-go-live-20261117.md) — Go live with the issue status pass (third observation window)
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`ironhorse-ci2-1359-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ci2-1359-20261117.md) — Ironhorse CI: #1359 cover, zizmor, test-xs
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
