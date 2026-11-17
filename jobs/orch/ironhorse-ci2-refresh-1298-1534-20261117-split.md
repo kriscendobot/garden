@@ -2,7 +2,7 @@
 order: parallel
 children: ironhorse-ci2-1298-verify-20261117 ironhorse-ci2-1534-verify-20261117
 on-child-failure: continue
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-11-17T10:06:48Z
 ---
