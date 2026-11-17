@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T13:38:51Z_
+_As of 2026-11-17T13:41:01Z_
 
 ## Latest
 
@@ -1211,7 +1211,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.1M | $667.31 _(notional, rate-card)_ | 65% of 271.0M (ok) |
+| Claude | 177.1M | $665.94 _(notional, rate-card)_ | 65% of 271.0M (ok) |
 | Codex | 432.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154059460 tokens/day lower bound._
@@ -1220,10 +1220,9 @@ _Fleet token-unlock pace: 154059460 tokens/day lower bound._
 worst fetch p95 19.920965s/45s (unknown); 13 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1591-gauntlet-20261117-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1591
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
-- [`design-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endopi-skills-markdown-format.md) — ---
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1671-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1671-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1671
@@ -1232,15 +1231,15 @@ worst fetch p95 19.920965s/45s (unknown); 13 open notice(s); checker healthy
 - [`build-endopi-iterative-compaction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-iterative-compaction.md) — ---
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1670-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1670-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1670
+- [`design-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endopi-skills-markdown-format.md) — ---
 
-### tada (17185)
+### tada (17186)
+- [`endojs-endo-but-for-bots-pr1670-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1670-gauntlet-clean.md) — Cost
 - [`ironhorse-ci-failures-round2-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci-failures-round2-20261117.md) — orchestration ironhorse-ci-failures-round2-20261117 — complete
 - [`endojs-endo-but-for-bots-pr1671-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-panel-1.md) — Cost
 - [`ironhorse-ci2-flake-reruns-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/ironhorse-ci2-flake-reruns-20261117.md) — Report: ironhorse-ci2-flake-reruns-20261117 (#1364, #1373, #1278)
 - [`endojs-endo-but-for-bots-pr1671-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1671-gauntlet-clean.md) — Cost
-- [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-endopi-provider-registry-and-oauth.md) — Cost
-- … and 17180 more
+- … and 17181 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
