@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Design step for endojs/endo-but-for-bots: write the EndoPi extension package manifest design (journal plan `endopi-extension-package-manifest`, milestone M10). This follows the completed prompt-templates and skills-markdown-format designs.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
