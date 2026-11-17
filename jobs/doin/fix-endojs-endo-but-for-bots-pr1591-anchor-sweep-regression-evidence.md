@@ -15,6 +15,7 @@ Fix endojs/endo-but-for-bots PR #1591’s panel must-fix by proving the bwrap ex
 <!-- garden-plain-retry-not-before: 2026-11-17T08:53:56Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=27,28 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
