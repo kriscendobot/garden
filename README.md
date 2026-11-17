@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-17T01:38:31Z_
+_As of 2026-11-17T01:42:31Z_
 
 ## Latest
 
@@ -879,7 +879,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.9M | $652.96 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 171.9M | $653.48 _(notional, rate-card)_ | 63% of 271.0M (ok) |
 | Codex | 416.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154385298 tokens/day lower bound._
@@ -894,8 +894,9 @@ worst fetch p95 3.397387s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (4)
+### doin (5)
 - [`fix-endojs-endo-but-for-bots-pr1594`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1594.md) — ---
+- [`weave-endojs-endo-but-for-bots-pr1347-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1347-20261117.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1560`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1560.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1591`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1591.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1594-20261117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1594-20261117.md) — ---
