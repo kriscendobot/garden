@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 On endojs/endo-but-for-bots PR #1591 (`fix/sandbox-bwrap-leader-exit-group-sweep`), fix the panel’s containment findings: replace reaped-PGID signalling with a lifetime-safe mechanism, propagate non-`ESRCH` errors, and add deterministic exit-sweep coverage.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
