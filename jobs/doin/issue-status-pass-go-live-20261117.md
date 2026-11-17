@@ -33,11 +33,11 @@ commits ahead, at 2026-11-16T06:02:01Z.
 
 Trigger: https://github.com/kriscendobot/garden/issues/128
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=370 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T08:03:25Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=370,43 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
