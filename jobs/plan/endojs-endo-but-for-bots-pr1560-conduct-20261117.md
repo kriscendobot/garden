@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: minion
+handler-budget-role: conductor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-17T08:53:58Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-17T08:53:58Z
+---
+
+---
 posted_at: 2026-11-17T07:34:30Z
 role: conductor
 handler-budget-role: conductor
@@ -24,19 +46,3 @@ Guards:
 PR: https://github.com/endojs/endo-but-for-bots/pull/1560
 Approval: https://github.com/endojs/endo-but-for-bots/pull/1560#pullrequestreview-5933438899
 Source review-directive job: endojs-endo-but-for-bots-pr1560-review-a5e99160
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-17T08:44:03Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=186,58 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-17T08:44:45Z
