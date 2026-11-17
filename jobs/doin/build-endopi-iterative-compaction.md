@@ -10,6 +10,7 @@ Build step for endojs/endo-but-for-bots: implement the design in plan/designs/en
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=4650 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
