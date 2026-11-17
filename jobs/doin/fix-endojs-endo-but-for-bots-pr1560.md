@@ -9,3 +9,13 @@ dispatch: automatic
 Fix endojs/endo-but-for-bots PR #1560’s current panel must-fix findings, then verify the durable child-agent coordinator remains CI-ready.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-17T02:43:23Z
