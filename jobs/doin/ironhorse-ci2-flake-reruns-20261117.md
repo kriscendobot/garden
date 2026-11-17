@@ -22,3 +22,13 @@ Task: #1364, #1373 and #1278 are red on macOS daemon-teardown and 'Failed to exi
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-17T12:13:38Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-17T12:14:06Z
