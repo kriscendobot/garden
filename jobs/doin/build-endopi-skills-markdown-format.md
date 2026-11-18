@@ -24,3 +24,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 > - The build is the rework of draft #1643 according to the design's "Delta from #1643" list (setup script, mount-backed skill source, configurable prompt wording, checking the validator against the rules table, and wiring into Lal). The existing build job `endopi-skills-markdown-format-build` owns that PR.
 > - The shared directory walker should live in whichever of #1643 or #1640 merges first, and the other should import it.
 > - The bridge to the skill registry (Phase 4) waits on `endoclaw-skill-registry`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-18T00:11:23Z
