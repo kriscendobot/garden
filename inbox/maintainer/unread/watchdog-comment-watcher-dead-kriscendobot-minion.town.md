@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-11-18T04:39:52Z
+sent_at: 2026-11-18T04:47:45Z
 watchdog_key: comment-watcher-dead-kriscendobot-minion.town
-notice_count: 9
+notice_count: 10
 first_seen: 2026-11-18T03:20:29Z
-last_seen: 2026-11-18T04:39:52Z
+last_seen: 2026-11-18T04:47:45Z
 ---
-WATCHDOG notice — occurrence #9 (first seen 2026-11-18T03:20:29Z, latest 2026-11-18T04:39:52Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 9 times; this is ONE
-coalesced notice that updates in place, not 9 messages. Latest detail:
+WATCHDOG notice — occurrence #10 (first seen 2026-11-18T03:20:29Z, latest 2026-11-18T04:47:45Z).
+The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 10 times; this is ONE
+coalesced notice that updates in place, not 10 messages. Latest detail:
 
 Comment acknowledgment dead anomaly for kriscendobot/minion.town:
-https://github.com/kriscendobot/minion.town/pull/127#issuecomment-6967508293 (age=6228s; heartbeat=missing)
+https://github.com/kriscendobot/minion.town/pull/127#issuecomment-6967508293 (age=6662s; heartbeat=missing)
