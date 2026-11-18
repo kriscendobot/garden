@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-18T03:23:28Z_
+_As of 2026-11-18T03:28:43Z_
 
 ## Latest
 
@@ -1251,10 +1249,11 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 153416590 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.483333s/45s (/home/kris/garden/.garden-state/transcripts/journal); 13 open notice(s); checker healthy
+worst fetch p95 4.165851s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
+- [`dependabotany-recheck-endo-but-for-bots-20261118-032010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261118-032010.md) — ---
 - [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1673-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1673
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1670
