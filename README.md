@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-18T03:34:30Z_
+_As of 2026-11-18T03:37:08Z_
 
 ## Latest
 
@@ -255,12 +255,12 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-dead-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-18T03:20:29Z, latest 2026-11-18T03:30:16Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-18T03:20:29Z, latest 2026-11-18T03:35:45Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=1899s; heartbeat=missing)
+> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=2485s; heartbeat=missing)
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -876,12 +876,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-18T03:14:38Z, latest 2026-11-18T03:30:11Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-11-18T03:14:38Z, latest 2026-11-18T03:35:41Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=1899s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=2485s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
