@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-17T23:57:56Z_
+_As of 2026-11-18T00:04:33Z_
 
 ## Latest
 
@@ -598,12 +596,14 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #25 (first seen 2026-11-14T04:26:12Z, latest 2026-11-17T21:01:40Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
+> WATCHDOG notice — occurrence #26 (first seen 2026-11-14T04:26:12Z, latest 2026-11-18T00:00:56Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 26 times; this is ONE
+> coalesced notice that updates in place, not 26 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 2b31fa440f2dffa5c5069d94988db6160e651f94 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 2b31fa440f2dffa5c5069d94988db6160e651f94). Diagnosis: JOB self-heal-fix-garden-foreman-paused-project-rc78
-> The foreman exits 78 because it proposes a next-milestone step for a paused project, and `post-job.sh` refuses it. Failure signature from the log: `[post] refusing to post 'build-daemon-git-remotes-phase-six-interactive-provisioning-r2': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`, followed by `[foreman] ERROR: post-job failed for next milestone step ... (rc=78)`. The `minion-town` pause was recorded by commit a0b0f010fcc. In `scripts/jobs/foreman.sh`, the `elif [ "$post_rc" -ne 0 ]` branch around line 737 treats every non-zero rc other than 75 and the completed-collision rc as fatal and runs `exit "$post_rc"`. That puts the unit in failed state and triggers self-heal on every tick whi
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 7afed44518eaa6372dce2807f1b7a08905dfe395 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 7afed44518eaa6372dce2807f1b7a08905dfe395). Diagnosis: The foreman exited 78 because `post-job.sh` refused a job, not because the foreman crashed. The foreman proposed the next step `shepherd-endojs-endo-but-for-bots-pr1542-20261118`. The `minion-town` pause record (`pauses/minion-town.md`) has `match: minion\.town`, and it matched that job, so `post-job.sh` returned `GARDEN_PAUSED_RC=78`. At `scripts/jobs/foreman.sh:738` any non-zero post result other than the completed-collision and tempfail cases is fatal, so the foreman exits 78. That repeats every tick, and each tick the handler most likely proposes the same step again. The pause itself is working as intended. The bug is that the foreman has no handling for a paused-project refusal.
+>
+> JOB self-heal-fix-garden-foreman-paused-project-post-refusal
+> In `scripts/jobs/foreman.sh`, in the post-job
 
 - `doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted.md)
 
@@ -1230,35 +1230,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 186.7M | $698.63 _(notional, rate-card)_ | 69% of 271.0M (ok) |
+| Claude | 187.0M | $700.11 _(notional, rate-card)_ | 69% of 271.0M (ok) |
 | Codex | 433.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153473477 tokens/day lower bound._
+_Fleet token-unlock pace: 153493262 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 16 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
-- [`endojs-endo-but-for-bots-pr1674-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1674-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1674
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`build-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-skills-markdown-format.md) — Build: the design in endojs/endo-but-for-bots#1672
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1670
+- [`endojs-endo-but-for-bots-pr1674-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1674-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1674
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 - [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-press-20261113-225326.md) — ---
 - [`endojs-endo-but-for-bots-pr1675-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1675-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1675
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1673-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1673
+- [`endojs-endo-but-for-bots-pr1673-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1673-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1673
 
-### tada (17220)
+### tada (17223)
+- [`endojs-endo-but-for-bots-pr1674-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/endojs-endo-but-for-bots-pr1674-gauntlet-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr1672-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1672-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1672-gauntlet — complete
+- [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1673-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1672-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1672-gauntlet-undraft.md) — Cost
 - [`build-endopi-extension-package-manifest-prerequisite-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-endopi-extension-package-manifest-prerequisite-check.md) — Cost
-- [`design-endopi-extension-package-manifest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/design-endopi-extension-package-manifest.md) — Follow-ups
-- [`endojs-endo-but-for-bots-pr1674-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1674-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1670-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1670-gauntlet-fix-2.md) — Cost
-- … and 17215 more
+- … and 17218 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1480,7 +1481,6 @@ worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1659` · Reweave the daemon mount-import stack after the shared zizmor fix lands
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
-- [`build-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endopi-skills-markdown-format.md) — awaiting `endojs-endo-but-for-bots-pr1672-gauntlet` · Build: the design in endojs/endo-but-for-bots#1672
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`build-minion-town-tool-removal-landing-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-tool-removal-landing-20261104.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/239` · Land the MCP tool removal after #239 deploys (kriscendobot/minion.town)
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
