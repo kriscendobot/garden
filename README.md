@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-18T00:09:27Z_
+_As of 2026-11-18T00:13:20Z_
 
 ## Latest
 
@@ -1232,7 +1230,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 187.0M | $700.11 _(notional, rate-card)_ | 69% of 271.0M (ok) |
+| Claude | 187.0M | $699.91 _(notional, rate-card)_ | 69% of 271.0M (ok) |
 | Codex | 433.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153493262 tokens/day lower bound._
@@ -1241,10 +1239,9 @@ _Fleet token-unlock pace: 153493262 tokens/day lower bound._
 worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 16 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
-- [`build-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endopi-skills-markdown-format.md) — Build: the design in endojs/endo-but-for-bots#1672
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1670
 - [`endojs-endo-but-for-bots-pr1674-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1674-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1674
@@ -1253,15 +1250,15 @@ worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`endojs-endo-but-for-bots-pr1675-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1675-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1675
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1673-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1673-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1673
+- [`build-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endopi-skills-markdown-format.md) — Build: the design in endojs/endo-but-for-bots#1672
 
-### tada (17223)
+### tada (17224)
+- [`endojs-endo-but-for-bots-pr1673-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/endojs-endo-but-for-bots-pr1673-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1674-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/endojs-endo-but-for-bots-pr1674-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1672-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1672-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1672-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1673-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1672-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1672-gauntlet-undraft.md) — Cost
-- [`build-endopi-extension-package-manifest-prerequisite-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/build-endopi-extension-package-manifest-prerequisite-check.md) — Cost
-- … and 17218 more
+- … and 17219 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
