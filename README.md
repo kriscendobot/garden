@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-18T03:10:19Z_
+_As of 2026-11-18T03:13:22Z_
 
 ## Latest
 
@@ -167,9 +165,9 @@ Delegation: **active**
 
 - `watchdog-project-pause-active-minion-town` — from watchdog:post, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-project-pause-active-minion-town.md)
 
-> WATCHDOG notice — occurrence #105949 (first seen 2026-11-10T19:35:37Z, latest 2026-11-18T02:10:31Z).
-> The SAME condition (`project-pause-active-minion-town`) has now been observed 105949 times; this is ONE
-> coalesced notice that updates in place, not 105949 messages. Latest detail:
+> WATCHDOG notice — occurrence #105967 (first seen 2026-11-10T19:35:37Z, latest 2026-11-18T03:11:12Z).
+> The SAME condition (`project-pause-active-minion-town`) has now been observed 105967 times; this is ONE
+> coalesced notice that updates in place, not 105967 messages. Latest detail:
 >
 > PROJECT PAUSE enforced on endolin-garden-ece02cb4: refused post of job 'kriscendobot-minion.town-pr257-dependabot' because project 'minion-town' is PAUSED (paused by kriskowal, liaison session, 2026-11-10: 'Please pause development on minion.town.').
 > This means work for a PAUSED project reached a chokepoint — most likely a host running
@@ -1240,9 +1238,10 @@ _Fleet token-unlock pace: 153416507 tokens/day lower bound._
 worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1673-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1673
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1670
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`issue-kriscendobot-garden-130`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-130.md) — Issue from dckc on kriscendobot/garden #130
