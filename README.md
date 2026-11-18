@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-18T02:11:33Z_
+_As of 2026-11-18T02:15:43Z_
 
 ## Latest
 
@@ -592,14 +590,15 @@ Delegation: **active**
 
 - `watchdog-self-heal-garden-foreman` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-foreman.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-11-14T04:26:12Z, latest 2026-11-18T00:00:56Z).
-> The SAME condition (`self-heal-garden-foreman`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-11-14T04:26:12Z, latest 2026-11-18T02:14:41Z).
+> The SAME condition (`self-heal-garden-foreman`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
-> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 7afed44518eaa6372dce2807f1b7a08905dfe395 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 7afed44518eaa6372dce2807f1b7a08905dfe395). Diagnosis: The foreman exited 78 because `post-job.sh` refused a job, not because the foreman crashed. The foreman proposed the next step `shepherd-endojs-endo-but-for-bots-pr1542-20261118`. The `minion-town` pause record (`pauses/minion-town.md`) has `match: minion\.town`, and it matched that job, so `post-job.sh` returned `GARDEN_PAUSED_RC=78`. At `scripts/jobs/foreman.sh:738` any non-zero post result other than the completed-collision and tempfail cases is fatal, so the foreman exits 78. That repeats every tick, and each tick the handler most likely proposes the same step again. The pause itself is working as intended. The bug is that the foreman has no handling for a paused-project refusal.
+> self-heal: garden-foreman exited rc=78 with no scoped fix. Capture: 0f483bd3a23966521bf0e069581f84e0b4d56abb (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0f483bd3a23966521bf0e069581f84e0b4d56abb). Diagnosis: The foreman exited 78 because the milestone step it proposed belongs to a paused project, so `post-job.sh` refused it on purpose. The foreman then treated that refusal as a fatal error.
 >
-> JOB self-heal-fix-garden-foreman-paused-project-post-refusal
-> In `scripts/jobs/foreman.sh`, in the post-job
+> JOB self-heal-fix-garden-foreman-paused-project-rc78
+> `scripts/jobs/foreman.sh` (around line 737, the `elif [ "$post_rc" -ne 0 ]` branch after the post-job retry loop) exits with the raw `post_rc` whenever `post-job.sh` fails. When the proposed milestone step belongs to a paused project, `post-job.sh` deliberately refuses with rc=78. That refusal is a policy outcome, not a defect.
+> - Failure signature: `[post] refusing to post 'build-endopi-extension-package-manifest': it belongs to PAUSED project 'minion-town' (journal pause record pauses/minion-town.md) (rc=78)`, then `[foreman] ERROR: post-job failed for 
 
 - `doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ci2-1621-drift-20261117-requeue-exhausted.md)
 
@@ -1230,7 +1229,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.1M | $709.63 _(notional, rate-card)_ | 70% of 271.0M (ok) |
+| Claude | 189.2M | $710.47 _(notional, rate-card)_ | 70% of 271.0M (ok) |
 | Codex | 433.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 153477645 tokens/day lower bound._
@@ -1480,6 +1479,7 @@ worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/reweave-endojs-endo-but-for-bots-daemon-mount-stack-after-pr1659-20261114.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1659` · Reweave the daemon mount-import stack after the shared zizmor fix lands
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
+- [`build-endopi-jsonl-transcript-remaining-phases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endopi-jsonl-transcript-remaining-phases.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1670` · Build the remaining EndoPi JSONL transcript phases
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`build-minion-town-tool-removal-landing-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-tool-removal-landing-20261104.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/239` · Land the MCP tool removal after #239 deploys (kriscendobot/minion.town)
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
