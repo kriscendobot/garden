@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-18T03:13:22Z_
+_As of 2026-11-18T03:15:23Z_
 
 ## Latest
 
@@ -864,6 +864,11 @@ Delegation: **active**
 >
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1504-gauntlet-20261114 panel --iteration 1 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
+
+- `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
+
+> Comment acknowledgment blind anomaly for kriscendobot/minion.town:
+> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=950s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
