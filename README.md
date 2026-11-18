@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-18T00:38:17Z_
+_As of 2026-11-18T00:41:57Z_
 
 ## Latest
 
@@ -1231,18 +1231,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 188.9M | $706.68 _(notional, rate-card)_ | 70% of 271.0M (ok) |
+| Claude | 188.9M | $706.34 _(notional, rate-card)_ | 70% of 271.0M (backoff) |
 | Codex | 433.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 153503221 tokens/day lower bound._
+_Fleet token-unlock pace: 153417982 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 16 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`endojs-endo-but-for-bots-pr1673-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1673-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1673
 - [`accountant-weekly-20261114-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261114-170509.md) — Weekly arc apportionment
+- [`endojs-endo-but-for-bots-pr1670-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1670-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1670
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1674-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1674-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1674
@@ -1250,16 +1251,16 @@ worst fetch p95 5.461442s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`ironhorse-test262-press-20261113-225326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-press-20261113-225326.md) — ---
 - [`endojs-endo-but-for-bots-pr1675-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1675-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1675
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1670-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1670
+### doin (0)
+(none)
 
-### tada (17226)
+### tada (17227)
+- [`endojs-endo-but-for-bots-pr1670-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/endojs-endo-but-for-bots-pr1670-gauntlet-panel-3.md) — Cost
 - [`build-endopi-skills-lal-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/build-endopi-skills-lal-wiring.md) — build-endopi-skills-lal-wiring: delta 5 is on #1643
 - [`build-endopi-skills-markdown-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/build-endopi-skills-markdown-format.md) — Cost
 - [`endojs-endo-but-for-bots-pr1673-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/endojs-endo-but-for-bots-pr1673-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1674-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/18/endojs-endo-but-for-bots-pr1674-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1672-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/17/endojs-endo-but-for-bots-pr1672-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1672-gauntlet — complete
-- … and 17221 more
+- … and 17222 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
