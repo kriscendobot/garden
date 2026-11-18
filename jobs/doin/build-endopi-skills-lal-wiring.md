@@ -19,3 +19,13 @@ Predecessor job `build-endopi-skills-markdown-format` implemented deltas 1-4 and
 - Tests: the design's § Test plan Lal rows, plus a mount source checked against a scratch daemon if that is feasible.
 
 Report a gap rather than weaken a property the design requires. Successful completion stages the gauntlet for #1643.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-18T00:29:21Z
