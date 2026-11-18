@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-18T04:45:37Z_
+_As of 2026-11-18T04:50:32Z_
 
 ## Latest
 
@@ -257,12 +255,12 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-dead-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-11-18T03:20:29Z, latest 2026-11-18T04:39:52Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #10 (first seen 2026-11-18T03:20:29Z, latest 2026-11-18T04:47:45Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=6228s; heartbeat=missing)
+> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=6662s; heartbeat=missing)
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -878,20 +876,20 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-11-18T03:14:38Z, latest 2026-11-18T04:39:47Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-11-18T03:14:38Z, latest 2026-11-18T04:47:40Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=6228s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/127](https://github.com/kriscendobot/minion.town/pull/127)#issuecomment-6967508293 (age=6662s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
-> WATCHDOG notice — occurrence #15 (first seen 2026-11-07T04:46:32Z, latest 2026-11-17T14:48:45Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal`) has now been observed 15 times; this is ONE
-> coalesced notice that updates in place, not 15 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-11-07T04:46:32Z, cleared 2026-11-18T04:49:13Z).
+> It was observed 15 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.016710s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
 
 - `ironhorse-ci2-refresh-1298-1534-20261117-split-terminal-complete-with-failures` — from orchestrator:ironhorse-ci2-refresh-1298-1534-20261117-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ci2-refresh-1298-1534-20261117-split-terminal-complete-with-failures.md)
 
@@ -1255,7 +1253,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 153416590 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.040314s/45s (/home/kris/garden/.garden-state/secret-watchdog/journal); 10 open notice(s); checker healthy
+worst fetch p95 6.040314s/45s (/home/kris/garden/.garden-state/secret-watchdog/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (11)
