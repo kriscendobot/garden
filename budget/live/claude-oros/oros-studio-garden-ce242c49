@@ -4,7 +4,7 @@ window_start_epoch: 1794913200
 spend: 0
 cap: 180000000
 status: ok
-sampled_at_epoch: 1795187824
-sampled_at: 2026-11-20T15:17:04Z
-sample_bucket: 1994653
+sampled_at_epoch: 1795188733
+sampled_at: 2026-11-20T15:32:13Z
+sample_bucket: 1994654
 road_w_kris: 0
