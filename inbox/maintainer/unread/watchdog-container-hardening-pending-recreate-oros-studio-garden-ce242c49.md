@@ -1,11 +1,15 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:self-heal
-sent_at: 2026-11-14T18:17:02Z
+sent_at: 2026-11-22T06:17:01Z
 watchdog_key: container-hardening-pending-recreate-oros-studio-garden-ce242c49
-notice_count: 1
+notice_count: 2
 first_seen: 2026-11-14T18:17:02Z
-last_seen: 2026-11-14T18:17:02Z
+last_seen: 2026-11-22T06:17:01Z
 ---
+WATCHDOG notice — occurrence #2 (first seen 2026-11-14T18:17:02Z, latest 2026-11-22T06:17:01Z).
+The SAME condition (`container-hardening-pending-recreate-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
+coalesced notice that updates in place, not 2 messages. Latest detail:
+
 Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
 
 This is the expected state until the container is recreated with the hardened launcher,
